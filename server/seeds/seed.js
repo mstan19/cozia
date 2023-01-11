@@ -68,7 +68,7 @@ db.once('open', async () => {
     } else {
         //creating products
         for (let l = 0; l < createdCategories.length; l++) {
-          for (let m = 0; m < 2; m++) {
+          for (let m = 0; m < 4; m++) {
             let reviewSchema = {
                 user: newUser._id,
                 rating: 9.0,
