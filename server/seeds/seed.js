@@ -11,8 +11,19 @@ db.once('open', async () => {
     await Category.deleteMany({});
     await Order.deleteMany({});
    
+    //creating categories
+    let createdCategories = [];
+    for (let i = 0; i < 4; i++) {
+        let category = {
+            name: faker.helpers.unique(faker.commerce.department)
+        }
+        const newCategory = await Category.create(category);
+        createdCategories.push(newCategory)  
+        
+    }
+
     //creating users. if consumer, then they will have an order
-   for (let i = 0; i < 10; i++) {
+   for (let j = 0; j < 10; j++) {
     let email = faker.internet.email();
 
     let user = {
@@ -27,7 +38,7 @@ db.once('open', async () => {
    
 
     if (user.isSeller === false) {
-       for (let j = 0; j < 1; j++) {
+       for (let k = 0; k < 1; k++) {
         let order = {
             user: newUser._id,
             shippingAddress: {
@@ -56,19 +67,14 @@ db.once('open', async () => {
     }     
     } else {
         //creating products
-        for (let k = 0; k < 10; k++) {
+        for (let l = 0; l < createdCategories.length; l++) {
+          for (let m = 0; m < 2; m++) {
             let reviewSchema = {
                 user: newUser._id,
                 rating: 9.0,
                 comment: "cool",
                 createdAt: "1/1"
             }
-            
-            let category = {
-                name: faker.commerce.department()
-            }
-            
-            const newCategory = await Category.create(category);
 
             let product = {
                 productName: faker.commerce.product(),
@@ -81,12 +87,14 @@ db.once('open', async () => {
                 reviews: [reviewSchema],
                 totalRating: 9.0,
                 numberReviews: 10,
-                category: newCategory._id
+                category: createdCategories[m]._id
             }
+            console.log(createdCategories)
             const newProduct = await Product.create(product);
             
 
         }
+      }
     }
    }
   
