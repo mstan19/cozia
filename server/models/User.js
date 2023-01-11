@@ -29,7 +29,7 @@ const userSchema = new Schema({
       required: true,
       default: false,
     },
-    orders: [Order.schema]
+    
   });
 // pre hashing password
   userSchema.pre('save', async function (next) {

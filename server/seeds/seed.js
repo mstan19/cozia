@@ -36,7 +36,7 @@ db.once('open', async () => {
                 zip: "12345",
                 country: faker.address.country()
               },
-              individualOrder: [
+              productOrder: [
                 {
                   productName: faker.commerce.product(),
                   image: faker.internet.url(),
@@ -61,6 +61,7 @@ db.once('open', async () => {
                 user: newUser._id,
                 rating: 9.0,
                 comment: "cool",
+                createdAt: "1/1"
             }
             
             let category = {
