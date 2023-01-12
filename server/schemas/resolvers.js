@@ -77,8 +77,10 @@ const resolvers = {
         console.log(productData)
         const newProduct = await Product.create(productData);
       
-
       return newProduct;
+    },
+    removeProduct: async (parent, { productId }, context) => {
+        const deleteProduct = await Product.findOneAndDelete({ _id: productId });
     }
    }
 };
