@@ -14,7 +14,7 @@ const orderSchema = new Schema({
     zip: {type:String, required: true},
     country: {type:String, required: true}
   },
-  individualOrder: [
+  productOrder: [
     {
       productName: {type:String, required: true},
       image: {type:String, required: true},

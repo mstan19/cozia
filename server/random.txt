@@ -1,0 +1,58 @@
+
+        input InputShippingAddress {
+        street: String!
+        city: String!
+        zip: String!
+        country: String!
+    }
+
+    input InputProduct {
+        productName: String!
+        description: String
+        image: String
+        price: Float!
+        sizes: String
+        countInStock: Int
+        inStock: Boolean!
+        reviews: [Reviews]
+        totalRating: Int
+        numberReviews: Int
+        category: Category
+      }
+
+      input InputReviews {
+        user: User!
+        rating: Float!
+        comment: String!
+        createdAt: String    
+    }
+    
+    #Queries
+    type Query {
+        me: User
+        user: User
+        categories: [Category]
+        products(category: ID, productName: String): [Product]
+        product(_id: ID!): Product
+        order(_id: ID!): Order
+        checkout(products: [ID]!): Checkout
+      }
+
+    #Mutation
+
+    type Mutation{ 
+        login(email: String!, password: String!): Auth
+        addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+        updateUser(firstName: String, lastName: String, email: String, password: String): User
+
+        addProduct(input: InputProduct!): Product
+        updateProduct(_id: ID!, input: InputProduct!): Product
+        removeProduct(_id: ID!): Product
+
+        addReview(input: InputReviews): Product
+        updateReview(_id: ID!, input: InputReviews): Product
+
+        addOrder(products: [ID]!): Order
+        updateOrder(_id: ID!, input: InputShippingAddress): Order
+        removeOrder(_id: ID!): Order
+    }
