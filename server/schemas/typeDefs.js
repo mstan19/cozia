@@ -79,10 +79,35 @@ const typeDefs = gql`
     type Query {
         me: User
         categories: [Category]
-        productsByCategory(category: ID): [Product]
+        productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
         order(_id: ID!): Order
         
+      }
+
+      #Inputs
+      input reviewInput {
+        rating: Float!
+        comment: String!
+        createdAt: String
+     }
+
+     input CategoryInput {
+        name: String
+     }
+
+      input productInput {
+        productName: String!
+        description: String
+        image: String
+        price: Float
+        sizes: String
+        countInStock: Int
+        inStock: Boolean
+        reviews: [reviewInput]
+        totalRating: Int
+        numberReviews: Int
+        category: CategoryInput
       }
 
       #Mutation
@@ -91,7 +116,8 @@ const typeDefs = gql`
           login(email: String!, password: String!): Auth
           addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
           updateUser(firstName: String, lastName: String, email: String, password: String): User
-  
+          addProduct(productsByCategory: ID!, productData: productInput!): Product
+        
       }
 `;
 

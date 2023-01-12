@@ -23,22 +23,20 @@ db.once('open', async () => {
     }
 
     //creating users. if consumer, then they will have an order
-   for (let j = 0; j < 10; j++) {
-    let email = faker.internet.email();
+    let userList = []
+    for (let j = 0; j < 10; j++) {
+      let email = faker.internet.email();
 
-    let user = {
+      let user = {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         email: email,
         password: email,
-        isSeller: faker.datatype.boolean(),
       }
-     console.log(user);
-    const newUser = await User.create(user);
-   
-
-    if (user.isSeller === false) {
-       for (let k = 0; k < 1; k++) {
+      console.log(user);
+      const newUser = await User.create(user);
+      userList.push(newUser)
+      for (let k = 0; k < 1; k++) {
         let order = {
             user: newUser._id,
             shippingAddress: {
@@ -64,39 +62,42 @@ db.once('open', async () => {
               deliveryDate: faker.date.future()
         }
         const newOrder = await Order.create(order);
-    }     
-    } else {
-        //creating products
-        for (let l = 0; l < createdCategories.length; l++) {
-          for (let m = 0; m < 4; m++) {
-            let reviewSchema = {
-                user: newUser._id,
-                rating: 9.0,
-                comment: "cool",
-                createdAt: "1/1"
-            }
-
-            let product = {
-                productName: faker.commerce.product(),
-                description:faker.commerce.productDescription(),
-                image: faker.internet.url(),
-                price: faker.commerce.price(),
-                sizes: "Small",
-                countInStock: 5,
-                inStock: faker.datatype.boolean(),
-                reviews: [reviewSchema],
-                totalRating: 9.0,
-                numberReviews: 10,
-                category: createdCategories[m]._id
-            }
-            console.log(createdCategories)
-            const newProduct = await Product.create(product);
-            
-
-        }
-      }
+      }  
     }
-   }
+    
+       
+   
+    //creating products
+    for (let l = 0; l < createdCategories.length; l++) {
+      for (let m = 0; m < 4; m++) {
+        let reviewSchema = {
+            user: userList[0]._id,
+            rating: 9.0,
+            comment: "cool",
+            createdAt: "1/1"
+        }
+
+        let product = {
+            productName: faker.commerce.product(),
+            description:faker.commerce.productDescription(),
+            image: faker.internet.url(),
+            price: faker.commerce.price(),
+            sizes: "Small",
+            countInStock: 5,
+            inStock: faker.datatype.boolean(),
+            reviews: [reviewSchema],
+            totalRating: 9.0,
+            numberReviews: 10,
+            category: createdCategories[l]._id
+        }
+        console.log(product)
+        const newProduct = await Product.create(product);
+        
+
+    }
+  }
+    
+
   
 
   console.log('Seeding complete! 🌱');

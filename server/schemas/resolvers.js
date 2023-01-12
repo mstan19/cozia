@@ -2,7 +2,7 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Product, Category, Order } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-
+const { faker } = require('@faker-js/faker');
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
@@ -18,20 +18,8 @@ const resolvers = {
     categories: async () => {
       return await Category.find();
     },
-    productsByCategory: async (parent, { category, name }) => {
-      const params = {};
-
-      if (category) {
-        params.category = category;
-      }
-
-      if (name) {
-        params.name = {
-          $regex: name
-        };
-      }
-
-      return await Product.find(params).populate('category');
+    productsByCategoryID: async (parent, { categoryID }) => {
+      return await Product.find({ category: categoryID})
     },
     getOneProduct: async (parent, { _id }) => {
       return await Product.findById(_id).populate('category');
@@ -83,6 +71,15 @@ const resolvers = {
   
         return { token, user };
       },
+    addProduct: async (parent, { productsByCategory, productData }, context) => {
+        
+        productData["category"] = productsByCategory
+        console.log(productData)
+        const newProduct = await Product.create(productData);
+      
+
+      return newProduct;
+    }
    }
 };
 

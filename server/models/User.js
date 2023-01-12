@@ -24,11 +24,7 @@ const userSchema = new Schema({
       required: true,
       minlength: 5,
     },
-    isSeller: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
+
     
   });
 // pre hashing password
