@@ -74,14 +74,26 @@ const resolvers = {
     addProduct: async (parent, { productsByCategory, productData }, context) => {
         
         productData["category"] = productsByCategory
-        console.log(productData)
+        // console.log(productData)
         const newProduct = await Product.create(productData);
       
       return newProduct;
     },
     removeProduct: async (parent, { productId }, context) => {
         const deleteProduct = await Product.findOneAndDelete({ _id: productId });
-    }
+    },
+    updateProduct: async (parent, { productsByCategory, productId, productData }, context) => {
+        
+        productData["category"] = productsByCategory
+        console.log("##", productData)
+        const updateProduct = await Product.findOneAndUpdate(
+            { _id: productId}, 
+            productData, 
+            { new: true }
+        );
+      
+      return updateProduct;
+    },
    }
 };
 
