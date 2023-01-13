@@ -37,7 +37,7 @@ db.once("open", async () => {
             userList.push(newUser);
             for (let k = 0; k < 1; k++) {
                 let order = {
-                    user: newUser.username,
+                    user: newUser._id,
                     shippingAddress: {
                         street: faker.address.streetAddress(),
                         city: faker.address.cityName(),
@@ -81,7 +81,7 @@ db.once("open", async () => {
                     description: faker.commerce.productDescription(),
                     image: faker.internet.url(),
                     price: faker.commerce.price(),
-                    sizes: "Small",
+                    size: "Small",
                     color: "Black",
                     // gender: ,
                     countInStock: 5,
