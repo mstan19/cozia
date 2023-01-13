@@ -73,6 +73,35 @@ const resolvers = {
 
             return { token, user };
         },
+        addUser: async (parent, { username, firstName, lastName, email, password }) => {
+              const user = await User.create({ username, firstName, lastName, email, password });
+            //   console.log("this is user", user)
+              const token = signToken(user);
+              if (!firstName){
+                // console.log("firstName", firstName)
+                throw new AuthenticationError('Need firstName');
+              }
+              if (!lastName){
+                // console.log("lastName", lastName)
+                throw new AuthenticationError('Need lastName');
+              }
+              if (!username){
+                // console.log("username", username)
+                throw new AuthenticationError('Need username');
+              }
+  
+              if (!email){
+                // console.log("email", email)
+                throw new AuthenticationError('Need email');
+              }
+  
+              if (!password){
+                // console.log("password", password)
+                throw new AuthenticationError('Need password');
+              }
+            //   console.log("this is before the return")
+              return { token, user };
+            },
         addProduct: async (
             parent,
             { productsByCategory, productData },
@@ -95,7 +124,7 @@ const resolvers = {
             context
         ) => {
             productData["category"] = productsByCategory;
-            console.log("##", productData);
+            // console.log("##", productData);
             const updateProduct = await Product.findOneAndUpdate(
                 { _id: productId },
                 productData,
@@ -103,6 +132,19 @@ const resolvers = {
             );
 
             return updateProduct;
+        },
+        updateUser: async (parent, args, context) => {
+            if (context.user) {
+                // console.log( "##", args);
+              return await User.findByIdAndUpdate(context.user._id, args, { new: true });
+            }
+      
+            throw new AuthenticationError('Not logged in');
+        },
+        removeUser: async (parent, { userId }, context) => {
+        const deleteUser = await User.findOneAndDelete({
+            _id: userId,
+        });
         },
     },
 };

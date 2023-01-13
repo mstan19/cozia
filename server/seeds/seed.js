@@ -28,10 +28,11 @@ db.once("open", async () => {
             let user = {
                 firstName: faker.name.firstName(),
                 lastName: faker.name.lastName(),
+                username: faker.internet.userName(),
                 email: email,
                 password: email
             };
-            console.log(user);
+            // console.log(user);
             const newUser = await User.create(user);
             userList.push(newUser);
             for (let k = 0; k < 1; k++) {
@@ -40,8 +41,10 @@ db.once("open", async () => {
                     shippingAddress: {
                         street: faker.address.streetAddress(),
                         city: faker.address.cityName(),
-                        zip: "12345",
-                        country: faker.address.country()
+                        state: faker.address.state(),
+                        zip: faker.address.zipCode(),
+                        country: faker.address.country(),
+                        phoneNumber: faker.phone.number()
                     },
                     productOrder: [
                         {
@@ -78,15 +81,16 @@ db.once("open", async () => {
                     description: faker.commerce.productDescription(),
                     image: faker.internet.url(),
                     price: faker.commerce.price(),
-                    sizes: "Small",
+                    size: "Small",
+                    color: "Black",
+                    // gender: ,
                     countInStock: 5,
-                    inStock: faker.datatype.boolean(),
                     reviews: [reviewSchema],
                     totalRating: 9.0,
                     numberReviews: 10,
                     category: createdCategories[l]._id
                 };
-                console.log(product);
+                // console.log("$$", userList);
                 const newProduct = await Product.create(product);
             }
         }

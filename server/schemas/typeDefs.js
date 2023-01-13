@@ -5,9 +5,9 @@ const typeDefs = gql`
         _id: ID!
         firstName: String!
         lastName: String!
+        username: String!
         email: String!
         password: String!
-        isSeller: Boolean!
     }
 
     type Category {
@@ -28,9 +28,10 @@ const typeDefs = gql`
         description: String
         image: String
         price: Float!
-        sizes: String
+        gender: String!
+        size: String
+        color: String!
         countInStock: Int
-        inStock: Boolean!
         reviews: [Reviews]
         totalRating: Int
         numberReviews: Int
@@ -41,6 +42,7 @@ const typeDefs = gql`
         street: String!
         city: String!
         zip: String!
+        state: String!
         country: String!
     }
 
@@ -59,7 +61,6 @@ const typeDefs = gql`
         productOrder: productOrder!
         tax: Int!
         shippingPrice: Int!
-        isPaid: Boolean!
         isDelivered: Boolean!
         totalCost: Int!
         purchaseDate: String
@@ -100,9 +101,10 @@ const typeDefs = gql`
         description: String
         image: String
         price: Float
-        sizes: String
+        size: String
+        gender: String
+        color: String
         countInStock: Int
-        inStock: Boolean
         reviews: [reviewInput]
         totalRating: Int
         numberReviews: Int
@@ -116,15 +118,18 @@ const typeDefs = gql`
         addUser(
             firstName: String!
             lastName: String!
+            username: String!
             email: String!
             password: String!
         ): Auth
         updateUser(
+            userId: ID!
             firstName: String
             lastName: String
             email: String
-            password: String
+            username: String
         ): User
+        removeUser(userId: ID!): User
         addProduct(productsByCategory: ID!, productData: productInput!): Product
         removeProduct(productId: ID!): Product
         updateProduct(
