@@ -123,11 +123,11 @@ const typeDefs = gql`
             password: String!
         ): Auth
         updateUser(
+            userId: ID!
             firstName: String
             lastName: String
             email: String
             username: String
-            password: String
         ): User
         addProduct(productsByCategory: ID!, productData: productInput!): Product
         removeProduct(productId: ID!): Product
