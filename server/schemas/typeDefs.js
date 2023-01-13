@@ -129,6 +129,7 @@ const typeDefs = gql`
             email: String
             username: String
         ): User
+        removeUser(userId: ID!): User
         addProduct(productsByCategory: ID!, productData: productInput!): Product
         removeProduct(productId: ID!): Product
         updateProduct(

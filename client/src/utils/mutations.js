@@ -77,3 +77,11 @@ export const UPDATE_USER = gql`
         }
     }
 `;
+
+export const REMOVE_USER = gql`
+    mutation Mutation($userId: ID!) {
+        removeUser(userId: $userId) {
+        _id
+        }
+    }
+`;

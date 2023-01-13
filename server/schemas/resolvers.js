@@ -140,7 +140,12 @@ const resolvers = {
             }
       
             throw new AuthenticationError('Not logged in');
-          }
+        },
+        removeUser: async (parent, { userId }, context) => {
+        const deleteUser = await User.findOneAndDelete({
+            _id: userId,
+        });
+        },
     },
 };
 
