@@ -11,8 +11,10 @@ const orderSchema = new Schema({
   shippingAddress: {
     street: {type:String, required: true},
     city: {type:String, required: true},
+    state: {type:String, required: true},
     zip: {type:String, required: true},
-    country: {type:String, required: true}
+    country: {type:String, required: true},
+    phoneNumber: {type:String, required: true}
   },
   productOrder: [
     {
@@ -25,7 +27,7 @@ const orderSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Product'
           }
-        ],
+      ],
     }
   ],
   tax:  {
@@ -37,11 +39,6 @@ const orderSchema = new Schema({
     type: Number,
     required: true,
     default: 5.0
-  },
-  isPaid: {
-    type: Boolean,
-    required: true,
-    default: false,
   },
   isDelivered: {
     type: Boolean,

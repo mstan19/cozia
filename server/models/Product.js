@@ -20,20 +20,27 @@ const productSchema = new Schema({
     required: true,
     min: 0.99
   },
-  sizes: {
+  gender: {
+    type: String,
+    enum: ["Woman", "Men"],
+    default: "Woman",
+    required: true,
+  },
+  size: {
     type: String,
     enum: ["Small", "Medium", "Large"],
     default: "Small"
+  },
+  color: {
+    type: String,
+    enum: ["Black"],
+    default: "Black",
+    required: true,
   },
   countInStock: {
     type: Number,
     min: 0,
     default: 0
-  },
-  inStock: {
-    type: Boolean,
-    required: true,
-    default: false,
   },
   reviews: [
     {
