@@ -24,17 +24,7 @@ const SignUpForm = (props) => {
     setSignupFormData({ ...signupFormData, [name]: value });
   };
 
-  // // set state for alert
-  // const [showAlert, setShowAlert] = useState(false);
-  // useEffect(() => {
-  //   if (error) {
-  //     setShowAlert(true);
-  //   } else {
-  //     setShowAlert(false);
-  //   }
-  // }, [error]);
-
-  const handleFormSubmit = async (event, formData) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     // console.log("formData", event.target);
     console.log("userData", signupFormData);
