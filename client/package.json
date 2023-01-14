@@ -18,7 +18,6 @@
         "jsonwebtoken": "^8.5.1",
         "jwt-decode": "^2.2.0",
         "react": "^16.13.1",
-        "react-bootstrap": "^2.7.0",
         "react-dom": "^16.13.1",
         "react-router-dom": "^6.4.4",
         "react-scripts": "^5.0.1"
@@ -46,5 +45,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.2.4"
     }
 }
