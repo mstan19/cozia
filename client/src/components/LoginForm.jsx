@@ -20,7 +20,6 @@ const LoginForm = (props) => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-     
       const { data } = await login({
         variables: loginFormData,
       });
