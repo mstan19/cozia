@@ -5,46 +5,42 @@ import "../assets/register.css"
 
 const SignUpForm = (props) => {
   return (
-    <div className="test signup-form">
+    <div className="registerStyle signup-form">
       <form class="bg-white p-0 m-0">
        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName">
-            First Name:
+          <label class="block text-black-700 text-sm mb-2" for="firstName">
+            FIRST NAME:
           </label>
-          <input class="appearance-none border w-full py-2 px-3 text-gray-700 leading-tight " id="firstName" type="text" ></input>
+          <input class="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " id="firstName" type="text" ></input>
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
-            Last Name:
+          <label class="block text-black-700 text-sm mb-2" for="lastName">
+            LAST NAME:
           </label>
-          <input class="appearance-none border w-full py-2 px-3 text-gray-700 leading-tight " id="lastName" type="text" ></input>
+          <input class="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " id="lastName" type="text" ></input>
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-            Email Address:
+          <label class="block text-black-700 text-sm mb-2" for="email">
+            EMAIL ADDRESS:
           </label>
-          <input class="appearance-none border w-full py-2 px-3 text-gray-700 leading-tight " id="email" type="text" ></input>
+          <input class="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " id="email" type="text" ></input>
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-            Username:
+          <label class="block text-black-700 text-sm mb-2" for="username">
+            USERNAME:
           </label>
-          <input class="appearance-none border w-full py-2 px-3 text-gray-700 leading-tight " id="username" type="text" ></input>
+          <input class="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " id="username" type="text" ></input>
         </div>
         <div class="mb-6">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-            Password:
+          <label class="block text-black-700 text-sm mb-2" for="password">
+            PASSWORD:
           </label>
-          <input class="appearance-none border w-full py-2 px-3 text-gray-700 leading-tight" id="password" type="password" ></input>
-          {/* <p class="text-red-500 text-xs italic">Please choose a password.</p> */}
+          <input class="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight" id="password" type="password" ></input>
         </div>
-        <div class="flex items-center justify-between">
-          <button class="bg-green-600 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-            Sign In
+        <div class="flex flex-col items-center justify-between">
+          <button class="bg-green-600 w-1/2 shadow-lg rounded-full hover:bg-green-600 text-white py-2 px-4 focus:outline-none focus:shadow-outline" type="button">
+            SIGN UP
           </button>
-          <a class="inline-block align-baseline font-bold text-sm text-green-600 hover:text-green-600" href="#">
-            Forgot Password?
-          </a>
         </div>
       </form>
     </div>
