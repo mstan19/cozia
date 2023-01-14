@@ -7,25 +7,25 @@ const LoginForm = (props) => {
 
   return (
     <div className="registerStyle login-form">
-      <form class="bg-white p-0 m-0">
-        <div class="mb-4">
-          <label class="block text-black-700 text-sm mb-2" for="username">
-            USERNAME:
+      <form className="bg-white p-0 m-0">
+        <div className="mb-4">
+          <label className="block text-black-700 text-sm mb-2" htmlFor="username">
+            EMAIL ADDRESS:
           </label>
-          <input class="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " id="username" type="text" ></input>
+          <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " id="login-email" type="text" ></input>
         </div>
-        <div class="mb-6">
-          <label class="block text-black-700 text-sm mb-2" for="password">
+        <div className="mb-6">
+          <label className="block text-black-700 text-sm mb-2" htmlFor="password">
             PASSWORD:
           </label>
-          <input class="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight" id="password" type="password" ></input>
-          <a class="inline-block align-baseline text-sm text-blue-500 hover:text-green-600" href="#">
+          <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight" id="login-password" type="password" ></input>
+          <a className="inline-block align-baseline text-sm text-blue-500 hover:text-green-600" href="#">
             Forgot Password?
           </a>
-          {/* <p class="text-red-500 text-xs italic">Please choose a password.</p> */}
+          {/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
         </div>
-        <div class="flex flex-col items-center  justify-between">
-          <button class="bg-green-600 w-1/2 shadow-lg rounded-full hover:bg-green-600 text-white py-2 px-4 focus:outline-none focus:shadow-outline" type="button">
+        <div className="flex flex-col items-center justify-between">
+          <button className="bg-green-600 w-1/2 shadow-lg rounded-full hover:bg-green-600 text-white py-2 px-4 focus:outline-none focus:shadow-outline" type="submit">
             LOGIN
           </button>
         </div>
