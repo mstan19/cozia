@@ -36,14 +36,14 @@ nav {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 2rem;
     background: var(--coal);
     transition: 1s;
     transform: translateY(-100vh);
 }
 
 .app-title {
-    
+    font-size: 2rem;
 }
 
 .nav-link {
@@ -69,7 +69,7 @@ nav {
     opacity: 1;
     position: absolute;
     top: 2rem;
-    right: 2rem;
+    left: 2rem;
 }
 
 .responsive_nav {
@@ -79,5 +79,7 @@ nav {
 .nav-link {
     font-size: 1.5rem;
 }
+
+
 
 /* TODO: Style for Desktop later */
