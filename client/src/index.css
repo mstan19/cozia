@@ -26,11 +26,31 @@ header {
     color: white;
 }
 
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background: var(--coal);
+    transition: 1s;
+    transform: translateY(-100vh);
+}
+
+.app-title {
+    
+}
+
 .nav-link {
     margin: 0 2rem;
 }
 
-.nav-links:hover {
+.nav-link:hover {
     color: var(--green)
 }
 
@@ -45,36 +65,19 @@ header {
     border: none;
     outline: none;
     color: white;
-    visibility: hidden;
-    opacity: 0;
+    visibility: visible;
+    opacity: 1;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
 }
 
-/* Styling for smaller screens */
-@media screen and (max-width: 1024px) {
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-        background: var(--coal);
-        transition: 1s;
-        transform: translateY(-100vh);
-    }
-
-    .nav-close-btn {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .responsive_nav {
-        transform: none;
-    }
-
-
+.responsive_nav {
+    transform: none;
 }
+
+.nav-link {
+    font-size: 1.5rem;
+}
+
+/* TODO: Style for Desktop later */
