@@ -1,29 +1,32 @@
 import React from "react";
-import { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-    // Hides navbar
-    // const [navbarOpen, setNavbarOpen] = useState(false);
-    // const handleToggle = () => {
-    //     setNavbarOpen(!navbarOpen);
-    // };
+    const navRef = useRef();
+
+    const showNavbar = () => {
+        navRef.current.classList.toggle("responsive_nav");
+    };
 
     return (
-        <nav>
-            {/* Change "Close" and "Open" to icons later! Like Hamburger menu and x */}
-            {/* <button onClick={handleToggle}>
-                {navbarOpen ? "Close" : "Open"}
+        <header>
+            <h1>Cozia</h1>
+            <nav ref={navRef}>
+                <Link className="nav-link" to="/myaccount">My Account</Link>
+                <Link className="nav-link" >Categories</Link>
+                <Link className="nav-link" >Sales & Clearance</Link>
+                <Link className="nav-link" >Trending</Link>
+                {/* Used to closed navbar */}
+                <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+                    <FaTimes />
+                </button>
+            </nav>
+            <button className="nav-btn" onClick={showNavbar}>
+                    <FaBars />
             </button>
-            <ul className={`menuNav ${navbarOpen ? "showMenu" : ""}`}></ul>
-            <NavLink
-                to={link.path}
-                activeClassName="active-link"
-                onClick={() => closeMenu()}
-                exact
-            >
-                {link.text}
-            </NavLink> */}
-        </nav>
+        </header>
+        // 13:36
     );
 }

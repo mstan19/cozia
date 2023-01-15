@@ -1,3 +1,80 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css?family=Sawarabi+Gothic');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Sawarabi Gothic";
+}
+
+:root {
+    --coal: #242424;
+    --green: #709255;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    padding: 0 2rem;
+    background-color: var(--coal);
+    color: white;
+}
+
+.nav-link {
+    margin: 0 2rem;
+}
+
+.nav-links:hover {
+    color: var(--green)
+}
+
+.nav-btn {
+    font-size: 1.5rem;
+}
+
+.nav-close-btn {
+    padding: 5px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Styling for smaller screens */
+@media screen and (max-width: 1024px) {
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        background: var(--coal);
+        transition: 1s;
+        transform: translateY(-100vh);
+    }
+
+    .nav-close-btn {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .responsive_nav {
+        transform: none;
+    }
+
+
+}
