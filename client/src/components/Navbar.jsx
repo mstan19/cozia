@@ -14,6 +14,7 @@ export default function Navbar() {
     return (
         <header>
             <nav ref={navRef}>
+                <h2 className="nav-header">Menu</h2>
                 <Link className="nav-link" to="/myaccount">
                     My Account
                 </Link>
@@ -36,8 +37,8 @@ export default function Navbar() {
             <h1 className="app-title">Cozia</h1>
             {/* Wishlist and Shopping icons */}
             <section className="nav-btn nav-shop-btn flex flex-row place-content-evenly">
-                <Link><AiFillHeart /></Link>
-                <Link><AiFillShopping /></Link>
+                <Link className="wishlist"><AiFillHeart /></Link>
+                <Link className="cart"><AiFillShopping /></Link>
             </section>
         </header>
     );

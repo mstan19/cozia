@@ -30,12 +30,14 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
+    /* padding-top: 2rem; */
+    /* padding-left: 4rem; */
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     gap: 2rem;
     background: var(--coal);
     transition: 1s;
@@ -46,8 +48,15 @@ nav {
     font-size: 2rem;
 }
 
-.nav-link {
+.nav-header, .nav-link {
     margin: 0 2rem;
+    font-size: 1.5rem;
+}
+
+.nav-header {
+    background-color: white;
+    padding: 1.5rem 100vw;
+    color: var(--coal);
 }
 
 .nav-link:hover {
@@ -59,12 +68,12 @@ nav {
 }
 
 .nav-close-btn {
-    padding: 5px;
+    /* padding: 5px; */
     cursor: pointer;
     background: transparent;
     border: none;
     outline: none;
-    color: white;
+    color: var(--coal);
     visibility: visible;
     opacity: 1;
     position: absolute;
@@ -75,11 +84,5 @@ nav {
 .responsive_nav {
     transform: none;
 }
-
-.nav-link {
-    font-size: 1.5rem;
-}
-
-
 
 /* TODO: Style for Desktop later */
