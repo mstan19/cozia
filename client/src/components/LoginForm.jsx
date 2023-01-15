@@ -41,6 +41,10 @@ const LoginForm = (props) => {
   return (
     <div className="registerStyle login-form">
       <form onSubmit={onSubmit} className="bg-white p-0 m-0">
+        {error ? (
+            <div className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 mb-2">Error: Incorrect credentials</div>
+          ) : null
+        }
         <div className="mb-4">
           <label className="block text-black-700 text-sm mb-2" htmlFor="username">
             EMAIL ADDRESS:

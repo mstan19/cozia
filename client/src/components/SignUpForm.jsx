@@ -23,14 +23,13 @@ const SignUpForm = (props) => {
     const { name, value } = event.target;
     setSignupFormData({ ...signupFormData, [name]: value });
   };
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     // console.log("formData", event.target);
     console.log("userData", signupFormData);
-    const { data } = await signup({
-      variables: signupFormData,
-    }); 
+      const { data } = await signup({
+        variables: signupFormData,
+      }); 
 
     Auth.login(data.addUser.token);
 
@@ -42,7 +41,27 @@ const SignUpForm = (props) => {
       email: "",
       password: "",
     });
-  };
+  }
+
+  const createMessage = (inputField) => {
+      
+ 
+      let msg = error.graphQLErrors[0].extensions.exception.errors[inputField].message
+      let genericMsg = msg?.split("is")[1];
+      let firstWord = inputField.charAt(0).toUpperCase() + inputField.slice(1);
+      let strArray = firstWord.split(/(?=[A-Z])/);
+
+      if (strArray.length === 1) {
+        return firstWord  + " is "  + genericMsg;
+      }
+
+      let lowerCaseWord = strArray[1].toLowerCase();
+      let finalInput = strArray[0] + " " + lowerCaseWord
+      let finalMsg = finalInput + " is "  + genericMsg
+
+      return finalMsg;
+    }
+
   return (
     <div className="registerStyle signup-form">
       <form className="bg-white p-0 m-0" onSubmit={handleFormSubmit} >
@@ -51,30 +70,50 @@ const SignUpForm = (props) => {
             FIRST NAME:
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight "  name="firstName" id="firstName" type="text" onChange={handleInputChange} /> 
+          {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("firstName") ? (
+              <div className="text-red-500 text-base italic">{createMessage("firstName")}</div>
+            ) : null
+          }
         </div>
         <div className="mb-4">
           <label className="block text-black-700 text-sm mb-2" htmlFor="lastName">
             LAST NAME:
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="lastName" id="lastName" type="text" onChange={handleInputChange} /> 
+          {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("lastName") ? (
+              <div className="text-red-500 text-base italic">{createMessage("lastName")}</div>
+            ) : null
+          }
         </div>
         <div className="mb-4">
           <label className="block text-black-700 text-sm mb-2" htmlFor="email">
             EMAIL ADDRESS:
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="email" id="email" type="text" onChange={handleInputChange} /> 
+          {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("email") ? (
+              <div className="text-red-500 text-base italic">{createMessage("email")}</div>
+            ) : null
+          }
         </div>
         <div className="mb-4">
           <label className="block text-black-700 text-sm mb-2" htmlFor="username">
             USERNAME:
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="username" id="username" type="text" onChange={handleInputChange}/> 
+          {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("username") ? (
+              <div className="text-red-500 text-base italic">{createMessage("username")}</div>
+            ) : null
+          }
         </div>
         <div className="mb-6">
           <label className="block text-black-700 text-sm mb-2" htmlFor="password">
             PASSWORD:
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight" name="password"  id="password" type="password" onChange={handleInputChange}/> 
+          {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("password") ? (
+              <div className="text-red-500 text-base italic">{createMessage("password")}</div>
+            ) : null
+          }
         </div>
         <div className="flex flex-col items-center justify-between">
           <button className="bg-green-600 w-1/2 shadow-lg rounded-full hover:bg-green-600 text-white py-2 px-4 focus:outline-none focus:shadow-outline" type="submit">
