@@ -1,7 +1,6 @@
 import React from "react";
-import "./Navbar.css";
 
-import Accordion from "../Accordion/Accordion";
+import Accordion from "./Accordion";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AiFillHeart, AiFillShopping } from "react-icons/ai";
 import { useRef } from "react";
@@ -10,8 +9,11 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
     const navRef = useRef();
 
+    const titleRef = useRef();
+
     const showNavbar = () => {
         navRef.current.classList.toggle("responsive_nav");
+        titleRef.current.classList.toggle("invisible");
     };
 
     const navList = [
@@ -73,7 +75,7 @@ export default function Navbar() {
                             return (
                                 <Link
                                     key={menu.name}
-                                    className="nav-link"
+                                    className="nav-link flex items-start"
                                     to={menu.link}
                                 >
                                     {menu.name}
@@ -81,8 +83,7 @@ export default function Navbar() {
                             );
                         }
                     })}
-
-                <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+                <button className="nav-btn nav-close-btn" onClick={showNavbar} >
                     <FaTimes />
                 </button>
             </nav>
@@ -90,7 +91,7 @@ export default function Navbar() {
             <button className="nav-btn" onClick={showNavbar}>
                 <FaBars />
             </button>
-            <h1 className="app-title">Cozia</h1>
+            <Link to="/" className="app-title" ref={titleRef}>Cozia</Link>
             {/* Wishlist and Shopping icons */}
             <section className="nav-btn nav-shop-btn flex flex-row place-content-evenly">
                 <Link className="wishlist">

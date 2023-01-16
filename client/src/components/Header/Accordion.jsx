@@ -7,16 +7,20 @@ const Accordion = ({ title, link, items }) => {
     return (
         <section className="accordion-item flex flex-col">
             <article
-                className="accordion-content flex justify-center"
+                className="accordion-content flex"
                 onClick={() => setIsActive(!isActive)}
             >
                 <p className="accordion-name">{title}</p>
-                <div className="accordion-icon pr-5">{isActive ? "-" : "+"}</div>
+                <div className="accordion-icon">{isActive ? "-" : "+"}</div>
             </article>
-            <article className="accordion-subitems flex flex-col items-center">
+            <article className="accordion-subitems flex flex-col">
                 {isActive &&
                     items.map((item) => {
-                        return <Link className="p-3" key={title + item}>{item}</Link>;
+                        return (
+                            <Link className="p-4" key={title + item}>
+                                {item}
+                            </Link>
+                        );
                     })}
             </article>
         </section>
