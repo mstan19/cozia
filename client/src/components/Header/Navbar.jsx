@@ -18,8 +18,8 @@ export default function Navbar() {
 
     const navList = [
         {
-            name: "My Account",
-            link: "/myaccount",
+            name: "Dashboard",
+            link: "/dashboard"
         },
         {
             name: "Clothes",
@@ -62,9 +62,18 @@ export default function Navbar() {
     ];
 
     return (
-        <header>
-            <nav ref={navRef}>
-                <h2 className="nav-header">Menu</h2>
+        <header className="flex items-center justify-between">
+            <nav
+                className="w-full max-w-md flex flex-col"
+                ref={navRef}
+            >
+                {/* Close icon */}
+                <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+                    <FaTimes />
+                </button>
+                <h2 className="nav-header flex items-center justify-center">
+                    Menu
+                </h2>
                 {navList.length > 0 &&
                     navList.map((menu) => {
                         if (Object.hasOwn(menu, "subcategories")) {
@@ -75,7 +84,7 @@ export default function Navbar() {
                             return (
                                 <Link
                                     key={menu.name}
-                                    className="nav-link flex items-start"
+                                    className="nav-link flex"
                                     to={menu.link}
                                 >
                                     {menu.name}
@@ -83,15 +92,18 @@ export default function Navbar() {
                             );
                         }
                     })}
-                <button className="nav-btn nav-close-btn" onClick={showNavbar} >
-                    <FaTimes />
-                </button>
             </nav>
             {/* Hamburger icon */}
             <button className="nav-btn" onClick={showNavbar}>
                 <FaBars />
             </button>
-            <Link to="/" className="app-title" ref={titleRef}>Cozia</Link>
+            <Link
+                to="/"
+                className="app-title absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                ref={titleRef}
+            >
+                Cozia
+            </Link>
             {/* Wishlist and Shopping icons */}
             <section className="nav-btn nav-shop-btn flex flex-row place-content-evenly">
                 <Link className="wishlist">

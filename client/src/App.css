@@ -17,44 +17,32 @@
 }
 
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 80px;
-    padding: 0 2rem;
+    position: relative;
+}
+
+header, .nav-header {
     background-color: var(--coal);
     color: white;
-    position: relative;
+    height: 5rem;
+    padding: 0 2rem;
+
 }
 
 nav {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
+    /* min-height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; */
     gap: 2rem;
-    background: var(--coal);
+    background: white;
     transition: 1s;
     transform: translateY(-100vh);
 }
 
-.nav-header {
-    /* align-items: center; */
-    text-align: center;
-    color: var(--coal);
-    background-color: white;
-    padding: 1.5rem;
-}
-
-.app-title {
+.app-title, .nav-header {
     font-size: 2rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .accordion-icon {
@@ -63,20 +51,21 @@ nav {
     padding-right: 2rem;
 }
 
-.nav-header, .nav-link, .accordion-content {
+.nav-link {
     font-size: 1.5rem;
 }
 
-.nav-link, .accordion-name {
+.nav-link {
     margin-left: 2rem;
+    color: var(--coal);
 }
 
 .accordion-subitems {
     font-size: 1.2rem;
-    margin-left: 4rem;
+    color: var(--coal);
 }
 
-.nav-link:hover {
+.nav-link:hover, .accordion-content:hover, .accordion-subitems > a:hover {
     color: var(--green)
 }
 
@@ -86,15 +75,18 @@ nav {
 
 .nav-close-btn {
     cursor: pointer;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--coal);
+    color: white;
     visibility: visible;
     opacity: 1;
     position: absolute;
     top: 2rem;
     left: 2rem;
+}
+
+.divider {
+    opacity: 1;
+    border-radius: 5px;
+    width: 15rem;
 }
 
 .responsive_nav {
