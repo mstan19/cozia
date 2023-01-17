@@ -1,6 +1,6 @@
 import React from "react";
-import SignUpForm from "../components/SignUpForm";
-import LoginForm from "../components/LoginForm";
+import SignUpForm from "../../components/SignUp/SignUpForm";
+import LoginForm from "../../components/Login/LoginForm";
 
 const Register = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
@@ -60,12 +60,14 @@ const Register = ({ color }) => {
                     <div className="relative flex flex-col break-words bg-white w-full">
                         <div className="px-4 py-5 flex-auto">
                         <div className="tab-content tab-space">
-                            <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                                <SignUpForm />
-                            </div>
-                            <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                                <LoginForm />
-                            </div>
+                        {openTab === 1 ? (
+                             <div data-testid="link1"> <SignUpForm /> </div>
+                        ) : null
+                        }
+                        {openTab === 2 ? (
+                             <div data-testid="link2"> <LoginForm /> </div>
+                        ) : null
+                        }
                         </div>
                         </div>
                     </div>

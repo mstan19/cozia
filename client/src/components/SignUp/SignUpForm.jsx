@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../assets/register.css";
+import "../../assets/register.css";
 import { useMutation } from "@apollo/client";
-import Auth from "../utils/auth";
-import { ADD_USER } from "../utils/mutations";
+import Auth from "../../utils/auth";
+import { ADD_USER } from "../../utils/mutations";
 
 
 const SignUpForm = (props) => {
@@ -63,11 +63,12 @@ const SignUpForm = (props) => {
     }
 
   return (
-    <div className="registerStyle signup-form">
+    <div className="registerStyle signup-form" data-testid="signup-form">
       <form className="bg-white p-0 m-0" onSubmit={handleFormSubmit} >
        <div className="mb-4">
-          <label className="block text-black-700 text-sm mb-2" htmlFor="firstName">
-            FIRST NAME:
+          <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="firstName">
+            FIRST NAME
+            <p className="text-red-700">*</p>
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight "  name="firstName" id="firstName" type="text" onChange={handleInputChange} /> 
           {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("firstName") ? (
@@ -76,8 +77,9 @@ const SignUpForm = (props) => {
           }
         </div>
         <div className="mb-4">
-          <label className="block text-black-700 text-sm mb-2" htmlFor="lastName">
-            LAST NAME:
+          <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="lastName">
+            LAST NAME 
+            <p className="text-red-700">*</p>
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="lastName" id="lastName" type="text" onChange={handleInputChange} /> 
           {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("lastName") ? (
@@ -86,8 +88,9 @@ const SignUpForm = (props) => {
           }
         </div>
         <div className="mb-4">
-          <label className="block text-black-700 text-sm mb-2" htmlFor="email">
-            EMAIL ADDRESS:
+          <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="email">
+            EMAIL ADDRESS
+            <p className="text-red-700">*</p>
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="email" id="email" type="text" onChange={handleInputChange} /> 
           {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("email") ? (
@@ -96,8 +99,9 @@ const SignUpForm = (props) => {
           }
         </div>
         <div className="mb-4">
-          <label className="block text-black-700 text-sm mb-2" htmlFor="username">
-            USERNAME:
+          <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="username">
+            USERNAME
+            <p className="text-red-700">*</p>
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="username" id="username" type="text" onChange={handleInputChange}/> 
           {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("username") ? (
@@ -106,8 +110,9 @@ const SignUpForm = (props) => {
           }
         </div>
         <div className="mb-6">
-          <label className="block text-black-700 text-sm mb-2" htmlFor="password">
-            PASSWORD:
+          <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="password">
+            PASSWORD 
+            <p className="text-red-700">*</p>
           </label>
           <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight" name="password"  id="password" type="password" onChange={handleInputChange}/> 
           {error && error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty("password") ? (
