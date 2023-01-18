@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css?family=Sawarabi+Gothic');
+@import url("https://fonts.googleapis.com/css?family=Sawarabi+Gothic");
 
 * {
     padding: 0;
@@ -16,57 +16,64 @@
     --green: #709255;
 }
 
-header {
-    position: relative;
-}
-
-header, .nav-header {
-    background-color: var(--coal);
-    color: white;
+header,
+.nav-header {
     height: 5rem;
     padding: 0 2rem;
+}
 
+header {
+    position: relative;
+    background-color: var(--coal);
+    color: white;
 }
 
 nav {
+    background: var(--coal);
     position: fixed;
     top: 0;
     left: 0;
-    /* min-height: 100%;
-    display: flex;
-    flex-direction: column; */
-    gap: 2rem;
-    background: white;
+    /* gap: 2rem; */
     transition: 1s;
-    transform: translateY(-100vh);
+    transform: translateY(-140vh);
 }
 
-.app-title, .nav-header {
+.app-title,
+.nav-header {
     font-size: 2rem;
 }
 
+.nav-header {
+    background: white;
+    color: var(--coal);
+}
+
+.nav-header,
+.nav-category {
+    padding-left: 5.5rem;
+}
+
+.nav-category,
 .accordion-icon {
+    color: white;
+}
+
+.accordion-subitems {
+    font-size: 1.2rem;
+    padding-left: 5.5rem;
+}
+
+.accordion-icon {
+    font-size: 2rem;
     position: absolute;
     right: 0;
     padding-right: 2rem;
 }
 
-.nav-link {
-    font-size: 1.5rem;
-}
-
-.nav-link {
-    margin-left: 2rem;
-    color: var(--coal);
-}
-
-.accordion-subitems {
-    font-size: 1.2rem;
-    color: var(--coal);
-}
-
-.nav-link:hover, .accordion-content:hover, .accordion-subitems > a:hover {
-    color: var(--green)
+.nav-category:hover,
+.accordion:hover,
+.accordion-subitems > a:hover {
+    color: var(--green);
 }
 
 .nav-btn {
@@ -75,18 +82,16 @@ nav {
 
 .nav-close-btn {
     cursor: pointer;
-    color: white;
+    color: var(--coal);
     visibility: visible;
     opacity: 1;
     position: absolute;
-    top: 2rem;
+    top: 1.8rem;
     left: 2rem;
 }
 
-.divider {
-    opacity: 1;
-    border-radius: 5px;
-    width: 15rem;
+.category-border:hover {
+    border: solid 1px var(--green);
 }
 
 .responsive_nav {

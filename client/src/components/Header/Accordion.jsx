@@ -10,12 +10,13 @@ const Accordion = ({ title, link, items }) => {
     const [isActive, setIsActive] = useState(false);
 
     return (
-        <section className="nav-link accordion-item flex flex-col">
+        <section className="accordion-wrapper category-border flex flex-col">
+            {/* If accordion is active, show up-arrow; else, show down-arrow */}
             <article
-                className="accordion-content flex items-center"
+                className="accordion flex items-center"
                 onClick={() => setIsActive(!isActive)}
             >
-                <p className="accordion-name">{title}</p>
+                <p className="nav-category text-2xl flex p-6">{title}</p>
                 <div className="accordion-icon">
                     {isActive ? (
                         <MdOutlineKeyboardArrowUp />
@@ -24,13 +25,13 @@ const Accordion = ({ title, link, items }) => {
                     )}
                 </div>
             </article>
-            <article className="accordion-subitems flex flex-col items-center">
+            {/* Shows subcategories */}
+            <article className="accordion-subitems flex flex-col">
                 {isActive &&
                     items.map((item) => {
                         return (
-                            <Link className="p-4" key={title + item}>
+                            <Link className="p-1" key={title + item} to={link}>
                                 {item}
-                                <hr className="divider"></hr>
                             </Link>
                         );
                     })}
