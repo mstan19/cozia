@@ -39,7 +39,8 @@ nav {
 }
 
 .app-title,
-.nav-header, .accordion-icon {
+.nav-header,
+.accordion-icon {
     font-size: 2rem;
 }
 
@@ -49,7 +50,8 @@ nav {
 }
 
 .nav-header,
-.nav-category, .accordion-subitems {
+.nav-category,
+.accordion-subitems {
     padding-left: 2rem;
 }
 
