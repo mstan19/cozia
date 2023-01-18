@@ -26,6 +26,11 @@ const productSchema = new Schema({
     default: "Women",
     required: true,
   },
+  discount: {
+    type: Number,
+    required: true,
+    default: 0.0
+  },
   size: {
     type: String,
     enum: ["Small", "Medium", "Large"],

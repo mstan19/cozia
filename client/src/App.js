@@ -10,6 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import Register from "../src/pages/Register/Register";
+import MyProduct from "./components/MyProducts/MyProducts";
 
 
 // Construct our main GraphQL API endpoint
@@ -42,6 +43,8 @@ function App() {
         <div className="page-container" data-testid="page-container">
           <Routes>
             <Route path="/" element={<Register />} />
+            <Route path="/dashboard" element={<MyProduct />} />
+
           </Routes>
         </div>
       </Router>

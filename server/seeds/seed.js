@@ -51,7 +51,8 @@ db.once("open", async () => {
                             productName: faker.commerce.product(),
                             image: faker.internet.url(),
                             quantity: faker.datatype.number({ max: 20 }),
-                            price: faker.commerce.price()
+                            price: faker.commerce.price(),
+                            discount: 0.5
                         }
                     ],
                     tax: 3.0,
