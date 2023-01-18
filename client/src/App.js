@@ -8,7 +8,8 @@ import {
     createHttpLink
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import Home from "../src/pages/Home";
+import Navbar from "./components/Header/Navbar";
+import Home from "./pages/Home/Home";
 import Register from "../src/pages/Register/Register";
 
 // Construct our main GraphQL API endpoint
