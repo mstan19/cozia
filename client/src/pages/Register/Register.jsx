@@ -10,7 +10,7 @@ const Register = ({ color }) => {
                 <div className="row my-9" id="logo">
                     <h1 className="text-center">COZIA</h1>
                 </div>
-                <div className="registerStyle row bg-white" id="form">
+                <div className="register-style row bg-white" id="form">
                     <div className="flex flex-wrap">
                         <div className="w-full">
                             <ul

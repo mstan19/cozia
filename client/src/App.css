@@ -95,3 +95,7 @@ nav {
 .responsive_nav {
     transform: none;
 }
+
+.register-style {
+    font-weight: 500;
+}
