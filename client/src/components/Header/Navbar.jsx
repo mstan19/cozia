@@ -87,7 +87,7 @@ export default function Navbar() {
                     navList.map((menu) => {
                         if (Object.hasOwn(menu, "subcategories")) {
                             return menu.subcategories.map(({ name, items }) => (
-                                <Accordion title={name} link="" items={items} />
+                                <Accordion key={name} title={name} link="" items={items} />
                             ));
                         } else {
                             return (
