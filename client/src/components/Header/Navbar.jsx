@@ -17,14 +17,27 @@ export default function Navbar() {
     const navList = [
         {
             name: "Dashboard",
-            link: "/dashboard"
+            link: "/dashboard",
+            subcategories: [
+                {
+                    name: "DASHBOARD",
+                    items: [
+                        "Profile",
+                        "Purchased Orders",
+                        "My Products",
+                        "My Review & Comments",
+                        "Wishlist",
+                        "Shopping Cart"
+                    ],
+                }
+            ],
         },
         {
             name: "Clothes",
             link: "/clothes",
             subcategories: [
                 {
-                    name: "Women",
+                    name: "WOMEN",
                     items: [
                         "Activewear",
                         "Coats & Jackets",
@@ -36,7 +49,7 @@ export default function Navbar() {
                     ]
                 },
                 {
-                    name: "Men",
+                    name: "MEN",
                     items: [
                         "Activewear",
                         "Coats & Jackets",
@@ -49,11 +62,11 @@ export default function Navbar() {
             ]
         },
         {
-            name: "Sales & Clearance",
+            name: "SALES & CLEARANCE",
             link: "/sales"
         },
         {
-            name: "Trending",
+            name: "TRENDING",
             link: "/trending"
         }
     ];

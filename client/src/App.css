@@ -35,11 +35,11 @@ nav {
     left: 0;
     /* gap: 2rem; */
     transition: 1s;
-    transform: translateY(-140vh);
+    transform: translateX(-140vw);
 }
 
 .app-title,
-.nav-header {
+.nav-header, .accordion-icon {
     font-size: 2rem;
 }
 
@@ -49,8 +49,8 @@ nav {
 }
 
 .nav-header,
-.nav-category {
-    padding-left: 5.5rem;
+.nav-category, .accordion-subitems {
+    padding-left: 2rem;
 }
 
 .nav-category,
@@ -60,11 +60,9 @@ nav {
 
 .accordion-subitems {
     font-size: 1.2rem;
-    padding-left: 5.5rem;
 }
 
 .accordion-icon {
-    font-size: 2rem;
     position: absolute;
     right: 0;
     padding-right: 2rem;
@@ -86,16 +84,14 @@ nav {
     visibility: visible;
     opacity: 1;
     position: absolute;
-    top: 1.8rem;
-    left: 2rem;
+    top: 2rem;
+    right: 2.3rem;
 }
 
 .category-border:hover {
-    border: solid 1px var(--green);
+    border: solid 2px var(--green);
 }
 
 .responsive_nav {
     transform: none;
 }
-
-/* TODO: Style for Desktop later */
