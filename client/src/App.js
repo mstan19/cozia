@@ -9,7 +9,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import Register from "../src/pages/Register";
+import Register from "../src/pages/Register/Register";
 
 
 // Construct our main GraphQL API endpoint
@@ -39,7 +39,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="page-container">
+        <div className="page-container" data-testid="page-container">
           <Routes>
             <Route path="/" element={<Register />} />
           </Routes>

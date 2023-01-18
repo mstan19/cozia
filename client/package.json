@@ -17,8 +17,8 @@
         "graphql": "^15.4.0",
         "jsonwebtoken": "^8.5.1",
         "jwt-decode": "^2.2.0",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
         "react-router-dom": "^6.4.4",
         "react-scripts": "^5.0.1"
     },
@@ -47,6 +47,9 @@
         ]
     },
     "devDependencies": {
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/react-native": "^11.5.0",
         "tailwindcss": "^3.2.4"
     }
 }
