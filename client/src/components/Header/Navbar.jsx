@@ -74,7 +74,7 @@ export default function Navbar() {
     return (
         <header className="flex items-center justify-between">
             <nav
-                className="flex flex-col w-full max-w-md min-h-screen"
+                className="flex flex-col w-full max-w-md min-h-screen z-50"
                 ref={navRef}
             >
                 {/* Close icon */}
