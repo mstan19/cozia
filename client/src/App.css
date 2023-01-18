@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css?family=Sawarabi+Gothic");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Sawarabi Gothic";
+}
+
+:root {
+    --coal: #242424;
+    --green: #709255;
+}
+
+header,
+.nav-header {
+    height: 5rem;
+    padding: 0 2rem;
+}
+
+header {
+    position: relative;
+    background-color: var(--coal);
+    color: white;
+}
+
+nav {
+    background: var(--coal);
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* gap: 2rem; */
+    transition: 1s;
+    transform: translateX(-140vw);
+}
+
+.app-title,
+.nav-header,
+.accordion-icon {
+    font-size: 2rem;
+}
+
+.nav-header {
+    background: white;
+    color: var(--coal);
+}
+
+.nav-header,
+.nav-category,
+.accordion-subitems {
+    padding-left: 2rem;
+}
+
+.nav-category,
+.accordion-icon {
+    color: white;
+}
+
+.accordion-subitems {
+    font-size: 1.2rem;
+}
+
+.accordion-icon {
+    position: absolute;
+    right: 0;
+    padding-right: 2rem;
+}
+
+.nav-category:hover,
+.accordion:hover,
+.accordion-subitems > a:hover {
+    color: var(--green);
+}
+
+.nav-btn {
+    font-size: 1.5rem;
+}
+
+.nav-close-btn {
+    cursor: pointer;
+    color: var(--coal);
+    visibility: visible;
+    opacity: 1;
+    position: absolute;
+    top: 2rem;
+    right: 2.3rem;
+}
+
+.category-border:hover {
+    border: solid 2px var(--green);
+}
+
+.responsive_nav {
+    transform: none;
+}
+
+.register-style {
+    font-weight: 500;
+}
