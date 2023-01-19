@@ -11,14 +11,44 @@ db.once("open", async () => {
         await Order.deleteMany({});
 
         //creating categories
-        let createdCategories = [];
-        for (let i = 0; i < 4; i++) {
-            let category = {
-                name: faker.helpers.unique(faker.commerce.department)
-            };
+        // let createdCategories = [];
+        // for (let i = 0; i < 1; i++) {
+            let category = [
+            {
+                name: "activeWear",
+            },
+            {
+                name: "coatsAndJackets",
+            },
+            {
+                name: "dresses",
+            },
+            {
+                name: "hoodiesAndSweatshirts",
+            },
+            {
+                name: "jeans",
+            },
+            {
+                name: "shortsAndSkirts",
+            },
+            {
+                name: "tops",
+            },
+            {
+                name: "pants",
+            },
+            {
+                name: "tShirt",
+            },
+            ];
+            
+            // let category = {
+            //     name: faker.helpers.unique(faker.commerce.department)
+            // };
             const newCategory = await Category.create(category);
-            createdCategories.push(newCategory);
-        }
+            // createdCategories.push(newCategory);
+        // }
 
         //creating users. if consumer, then they will have an order
         let userList = [];
@@ -68,8 +98,8 @@ db.once("open", async () => {
         }
 
         //creating products
-        for (let l = 0; l < createdCategories.length; l++) {
-            for (let m = 0; m < 4; m++) {
+        for (let l = 0; l < newCategory.length; l++) {
+            for (let m = 0; m < 1; m++) {
                 let reviewSchema = {
                     user: userList[0]._id,
                     rating: 9.0,
@@ -82,14 +112,14 @@ db.once("open", async () => {
                     description: faker.commerce.productDescription(),
                     image: faker.internet.url(),
                     price: faker.commerce.price(),
-                    size: "Small",
-                    color: "Black",
+                    size: "small",
+                    color: "black",
                     // gender: ,
                     countInStock: 5,
                     reviews: [reviewSchema],
                     totalRating: 9.0,
                     numberReviews: 10,
-                    category: createdCategories[l]._id
+                    category: newCategory[l]._id
                 };
                 // console.log("$$", userList);
                 const newProduct = await Product.create(product);

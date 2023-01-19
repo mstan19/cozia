@@ -1,39 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ADD_PRODUCT } from "../../utils/mutations";
-import Accordion from "../Header/Accordion";
+import { QUERY_CATEGORY } from "../../utils/queries";
 import Auth from "../../utils/auth";
 
 const MyProduct = (props) => {
-  const [productFormData, setProductFormData] = useState({
-    productName: "",
-    description: "",
-    image: "",
-    price: "",
-    gender: "",
-    discount: "",
-    size: "",
-    color:"",
-    countInStock: "",
-    category: ""
-
-  });
+  const [productFormData, setProductFormData] = useState();
+  let finalFormProductData = {};
   const [addProduct, { error, data }] = useMutation(ADD_PRODUCT);
-
+  const {  data: categoryData , loading: loadingCategory, error: errorCategory} = useQuery(QUERY_CATEGORY)
+  
   // update state based on form input changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setProductFormData({ ...productFormData, [name]: value });
+    
+    setProductFormData({ ...productFormData, [name]: value});
   };
+
+  useEffect (() => {
+    finalFormProductData = productFormData
+    // console.log(finalFormProductData)
+  }, [productFormData])
+
 
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await addProduct({
-        variables: productFormData,
+    //   console.log("productData", finalFormProductData.category);
+      let oneCategory = categoryData.categories.find(item => item.name === finalFormProductData.category)
+      let categoryID = oneCategory._id
+      finalFormProductData["price"] = parseFloat(finalFormProductData.price)
+      finalFormProductData["discount"] = parseFloat(finalFormProductData.discount)
+      finalFormProductData["countInStock"] = parseFloat(finalFormProductData.countInStock)
+      delete finalFormProductData['category']
+   
+        // console.log("finalFormProductData", finalFormProductData);
+      await addProduct({
+        variables: {productData: finalFormProductData, productsByCategory: categoryID}
       });
 
-      console.log("productData", data);
     } catch (e) {
       console.error(e);
     }
@@ -49,7 +54,7 @@ const MyProduct = (props) => {
         size: "",
         color:"",
         countInStock: "",
-        category: ""
+        // category: ""
     });
   };
 
@@ -73,14 +78,14 @@ const MyProduct = (props) => {
                     <label className="block text-black-700 text-sm mb-2" htmlFor="description">
                         DESCRIPTION
                     </label>
-                    <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight" name="description" id="description" type="text" onChange={handleInputChange} ></input>
+                    <input className="appearance-none border border-black w-full py-8 px-3 text-black-700 leading-tight" name="description" id="description" type="text" onChange={handleInputChange} ></input>
                 </div>
                 <div className="mb-4">
                     <label className="block text-black-700 text-sm mb-2" htmlFor="category">
                         CATEGORY
                     </label>
                     <div className="inline-block relative w-full">
-                            <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" placeholder="Select Size" onChange={handleInputChange} >
+                            <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="category" onChange={handleInputChange}>
                                 <option defaultValue>Select Category</option>
                                 <option value="activeWear">Active Wear</option>
                                 <option value="coatsAndJackets">Coats & Jackets</option>
@@ -91,8 +96,6 @@ const MyProduct = (props) => {
                                 <option value="tops">Tops</option>
                                 <option value="pants">Pants</option>
                                 <option value="tShirt">T-Shirts</option>
-
-                                
                             </select>
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -105,7 +108,7 @@ const MyProduct = (props) => {
                             SIZE
                         </label>
                         <div className="inline-block relative w-full">
-                            <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" placeholder="Select Size" onChange={handleInputChange} >
+                            <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="size" onChange={handleInputChange} >
                                 <option defaultValue>Select Size</option>
                                 <option value="small">Small</option>
                                 <option value="medium">Medium</option>
@@ -122,7 +125,7 @@ const MyProduct = (props) => {
                             COLOR
                         </label>
                         <div className="inline-block relative w-full">
-                            <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" onChange={handleInputChange} >
+                            <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="color" onChange={handleInputChange} >
                                 <option defaultValue>Select Color</option>
                                 <option value="black">Black</option>
                                 <option value="white">White</option>
@@ -138,7 +141,7 @@ const MyProduct = (props) => {
                     <label className="block text-black-700 text-sm mb-2" htmlFor="gender">
                         GENDER
                     </label>
-                    <div className="flex justify-evenly">
+                    <div className="flex justify-evenly" onChange={handleInputChange}>
                         <div className="flex items-center w-3/4 pl-4 mr-2 border border-black rounded dark:border-black">
                             <input id="women" type="radio" value="women" name="gender" className="form-check-input w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                             <label htmlFor="women" className="w-full py-4 ml-6 text-sm font-medium text-gray-900 dark:text-gray-300">WOMEN</label>
@@ -164,7 +167,7 @@ const MyProduct = (props) => {
                         <div className="pointer-events-none absolute left-0 flex items-center py-1.5 px-3.5 border border-black bg-gray-300 pb-1.5">
                             <span className="text-black text-md ">$</span>
                         </div>
-                        <input className="appearance-none border border-black w-full py-2 px-7 text-black-700 leading-tight" name="price" id="price" type="number" onChange={handleInputChange} ></input>
+                        <input className="appearance-none border border-black w-full py-2 px-11 text-black-700 leading-tight" name="price" id="price" type="number" placeholder="0.00" onChange={handleInputChange} ></input>
                     </div>
                     <div className="relative mb-4">
                         <label className="block text-black-700 text-sm mb-2" htmlFor="discount">
@@ -174,7 +177,6 @@ const MyProduct = (props) => {
                             <span className="text-black text-md">%</span>
                         </div>
                         <input className="appearance-none border border-black w-full py-2 px-4 text-black-700 leading-tight" name="discount" id="discount" type="number" onChange={handleInputChange} ></input>
-
                     </div>
                 </div>
                 <div className="mb-4">

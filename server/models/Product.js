@@ -22,8 +22,8 @@ const productSchema = new Schema({
   },
   gender: {
     type: String,
-    enum: ["Women", "Men"],
-    default: "Women",
+    enum: ["women", "men"],
+    default: "women",
     required: true,
   },
   discount: {
@@ -33,13 +33,13 @@ const productSchema = new Schema({
   },
   size: {
     type: String,
-    enum: ["Small", "Medium", "Large"],
-    default: "Small"
+    enum: ["small", "medium", "large"],
+    default: "small"
   },
   color: {
     type: String,
-    enum: ["Black"],
-    default: "Black",
+    enum: ["black", "white", "gray"],
+    default: "black",
     required: true,
   },
   countInStock: {
