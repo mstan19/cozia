@@ -11,6 +11,8 @@ import { setContext } from "@apollo/client/link/context";
 import Home from "../src/pages/Home";
 import Register from "../src/pages/Register/Register";
 import MyProduct from "./components/MyProducts/MyProducts";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Navbar from "./components/Header/Navbar";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -41,10 +43,12 @@ function App() {
         <ApolloProvider client={client}>
             <Router>
                 <div className="page-container" data-testid="page-container">
+                    <Navbar />
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/dashboard" element={<MyProduct />} />
+                        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+                        <Route path="/myproducts" element={<MyProduct />} />
                     </Routes>
                 </div>
             </Router>
