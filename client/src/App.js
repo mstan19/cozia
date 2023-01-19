@@ -8,7 +8,7 @@ import {
     createHttpLink
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import Navbar from "./components/Header/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Register from "../src/pages/Register/Register";
 

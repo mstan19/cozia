@@ -1,7 +1,7 @@
 import React from "react";
 import SignUpForm from "../../components/SignUp/SignUpForm";
 import LoginForm from "../../components/Login/LoginForm";
-import Navbar from "../../components/Header/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 
 const Register = ({ color }) => {
     const [openTab, setOpenTab] = React.useState(1);
