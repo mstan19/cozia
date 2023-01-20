@@ -13,7 +13,8 @@ const productSchema = new Schema({
     type: String
   },
   image: {
-    type: String
+    type: String,
+    required: true
   },
   price: {
     type: Number,
@@ -28,7 +29,6 @@ const productSchema = new Schema({
   },
   discount: {
     type: Number,
-    required: true,
     default: 0.0
   },
   size: {
@@ -40,7 +40,6 @@ const productSchema = new Schema({
     type: String,
     enum: ["black", "white", "gray"],
     default: "black",
-    required: true,
   },
   countInStock: {
     type: Number,

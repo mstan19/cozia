@@ -10,7 +10,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Home from "../src/pages/Home";
 import Register from "../src/pages/Register/Register";
-import MyProduct from "./components/MyProducts/MyProducts";
+import MyProduct from "./pages/MyProducts/MyProducts";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Navbar from "./components/Header/Navbar";
 

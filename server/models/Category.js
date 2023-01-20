@@ -8,7 +8,7 @@ const categorySchema = new Schema({
         required: true,
         unique: true,
         trim: true,
-    },
+    }
 });
 
 const Category = mongoose.model("Category", categorySchema);

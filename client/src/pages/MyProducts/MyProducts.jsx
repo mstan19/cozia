@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 import { ADD_PRODUCT } from "../../utils/mutations";
 import { QUERY_CATEGORY } from "../../utils/queries";
 import Auth from "../../utils/auth";
 
-const MyProduct = (props) => {
-  const [productFormData, setProductFormData] = useState();
-  let finalFormProductData = {};
+const MyProduct = () => {
+  const [productFormData, setProductFormData] = useState({
+    productName: "",
+        description: "",
+        image: "",
+        price: "",
+        gender: "",
+        discount: "",
+        size: "",
+        color:"",
+        countInStock: "",
+        category: ""
+  });
+  let finalFormProductData = productFormData;
   const [addProduct, { error, data }] = useMutation(ADD_PRODUCT);
   const {  data: categoryData , loading: loadingCategory, error: errorCategory} = useQuery(QUERY_CATEGORY)
   
+  const nav = useNavigate();
+
   // update state based on form input changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -22,23 +36,27 @@ const MyProduct = (props) => {
     // console.log(finalFormProductData)
   }, [productFormData])
 
+  const matchItemToCategory = () => {
+
+  }
+
 
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
     //   console.log("productData", finalFormProductData.category);
-      let oneCategory = categoryData.categories.find(item => item.name === finalFormProductData.category)
-      let categoryID = oneCategory._id
-      finalFormProductData["price"] = parseFloat(finalFormProductData.price)
-      finalFormProductData["discount"] = parseFloat(finalFormProductData.discount)
-      finalFormProductData["countInStock"] = parseFloat(finalFormProductData.countInStock)
-      delete finalFormProductData['category']
+      let oneCategory = categoryData.categories.find(item => item.name === finalFormProductData.category);
+      let categoryID = oneCategory?._id ? oneCategory._id : "";
+      finalFormProductData["price"] = parseFloat(finalFormProductData.price);
+      finalFormProductData["discount"] = parseFloat(finalFormProductData.discount);
+      finalFormProductData["countInStock"] = parseFloat(finalFormProductData.countInStock);
+      delete finalFormProductData['category'];
    
-        // console.log("finalFormProductData", finalFormProductData);
+    // console.log("finalFormProductData", finalFormProductData);
       await addProduct({
         variables: {productData: finalFormProductData, productsByCategory: categoryID}
       });
-
+      nav("/dashboard");
     } catch (e) {
       console.error(e);
     }
@@ -57,32 +75,67 @@ const MyProduct = (props) => {
         // category: ""
     });
   };
+// Size is not a valid enum value for path `size`.
+  const createErrorMessage = (inputField) => {
+    let msg =
+        error.graphQLErrors[0].extensions.exception.errors[inputField]
+            .message;
 
+    if (inputField === "size" || inputField === "color" || inputField === "category") {
+        let common = msg?.split("valid")[0];
+        let primaryWord = inputField.charAt(0).toUpperCase() + inputField.slice(1);
+        
+        return primaryWord + " is required.";
+    } else {
+        let genericMsg = msg?.split("is")[1];
+            let firstWord =
+                    inputField.charAt(0).toUpperCase() + inputField.slice(1);
+        let strArray = firstWord.split(/(?=[A-Z])/);
+
+        if (strArray.length === 1) {
+            return firstWord + " is " + genericMsg;
+        }
+
+        let lowerCaseWord = strArray[1].toLowerCase();
+        let finalInput = strArray[0] + " " + lowerCaseWord;
+        let finalMsg = finalInput + " is " + genericMsg;
+
+        return finalMsg;
+    }
+   
+};
   
   return (
     <div className="absolute h-full w-full">
         <div className="container mx-auto w-full pt-0 md:w-[700px]">
             <div className="registerStyle product-form row bg-white p-6" data-testid="product-form">
             <form onSubmit={onSubmit} className="p-0 m-0">
-                {/* {error ? (
-                    <div className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 mb-2">Error: Incorrect credentials</div>
-                ) : null
-                } */}
                 <div className="mb-4">
-                    <label className="block text-black-700 text-sm mb-2" htmlFor="productName">
+                    <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="productName">
                         PRODUCT NAME
+                        <p className="text-red-700">*</p>
                     </label>
                     <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="productName" id="productName" type="text" onChange={handleInputChange} ></input>
+                    {error &&
+                    error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
+                        "productName"
+                    ) ? (
+                        <div className="text-red-500 text-base italic">
+                            {createErrorMessage("productName")}
+                        </div>
+                    ) : null}
                 </div>
                 <div className="mb-6">
                     <label className="block text-black-700 text-sm mb-2" htmlFor="description">
                         DESCRIPTION
                     </label>
-                    <input className="appearance-none border border-black w-full py-8 px-3 text-black-700 leading-tight" name="description" id="description" type="text" onChange={handleInputChange} ></input>
+                    <textarea rows="4" className="block appearance-none border border-black w-full py-8 px-3 text-black-700 leading-tight" name="description" id="description" type="text" onChange={handleInputChange}></textarea>
+                    {/* <input rows="4" className="appearance-none border border-black w-full py-8 px-3 text-black-700 leading-tight" name="description" id="description" type="text" onChange={handleInputChange} ></input> */}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-black-700 text-sm mb-2" htmlFor="category">
+                    <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="category">
                         CATEGORY
+                        <p className="text-red-700">*</p>
                     </label>
                     <div className="inline-block relative w-full">
                             <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="category" onChange={handleInputChange}>
@@ -101,11 +154,20 @@ const MyProduct = (props) => {
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                             </div>
                         </div>
+                        {error &&
+                        error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
+                            "category"
+                        ) ? (
+                            <div className="text-red-500 text-base italic">
+                                {createErrorMessage("category")}
+                            </div>
+                        ) : null}
                 </div>
                 <div className="grid grid-cols-3 gap-4 mb-4">
                     <div className="col-span-1">
-                        <label className="block text-black-700 text-sm mb-2" htmlFor="size">
+                        <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="size">
                             SIZE
+                            <p className="text-red-700">*</p>
                         </label>
                         <div className="inline-block relative w-full">
                             <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="size" onChange={handleInputChange} >
@@ -119,10 +181,19 @@ const MyProduct = (props) => {
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                             </div>
                         </div>
+                        {error &&
+                        error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
+                            "size"
+                        ) ? (
+                            <div className="text-red-500 text-base italic">
+                                {createErrorMessage("size")}
+                            </div>
+                        ) : null}
                     </div>
                     <div className="col-span-2">
-                        <label className="block text-black-700 text-sm mb-2" htmlFor="color">
+                        <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="color">
                             COLOR
+                            <p className="text-red-700">*</p>
                         </label>
                         <div className="inline-block relative w-full">
                             <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="color" onChange={handleInputChange} >
@@ -135,13 +206,22 @@ const MyProduct = (props) => {
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                             </div>
                         </div>
+                        {error &&
+                        error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
+                            "color"
+                        ) ? (
+                            <div className="text-red-500 text-base italic">
+                                {createErrorMessage("color")}
+                            </div>
+                        ) : null}
                     </div>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-black-700 text-sm mb-2" htmlFor="gender">
+                    <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="gender">
                         GENDER
+                        <p className="text-red-700">*</p>
                     </label>
-                    <div className="flex justify-evenly" onChange={handleInputChange}>
+                    <div className="flex justify-evenly" onClick={matchItemToCategory} onChange={handleInputChange}>
                         <div className="flex items-center w-3/4 pl-4 mr-2 border border-black rounded dark:border-black">
                             <input id="women" type="radio" value="women" name="gender" className="form-check-input w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                             <label htmlFor="women" className="w-full py-4 ml-6 text-sm font-medium text-gray-900 dark:text-gray-300">WOMEN</label>
@@ -151,6 +231,14 @@ const MyProduct = (props) => {
                             <label htmlFor="men" className="w-full py-4 ml-6 text-sm font-medium text-gray-900 dark:text-gray-300">MEN</label>
                         </div>
                     </div>
+                    {error &&
+                    error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
+                        "gender"
+                    ) ? (
+                        <div className="text-red-500 text-base italic">
+                            {createErrorMessage("gender")}
+                        </div>
+                    ) : null}
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 mb-4">
@@ -161,13 +249,22 @@ const MyProduct = (props) => {
                         <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="countInStock" id="countInStock" type="text" onChange={handleInputChange} ></input>
                     </div>
                     <div className="relative mb-4">
-                        <label className="block text-black-700 text-sm mb-2" htmlFor="price">
+                        <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="price">
                             PRICE
+                            <p className="text-red-700">*</p>
                         </label>
                         <div className="pointer-events-none absolute left-0 flex items-center py-1.5 px-3.5 border border-black bg-gray-300 pb-1.5">
                             <span className="text-black text-md ">$</span>
                         </div>
                         <input className="appearance-none border border-black w-full py-2 px-11 text-black-700 leading-tight" name="price" id="price" type="number" placeholder="0.00" onChange={handleInputChange} ></input>
+                        {error &&
+                        error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
+                            "price"
+                        ) ? (
+                            <div className="text-red-500 text-base italic">
+                                {createErrorMessage("price")}
+                            </div>
+                        ) : null}
                     </div>
                     <div className="relative mb-4">
                         <label className="block text-black-700 text-sm mb-2" htmlFor="discount">
@@ -180,14 +277,25 @@ const MyProduct = (props) => {
                     </div>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-black-700 text-sm mb-2" htmlFor="imageUrl">
+                    <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="imageUrl">
                         IMAGE URL
+                        <p className="text-red-700">*</p>
                     </label>
-                    <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="imageUrl" id="imageUrl" type="url" onChange={handleInputChange} ></input>
+                    <input className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight " name="image" id="imageURL" type="url" onChange={handleInputChange} ></input>
+                    {error &&
+                    error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
+                        "image"
+                    ) ? (
+                        <div className="text-red-500 text-base italic">
+                            {createErrorMessage("image")}
+                        </div>
+                    ) : null}
                 </div>
                 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">IMAGE</label>
+                    <label className="flex flex-row block text-sm font-medium text-gray-700">
+                        IMAGE <p className="text-red-700">*</p>
+                    </label>
                     <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-black px-6 pt-5 pb-6">
                       <div className="space-y-1 text-center">
                         <svg
