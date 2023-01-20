@@ -56,7 +56,7 @@ export default function Navbar() {
                         "Hoodies & Sweatshirts",
                         "Jeans",
                         "Pants",
-                        "T-Shirts"
+                        "Shirts"
                     ]
                 }
             ]

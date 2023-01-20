@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createElement } from 'react';
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { ADD_PRODUCT } from "../../utils/mutations";
@@ -7,7 +8,7 @@ import Auth from "../../utils/auth";
 
 const MyProduct = () => {
   const [productFormData, setProductFormData] = useState({
-    productName: "",
+        productName: "",
         description: "",
         image: "",
         price: "",
@@ -22,7 +23,7 @@ const MyProduct = () => {
   const [addProduct, { error, data }] = useMutation(ADD_PRODUCT);
   const {  data: categoryData , loading: loadingCategory, error: errorCategory} = useQuery(QUERY_CATEGORY)
   
-  const nav = useNavigate();
+  const nav = useNavigate(); 
 
   // update state based on form input changes
   const handleInputChange = (event) => {
@@ -36,15 +37,33 @@ const MyProduct = () => {
     // console.log(finalFormProductData)
   }, [productFormData])
 
-  const matchItemToCategory = () => {
+//   const matchItemToCategory = (gender, selectedCategory) => {
+//     if (gender === "men" && selectedCategory === "dresses" || "hoodiesAndSweatshirts" || "shortsAndSkirts" || "tops") {
+//        return  
+//     } else if (gender === "women" && selectedCategory === "pants" || "tShirt" ) {
+        
+//     }
+//   }
 
-  }
-
+  const fixName = (inputField) => {
+    if (categoryData) {
+        for (let i = 0; i < categoryData.categories.length; i++) {
+            let upperCaseFirstLetter = inputField.charAt(0).toUpperCase() + inputField.slice(1);
+            let ArrayString = upperCaseFirstLetter.split(/(?=[A-Z])/);
+            if (ArrayString.length === 1) {
+                return upperCaseFirstLetter;
+            }
+            // console.log (ArrayString.join(' '))
+            return ArrayString.join(' ');
+            
+        }
+    }
+  } 
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    try {
-    //   console.log("productData", finalFormProductData.category);
+    try { 
+
       let oneCategory = categoryData.categories.find(item => item.name === finalFormProductData.category);
       let categoryID = oneCategory?._id ? oneCategory._id : "";
       finalFormProductData["price"] = parseFloat(finalFormProductData.price);
@@ -129,8 +148,7 @@ const MyProduct = () => {
                     <label className="block text-black-700 text-sm mb-2" htmlFor="description">
                         DESCRIPTION
                     </label>
-                    <textarea rows="4" className="block appearance-none border border-black w-full py-8 px-3 text-black-700 leading-tight" name="description" id="description" type="text" onChange={handleInputChange}></textarea>
-                    {/* <input rows="4" className="appearance-none border border-black w-full py-8 px-3 text-black-700 leading-tight" name="description" id="description" type="text" onChange={handleInputChange} ></input> */}
+                    <textarea rows="5" className="block appearance-none border border-black w-full p-2.5 px-3 text-black-700 leading-tight" name="description" id="description" type="text" onChange={handleInputChange}></textarea>
                 </div>
                 <div className="mb-4">
                     <label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="category">
@@ -139,16 +157,10 @@ const MyProduct = () => {
                     </label>
                     <div className="inline-block relative w-full">
                             <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="category" onChange={handleInputChange}>
-                                <option defaultValue>Select Category</option>
-                                <option value="activeWear">Active Wear</option>
-                                <option value="coatsAndJackets">Coats & Jackets</option>
-                                <option value="dresses">Dresses</option>
-                                <option value="hoodiesAndSweatshirts">Hoodies & Sweatshirts</option>
-                                <option value="jeans">Jeans</option>
-                                <option value="shortsAndSkirts">Shorts & Skirts</option>
-                                <option value="tops">Tops</option>
-                                <option value="pants">Pants</option>
-                                <option value="tShirt">T-Shirts</option>
+                                <option defaultValue >Select Category</option> 
+                                {categoryData && categoryData.categories.map((category) => { 
+                                   return <option key={category.name} value={category.name} onClick={fixName}>{fixName(category.name)}</option>
+                                })}
                             </select>
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -221,7 +233,7 @@ const MyProduct = () => {
                         GENDER
                         <p className="text-red-700">*</p>
                     </label>
-                    <div className="flex justify-evenly" onClick={matchItemToCategory} onChange={handleInputChange}>
+                    <div className="flex justify-evenly" onChange={handleInputChange}>
                         <div className="flex items-center w-3/4 pl-4 mr-2 border border-black rounded dark:border-black">
                             <input id="women" type="radio" value="women" name="gender" className="form-check-input w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                             <label htmlFor="women" className="w-full py-4 ml-6 text-sm font-medium text-gray-900 dark:text-gray-300">WOMEN</label>

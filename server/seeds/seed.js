@@ -39,7 +39,7 @@ db.once("open", async () => {
                 name: "pants",
             },
             {
-                name: "tShirt",
+                name: "shirts",
             },
             ];
             
