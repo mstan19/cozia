@@ -43,11 +43,7 @@ db.once("open", async () => {
             },
             ];
             
-            // let category = {
-            //     name: faker.helpers.unique(faker.commerce.department)
-            // };
             const newCategory = await Category.create(category);
-            // createdCategories.push(newCategory);
         // }
 
         //creating users. if consumer, then they will have an order
