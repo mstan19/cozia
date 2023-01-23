@@ -38,13 +38,13 @@ const productSchema = new Schema({
   },
   color: {
     type: String,
-    enum: ["black", "white", "gray"],
-    default: "black",
+    required: true,
+    trim: true
   },
   countInStock: {
     type: Number,
     min: 0,
-    default: 0
+    default: 1
   },
   reviews: [
     {
