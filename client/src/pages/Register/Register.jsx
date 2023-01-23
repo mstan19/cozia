@@ -1,13 +1,11 @@
 import React from "react";
 import SignUpForm from "../../components/SignUp/SignUpForm";
 import LoginForm from "../../components/Login/LoginForm";
-import Navbar from "../../components/Header/Navbar";
 
 const Register = ({ color }) => {
     const [openTab, setOpenTab] = React.useState(1);
     return (
-        <div className="absolute h-full w-full bg-neutral-100">
-            <Navbar />
+        <div className="absolute h-full w-full">
             <div className="container mx-auto w-full md:w-[700px]">
 
                 <div className="register-style row bg-white" id="form">

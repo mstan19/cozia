@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AiFillHeart, AiFillShopping } from "react-icons/ai";
 import Accordion from "./Accordion";
+import { useQuery } from "@apollo/client";
+import { QUERY_CATEGORY } from "../../utils/queries";
 
 export default function Navbar() {
     const navRef = useRef();
 
     const titleRef = useRef();
-
+    const {  data: categoryData , loading: loadingCategory, error: errorCategory} = useQuery(QUERY_CATEGORY)
     const showNavbar = () => {
         navRef.current.classList.toggle("responsive_nav");
         titleRef.current.classList.toggle("invisible");
@@ -56,7 +58,7 @@ export default function Navbar() {
                         "Hoodies & Sweatshirts",
                         "Jeans",
                         "Pants",
-                        "T-Shirts"
+                        "Shirts"
                     ]
                 }
             ]
