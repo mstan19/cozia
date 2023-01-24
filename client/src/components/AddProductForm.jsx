@@ -34,16 +34,8 @@ const AddProductForm = () => {
 
   useEffect (() => {
     finalFormProductData = productFormData
-    // console.log(finalFormProductData)
   }, [productFormData])
 
-//   const matchItemToCategory = (gender, selectedCategory) => {
-//     if (gender === "men" && selectedCategory === "dresses" || "hoodiesAndSweatshirts" || "shortsAndSkirts" || "tops") {
-//        return  
-//     } else if (gender === "women" && selectedCategory === "pants" || "tShirt" ) {
-        
-//     }
-//   }
 
   const fixName = (inputField) => {
     if (categoryData) {
@@ -53,7 +45,6 @@ const AddProductForm = () => {
             if (ArrayString.length === 1) {
                 return upperCaseFirstLetter;
             }
-            // console.log (ArrayString.join(' '))
             return ArrayString.join(' ');
             
         }
@@ -126,7 +117,7 @@ const AddProductForm = () => {
   
   return (
     <div className="absolute h-full w-full">
-        <div className="container mx-auto w-full pt-0 md:w-[700px]">
+        <div className="container mx-auto w-full pt-0 md:w-[44rem]">
             <div className="registerStyle product-form row bg-white p-6" data-testid="product-form">
             <form onSubmit={onSubmit} className="p-0 m-0">
                 <div className="mb-4">

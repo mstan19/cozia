@@ -46,10 +46,11 @@ function App() {
                 <div className="page-container" data-testid="page-container">
                     <Navbar />
                     <Routes>
-                        <Route path="/" element={<Home />} />
+                        {/* <Route path="/" element={<Home />} /> */}
                         <Route path="/register" element={<Register />} />
                         {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-                        <Route path="/myproducts" element={<AddProductForm />} />
+                        <Route path="/" element={<AddProductForm />} />
+                        <Route path="/myproducts" element={<MyProduct />} />
                     </Routes>
                 </div>
             </Router>
