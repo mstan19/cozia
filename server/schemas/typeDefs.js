@@ -32,6 +32,7 @@ const typeDefs = gql`
         size: String
         color: String!
         countInStock: Int
+        createdAt: String
         reviews: [Reviews]
         totalRating: Int
         numberReviews: Int
@@ -80,6 +81,7 @@ const typeDefs = gql`
     type Query {
         me: User
         categories: [Category]
+        products: [Product]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
         order(_id: ID!): Order

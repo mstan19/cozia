@@ -101,3 +101,10 @@ nav {
 .register-style {
     font-weight: 500;
 }
+
+.color {
+    background-color: orange;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+}

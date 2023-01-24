@@ -3,13 +3,28 @@ import Navbar from "../../components/Navbar/Navbar";
 import HomeCard from "../../components/HomeCard/HomeCard";
 import whiteSweater from "../../assets/images/white-sweater.jpg";
 
+import { useQuery } from '@apollo/client';
+import { QUERY_PRODUCTS } from "../../utils/queries";
+
 const Home = () => {
+
+    // create query to find the newest arrival clothes
+    const { data } = useQuery(QUERY_PRODUCTS);
+    console.log(data);
+    // console.log(data.products[0].createdAt);
+    for (let i = 0; i < 16; i++) {
+        // if (data.products.)
+    }
+    
+
+    // TRENDING - most sold
+
     const categoryCards = [
         // TODO: grab from seeds
         {
-            category: "NEW ARRIVAL",
+            category: "NEW ARRIVALS",
             img: whiteSweater,
-            name: "name1",
+            name: "White Spring Breeze",
             price: 30,
             color: "red",
             sale: 0
@@ -17,7 +32,7 @@ const Home = () => {
         {
             category: "FEATURED",
             img: whiteSweater,
-            name: "name2",
+            name: "Autumn Red Beanie",
             price: 30,
             color: "red",
             sale: 0
@@ -25,7 +40,7 @@ const Home = () => {
         {
             category: "DEALS",
             img: whiteSweater,
-            name: "name3",
+            name: "Snow White Sweater",
             price: 30,
             color: "red",
             sale: 50
@@ -39,6 +54,7 @@ const Home = () => {
             sale: 0
         }
     ];
+
 
     return (
         <main className="w-full bg-neutral-400">

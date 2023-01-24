@@ -85,6 +85,8 @@ db.once("open", async () => {
                     color: "Black",
                     // gender: ,
                     countInStock: 5,
+                    createdAt: faker.date.past(),
+                    // createdAt: new Date().toLocaleString(),
                     reviews: [reviewSchema],
                     totalRating: 9.0,
                     numberReviews: 10,
