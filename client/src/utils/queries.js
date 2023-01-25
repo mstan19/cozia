@@ -80,6 +80,16 @@ query Categories {
   }
 `;
 
-// export const QUERY_ORDER = gql`
-
-// `;
+export const QUERY_MYPRODUCTS = gql`
+query GetMyProducts($userId: ID!) {
+  getMyProducts(userID: $userId) {
+    _id
+    price
+    productName
+    countInStock
+    color
+    image
+    size
+  }
+}
+`;

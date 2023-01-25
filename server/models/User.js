@@ -30,7 +30,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         minlength: 5
-    }
+    },
 });
 // pre hashing password
 userSchema.pre("save", async function (next) {

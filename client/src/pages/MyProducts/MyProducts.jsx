@@ -1,16 +1,86 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { QUERY_CATEGORY } from "../../utils/queries";
 import Auth from "../../utils/auth";
-import AddProductForm from "../../components/AddProductForm";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import samplePic from "../../assets/sample-image-ecommerce.jpg"
-
+import samplePic from "../../assets/sample-image-ecommerce.jpg";
+import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
 
 
 const MyProduct = () => {
+	const [userData, setUserData] = useState({});
+	const { data, loading } = useQuery(QUERY_ME);
+	const {  data: myProductsData, loading:myProductLoading, error:myProductError } = useQuery(QUERY_MYPRODUCTS, {
+		variables: { userId: data?.me._id },
+		});
+	const [width, setWidth] = useState(window.innerWidth);
+  	const breakpoint = 640; 
+// console.log(width) 
+	useEffect(() => {
+		const getUserData = async () => {
+		  try {
+			const token = Auth.loggedIn() ? Auth.getToken() : null;
+			// console.log("token", token)
+			if (!token) {
+			  return false;
+			}
+	
+			const user = await data?.me;
+			
+			console.log("user", user);
+			console.log("data", data);
+			setUserData(user);
+		  } catch (err) {
+			console.error(err);
+		  }
+		};
+	
+		getUserData();
+	  }, [data]);
+	// console.log(myProductsData?.getMyProducts)
+
+	useEffect(() => {
+		const handleResizeWindow = () => setWidth(window.innerWidth);
+			window.addEventListener("resize", handleResizeWindow);
+			return () => {
+			window.removeEventListener("resize", handleResizeWindow);
+			};
+	}, []);
+
+	function stockCheck(index) {
+		if (myProductsData?.getMyProducts[index].countInStock <= 3) {
+			return (<span className="text-red-600">{myProductsData?.getMyProducts[index].countInStock} left</span>);
+		} else {
+			return (<span className="text-black">{myProductsData?.getMyProducts[index].countInStock} left</span>);
+		}
+	}
+	
+	function wordApperance(input, index) {
+		let color = myProductsData?.getMyProducts[index].color;
+		let size = myProductsData?.getMyProducts[index].size;
+		if (input === "color") {
+			let upperCaseFirstLetterColor = color.charAt(0).toUpperCase() + color.slice(1);
+			let ArrayString = upperCaseFirstLetterColor.split(/(?=[A-Z])/);
+			if (ArrayString.length === 1) {
+				return upperCaseFirstLetterColor;
+			}
+			return ArrayString.join(' ')
+		} else if (input === "size") {
+			let upperCaseFirstLetterSize = size.charAt(0).toUpperCase() + size.slice(1);
+			let ArrayString = upperCaseFirstLetterSize.split(/(?=[A-Z])/);
+			if (ArrayString.length === 1) {
+				return upperCaseFirstLetterSize;
+			}
+			return ArrayString.join(' ')
+		}
+		
+		
+	}
+	
 	const nav = useNavigate();
+	function handleInputChange() {
+		console.log("change input");
+	}
 
 	function handleAddProductBtn() {
 		console.log("adding product");
@@ -19,6 +89,7 @@ const MyProduct = () => {
 
 	function handleEditProductBtn () {
 		console.log("edit product");
+		
 	}
 
 	function handleDeleteProductBtn () {
@@ -28,55 +99,74 @@ const MyProduct = () => {
   return (
 	<div className="absolute bg-white h-full w-full">
 		<SearchBar />
-		{/* <div className="inline-block" id="my-product-header"> */}
-			{/* Add product Card */}
-			<button className="add-product row bg-green-600 w-1/3 rounded-full hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none" id="add-product-btn"  onClick={handleAddProductBtn} type="submit">Add Product</button>
 			
-			{/* Filter */}
-			<div>
-				<div>filter title</div>
-				<button>
-					<svg xmlns="http://www.w3.org/2000/svg" className="flex justify-end icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-						<circle cx="14" cy="6" r="2" />
-						<line x1="4" y1="6" x2="12" y2="6" />
-						<line x1="16" y1="6" x2="20" y2="6" />
-						<circle cx="8" cy="12" r="2" />
-						<line x1="4" y1="12" x2="6" y2="12" />
-						<line x1="10" y1="12" x2="20" y2="12" />
-						<circle cx="17" cy="18" r="2" />
-						<line x1="4" y1="18" x2="15" y2="18" />
-						<line x1="19" y1="18" x2="20" y2="18" />
-					</svg>
-				</button>
-			{/* </div> */}
+		<div className="flex justify-between sm:grid-cols-3 gap-x-8 gap-y-4" id="my-product-header">
+		{/* Add product Card */}
+			<button className="add-product row inline-block w-1/4 ml-10 mt-2 rounded-lg text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800" id="add-product-btn"  onClick={handleAddProductBtn} type="submit">Add Product</button>
+		{/* Filter */}
+			<div className="inline-block mt-8 ml-9 transform -translate-x-1/2 -translate-y-1/2">My Products</div>
+			<div className="dropdown-filter py-3 pr-5">
+				<button className="inline-block mr-2">
+					
+				<div>
+					{/* <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="filter" onChange={handleInputChange} >
+						<option value="recentlyAdd">Recently Add</option>
+						<option value="mostSold">Most Sold</option>
+						<option value="stockLtoH">Stock (Low to High)</option>
+						<option value="priceLtoH">Price (Low to High)</option>
+						<option value="priceHtoL">Price (High to Low)</option>
+					</select> */}
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+							<circle cx="14" cy="6" r="2" />
+							<line x1="4" y1="6" x2="12" y2="6" />
+							<line x1="16" y1="6" x2="20" y2="6" />
+							<circle cx="8" cy="12" r="2" />
+							<line x1="4" y1="12" x2="6" y2="12" />
+							<line x1="10" y1="12" x2="20" y2="12" />
+							<circle cx="17" cy="18" r="2" />
+							<line x1="4" y1="18" x2="15" y2="18" />
+							<line x1="19" y1="18" x2="20" y2="18" />
+						</svg>
+					</div>
+				</div>
+					
+				</button>	
+			</div>
 			
 		</div>
-		
-		
+			
 		<div className="container mx-auto pt-2">
 
         	{/* Gallery product Card */}
-			<div className="my-product-cards flex flex-wrap w-full grid md:grid-cols-3 gap-x-8 gap-y-4" id="product-cards">
-				<div className="my-product-card px-2 border border-black pt-3" id="product-card">
+			<div className="my-product-cards flex flex-wrap w-full grid sm:grid-cols-3 gap-x-8 gap-y-4" id="product-cards">
+			{myProductsData && myProductsData.getMyProducts.map((product, index) => { 
+				return (<div className="my-product-card px-2 pt-3" key={product._id} id="product-card">
 					<div className="flex justify-center">
 						<img src={samplePic} alt="product-image" id="product-image" style={{width: 300, height: 300}}/>
 					</div>
 
 					<div className="content p-5 columns-2">
-						<h3 className="text-lg">Product Name</h3>
+						<h3 className="text-lg">{product.productName}</h3>
 							<div className="">
-								<p>Price: ${}</p>
-								<p>Color: {}</p>
-								<p>Size: {}</p>
+								<p>Price: ${product.price}</p>
+								<p>Stock: {stockCheck(index)}</p>
+								
+								<p>Color: {wordApperance("color", index)}</p>
+								<p>Size: {wordApperance("size", index)}</p>
 							</div>
 							<div className="grid grid-rows-1 flex-nowrap justify-end py-3">
-								<button className="bg-blue-500 rounded-full my-0.5 hover:bg-blue-500 text-white py-2 px-4 focus:outline-none" id="edit-product-btn"  onClick={handleEditProductBtn} type="submit">Edit</button>
-								<button className=" bg-red-600 rounded-full my-0.5 hover:bg-red-600 text-white py-2 px-4 focus:outline-none" id="delete-product-btn"  onClick={handleDeleteProductBtn} type="submit">Delete</button>
+								<button className="bg-blue-500 rounded-full my-0.5 hover:bg-blue-500 text-white py-2 px-4 focus:outline-none" id="edit-product-btn" onClick={handleEditProductBtn} type="submit">Edit</button>
+								<button className=" bg-red-600 rounded-full my-0.5 hover:bg-red-600 text-white py-2 px-4 focus:outline-none" id="delete-product-btn" onClick={handleDeleteProductBtn} type="submit">Delete</button>
 							</div>
 					</div>
-				</div>
+					{ width < breakpoint ? (
+							<hr className="my-8 mx-14 border-0 h-0.5 w-2/3 my-6 bg-neutral-300 border-0 " />
 
+                        ) : null}
+				</div>
+			)})}
 			</div>
 
 		</div>       

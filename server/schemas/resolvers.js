@@ -16,6 +16,9 @@ const resolvers = {
             }
             throw new AuthenticationError("You need to be logged in!");
         },
+        getMyProducts:async (parent, { userID }) => {
+            return await Product.find({ user: userID });;
+        },
         categories: async () => {
             return await Category.find();
         },

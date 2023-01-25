@@ -37,6 +37,7 @@ const typeDefs = gql`
         totalRating: Int
         numberReviews: Int
         category: Category!
+        user: User!
     }
 
     type ShippingAddress {
@@ -81,6 +82,7 @@ const typeDefs = gql`
     #Queries
     type Query {
         me: User
+        getMyProducts(userID: ID!): [Product]
         categories: [Category]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
@@ -97,6 +99,9 @@ const typeDefs = gql`
     input CategoryInput {
         name: String
     }
+    input userInput {
+        email: String
+    }
 
     input productInput {
         productName: String!
@@ -112,6 +117,7 @@ const typeDefs = gql`
         totalRating: Int
         numberReviews: Int
         category: CategoryInput
+        user: userInput
     }
 
     #Mutation
