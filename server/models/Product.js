@@ -45,7 +45,7 @@ const productSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (timestamp) => dateFormat(timestamp)
+        // get: (timestamp) => dateFormat(timestamp)
     },
     reviews: [
         {
@@ -65,7 +65,7 @@ const productSchema = new Schema({
             createdAt: {
                 type: Date,
                 default: Date.now,
-                get: (timestamp) => dateFormat(timestamp)
+                // get: (timestamp) => dateFormat(timestamp)
             }
         }
     ],

@@ -5,28 +5,37 @@ import whiteSweater from "../../assets/images/white-sweater.jpg";
 
 import { useQuery } from '@apollo/client';
 import { QUERY_PRODUCTS } from "../../utils/queries";
+import { sortDateDesc } from "../../utils/helpers";
 
 const Home = () => {
 
-    // create query to find the newest arrival clothes
-    const { data } = useQuery(QUERY_PRODUCTS);
-    console.log(data);
-    // console.log(data.products[0].createdAt);
-    for (let i = 0; i < 16; i++) {
-        // if (data.products.)
+    // Create query to find the newest arrival clothes
+    const { data, loading, error } = useQuery(QUERY_PRODUCTS);
+
+    // Default value - blank card with default values in case no data loads or there just no clothes
+    var latestProduct;
+
+    if (!loading) {
+        // Copies the data.product to a new array, sorts them, and 
+        var products = [...data.products];
+        sortDateDesc(products);
+        latestProduct = products[0];
     }
-    
 
-    // TRENDING - most sold
-
+    /*
+     TODO:
+     Featured card - selected for the week
+     Deals card - most discounted clothes
+     Trending card - most sold
+    */
     const categoryCards = [
         // TODO: grab from seeds
         {
             category: "NEW ARRIVALS",
-            img: whiteSweater,
-            name: "White Spring Breeze",
-            price: 30,
-            color: "red",
+            img: latestProduct.image,
+            name: latestProduct.productName,
+            price: latestProduct.price,
+            color: latestProduct.color,
             sale: 0
         },
         {
