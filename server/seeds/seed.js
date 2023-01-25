@@ -112,7 +112,7 @@ db.once("open", async () => {
                     size: "small",
                     color: "black",
                     // gender: ,
-                    countInStock: 4,
+                    countInStock: 3,
                     reviews: [reviewSchema],
                     totalRating: 9.0,
                     numberReviews: 10,

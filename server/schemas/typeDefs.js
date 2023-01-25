@@ -123,6 +123,7 @@ const typeDefs = gql`
     #Mutation
 
     type Mutation {
+        requirePassword( password: String!): Auth
         login(email: String!, password: String!): Auth
         addUser(
             firstName: String!

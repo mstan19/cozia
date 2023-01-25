@@ -11,7 +11,7 @@ const resolvers = {
             if (context.user) {
                 const userData = await User.findOne({
                     _id: context.user._id,
-                }).select("-__v -password");
+                }).select("-__v ");
                 return userData;
             }
             throw new AuthenticationError("You need to be logged in!");
@@ -57,6 +57,17 @@ const resolvers = {
         },
     },
     Mutation: {
+        // requirePassword: async (parent, args, context) => {
+        //     // user Bearer {token}
+        //     // select returns everything exept for the password and version
+        //     if (context.user) {
+        //         const userData = await User.findOne({
+        //             _id: context.user._id,
+        //         }).select("-__v ");
+        //         return userData;
+        //     }
+        //     throw new AuthenticationError("You need to be logged in!");
+        // },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
