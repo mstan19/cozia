@@ -8,12 +8,12 @@ const SearchBar = () => {
   
   return (
 	<div className="search-bar-component bg-neutral-300" id="serach-bar">
-		<div className="flex w-full py-3 ">
-			<div className="relative justify-around">
+		<div className="flex py-3 ">
+			<div className="relative w-full px-6">
 				<div className="absolute">
 					<button> <FontAwesomeIcon icon={faMagnifyingGlass} className='search-icons px-2' /></button>
 				</div>
-				<input type="text" className="h-7 rounded-full px-8 focus:shadow focus:outline-none" placeholder="Search"></input>
+				<input type="text" className="h-7 rounded-full px-8 focus:shadow focus:outline-none w-full" placeholder="Search"></input>
 			</div>
 		</div>
     </div>

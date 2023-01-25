@@ -5,14 +5,17 @@ import Auth from "../../utils/auth";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
+import { REMOVE_PRODUCT } from "../../utils/mutations"
 
 
 const MyProduct = () => {
 	const [userData, setUserData] = useState({});
+	const [productData, setProductData] = useState({});
 	const { data, loading } = useQuery(QUERY_ME);
 	const {  data: myProductsData, loading:myProductLoading, error:myProductError } = useQuery(QUERY_MYPRODUCTS, {
 		variables: { userId: data?.me._id },
 		});
+	const [removeProduct] = useMutation(REMOVE_PRODUCT);
 	const [width, setWidth] = useState(window.innerWidth);
   	const breakpoint = 640; 
 // console.log(width) 
@@ -37,7 +40,7 @@ const MyProduct = () => {
 	
 		getUserData();
 	  }, [data]);
-	// console.log(myProductsData?.getMyProducts)
+	console.log(myProductsData?.getMyProducts)
 
 	useEffect(() => {
 		const handleResizeWindow = () => setWidth(window.innerWidth);
@@ -74,7 +77,6 @@ const MyProduct = () => {
 			return ArrayString.join(' ')
 		}
 		
-		
 	}
 	
 	const nav = useNavigate();
@@ -92,7 +94,27 @@ const MyProduct = () => {
 		
 	}
 
-	function handleDeleteProductBtn () {
+	const handleDeleteProductBtn = async (productId) => {
+		const token = Auth.loggedIn() ? Auth.getToken() : null;
+    // console.log("token", token)
+		if (!token) {
+		throw new Error("please login");
+		}
+
+		try {
+		console.log("product id:", productId);
+		console.log("myProductsData", myProductsData);
+		const updatedProducts = await removeProduct({ variables: { productId: productId } });
+		
+		if (!productId) {
+			throw new Error("there is no product with that id");
+		}
+
+		setProductData(updatedProducts);
+		window.location.reload();
+		} catch (err) {
+		console.error(err);
+		}
 		console.log("delete product");
 	}
   
@@ -142,7 +164,7 @@ const MyProduct = () => {
         	{/* Gallery product Card */}
 			<div className="my-product-cards flex flex-wrap w-full grid sm:grid-cols-3 gap-x-8 gap-y-4" id="product-cards">
 			{myProductsData && myProductsData.getMyProducts.map((product, index) => { 
-				return (<div className="my-product-card px-2 pt-3" key={product._id} id="product-card">
+				return (<div className="my-product-card px-2 pt-3" key={product._id} >
 					<div className="flex justify-center">
 						<img src={samplePic} alt="product-image" id="product-image" style={{width: 300, height: 300}}/>
 					</div>
@@ -157,8 +179,8 @@ const MyProduct = () => {
 								<p>Size: {wordApperance("size", index)}</p>
 							</div>
 							<div className="grid grid-rows-1 flex-nowrap justify-end py-3">
-								<button className="bg-blue-500 rounded-full my-0.5 hover:bg-blue-500 text-white py-2 px-4 focus:outline-none" id="edit-product-btn" onClick={handleEditProductBtn} type="submit">Edit</button>
-								<button className=" bg-red-600 rounded-full my-0.5 hover:bg-red-600 text-white py-2 px-4 focus:outline-none" id="delete-product-btn" onClick={handleDeleteProductBtn} type="submit">Delete</button>
+								<button className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 text-white py-2 px-5 focus:outline-none" id="edit-product-btn" onClick={() => handleEditProductBtn()} type="submit">Edit</button>
+								<button className=" bg-red-600 rounded-lg my-0.5 hover:bg-red-600 text-white py-2 px-5 focus:outline-none" id="delete-product-btn" onClick={() => handleDeleteProductBtn(product._id)} type="submit">Delete</button>
 							</div>
 					</div>
 					{ width < breakpoint ? (
