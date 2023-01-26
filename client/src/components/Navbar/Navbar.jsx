@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AiFillHeart, AiFillShopping } from "react-icons/ai";
-import Accordion from "./Accordion";
+import Accordion from "../Accordion/Accordion";
 
 export default function Navbar() {
     const navRef = useRef();

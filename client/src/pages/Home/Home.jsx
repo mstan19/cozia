@@ -10,29 +10,42 @@ import { sortDateDesc } from "../../utils/helpers";
 const Home = () => {
 
     // Create query to find the newest arrival clothes
-    const { data, loading, error } = useQuery(QUERY_PRODUCTS);
+    const { loading , data } = useQuery(QUERY_PRODUCTS);
 
     // Default value - blank card with default values in case no data loads or there just no clothes
     var latestProduct;
 
     if (!loading) {
-        // Copies the data.product to a new array, sorts them, and 
+        // Copies the data.product to a new array
         var products = [...data.products];
+        console.log(products);
+        var randomNum = Math.floor(Math.random() * products.length);
+        var featuredProduct = products[randomNum];
+        console.log(products[randomNum]);
+        console.log(featuredProduct);
+        console.log(featuredProduct.productName);
+
+
+        // Sorts the array by date in descending order
         sortDateDesc(products);
         latestProduct = products[0];
+        console.log(latestProduct);
+
+        
     }
 
-    /*
-     TODO:
-     Featured card - selected for the week
-     Deals card - most discounted clothes
-     Trending card - most sold
-    */
+    /***
+     * TODO:
+     * Featured card - selected for the week
+     * Deals card - most discounted clothes
+     * Trending card - most sold
+     */
+
     const categoryCards = [
         // TODO: grab from seeds
         {
             category: "NEW ARRIVALS",
-            img: latestProduct.image,
+            img: whiteSweater,
             name: latestProduct.productName,
             price: latestProduct.price,
             color: latestProduct.color,
@@ -41,9 +54,9 @@ const Home = () => {
         {
             category: "FEATURED",
             img: whiteSweater,
-            name: "Autumn Red Beanie",
-            price: 30,
-            color: "red",
+            name: featuredProduct.productName + 1,
+            price: featuredProduct.price,
+            color: featuredProduct.color,
             sale: 0
         },
         {
