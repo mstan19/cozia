@@ -7,12 +7,13 @@ import DeleteModal from "../../components/Modal/DeleteModal";
 import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
 import { REMOVE_PRODUCT } from "../../utils/mutations";
+import filterIcon from "../../assets/filter.png";
 // import { LOGIN_USER } from "../../utils/mutations";
 
 
 const MyProduct = () => {
 	const [userData, setUserData] = useState({});
-	const [productData, setProductData] = useState({});
+ 
 	const { data, loading } = useQuery(QUERY_ME);
 	const {  data: myProductsData, loading:myProductLoading, error:myProductError } = useQuery(QUERY_MYPRODUCTS, {
 		variables: { userId: data?.me?._id },
@@ -63,7 +64,7 @@ const MyProduct = () => {
 		}
 	}
 	
-	function wordApperance(input, index) {
+	function wordAppearance(input, index) {
 		let color = myProductsData?.getMyProducts[index].color;
 		let size = myProductsData?.getMyProducts[index].size;
 		if (input === "color") {
@@ -141,32 +142,20 @@ const MyProduct = () => {
 		{/* Filter */}
 			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-block">My Products</div>
 			<div className="dropdown-filter py-3 pr-5">
-				<button className="inline-block mr-2">
-					
-				<div>
-					{/* <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="filter" onChange={handleInputChange} >
-						<option value="recentlyAdd">Recently Add</option>
-						<option value="mostSold">Most Sold</option>
-						<option value="stockLtoH">Stock (Low to High)</option>
-						<option value="priceLtoH">Price (Low to High)</option>
-						<option value="priceHtoL">Price (High to Low)</option>
-					</select> */}
+				<button className="inline-block mr-2">		
 					<div>
-						<svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-							<circle cx="14" cy="6" r="2" />
-							<line x1="4" y1="6" x2="12" y2="6" />
-							<line x1="16" y1="6" x2="20" y2="6" />
-							<circle cx="8" cy="12" r="2" />
-							<line x1="4" y1="12" x2="6" y2="12" />
-							<line x1="10" y1="12" x2="20" y2="12" />
-							<circle cx="17" cy="18" r="2" />
-							<line x1="4" y1="18" x2="15" y2="18" />
-							<line x1="19" y1="18" x2="20" y2="18" />
-						</svg>
+						<select className="w-full block appearance-none bg-white px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="filter" onChange={handleInputChange} >
+							<option value="recentlyAdd">Recently Add</option>
+							<option value="mostSold">Most Sold</option>
+							<option value="stockLtoH">Stock (Low to High)</option>
+							<option value="priceLtoH">Price (Low to High)</option>
+							<option value="priceHtoL">Price (High to Low)</option>
+						</select>
 					</div>
-				</div>
-				</button>	
+					<div>
+						<img src={filterIcon} alt="filter-image" id="filter-image" className="w-7" />	
+					</div>
+				</button>
 			</div>
 			
 		</div>
@@ -187,8 +176,8 @@ const MyProduct = () => {
 							<div className="">
 								<p>Price: ${product.price}</p>
 								<p>Stock: {stockCheck(index)}</p>
-								<p>Color: {wordApperance("color", index)}</p>
-								<p>Size: {wordApperance("size", index)}</p>
+								<p>Color: {wordAppearance("color", index)}</p>
+								<p>Size: {wordAppearance("size", index)}</p>
 							</div>
 							<div className="grid grid-rows-1 flex-nowrap justify-end py-3">
 								<button className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 text-white py-2 px-5 focus:outline-none" id="edit-product-btn" onClick={() => handleEditProductBtn()} type="submit">Edit</button>

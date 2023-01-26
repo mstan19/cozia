@@ -7,7 +7,7 @@ const SearchBar = () => {
  
   
   return (
-	<div className="search-bar-component bg-neutral-300" id="serach-bar">
+	<div className="search-bar-component bg-neutral-300" id="search-bar">
 		<div className="flex py-3 ">
 			<div className="relative w-full px-6">
 				<div className="absolute">
