@@ -15,7 +15,7 @@ const MyProduct = () => {
 	const [productData, setProductData] = useState({});
 	const { data, loading } = useQuery(QUERY_ME);
 	const {  data: myProductsData, loading:myProductLoading, error:myProductError } = useQuery(QUERY_MYPRODUCTS, {
-		variables: { userId: data?.me._id },
+		variables: { userId: data?.me?._id },
 		});
 	const [removeProduct] = useMutation(REMOVE_PRODUCT);
 	const [modalOpen, setModalOpen] = useState(false);
@@ -23,6 +23,7 @@ const MyProduct = () => {
 	const [width, setWidth] = useState(window.innerWidth);
   	const breakpoint = 640; 
 // console.log(width) 
+
 	useEffect(() => {
 		const getUserData = async () => {
 		  try {
@@ -90,7 +91,7 @@ const MyProduct = () => {
 	function handleAddProductBtn() {
 		// console.log("adding product");
 		// console.log(data?.me._id)
-		nav('/')
+		nav('/addproduct')
 	  }
 
 	function handleEditProductBtn () {
