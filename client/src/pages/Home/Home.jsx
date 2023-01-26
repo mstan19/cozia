@@ -1,11 +1,10 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import HomeCard from "../../components/HomeCard/HomeCard";
 import whiteSweater from "../../assets/images/white-sweater.jpg";
 
 import { useQuery } from '@apollo/client';
 import { QUERY_PRODUCTS } from "../../utils/queries";
-import { sortDateDesc, sortSalesDesc } from "../../utils/helpers";
+import { sortDateDesc, sortDiscountDesc } from "../../utils/helpers";
 
 const Home = () => {
 
@@ -34,10 +33,10 @@ const Home = () => {
         latestProduct = products[0];
         // console.log(latestProduct);
 
-        // Sorts array by sale in descending order
+        // Sorts array by discount in descending order
         console.log("testing");
-        sortSalesDesc(products);
-        console.log(sortSalesDesc(products));
+        sortDiscountDesc(products);
+        console.log(sortDiscountDesc(products));
         discountProduct = products[0];
         console.log(discountProduct);
         
@@ -58,7 +57,7 @@ const Home = () => {
             name: latestProduct.productName,
             price: latestProduct.price.toFixed(2),
             color: latestProduct.color,
-            sale: latestProduct.sale,
+            discount: latestProduct.discount,
         },
         {
             category: "FEATURED",
@@ -66,7 +65,7 @@ const Home = () => {
             name: featuredProduct.productName + 1,
             price: featuredProduct.price.toFixed(2),
             color: featuredProduct.color,
-            sale: featuredProduct.sale,
+            discount: 9,
         },
         {
             category: "DEALS",
@@ -74,7 +73,7 @@ const Home = () => {
             name: discountProduct.productName,
             price: discountProduct.price.toFixed(2),
             color: discountProduct.color,
-            sale: discountProduct.sale
+            discount: discountProduct.discount
         },
         {
             category: "TRENDING",
@@ -82,17 +81,16 @@ const Home = () => {
             name: "name4",
             price: 30,
             color: "red",
-            sale: 0
+            discount: 0
         }
     ];
 
 
     return (
         <main className="w-full bg-neutral-400">
-            <Navbar />
             {categoryCards.length > 0 &&
                 categoryCards.map((card) => {
-                    // consider clothes on sale
+                    // consider clothes on discount
                     return (
                         <HomeCard
                             key={card.name}
@@ -101,7 +99,7 @@ const Home = () => {
                             name={card.name}
                             price={card.price}
                             color={card.color}
-                            sale={card.sale}
+                            discount={card.discount}
                         />
                     );
                 })}

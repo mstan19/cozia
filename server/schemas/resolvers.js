@@ -112,13 +112,9 @@ const resolvers = {
                 throw new AuthenticationError("Need password");
             }
             //   console.log("this is before the return")
-            return { token, user };
-        },
-        addProduct: async (
-            parent,
-            { productsByCategory, productData },
-            context
-        ) => {
+              return { token, user };
+            },
+        addProduct: async ( parent, { productsByCategory, productData }, context ) => {
             productData["category"] = productsByCategory;
             // console.log(productData)
             const newProduct = await Product.create(productData);

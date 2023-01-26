@@ -31,7 +31,7 @@ const typeDefs = gql`
         description: String
         image: String
         price: Float!
-        sale: Int!
+        discount: Float!
         gender: String!
         size: String
         color: String!
@@ -56,6 +56,7 @@ const typeDefs = gql`
         image: String!
         quantity: String!
         price: Float!
+        discount: Float!
         product: [Product]
     }
 
@@ -107,7 +108,7 @@ const typeDefs = gql`
         description: String
         image: String
         price: Float
-        sale: Int
+        discount: Float!
         size: String
         gender: String
         color: String
