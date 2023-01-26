@@ -3,7 +3,7 @@ import { createElement } from 'react';
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { ADD_PRODUCT } from "../utils/mutations";
-import { QUERY_CATEGORY } from "../utils/queries";
+import { QUERY_ME, QUERY_CATEGORY } from "../utils/queries";
 import Auth from "../utils/auth";
 
 const AddProductForm = () => {
@@ -21,6 +21,9 @@ const AddProductForm = () => {
   });
   let finalFormProductData = productFormData;
   const [addProduct, { error, data }] = useMutation(ADD_PRODUCT);
+	const [userData, setUserData] = useState({});
+	const { data:queryDataMe, loading } = useQuery(QUERY_ME);
+
   const {  data: categoryData , loading: loadingCategory, error: errorCategory} = useQuery(QUERY_CATEGORY)
   
   const nav = useNavigate(); 
@@ -34,8 +37,38 @@ const AddProductForm = () => {
 
   useEffect (() => {
     finalFormProductData = productFormData
+    // console.log(finalFormProductData)
   }, [productFormData])
 
+//   const matchItemToCategory = (gender, selectedCategory) => {
+//     if (gender === "men" && selectedCategory === "dresses" || "hoodiesAndSweatshirts" || "shortsAndSkirts" || "tops") {
+//        return  
+//     } else if (gender === "women" && selectedCategory === "pants" || "tShirt" ) {
+        
+//     }
+//   }
+
+    useEffect(() => {
+        const getUserData = async () => {
+        try {
+            const token = Auth.loggedIn() ? Auth.getToken() : null;
+            // console.log("token", token)
+            if (!token) {
+            return false;
+            }
+
+            const user = await queryDataMe?.me;
+            
+            console.log("user", user);
+            console.log("queryDataMe", queryDataMe);
+            setUserData(user);
+        } catch (err) {
+            console.error(err);
+        }
+        };
+
+        getUserData();
+    }, [queryDataMe]);
 
   const fixName = (inputField) => {
     if (categoryData) {
@@ -45,6 +78,7 @@ const AddProductForm = () => {
             if (ArrayString.length === 1) {
                 return upperCaseFirstLetter;
             }
+            // console.log (ArrayString.join(' '))
             return ArrayString.join(' ');
             
         }
@@ -54,6 +88,9 @@ const AddProductForm = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try { 
+console.log(finalFormProductData)
+let userId = userData._id
+console.log(userId)
 
       let oneCategory = categoryData.categories.find(item => item.name === finalFormProductData.category);
       let categoryID = oneCategory?._id ? oneCategory._id : "";
@@ -64,7 +101,7 @@ const AddProductForm = () => {
    
     // console.log("finalFormProductData", finalFormProductData);
       await addProduct({
-        variables: {productData: finalFormProductData, productsByCategory: categoryID}
+        variables: {productData: finalFormProductData, productsByCategory: categoryID, userId: userId}
       });
       nav("/dashboard");
     } catch (e) {

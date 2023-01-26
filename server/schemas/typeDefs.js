@@ -140,7 +140,7 @@ const typeDefs = gql`
             username: String
         ): User
         removeUser(userId: ID!): User
-        addProduct(productsByCategory: ID!, productData: productInput!): Product
+        addProduct(productsByCategory: ID!, productData: productInput!, userId: ID!): Product
         removeProduct(productId: ID!): Product
         updateProduct(
             productsByCategory: ID!

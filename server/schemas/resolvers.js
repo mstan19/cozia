@@ -116,9 +116,10 @@ const resolvers = {
             //   console.log("this is before the return")
               return { token, user };
             },
-        addProduct: async ( parent, { productsByCategory, productData }, context ) => {
+        addProduct: async ( parent, { productsByCategory, productData, userId }, context ) => {
             productData["category"] = productsByCategory;
             // console.log(productData)
+            productData["user"] = userId;
             const newProduct = await Product.create(productData);
 
             return newProduct;

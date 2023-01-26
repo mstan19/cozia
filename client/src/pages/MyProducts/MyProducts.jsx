@@ -88,7 +88,8 @@ const MyProduct = () => {
 	}
 
 	function handleAddProductBtn() {
-		console.log("adding product");
+		// console.log("adding product");
+		// console.log(data?.me._id)
 		nav('/')
 	  }
 
