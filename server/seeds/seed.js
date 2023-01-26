@@ -86,6 +86,7 @@ db.once("open", async () => {
                     // gender: ,
                     countInStock: 5,
                     createdAt: faker.date.past(),
+                    sale: Math.floor(Math.random() * 100),
                     // createdAt: new Date(),
                     reviews: [reviewSchema],
                     totalRating: 9.0,

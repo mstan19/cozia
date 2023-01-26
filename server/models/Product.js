@@ -20,6 +20,10 @@ const productSchema = new Schema({
         required: true,
         min: 0.99
     },
+    sale: {
+        type: Number,
+        required: true,
+    },
     gender: {
         type: String,
         enum: ["Women", "Men"],

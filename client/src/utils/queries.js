@@ -20,6 +20,7 @@ export const QUERY_PRODUCTS = gql`
             color
             image
             price
+            sale
         }
     }
 `;
@@ -32,6 +33,7 @@ export const GET_ONE_PRODUCT = gql`
             description
             image
             price
+            sale
             gender
             size
             color
@@ -62,6 +64,7 @@ export const PRODUCTS_BY_CATEGORYID = gql`
             description
             image
             price
+            sale
             gender
             size
             color

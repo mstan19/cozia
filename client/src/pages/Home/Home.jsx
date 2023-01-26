@@ -5,7 +5,7 @@ import whiteSweater from "../../assets/images/white-sweater.jpg";
 
 import { useQuery } from '@apollo/client';
 import { QUERY_PRODUCTS } from "../../utils/queries";
-import { sortDateDesc } from "../../utils/helpers";
+import { sortDateDesc, sortSalesDesc } from "../../utils/helpers";
 
 const Home = () => {
 
@@ -14,23 +14,32 @@ const Home = () => {
 
     // Default value - blank card with default values in case no data loads or there just no clothes
     var latestProduct;
+    var discountProduct;
 
     if (!loading) {
         // Copies the data.product to a new array
         var products = [...data.products];
         console.log(products);
+
+        // Featured clothes
         var randomNum = Math.floor(Math.random() * products.length);
         var featuredProduct = products[randomNum];
-        console.log(products[randomNum]);
-        console.log(featuredProduct);
-        console.log(featuredProduct.productName);
+        // console.log(products[randomNum]);
+        // console.log(featuredProduct);
+        // console.log(featuredProduct.productName);
 
 
         // Sorts the array by date in descending order
         sortDateDesc(products);
         latestProduct = products[0];
-        console.log(latestProduct);
+        // console.log(latestProduct);
 
+        // Sorts array by sale in descending order
+        console.log("testing");
+        sortSalesDesc(products);
+        console.log(sortSalesDesc(products));
+        discountProduct = products[0];
+        console.log(discountProduct);
         
     }
 
@@ -47,25 +56,25 @@ const Home = () => {
             category: "NEW ARRIVALS",
             img: whiteSweater,
             name: latestProduct.productName,
-            price: latestProduct.price,
+            price: latestProduct.price.toFixed(2),
             color: latestProduct.color,
-            sale: 0
+            sale: latestProduct.sale,
         },
         {
             category: "FEATURED",
             img: whiteSweater,
             name: featuredProduct.productName + 1,
-            price: featuredProduct.price,
+            price: featuredProduct.price.toFixed(2),
             color: featuredProduct.color,
-            sale: 0
+            sale: featuredProduct.sale,
         },
         {
             category: "DEALS",
             img: whiteSweater,
-            name: "Snow White Sweater",
-            price: 30,
-            color: "red",
-            sale: 50
+            name: discountProduct.productName,
+            price: discountProduct.price.toFixed(2),
+            color: discountProduct.color,
+            sale: discountProduct.sale
         },
         {
             category: "TRENDING",

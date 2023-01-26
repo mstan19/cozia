@@ -24,6 +24,7 @@ export const ADD_PRODUCT =gql`
         description
         image
         price
+        sale
         gender
         size
         color
@@ -56,6 +57,7 @@ mutation UpdateProduct($productsByCategory: ID!, $productId: ID!, $productData: 
       description
       image
       price
+      sale
       gender
       size
       color
