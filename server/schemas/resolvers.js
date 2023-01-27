@@ -11,10 +11,13 @@ const resolvers = {
             if (context.user) {
                 const userData = await User.findOne({
                     _id: context.user._id,
-                }).select("-__v -password");
+                }).select("-__v ");
                 return userData;
             }
             throw new AuthenticationError("You need to be logged in!");
+        },
+        getMyProducts:async (parent, { userID }) => {
+            return await Product.find({ user: userID });;
         },
         categories: async () => {
             return await Category.find();
@@ -54,6 +57,17 @@ const resolvers = {
         },
     },
     Mutation: {
+        // requirePassword: async (parent, args, context) => {
+        //     // user Bearer {token}
+        //     // select returns everything exept for the password and version
+        //     if (context.user) {
+        //         const userData = await User.findOne({
+        //             _id: context.user._id,
+        //         }).select("-__v ");
+        //         return userData;
+        //     }
+        //     throw new AuthenticationError("You need to be logged in!");
+        // },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -102,9 +116,10 @@ const resolvers = {
             //   console.log("this is before the return")
               return { token, user };
             },
-        addProduct: async ( parent, { productsByCategory, productData }, context ) => {
+        addProduct: async ( parent, { productsByCategory, productData, userId }, context ) => {
             productData["category"] = productsByCategory;
             // console.log(productData)
+            productData["user"] = userId;
             const newProduct = await Product.create(productData);
 
             return newProduct;

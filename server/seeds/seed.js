@@ -61,6 +61,7 @@ db.once("open", async () => {
             // console.log(user);
             const newUser = await User.create(user);
             userList.push(newUser);
+
             for (let k = 0; k < 1; k++) {
                 let order = {
                     user: newUser._id,
@@ -95,14 +96,14 @@ db.once("open", async () => {
 
         //creating products
         for (let l = 0; l < newCategory.length; l++) {
-            for (let m = 0; m < 1; m++) {
+            for (let m = 0; m < 3; m++) {
                 let reviewSchema = {
                     user: userList[0]._id,
                     rating: 9.0,
                     comment: "cool",
                     createdAt: "1/1"
                 };
-
+console.log(typeof userList[l]._id)
                 let product = {
                     productName: faker.commerce.product(),
                     description: faker.commerce.productDescription(),
@@ -111,11 +112,12 @@ db.once("open", async () => {
                     size: "small",
                     color: "black",
                     // gender: ,
-                    countInStock: 5,
+                    countInStock: 3,
                     reviews: [reviewSchema],
                     totalRating: 9.0,
                     numberReviews: 10,
-                    category: newCategory[l]._id
+                    category: newCategory[l]._id,
+                    user: userList[l]._id,
                 };
                 // console.log("$$", userList);
                 const newProduct = await Product.create(product);
