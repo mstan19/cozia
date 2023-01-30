@@ -5,6 +5,7 @@ import { AiFillHeart, AiFillShopping } from "react-icons/ai";
 import Accordion from "./Accordion";
 import { useQuery } from "@apollo/client";
 import { QUERY_CATEGORY } from "../../utils/queries";
+import Auth from "../../utils/auth";
 
 export default function Navbar() {
     const navRef = useRef();
@@ -85,6 +86,7 @@ export default function Navbar() {
                 </button>
                 <h2 className="nav-header flex items-center">Menu</h2>
                 {/* If menu item has subcategories, then make it an accordion; else, menu item becomes normal nav-link */}
+                {/* {Auth.loggedIn() ? ( */}
                 {navList.length > 0 &&
                     navList.map((menu) => {
                         if (Object.hasOwn(menu, "subcategories")) {
@@ -103,6 +105,7 @@ export default function Navbar() {
                             );
                         }
                     })}
+                    {/* ) : ()} */}
             </nav>
             {/* Hamburger icon */}
             <button className="nav-btn" onClick={showNavbar}>
