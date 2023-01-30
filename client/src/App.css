@@ -90,6 +90,10 @@ nav {
     right: 2.3rem;
 }
 
+.search-icons {
+    color: var(--coal);
+}
+
 .category-border:hover {
     border: solid 2px var(--green);
 }

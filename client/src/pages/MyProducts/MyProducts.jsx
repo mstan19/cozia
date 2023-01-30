@@ -1,30 +1,210 @@
 import React, { useState, useEffect } from "react";
-import { createElement } from 'react';
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { ADD_PRODUCT } from "../../utils/mutations";
-import { QUERY_CATEGORY } from "../../utils/queries";
 import Auth from "../../utils/auth";
-import AddProductForm from "../../components/AddProductForm";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import DeleteModal from "../../components/Modal/DeleteModal";
+import samplePic from "../../assets/sample-image-ecommerce.jpg";
+import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
+import { REMOVE_PRODUCT } from "../../utils/mutations";
+import filterIcon from "../../assets/filter.png";
+// import { LOGIN_USER } from "../../utils/mutations";
+
 
 const MyProduct = () => {
+	const [userData, setUserData] = useState({});
  
+	const { data, loading } = useQuery(QUERY_ME);
+	const {  data: myProductsData, loading:myProductLoading, error:myProductError } = useQuery(QUERY_MYPRODUCTS, {
+		variables: { userId: data?.me?._id },
+		});
+	const [removeProduct] = useMutation(REMOVE_PRODUCT);
+	const [modalOpen, setModalOpen] = useState(false);
+	const [selectedProductId, setSelectedProductId] = useState();
+	const [width, setWidth] = useState(window.innerWidth);
+  	const breakpoint = 640; 
+// console.log(width) 
+
+	useEffect(() => {
+		const getUserData = async () => {
+		  try {
+			const token = Auth.loggedIn() ? Auth.getToken() : null;
+			// console.log("token", token)
+			if (!token) {
+			  return false;
+			}
+	
+			const user = await data?.me;
+			
+			console.log("user", user);
+			console.log("data", data);
+			setUserData(user);
+		  } catch (err) {
+			console.error(err);
+		  }
+		};
+	
+		getUserData();
+	  }, [data]);
+	// console.log(myProductsData?.getMyProducts)
+
+	useEffect(() => {
+		const handleResizeWindow = () => setWidth(window.innerWidth);
+			window.addEventListener("resize", handleResizeWindow);
+			return () => {
+			window.removeEventListener("resize", handleResizeWindow);
+			};
+	}, []);
+
+	function stockCheck(index) {
+		if (myProductsData?.getMyProducts[index].countInStock <= 3) {
+			return (<span className="text-red-600">{myProductsData?.getMyProducts[index].countInStock} left</span>);
+		} else {
+			return (<span className="text-black">{myProductsData?.getMyProducts[index].countInStock} left</span>);
+		}
+	}
+	
+	function wordAppearance(input, index) {
+		let color = myProductsData?.getMyProducts[index].color;
+		let size = myProductsData?.getMyProducts[index].size;
+		if (input === "color") {
+			let upperCaseFirstLetterColor = color.charAt(0).toUpperCase() + color.slice(1);
+			let ArrayString = upperCaseFirstLetterColor.split(/(?=[A-Z])/);
+			if (ArrayString.length === 1) {
+				return upperCaseFirstLetterColor;
+			}
+			return ArrayString.join(' ')
+		} else if (input === "size") {
+			let upperCaseFirstLetterSize = size.charAt(0).toUpperCase() + size.slice(1);
+			let ArrayString = upperCaseFirstLetterSize.split(/(?=[A-Z])/);
+			if (ArrayString.length === 1) {
+				return upperCaseFirstLetterSize;
+			}
+			return ArrayString.join(' ')
+		}
+	}
+	
+	const nav = useNavigate();
+	function handleInputChange() {
+		console.log("change input");
+	}
+
+	function handleAddProductBtn() {
+		// console.log("adding product");
+		// console.log(data?.me._id)
+		nav('/addproduct')
+	  }
+
+	function handleEditProductBtn () {
+		console.log("edit product");
+		
+	}
+
+	const openModal = (id) => {
+		setModalOpen(true);
+		console.log(id)
+		setSelectedProductId(id);
+		// console.log(setProductData({...productData}))
+	};
+	// console.log(productData)
+
+	const handleDeleteProductBtn = async (productId) => {
+		const token = Auth.loggedIn() ? Auth.getToken() : null;
+    // console.log("token", token)
+		if (!token) {
+		throw new Error("please login");
+		}
+
+		try {
+		console.log("product id:", productId);
+		console.log("myProductsData", myProductsData);
+		const updatedProducts = await removeProduct({ variables: { productId: productId } });
+		console.log(updatedProducts)
+		if (!productId) {
+			throw new Error("there is no product with that id");
+		}
+
+		setSelectedProductId(updatedProducts);
+		window.location.reload();
+		} catch (err) {
+		console.error(err);
+		}
+		console.log("delete product");
+	}
   
   return (
-    <div>
-        {/* Add product Card */}
-       
-        {/* <div className="bg-white">
-        <button type="button" className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button>
+	<div className="my-product-page">
+		 {Auth.loggedIn() ? (
+		<div className="absolute bg-white h-full w-full">
+			<SearchBar />
 
-        </div> */}
-        <a href="#_" class="relative inline-block px-4 py-2 font-medium group">
-<span class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-<span class="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
-<span class="relative text-black group-hover:text-white">Button Text</span>
-</a>
-               
-    </div>
+			<div className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4" id="my-product-header">
+			{/* Add product Card */}
+				<button className="add-product row inline-block w-1/5 ml-6 mt-2 rounded-lg text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800" id="add-product-btn"  onClick={handleAddProductBtn} type="submit">Add</button>
+			{/* Filter */}
+				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-block">My Products</div>
+				<div className="dropdown-filter py-3 pr-5">
+					<button className="inline-block mr-2">		
+						<div>
+							<select className="w-full block appearance-none bg-white px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="filter" onChange={handleInputChange} >
+								<option value="recentlyAdd">Recently Add</option>
+								<option value="mostSold">Most Sold</option>
+								<option value="stockLtoH">Stock (Low to High)</option>
+								<option value="priceLtoH">Price (Low to High)</option>
+								<option value="priceHtoL">Price (High to Low)</option>
+							</select>
+						</div>
+						<div>
+							<img src={filterIcon} alt="filter-image" id="filter-image" className="w-7" />	
+						</div>
+					</button>
+				</div>
+				
+			</div>
+				
+			<div className="container mx-auto pt-2">
+
+				{/* Gallery product Card */}
+				<div className="my-product-cards flex flex-wrap w-full grid sm:grid-cols-3 gap-x-8 gap-y-4" id="product-cards">
+				{myProductsData && myProductsData.getMyProducts.map((product, index) => { 
+					return (
+					<div className="my-product-card px-2 pt-3" key={product._id} >
+						<div className="flex justify-center">
+							<img src={samplePic} alt="product-image" id="product-image" className="object-cover" />
+						</div>
+
+						<div className="content p-5 columns-2">
+							<h3 className="text-lg">{product.productName}</h3>
+								<div className="">
+									<p>Price: ${product.price}</p>
+									<p>Stock: {stockCheck(index)}</p>
+									<p>Color: {wordAppearance("color", index)}</p>
+									<p>Size: {wordAppearance("size", index)}</p>
+								</div>
+								<div className="grid grid-rows-1 flex-nowrap justify-end py-3">
+									<button className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 text-white py-2 px-5 focus:outline-none" id="edit-product-btn" onClick={() => handleEditProductBtn()} type="submit">Edit</button>
+									<button className=" bg-red-600 rounded-lg my-0.5 hover:bg-red-600 text-white py-2 px-5 focus:outline-none" id="delete-product-btn" type="button"
+									onClick={() => {setModalOpen(true); openModal(product._id)}}>Delete</button>
+									{modalOpen && <DeleteModal setOpenModal={setModalOpen} onDeleteFunction={() => handleDeleteProductBtn(selectedProductId)} onDeleteProductID={selectedProductId}/>}
+								</div>
+						</div>
+						{ width < breakpoint ? (
+								<hr className="my-8 mx-14 border-0 h-0.5 w-2/3 my-6 bg-neutral-300 border-0" />
+
+							) : null}
+					</div>
+				)})}
+				</div>
+
+			</div>       
+		</div>
+		) : (
+        <>
+			<div>please log in</div>
+		</>
+		)}
+	</div>
+	
   );
 };
 export default MyProduct;

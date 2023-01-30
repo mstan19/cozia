@@ -16,9 +16,9 @@ export const ADD_USER = gql`
     }
 `;
 
-export const ADD_PRODUCT =gql`
-    mutation AddProduct($productsByCategory: ID!, $productData: productInput!) {
-        addProduct(productsByCategory: $productsByCategory, productData: $productData) {
+export const ADD_PRODUCT = gql`
+mutation AddProduct($productsByCategory: ID!, $productData: productInput!, $userId: ID!) {
+    addProduct(productsByCategory: $productsByCategory, productData: $productData, userId: $userId) {
         _id
         productName
         description

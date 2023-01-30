@@ -41,6 +41,7 @@ const typeDefs = gql`
         totalRating: Int
         numberReviews: Int
         category: Category!
+        user: User!
     }
 
     type ShippingAddress {
@@ -85,6 +86,7 @@ const typeDefs = gql`
     #Queries
     type Query {
         me: User
+        getMyProducts(userID: ID!): [Product]
         categories: [Category]
         products: [Product]
         productsByCategoryID(categoryID: ID): [Product]
@@ -102,6 +104,9 @@ const typeDefs = gql`
     input CategoryInput {
         name: String
     }
+    input userInput {
+        email: String
+    }
 
     input productInput {
         productName: String!
@@ -117,11 +122,13 @@ const typeDefs = gql`
         totalRating: Int
         numberReviews: Int
         category: CategoryInput
+        user: userInput
     }
 
     #Mutation
 
     type Mutation {
+        requirePassword( password: String!): Auth
         login(email: String!, password: String!): Auth
         addUser(
             firstName: String!
@@ -138,7 +145,7 @@ const typeDefs = gql`
             username: String
         ): User
         removeUser(userId: ID!): User
-        addProduct(productsByCategory: ID!, productData: productInput!): Product
+        addProduct(productsByCategory: ID!, productData: productInput!, userId: ID!): Product
         removeProduct(productId: ID!): Product
         updateProduct(
             productsByCategory: ID!
