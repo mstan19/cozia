@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AiFillHeart, AiFillShopping } from "react-icons/ai";
 import Accordion from "./Accordion";
@@ -9,7 +9,7 @@ import Auth from "../../utils/auth";
 
 export default function Navbar() {
     const navRef = useRef();
-
+    const navigate = useNavigate();
     const titleRef = useRef();
     const {  data: categoryData , loading: loadingCategory, error: errorCategory} = useQuery(QUERY_CATEGORY)
     const showNavbar = () => {
@@ -71,8 +71,16 @@ export default function Navbar() {
         {
             name: "TRENDING",
             link: "/trending"
-        }
+        },
     ];
+
+
+    const logoutBtn = (event) => {
+        event.preventDefault();
+        navigate("/")
+        Auth.logout();
+    
+    };
 
     return (
         <header className="flex items-center justify-between">
@@ -86,26 +94,43 @@ export default function Navbar() {
                 </button>
                 <h2 className="nav-header flex items-center">Menu</h2>
                 {/* If menu item has subcategories, then make it an accordion; else, menu item becomes normal nav-link */}
-                {/* {Auth.loggedIn() ? ( */}
                 {navList.length > 0 &&
                     navList.map((menu) => {
                         if (Object.hasOwn(menu, "subcategories")) {
                             return menu.subcategories.map(({ name, items }) => (
-                                <Accordion key={name} title={name} link="" items={items} />
+                                <Accordion key={name} title={name} items={items} />
                             ));
                         } else {
+                            
                             return (
-                                <Link
-                                    key={menu.name}
-                                    className="nav-category text-2xl p-6 category-border"
-                                    to={menu.link}
-                                >
-                                    {menu.name}
-                                </Link>
+                                <div>
+                                        <Link
+                                            key={menu.name}
+                                            className="flex nav-category text-2xl p-6 category-border"
+                                            to={menu.link}
+                                        >
+                                        {menu.name}
+                                        </Link>
+                                </div>
                             );
                         }
                     })}
-                    {/* ) : ()} */}
+                    
+                    {Auth.loggedIn() ? (
+                                        <> 
+                                            <button onClick={logoutBtn} className="flex nav-category text-2xl p-6 category-border">Logout</button>
+                                        </>
+                                           
+                                            ) : (
+                                            
+                                                <Link
+                                                key="signInBtn"
+                                                className="flex nav-category text-2xl p-6 category-border"
+                                                to="/register"
+                                                >
+                                               Sign In
+                                                </Link>
+                                    )} 
             </nav>
             {/* Hamburger icon */}
             <button className="nav-btn" onClick={showNavbar}>
