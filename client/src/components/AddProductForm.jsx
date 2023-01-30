@@ -103,7 +103,7 @@ console.log(userId)
       await addProduct({
         variables: {productData: finalFormProductData, productsByCategory: categoryID, userId: userId}
       });
-      nav("/dashboard");
+      nav("/myproducts");
     } catch (e) {
       console.error(e);
     }

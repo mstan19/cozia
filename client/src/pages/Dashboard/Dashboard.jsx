@@ -1,5 +1,16 @@
-// const token = Auth.loggedIn() ? Auth.getToken() : null;
-// // console.log("token", token)
-// if (!token) {
-//   throw new Error("please login");
-// }
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Dashboard = () => {
+
+    return (
+        <main>
+            <div>
+                dashboard
+            </div>
+            
+        </main>
+    );
+}
+
+export default Dashboard;
