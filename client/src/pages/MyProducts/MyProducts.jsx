@@ -103,7 +103,7 @@ const MyProduct = () => {
 	const openModal = (id) => {
 		setModalOpen(true);
 		console.log(id)
-		setProductData(id);
+		setSelectedProductId(id);
 		// console.log(setProductData({...productData}))
 	};
 	// console.log(productData)
@@ -124,8 +124,8 @@ const MyProduct = () => {
 			throw new Error("there is no product with that id");
 		}
 
-		setProductData(updatedProducts);
-		// window.location.reload();
+		setSelectedProductId(updatedProducts);
+		window.location.reload();
 		} catch (err) {
 		console.error(err);
 		}
@@ -183,7 +183,7 @@ const MyProduct = () => {
 								<button className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 text-white py-2 px-5 focus:outline-none" id="edit-product-btn" onClick={() => handleEditProductBtn()} type="submit">Edit</button>
 								<button className=" bg-red-600 rounded-lg my-0.5 hover:bg-red-600 text-white py-2 px-5 focus:outline-none" id="delete-product-btn" type="button"
         						onClick={() => {setModalOpen(true); openModal(product._id)}}>Delete</button>
-								 {modalOpen && <DeleteModal setOpenModal={setModalOpen} onDeleteFunction={() => handleDeleteProductBtn(productData)} onDeleteProductID={productData}/>}
+								 {modalOpen && <DeleteModal setOpenModal={setModalOpen} onDeleteFunction={() => handleDeleteProductBtn(selectedProductId)} onDeleteProductID={selectedProductId}/>}
 							</div>
 					</div>
 					{ width < breakpoint ? (

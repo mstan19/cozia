@@ -103,7 +103,6 @@ db.once("open", async () => {
                     comment: "cool",
                     createdAt: "1/1"
                 };
-console.log(typeof userList[l]._id)
                 let product = {
                     productName: faker.commerce.product(),
                     description: faker.commerce.productDescription(),
