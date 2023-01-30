@@ -19,11 +19,11 @@ export default function Navbar() {
 
     const navList = [
         {
-            name: "Dashboard",
+            name: "DASHBOARD",
             link: "/dashboard",
             subcategories: [
                 {
-                    name: "DASHBOARD",
+                    name: "MY ACCOUNT",
                     items: [
                         "Profile",
                         "Purchased Orders",
@@ -103,34 +103,32 @@ export default function Navbar() {
                         } else {
                             
                             return (
-                                <div>
-                                        <Link
-                                            key={menu.name}
-                                            className="flex nav-category text-2xl p-6 category-border"
-                                            to={menu.link}
-                                        >
-                                        {menu.name}
-                                        </Link>
-                                </div>
+                                <Link
+                                    key={menu.name}
+                                    className="flex nav-category text-2xl p-6 category-border"
+                                    to={menu.link}
+                                >
+                                {menu.name}
+                                </Link>
                             );
                         }
                     })}
                     
                     {Auth.loggedIn() ? (
-                                        <> 
-                                            <button onClick={logoutBtn} className="flex nav-category text-2xl p-6 category-border">Logout</button>
-                                        </>
-                                           
-                                            ) : (
-                                            
-                                                <Link
-                                                key="signInBtn"
-                                                className="flex nav-category text-2xl p-6 category-border"
-                                                to="/register"
-                                                >
-                                               Sign In
-                                                </Link>
-                                    )} 
+                        <> 
+                            <button onClick={logoutBtn} className="flex nav-category text-2xl p-6 category-border">Logout</button>
+                        </>
+                        
+                            ) : (
+                            
+                                <Link
+                                key="signInBtnKey"
+                                className="flex nav-category text-2xl p-6 category-border"
+                                to="/register"
+                                >
+                                Sign In
+                                </Link>
+                    )} 
             </nav>
             {/* Hamburger icon */}
             <button className="nav-btn" onClick={showNavbar}>
@@ -141,15 +139,16 @@ export default function Navbar() {
                 to="/"
                 className="app-title absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                 ref={titleRef}
+                key="homepageBtn"
             >
                 Cozia
             </Link>
             {/* Wishlist and Shopping icons */}
             <section className="nav-btn nav-shop-btn flex flex-row place-content-evenly">
-                <Link className="wishlist" to="/wishlist">
+                <Link className="wishlist" key="wishlist-page" to="/wishlist">
                     <AiFillHeart />
                 </Link>
-                <Link className="cart pl-4" to="/cart">
+                <Link className="cart pl-4" key="cart-page" to="/cart">
                     <AiFillShopping />
                 </Link>
             </section>
