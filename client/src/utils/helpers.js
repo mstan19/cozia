@@ -3,9 +3,9 @@ export function calculateDiscountPrice(price, discount) {
 };
 
 export function sortDateDesc(array) {
-    array.sort((a , b) => a.createdAt > b.createdAt ? -1 : 1);
+    return array.sort((a , b) => a.createdAt > b.createdAt ? -1 : 1);
 };
 
 export function sortDiscountDesc(array) {
-    array.sort((a , b) => a.discount > b.discount ? -1 : 1);
+    return array.sort((a , b) => a.discount > b.discount ? -1 : 1);
 }
