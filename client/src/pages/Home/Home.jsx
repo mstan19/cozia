@@ -47,7 +47,6 @@ const Home = () => {
 	}
 
 	useEffect(() => {
-		console.log(data);
 		let products = data?.products;
 		if (products && products.length !== 0) {
 			// setProductsData(products);
@@ -57,8 +56,8 @@ const Home = () => {
 				"DEALS": getHighestDiscount(products),
 				"TRENDING": getTrending(products),
 			};
-			console.log(sCards);
 			setSectionCards(sCards);
+			console.log(sCards);
 		}
 	}, [data]);
 
@@ -67,7 +66,6 @@ const Home = () => {
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {
-					console.log(sectionKey);
 					return (
 						<HomeCard
 							key={sectionKey + idx}
