@@ -8,6 +8,12 @@ const orderSchema = new Schema({
     ref: 'User',
     required: true
   },
+  products: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Product',
+    required: true
+  },
+],
   shippingAddress: {
     street: {type:String, required: true},
     city: {type:String, required: true},
@@ -15,22 +21,7 @@ const orderSchema = new Schema({
     zip: {type:String, required: true},
     country: {type:String, required: true},
     phoneNumber: {type:String, required: true}
-  },
-  productOrder: [
-    {
-      productName: {type:String, required: true},
-      image: {type:String, required: true},
-      quantity: {type:String, required: true},
-      price: {type: Number, required: true},
-      discount: {type: Number, required: true},
-      product: [
-          {
-            type: Schema.Types.ObjectId,
-            ref: 'Product'
-          }
-      ],
-    }
-  ],
+  }, 
   tax:  {
     type: Number,
     required: true,

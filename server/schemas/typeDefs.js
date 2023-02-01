@@ -48,20 +48,12 @@ const typeDefs = gql`
         country: String!
     }
 
-    type productOrder {
-        productName: String!
-        image: String!
-        quantity: String!
-        price: Float!
-        discount: Float
-        product: [Product]
-    }
 
     type Order {
         _id: ID
         user: User!
         shippingAddress: ShippingAddress!
-        productOrder: productOrder!
+        products: [Product]
         tax: Int!
         shippingPrice: Int!
         isDelivered: Boolean!
@@ -86,7 +78,7 @@ const typeDefs = gql`
         categories: [Category]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
-        order(_id: ID!): Order
+        getAllOrders(userID: ID!): [Order]
     }
 
     #Inputs

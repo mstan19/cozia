@@ -1,58 +1,55 @@
+react-table-component
 
-        input InputShippingAddress {
-        street: String!
-        city: String!
-        zip: String!
-        country: String!
-    }
+    const COLUMNSPO = [
+        {
+            name: "Order ID",
+            selector: (row) =>row._id
+        },
+        {
+            name: "Order Date",
+            selector: (row) =>row.purchaseDate
+        },
+        {
+            name: "Delivery Status",
+            selector: (row) =>row.isDelivered
+        },
+        {
+            name: "Delivery Date",
+            selector: (row) =>row.deliveryDate
+        },
+        {
+            name: "Delivery Address",
+            selector: (row) =>row.shippingAddress.street 
+        },
+        // {order.shippingAddress.street}, {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}
+        {
+            name: "Total Cost",
+            selector: (row) =>row.totalCost
+        },
+    ]
 
-    input InputProduct {
-        productName: String!
-        description: String
-        image: String
-        price: Float!
-        sizes: String
-        countInStock: Int
-        inStock: Boolean!
-        reviews: [Reviews]
-        totalRating: Int
-        numberReviews: Int
-        category: Category
-      }
+import DataTable from 'react-data-table-component';
 
-      input InputReviews {
-        user: User!
-        rating: Float!
-        comment: String!
-        createdAt: String    
-    }
-    
-    #Queries
-    type Query {
-        me: User
-        user: User
-        categories: [Category]
-        products(category: ID, productName: String): [Product]
-        product(_id: ID!): Product
-        order(_id: ID!): Order
-        checkout(products: [ID]!): Checkout
-      }
 
-    #Mutation
+ <DataTable
+                        title = "Purchased Orders"
+                        columns={COLUMNSPO}
+                        data={orderListData?.getAllOrders}
+                        className="content-center"
+                       />
 
-    type Mutation{ 
-        login(email: String!, password: String!): Auth
-        addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-        updateUser(firstName: String, lastName: String, email: String, password: String): User
+                           {orderListData && orderListData.getAllOrders.map((order, index) => { 
+                        return (
+                            <div className="" key={order._id} >
+                               <p>Order ID {order._id}</p>
+                               <p>Items</p>
+                               <p>Order Date {order.purchaseDate}</p>
+                               <div>Delivery Status   
+                                    { order.isDelivered === true ? (<div className="inline-flex">  Delivered</div>) : <div className="inline-flex">  Not Delivered</div>}
+                               </div>
+                               <p>Delivery Date {order.deliveryDate}</p>
+                               <p>Delivery Address {order.shippingAddress.street}, {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}</p>
+                               <p>Total Cost ${order.totalCost}</p>
 
-        addProduct(input: InputProduct!): Product
-        updateProduct(_id: ID!, input: InputProduct!): Product
-        removeProduct(_id: ID!): Product
-
-        addReview(input: InputReviews): Product
-        updateReview(_id: ID!, input: InputReviews): Product
-
-        addOrder(products: [ID]!): Order
-        updateOrder(_id: ID!, input: InputShippingAddress): Order
-        removeOrder(_id: ID!): Order
-    }
+                            </div>
+                        )})}
