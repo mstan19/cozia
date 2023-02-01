@@ -5,8 +5,7 @@ import whiteSweater from "../../assets/images/white-sweater.jpg";
 
 const HomeCard = ({ section, product }) => {
 
-    console.log(product);
-	const { productName, img, color, price, discount } = product;
+	const { productName, img, color, price, discount } = product || {};
 
 	if (discount === 0) {
 		return (
@@ -45,11 +44,7 @@ const HomeCard = ({ section, product }) => {
 						<h3 className="mt-2 text-lg">{productName}</h3>
 						<div className="flex mb-2 text-lg">
 							<p className="discount-price text-red-600 pr-3">
-								$
-								{calculateDiscountPrice(
-									price,
-									discount
-								)}
+								${calculateDiscountPrice(price, discount)}
 							</p>
 							<p className="original-price text-neutral-300 line-through">
 								${price}
@@ -79,11 +74,7 @@ const HomeCard = ({ section, product }) => {
 						<h3 className="mt-2 text-lg">{productName}</h3>
 						<div className="flex mb-2 text-lg">
 							<p className="discount-price text-red-600 pr-3">
-								$
-								{calculateDiscountPrice(
-									price,
-									discount
-								)}
+								${calculateDiscountPrice(price, discount)}
 							</p>
 							<p className="original-price text-neutral-300 line-through">
 								${price}
