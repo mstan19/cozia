@@ -53,3 +53,55 @@ import DataTable from 'react-data-table-component';
 
                             </div>
                         )})}
+
+
+
+                         {data && data?.getAllOrders.map((item, index) =>
+                            <ItemTableRow item={item}/>
+                        )}
+
+
+
+                         if(columnItem.value === "products"){
+            // let listOfProducts = []
+            // console.log(listOfProducts)
+
+            // for (var i=0; i < item?.products?.length; i++) {
+            //     listOfProducts.push(<div>{item?.products[i]?.productName}</div>)
+            //     listOfProducts.push(<div>$ {item?.products[i]?.price}</div>)
+            //     // listOfProducts.push(<div >{item?.products[i]?.quantity}</div>)
+                
+
+            // }
+
+            // console.log(listOfProducts)
+            return (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                {item && item?.products.map((product, index) =>
+                                    <ItemTableRow product={product}/>,
+                                    // console.log(product)
+                                )}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>  
+            )
+        }
+
+
+        const ItemTableRow = ({product}) => (
+    <tr>
+        <td>{product.productName}</td>
+        <td>{product.price}</td>
+    </tr>
+    
+)

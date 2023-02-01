@@ -79,8 +79,9 @@ const OrderList = () => {
     return (
     <div className="absolute h-full w-full">
         {Auth.loggedIn() ? (
-        <div className="container ">
+        <div className="container m-0">
             <div className="" id="tables">
+                <h2 className="text-center">Purchased Orders</h2>
                 <div id="purchased-orders-component">
                     <PurchasedOrders data={orderListData} column={columnPO}/>
                 </div>

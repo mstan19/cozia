@@ -4,10 +4,11 @@ import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_ALLORDERS } from "../../utils/queries";
+import Accordion from "../Header/Accordion";
 
 const PurchasedOrders = ({ data, column }) => {
-   console.log(data)
-   console.log(column)
+//    console.log(data)
+//    console.log(column)
 //    let Addresses = []
 //    for (let i = 0; i < data.getAllOrders.length; i++) {
 //        let getCity = data.getAllOrders[i].shippingAddress.city;
@@ -26,40 +27,45 @@ const PurchasedOrders = ({ data, column }) => {
                 </tr>
             </thead>
             <tbody>
-                {data && data?.getAllOrders.map((item, index) => <TableRow item={item}  className={index % 2 === 0 ? "bg-green-400" : ""} key={item._id} column={column} data={data} />)}
+                {data && data?.getAllOrders.map((item, index) => <TableRow item={item} key={item._id} column={column} data={data} className={index % 2 === 0 ? "bg-green-400" : ""} />)}
             </tbody>
         </table>  
    );
 };
+
 const TableHeadItem = ({ item }) => <th>{item.heading}</th>
+
+const ItemTableRow = ({item}) => (
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+                {item && item?.products.map((product, index) =>
+                    <tr key={item._id + "|" + product.productName}>
+                        <td>{product.productName}</td>
+                        <td>$ {product.price}</td>
+                    </tr>
+                )}
+        </tbody>
+    </table>  
+    
+)
+
 const TableRow = ({ item, column, data }) => (
     <tr>
     {column.map((columnItem, index) => {
         if(columnItem.value === "products"){
-            let a = []
-            console.log(item)
-
-            for (var i=0; i < item?.products?.length; i++) {
-                a.push(<div >{item?.products[i]?.productName}</div>)
-            }
             return (
-                <td>
-                    <table>
-                        <thead>
-                            <tr>
-                            test
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <td>hello</td>
-                        </tbody>
-                    </table>  
+                
+                <td key={item._id + "|" + columnItem.value}>
+                    <ItemTableRow  item={item}/>
                 </td>
-                    
-                    
             )
         }
-
 
         if(columnItem.value === "isDelivered" && item.isDelivered === true) {
             return <td key={item._id + "|" + columnItem.value}>Delivered</td>
@@ -72,7 +78,7 @@ const TableRow = ({ item, column, data }) => (
         let getStreet = item?.shippingAddress.street;
         let makeAddress = getStreet + ", " + getCity + ", " + getState
 
-        console.log(columnItem)
+        // console.log(columnItem)
         // console.log( getCity)
         if(columnItem.value === "shippingAddress") {
             return <td key={item._id + "|" + columnItem.value}>{makeAddress}</td>
