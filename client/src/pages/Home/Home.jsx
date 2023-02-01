@@ -1,55 +1,35 @@
 import React, { useState, useEffect } from "react";
 import HomeCard from "../../components/HomeCard/HomeCard";
-import whiteSweater from "../../assets/images/white-sweater.jpg";
 
+import { sortDateDesc, sortDiscountDesc } from "../../utils/helpers";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
-import { sortDateDesc, sortDiscountDesc } from "../../utils/helpers";
 
 const Home = () => {
-	// Create query to find the newest arrival clothes
+	// Create query to find all products
 	const { loading, data } = useQuery(QUERY_PRODUCTS);
 	const [productsData, setProductsData] = useState({});
-
-	// Default value - blank card with default values in case no data loads or there just no clothes
-
-	// let finalProducts = productsData;
-
-	const sectionCard = [
-		// {
-		// 	section: "NEWEST ARRIVAL",
-		// 	product: "",
-		// },
-		// {
-		// 	section: "FEATURED",
-		// 	product: "",
-		// },
-		// {
-		// 	section: "DEALS",
-		// 	product: "",
-		// },
-		// {
-		// 	section: "TRENDING",
-		// 	product: "",
-		// 	// img: whiteSweater,
-		// 	// name: "name4",
-		// 	// price: 30,
-		// 	// color: "red",
-		// 	// discount: 0,
-		// },
-	];
+	const [sectionCards, setSectionCards] = useState({});
 
 	// useEffect to fetch data
 	useEffect(() => {
 		const getProductsData = async () => {
 			try {
 				let products = await data?.products;
-				console.log(products);
+				console.log();
 				if (products && products.length !== 0) {
 					// const sortedDateProducts = sortDateDesc([...products]);
+					console.log(products);
+
 					setProductsData(products);
-					setSectionCardProduct();
-					// sortDateDesc(products);
+					let sectionCards = {
+						"NEWEST ARRIVAL" :getNewestArrival(),
+						"FEATURED" :getFeatured(),
+						"DEALS" :getHighestDiscount(),
+						"TRENDING" :getTrending(),
+					};
+					console.log(productsData);
+					setSectionCards(sectionCards);
 				}
 			} catch (err) {
 				console.error(err);
@@ -58,69 +38,73 @@ const Home = () => {
 		getProductsData();
 	}, [data]);
 
-	// Add in data to section card
-	function setSectionCardProduct() {
-		setNewestArrival();
-		setFeatured();
-		setHighestDiscount();
-		setTrending();
-	}
-
 	// Get newest arrival card
-	function setNewestArrival() {
-		if (productsData && productsData.length !== 0) {
-			const sortedDateProducts = sortDateDesc([...productsData]);
-			sectionCard["NEWEST ARRIVAL"] = sortedDateProducts[0];
+	function getNewestArrival() {
+		if (productsData && Object.keys(productsData).length !== 0) {
+			const sortedProducts = sortDateDesc([...productsData]);
+			return sortedProducts[0];
 		}
 	}
 
 	// Get featured card
-	function setFeatured() {
-		if (productsData && productsData.length !== 0) {
+	function getFeatured() {
+		if (productsData && Object.keys(productsData).length !== 0) {
 			let randomNum = Math.floor(Math.random() * productsData.length);
-			sectionCard["FEATURED"] = productsData[randomNum];
-			console.log(sectionCard);
+			return productsData[randomNum];
 		}
 		// TODO: add to stay for a week
 	}
 
 	// Gets highest sale card
-	function setHighestDiscount() {
-		console.log(productsData);
-		if (productsData && productsData?.length !== 0) {
+	function getHighestDiscount() {
+		if (productsData && Object.keys(productsData).length !== 0) {
 			const sortedProducts = sortDiscountDesc([...productsData]);
-			sectionCard["DEALS"] = sortedProducts[0];
-			console.log(sectionCard);
+			return sortedProducts[0];
 		}
-		console.log(productsData);
 	}
 
-
-	// Get the highest sold clothes
-	function setTrending() {
-
+	// TODO: Get the highest sold clothes
+	function getTrending() {
+		// console.log(sectionCards[0].product)
+		return productsData[0];
 	}
-
-	
 
 	return (
 		<main className="w-full bg-neutral-400">
-			{!loading &&
-				productsData.length !== 0 &&
-				sectionCard.map((card, index) => {
-					return (
-						<HomeCard
-							key={card.section + index}
-							category={card.section}
-							props={productsData}
-						/>
-					);
-				})}
+			{!loading && Object.keys(sectionCards).length !== 0 &&
+			Object.keys(sectionCards).map((sectionKey, idx) => {
+				console.log(sectionKey);
+				return (
+					<HomeCard key={sectionKey + idx} section={sectionKey} product={sectionCards[sectionKey]} />
+				);
+			})}
 		</main>
 	);
 };
 
 export default Home;
+
+// {!loading &&
+// 	productsData.length !== 0 &&
+// 	sectionCard.map((card, index, props) => {
+// 		return (
+// 			<HomeCard
+// 				key={card.section + index}
+// 				section={card.section}
+// 				props={productsData}
+// 			/>
+// 		);
+// 	})}
+
+// Object.entries(sectionCard).map(([category, card, index]) => {
+// 	return (
+// 		<HomeCard
+// 			key={sectionCard.category + index}
+// 			category={sectionCard.category}
+// 			props={productsData}
+// 		/>
+// 	);
+// })}
 
 // const categoryCards = [
 // 	// 	TODO: grab from seeds
