@@ -46,6 +46,7 @@ const Home = () => {
 		// return productsData[0];
 	}
 
+	// Fetches data and grabs appropriate product for each section card
 	useEffect(() => {
 		let products = data?.products;
 		if (products && products.length !== 0) {

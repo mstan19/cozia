@@ -109,7 +109,7 @@ db.once("open", async () => {
 					image: faker.internet.url(),
 					price: faker.commerce.price(),
 					size: "small",
-					color: "black",
+					color: faker.color.rgb(),
 					// gender: ,
 					countInStock: 5,
 					createdAt: faker.date.past(),

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-import { calculateDiscountPrice } from "../../utils/helpers";
+import { calculateDiscountPrice, getColor } from "../../utils/helpers";
 import whiteSweater from "../../assets/images/white-sweater.jpg";
 
 const HomeCard = ({ section, product }) => {
-
 	const { productName, img, color, price, discount } = product || {};
+	console.log(color);
 
 	if (discount === 0) {
 		return (
@@ -22,7 +22,10 @@ const HomeCard = ({ section, product }) => {
 						<p className="mb-2 text-lg">${price}</p>
 					</div>
 					{/* add color */}
-					<div className="color"></div>
+					<div
+						className="color"
+						style={{ backgroundColor: color, height: 30, width: 30, borderRadius: 50 }}
+					></div>
 				</section>
 				<p className="view-more flex justify-end text-neutral-400 text-sm p-1">
 					View more
@@ -52,7 +55,10 @@ const HomeCard = ({ section, product }) => {
 						</div>
 					</div>
 					{/* TODO: add color */}
-					<div className="color"></div>
+					<div
+						className="color"
+						style={{ backgroundColor: color, height: 30, width: 30, borderRadius: 50 }}
+					></div>
 				</section>
 				<p className="flex justify-end text-neutral-400 text-sm p-1">
 					View more
@@ -82,7 +88,7 @@ const HomeCard = ({ section, product }) => {
 						</div>
 					</div>
 					{/* TODO: add color */}
-					<div className="color"></div>
+					<div className="color" style={{ backgroundColor: color, height: 30, width: 30, borderRadius: 50 }}></div>
 				</section>
 				<p className="flex justify-end text-neutral-400 text-sm p-1">
 					View more
