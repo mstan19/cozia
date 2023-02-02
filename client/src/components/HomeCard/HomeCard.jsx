@@ -3,9 +3,6 @@ import { calculateDiscountPrice } from "../../utils/helpers";
 
 const HomeCard = ({ section, product }) => {
 	const { productName, image, color, price, discount } = product || {};
-	console.log(color);
-	console.log(image);
-	console.log(product);
 
 	if (discount === 0) {
 		return (
@@ -21,7 +18,6 @@ const HomeCard = ({ section, product }) => {
 						<h3 className="mt-2 text-lg">{productName}</h3>
 						<p className="mb-2 text-lg">${price}</p>
 					</div>
-					{/* add color */}
 					<div
 						className="color drop-shadow"
 						style={{
@@ -41,7 +37,6 @@ const HomeCard = ({ section, product }) => {
 		// If the item is ON sale
 		return (
 			<article className="bg-white my-3 px-5 md:px-10 md:mx-2 relative">
-				{/* TODO: Add in label for discount */}
 				<div className="discount-label absolute top-6 left-2 bg-red-500 text-white rounded-full py-6 px-5 text-2xl">
 					<p>-{discount}%</p>
 				</div>
@@ -63,7 +58,6 @@ const HomeCard = ({ section, product }) => {
 							</p>
 						</div>
 					</div>
-					{/* TODO: add color */}
 					<div
 						className="color drop-shadow"
 						style={{
@@ -83,7 +77,6 @@ const HomeCard = ({ section, product }) => {
 		// If the item is ON sale
 		return (
 			<article className="bg-white my-3 px-5 md:px-10 md:mx-2 relative">
-				{/* TODO: Add in label for discount */}
 				<div className="discount-label absolute top-6 left-2 bg-red-500 text-white rounded-full py-6 px-3 text-2xl">
 					<p>-{discount}%</p>
 				</div>
@@ -105,7 +98,6 @@ const HomeCard = ({ section, product }) => {
 							</p>
 						</div>
 					</div>
-					{/* TODO: add color */}
 					<div
 						className="color drop-shadow"
 						style={{
