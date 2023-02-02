@@ -42,15 +42,13 @@ const Home = () => {
 
 	// TODO: Get the highest sold clothes
 	function getTrending(products) {
-		// console.log(sectionCards[0].product)
-		// return productsData[0];
+		// grab the most sold clothes
 	}
 
 	// Fetches data and grabs appropriate product for each section card
 	useEffect(() => {
 		let products = data?.products;
 		if (products && products.length !== 0) {
-			// setProductsData(products);
 			let sCards = {
 				"NEWEST ARRIVAL": getNewestArrival(products),
 				"FEATURED": getFeatured(products),
