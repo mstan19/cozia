@@ -24,6 +24,7 @@ mutation AddProduct($productsByCategory: ID!, $productData: productInput!, $user
         description
         image
         price
+        discount
         gender
         size
         color
@@ -56,6 +57,7 @@ mutation UpdateProduct($productsByCategory: ID!, $productId: ID!, $productData: 
       description
       image
       price
+      discount
       gender
       size
       color

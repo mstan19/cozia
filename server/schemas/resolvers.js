@@ -28,6 +28,9 @@ const resolvers = {
         getOneProduct: async (parent, { _id }) => {
             return await Product.findById(_id).populate("category");
         },
+        products: async () => {
+            return await Product.find();
+        },
 
         // user: async (parent, args, context) => {
         //   if (context.user) {
@@ -47,14 +50,14 @@ const resolvers = {
             if (context.user) {
                 const user = await User.findById(context.user._id).populate({
                     path: "orders.products",
-                    populate: "category",
+                    populate: "category"
                 });
 
                 return user.orders.id(_id);
             }
 
             throw new AuthenticationError("Not logged in");
-        },
+        }
     },
     Mutation: {
         // requirePassword: async (parent, args, context) => {
@@ -87,32 +90,41 @@ const resolvers = {
 
             return { token, user };
         },
-        addUser: async (parent, { username, firstName, lastName, email, password }) => {
-              const user = await User.create({ username, firstName, lastName, email, password });
+        addUser: async (
+            parent,
+            { username, firstName, lastName, email, password }
+        ) => {
+            const user = await User.create({
+                username,
+                firstName,
+                lastName,
+                email,
+                password
+            });
             //   console.log("this is user", user)
-              const token = signToken(user);
-              if (!firstName){
+            const token = signToken(user);
+            if (!firstName) {
                 // console.log("firstName", firstName)
-                throw new AuthenticationError('Need firstName');
-              }
-              if (!lastName){
+                throw new AuthenticationError("Need firstName");
+            }
+            if (!lastName) {
                 // console.log("lastName", lastName)
-                throw new AuthenticationError('Need lastName');
-              }
-              if (!username){
+                throw new AuthenticationError("Need lastName");
+            }
+            if (!username) {
                 // console.log("username", username)
-                throw new AuthenticationError('Need username');
-              }
-  
-              if (!email){
+                throw new AuthenticationError("Need username");
+            }
+
+            if (!email) {
                 // console.log("email", email)
-                throw new AuthenticationError('Need email');
-              }
-  
-              if (!password){
+                throw new AuthenticationError("Need email");
+            }
+
+            if (!password) {
                 // console.log("password", password)
-                throw new AuthenticationError('Need password');
-              }
+                throw new AuthenticationError("Need password");
+            }
             //   console.log("this is before the return")
               return { token, user };
             },
@@ -126,7 +138,7 @@ const resolvers = {
         },
         removeProduct: async (parent, { productId }, context) => {
             const deleteProduct = await Product.findOneAndDelete({
-                _id: productId,
+                _id: productId
             });
         },
         updateProduct: async (
@@ -147,17 +159,19 @@ const resolvers = {
         updateUser: async (parent, args, context) => {
             if (context.user) {
                 // console.log( "##", args);
-              return await User.findByIdAndUpdate(context.user._id, args, { new: true });
+                return await User.findByIdAndUpdate(context.user._id, args, {
+                    new: true
+                });
             }
-      
-            throw new AuthenticationError('Not logged in');
+
+            throw new AuthenticationError("Not logged in");
         },
         removeUser: async (parent, { userId }, context) => {
-        const deleteUser = await User.findOneAndDelete({
-            _id: userId,
-        });
-        },
-    },
+            const deleteUser = await User.findOneAndDelete({
+                _id: userId
+            });
+        }
+    }
 };
 
 module.exports = resolvers;
