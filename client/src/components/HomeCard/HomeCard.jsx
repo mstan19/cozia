@@ -9,7 +9,7 @@ const HomeCard = ({ section, product }) => {
 
 	if (discount === 0) {
 		return (
-			<article className="bg-white my-3 mx-5">
+			<article className="bg-white my-3 px-5 md:px-10 md:mx-2">
 				<h2 className="flex justify-center p-2 text-2xl">{section}</h2>
 				<img
 					className="object-cover aspect-square"
@@ -40,7 +40,7 @@ const HomeCard = ({ section, product }) => {
 	} else if (discount < 10) {
 		// If the item is ON sale
 		return (
-			<article className="bg-white my-3 px-5 relative">
+			<article className="bg-white my-3 px-5 md:px-10 md:mx-2 relative">
 				{/* TODO: Add in label for discount */}
 				<div className="discount-label absolute top-6 left-2 bg-red-500 text-white rounded-full py-6 px-5 text-2xl">
 					<p>-{discount}%</p>
@@ -82,7 +82,7 @@ const HomeCard = ({ section, product }) => {
 	} else {
 		// If the item is ON sale
 		return (
-			<article className="bg-white my-3 px-5 lg:mx-2 relative">
+			<article className="bg-white my-3 px-5 md:px-10 md:mx-2 relative">
 				{/* TODO: Add in label for discount */}
 				<div className="discount-label absolute top-6 left-2 bg-red-500 text-white rounded-full py-6 px-3 text-2xl">
 					<p>-{discount}%</p>
