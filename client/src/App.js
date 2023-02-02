@@ -10,6 +10,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
+import Footer from "./components/Footer/Footer";
 import Register from "../src/pages/Register/Register";
 import MyProduct from "./pages/MyProducts/MyProducts";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -52,6 +53,7 @@ function App() {
                         <Route path="/addproduct" element={<AddProductForm />} />
                         <Route path="/myproducts" element={<MyProduct />} />
                     </Routes>
+                    <Footer />
                 </div>
             </Router>
         </ApolloProvider>
