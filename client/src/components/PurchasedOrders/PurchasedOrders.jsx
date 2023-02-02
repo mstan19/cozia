@@ -7,18 +7,19 @@ import { QUERY_ME, QUERY_ALLORDERS } from "../../utils/queries";
 import Accordion from "../Header/Accordion";
 
 const PurchasedOrders = ({ data, column }) => {
-//    console.log(data)
-//    console.log(column)
-//    let Addresses = []
-//    for (let i = 0; i < data.getAllOrders.length; i++) {
-//        let getCity = data.getAllOrders[i].shippingAddress.city;
-//        let getState = data.getAllOrders[i].shippingAddress.state;
-//        let getStreet = data.getAllOrders[i].shippingAddress.street;
-//        let makeAddress = getStreet + ", " + getCity + ", " + getState
-//        // console.log( getCity)
-//        Addresses.push(makeAddress)
-//    }
-// const isEven = (index) => index % 2 === 0;
+    const [selected, setSelected] = useState({})
+
+
+    function mapOrders(orders) {
+        let selectedOrders = {}
+        if (orders) {
+            for (let i = 0; i < orders.length; i++) {
+                selectedOrders[orders[i]._id] = false
+            }
+        }
+        return selectedOrders
+    }
+
     return (
         <table>
             <thead>
@@ -27,7 +28,7 @@ const PurchasedOrders = ({ data, column }) => {
                 </tr>
             </thead>
             <tbody>
-                {data && data?.getAllOrders.map((item, index) => <TableRow item={item} key={item._id} column={column} data={data} className={index % 2 === 0 ? "bg-green-400" : ""} />)}
+                {data && data?.getAllOrders.map((item, index) =><TableRow selected={selected} setSelected={setSelected} item={item} key={item._id} column={column} data={data} index={index} className={index % 2 == 0 ? "bg-green-400" : ""} />)}
             </tbody>
         </table>  
    );
@@ -35,8 +36,9 @@ const PurchasedOrders = ({ data, column }) => {
 
 const TableHeadItem = ({ item }) => <th>{item.heading}</th>
 
-const ItemTableRow = ({item}) => (
-    <table>
+const ItemTableRow = ({selected, item}) => (
+    // console.log(item)
+    <table className={selected === true ? "" : "hidden"}>
         <thead>
             <tr>
                 <th>Product Name</th>
@@ -44,10 +46,10 @@ const ItemTableRow = ({item}) => (
             </tr>
         </thead>
         <tbody>
-                {item && item?.products.map((product, index) =>
+                {item && item?.products.map((product) =>
                     <tr key={item._id + "|" + product.productName}>
                         <td>{product.productName}</td>
-                        <td>$ {product.price}</td>
+                        <td>${product.price}</td>
                     </tr>
                 )}
         </tbody>
@@ -55,14 +57,27 @@ const ItemTableRow = ({item}) => (
     
 )
 
-const TableRow = ({ item, column, data }) => (
+const TableRow = ({ selected, setSelected, item, column, data, index }) => (
+    
     <tr>
-    {column.map((columnItem, index) => {
+    {column.map((columnItem) => {
         if(columnItem.value === "products"){
+            console.log(selected)
+            // for (let i = 0; i < deleteBTN.length; i++) {
+            //     deleteBTN[i].addEventListener('click', delButtonHandler);
+            //   }
+            //   console.log(index)
             return (
-                
                 <td key={item._id + "|" + columnItem.value}>
-                    <ItemTableRow  item={item}/>
+                    <div className="inline-flex justify-between">
+                    <button type="button" onClick={() => setSelected({...selected, [item._id]: !selected[item._id]})}>
+                        <span>See My Items</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>  
+                   </div>
+                    <ItemTableRow selected={selected[item._id]} item={item} />
                 </td>
             )
         }
@@ -72,14 +87,11 @@ const TableRow = ({ item, column, data }) => (
         } else if (columnItem.value === "isDelivered" && item.isDelivered === false){
             return <td key={item._id + "|" + columnItem.value}>Not Delivered</td>
         }
-        // console.log(item)
         let getCity = item?.shippingAddress.city;
         let getState = item?.shippingAddress.state;
         let getStreet = item?.shippingAddress.street;
         let makeAddress = getStreet + ", " + getCity + ", " + getState
 
-        // console.log(columnItem)
-        // console.log( getCity)
         if(columnItem.value === "shippingAddress") {
             return <td key={item._id + "|" + columnItem.value}>{makeAddress}</td>
         } 
