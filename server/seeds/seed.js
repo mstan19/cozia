@@ -75,8 +75,8 @@ db.once("open", async () => {
 					},
 					productOrder: [
 						{
-							productName: faker.commerce.product(),
-							image: faker.internet.url(),
+							productName: faker.commerce.productName(),
+							image: faker.image.fashion(),
 							quantity: faker.datatype.number({ max: 20 }),
 							price: faker.commerce.price(),
 							discount: 50,
@@ -106,7 +106,7 @@ db.once("open", async () => {
 				let product = {
 					productName: faker.commerce.product(),
 					description: faker.commerce.productDescription(),
-					image: faker.internet.url(),
+					image: faker.image.fashion(400, 400, true),
 					price: faker.commerce.price(),
 					size: "small",
 					color: faker.color.rgb(),

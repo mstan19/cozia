@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-
-import { calculateDiscountPrice, getColor } from "../../utils/helpers";
-import whiteSweater from "../../assets/images/white-sweater.jpg";
+import React from "react";
+import { calculateDiscountPrice } from "../../utils/helpers";
 
 const HomeCard = ({ section, product }) => {
-	const { productName, img, color, price, discount } = product || {};
+	const { productName, image, color, price, discount } = product || {};
 	console.log(color);
+	console.log(image);
+	console.log(product);
 
 	if (discount === 0) {
 		return (
-			<article className="bg-white my-3 px-5">
+			<article className="bg-white my-3 mx-5">
 				<h2 className="flex justify-center p-2 text-2xl">{section}</h2>
 				<img
-					className="object-cover"
-					src={whiteSweater}
+					className="object-cover aspect-square"
+					src={image}
 					alt={productName}
 				/>
 				<section className="flex justify-between items-center">
@@ -23,8 +23,13 @@ const HomeCard = ({ section, product }) => {
 					</div>
 					{/* add color */}
 					<div
-						className="color"
-						style={{ backgroundColor: color, height: 30, width: 30, borderRadius: 50 }}
+						className="color drop-shadow"
+						style={{
+							backgroundColor: color,
+							height: 30,
+							width: 30,
+							borderRadius: 50,
+						}}
 					></div>
 				</section>
 				<p className="view-more flex justify-end text-neutral-400 text-sm p-1">
@@ -41,7 +46,11 @@ const HomeCard = ({ section, product }) => {
 					<p>-{discount}%</p>
 				</div>
 				<h2 className="flex justify-center p-2 text-2xl">{section}</h2>
-				<img src={whiteSweater} alt={productName} />
+				<img
+					className="object-cover aspect-square"
+					src={image}
+					alt={productName}
+				/>
 				<section className="flex justify-between items-center">
 					<div>
 						<h3 className="mt-2 text-lg">{productName}</h3>
@@ -56,8 +65,13 @@ const HomeCard = ({ section, product }) => {
 					</div>
 					{/* TODO: add color */}
 					<div
-						className="color"
-						style={{ backgroundColor: color, height: 30, width: 30, borderRadius: 50 }}
+						className="color drop-shadow"
+						style={{
+							backgroundColor: color,
+							height: 30,
+							width: 30,
+							borderRadius: 50,
+						}}
 					></div>
 				</section>
 				<p className="flex justify-end text-neutral-400 text-sm p-1">
@@ -68,13 +82,17 @@ const HomeCard = ({ section, product }) => {
 	} else {
 		// If the item is ON sale
 		return (
-			<article className="bg-white my-3 px-5 relative">
+			<article className="bg-white my-3 px-5 lg:mx-2 relative">
 				{/* TODO: Add in label for discount */}
 				<div className="discount-label absolute top-6 left-2 bg-red-500 text-white rounded-full py-6 px-3 text-2xl">
 					<p>-{discount}%</p>
 				</div>
 				<h2 className="flex justify-center p-2 text-2xl">{section}</h2>
-				<img src={whiteSweater} alt={productName} />
+				<img
+					className="object-cover aspect-square"
+					src={image}
+					alt={productName}
+				/>
 				<section className="flex justify-between items-center">
 					<div>
 						<h3 className="mt-2 text-lg">{productName}</h3>
@@ -88,7 +106,15 @@ const HomeCard = ({ section, product }) => {
 						</div>
 					</div>
 					{/* TODO: add color */}
-					<div className="color" style={{ backgroundColor: color, height: 30, width: 30, borderRadius: 50 }}></div>
+					<div
+						className="color drop-shadow"
+						style={{
+							backgroundColor: color,
+							height: 30,
+							width: 30,
+							borderRadius: 50,
+						}}
+					></div>
 				</section>
 				<p className="flex justify-end text-neutral-400 text-sm p-1">
 					View more
