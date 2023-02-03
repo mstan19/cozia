@@ -60,7 +60,7 @@ const Home = () => {
 	}, [data]);
 
 	return (
-		<main className="flex flex-wrap justify-center bg-neutral-400 h-screen">
+		<main className="flex flex-wrap flex-col items-center">
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {

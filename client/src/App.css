@@ -47,6 +47,14 @@ footer {
     left: 0;
 }
 
+.light-gray {
+    background-color: var(--light-gray);
+}
+
+.dark-gray {
+    background-color: var(--dark-gray);
+}
+
 .footer-body, .footer-divider, .footer-label {
     color: var(--dark-gray);
 }
