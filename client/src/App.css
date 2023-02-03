@@ -14,6 +14,8 @@
 :root {
     --coal: #242424;
     --green: #709255;
+    --light-gray: #DEDEDE;
+    --dark-gray: #8C8C8C;
 }
 
 header,
@@ -36,6 +38,25 @@ nav {
     /* gap: 2rem; */
     transition: 1s;
     transform: translateX(-140vw);
+}
+
+footer {
+    background: var(--coal);
+    color: var(--light-gray);
+    bottom: 0;
+    left: 0;
+}
+
+.light-gray {
+    background-color: var(--light-gray);
+}
+
+.dark-gray {
+    background-color: var(--dark-gray);
+}
+
+.footer-body, .footer-divider, .footer-label {
+    color: var(--dark-gray);
 }
 
 .app-title,

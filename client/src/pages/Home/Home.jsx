@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import HomeCard from "../../components/HomeCard/HomeCard";
-
 import { sortDateDesc, sortDiscountDesc } from "../../utils/helpers";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
@@ -61,7 +60,7 @@ const Home = () => {
 	}, [data]);
 
 	return (
-		<main className="flex flex-wrap justify-center bg-neutral-400">
+		<main className="flex flex-wrap flex-col items-center">
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {
