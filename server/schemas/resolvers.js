@@ -28,42 +28,12 @@ const resolvers = {
         getOneProduct: async (parent, { _id }) => {
             return await Product.findById(_id).populate("category");
         },
-<<<<<<< HEAD
         getAllOrders: async (parent, { userID }) => {
             return await Order.find({ user: userID }).populate("products");
         },
-=======
         products: async () => {
             return await Product.find();
         },
-
-        // user: async (parent, args, context) => {
-        //   if (context.user) {
-        //     const user = await User.findById(context.user._id).populate({
-        //       path: 'orders.products',
-        //       populate: 'category'
-        //     });
-
-        //     user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
-
-        //     return user;
-        //   }
-
-        //   throw new AuthenticationError('Not logged in');
-        // },
-        order: async (parent, { _id }, context) => {
-            if (context.user) {
-                const user = await User.findById(context.user._id).populate({
-                    path: "orders.products",
-                    populate: "category"
-                });
-
-                return user.orders.id(_id);
-            }
-
-            throw new AuthenticationError("Not logged in");
-        }
->>>>>>> main
     },
     Mutation: {
         // requirePassword: async (parent, args, context) => {

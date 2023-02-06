@@ -108,7 +108,6 @@ query GetMyProducts($userId: ID!) {
   }
 }
 `;
-<<<<<<< HEAD
 
 export const QUERY_ALLORDERS = gql`
 query GetAllOrders($userId: ID!) {
@@ -137,5 +136,3 @@ query GetAllOrders($userId: ID!) {
   }
 }
 `;
-=======
->>>>>>> main

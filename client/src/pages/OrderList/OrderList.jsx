@@ -77,11 +77,11 @@ const OrderList = () => {
     // getOrder();
 
     return (
-    <div className="absolute h-full w-full">
+    <div className="flex justify-center h-screen">
         {Auth.loggedIn() ? (
         <div className="container m-0">
             <div className="" id="tables">
-                <h2 className="text-center">Purchased Orders</h2>
+                <h2 className="mt-5 text-center">Purchased Orders</h2>
                 <div id="purchased-orders-component">
                     <PurchasedOrders data={orderListData} column={columnPO}/>
                 </div>

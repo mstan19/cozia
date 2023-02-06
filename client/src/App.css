@@ -127,7 +127,6 @@ footer {
     font-weight: 500;
 }
 
-<<<<<<< HEAD
 table {
     border-collapse: collapse;
     max-width: 900px;
@@ -136,12 +135,10 @@ table {
   }
 
 table th, table td {
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
     padding: 8px;
 }
-=======
 .image {
     height: 320px;
     width: 320px;
 }
->>>>>>> main

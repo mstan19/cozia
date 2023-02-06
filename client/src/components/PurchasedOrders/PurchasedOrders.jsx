@@ -4,7 +4,6 @@ import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_ALLORDERS } from "../../utils/queries";
-import Accordion from "../Header/Accordion";
 
 const PurchasedOrders = ({ data, column }) => {
     const [selected, setSelected] = useState({})

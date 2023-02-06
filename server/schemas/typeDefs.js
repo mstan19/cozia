@@ -52,8 +52,6 @@ const typeDefs = gql`
         country: String!
     }
 
-<<<<<<< HEAD
-=======
     type productOrder {
         productName: String!
         image: String!
@@ -62,7 +60,6 @@ const typeDefs = gql`
         discount: Float!
         product: [Product]
     }
->>>>>>> main
 
     type Order {
         _id: ID

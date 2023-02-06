@@ -46,14 +46,18 @@ db.once("open", async () => {
 		const newCategory = await Category.create(category);
 		// }
 
-<<<<<<< HEAD
-            let user = {
-                firstName: faker.name.firstName(),
-                lastName: faker.name.lastName(),
-                username: faker.internet.userName(),
-                email: email,
-                password: email
-            };
+    	//creating users. if consumer, then they will have an order
+		let userList = [];
+		for (let j = 0; j < 10; j++) {
+			let email = faker.internet.email();
+
+			let user = {
+				firstName: faker.name.firstName(),
+				lastName: faker.name.lastName(),
+				username: faker.internet.userName(),
+				email: email,
+				password: email,
+			};   
             // console.log(user);
             const newUser = await User.create(user);
             userList.push(newUser);
@@ -72,12 +76,13 @@ db.once("open", async () => {
                 let product = {
                     productName: faker.commerce.product(),
                     description: faker.commerce.productDescription(),
-                    image: faker.internet.url(),
+                    image: faker.image.fashion(380, 380, true),
                     price: faker.commerce.price(),
                     size: "small",
-                    color: "black",
-                    // gender: ,
+                    color: faker.color.rgb(),
+                    discount: Math.floor(Math.random() * 100),
                     countInStock: 3,
+					createdAt: faker.date.past(),
                     reviews: [reviewSchema],
                     totalRating: 9.0,
                     numberReviews: 10,
@@ -114,87 +119,6 @@ db.once("open", async () => {
             const newOrder = await Order.create(order);
             }
         }
-=======
-		//creating users. if consumer, then they will have an order
-		let userList = [];
-		for (let j = 0; j < 10; j++) {
-			let email = faker.internet.email();
-
-			let user = {
-				firstName: faker.name.firstName(),
-				lastName: faker.name.lastName(),
-				username: faker.internet.userName(),
-				email: email,
-				password: email,
-			};
-			// console.log(user);
-			const newUser = await User.create(user);
-			userList.push(newUser);
-
-			for (let k = 0; k < 1; k++) {
-				let order = {
-					user: newUser._id,
-					shippingAddress: {
-						street: faker.address.streetAddress(),
-						city: faker.address.cityName(),
-						state: faker.address.state(),
-						zip: faker.address.zipCode(),
-						country: faker.address.country(),
-						phoneNumber: faker.phone.number(),
-					},
-					productOrder: [
-						{
-							productName: faker.commerce.productName(),
-							image: faker.image.fashion(),
-							quantity: faker.datatype.number({ max: 20 }),
-							price: faker.commerce.price(),
-							discount: 50,
-						},
-					],
-					tax: 3.0,
-					shippingPrice: 5.0,
-					isPaid: faker.datatype.boolean(),
-					isDelivered: faker.datatype.boolean(),
-					totalCost: faker.commerce.price(),
-					purchaseDate: faker.date.past(),
-					deliveryDate: faker.date.future(),
-				};
-				const newOrder = await Order.create(order);
-			}
-		}
->>>>>>> main
-
-		//creating products
-		for (let l = 0; l < newCategory.length; l++) {
-			for (let m = 0; m < 3; m++) {
-				let reviewSchema = {
-					user: userList[0]._id,
-					rating: 9.0,
-					comment: "cool",
-					createdAt: "1/1",
-				};
-				let product = {
-					productName: faker.commerce.product(),
-					description: faker.commerce.productDescription(),
-					image: faker.image.fashion(380, 380, true),
-					price: faker.commerce.price(),
-					size: "small",
-					color: faker.color.rgb(),
-					// gender: ,
-					countInStock: 5,
-					createdAt: faker.date.past(),
-					discount: Math.floor(Math.random() * 100),
-					// createdAt: new Date(),
-					reviews: [reviewSchema],
-					totalRating: 9.0,
-					numberReviews: 10,
-					category: newCategory[l]._id,
-					user: userList[l]._id,
-				};
-				// console.log("$$", userList);
-				const newProduct = await Product.create(product);
-			}
-		}
 
 		console.log("Seeding complete! 🌱");
 		process.exit(0);
