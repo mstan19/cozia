@@ -1,6 +1,9 @@
 const { gql } = require("apollo-server-express");
+const { GraphQLScalarType, Kind } = require("graphql");
 
 const typeDefs = gql`
+    scalar DateTime
+
     type User {
         _id: ID!
         firstName: String!
@@ -28,11 +31,12 @@ const typeDefs = gql`
         description: String
         image: String
         price: Float!
-        discount: Float
+        discount: Float!
         gender: String!
         size: String
         color: String!
         countInStock: Int
+        createdAt: DateTime
         reviews: [Reviews]
         totalRating: Int
         numberReviews: Int
@@ -48,6 +52,17 @@ const typeDefs = gql`
         country: String!
     }
 
+<<<<<<< HEAD
+=======
+    type productOrder {
+        productName: String!
+        image: String!
+        quantity: String!
+        price: Float!
+        discount: Float!
+        product: [Product]
+    }
+>>>>>>> main
 
     type Order {
         _id: ID
@@ -76,6 +91,7 @@ const typeDefs = gql`
         me: User
         getMyProducts(userID: ID!): [Product]
         categories: [Category]
+        products: [Product]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
         getAllOrders(userID: ID!): [Order]
@@ -100,7 +116,7 @@ const typeDefs = gql`
         description: String
         image: String
         price: Float
-        discount: Float
+        discount: Float!
         size: String
         gender: String
         color: String
@@ -141,5 +157,24 @@ const typeDefs = gql`
         ): Product
     }
 `;
+
+const dateTimeScalar = new GraphQLScalarType({
+    name: "DateTime",
+    description: "Date custom scalar type",
+    serialize(value) {
+        return value.getTime(); // Convert outgoing Date to integer for JSON
+    },
+    parseValue(value) {
+        return new Date(value); // Convert incoming integer to Date
+    },
+    parseLiteral(ast) {
+        if (ast.kind === Kind.INT) {
+            // Convert hard-coded AST string to integer and then to Date
+            return new Date(parseInt(ast.value, 10));
+        }
+        // Invalid hard-coded value (not an integer)
+        return null;
+    }
+});
 
 module.exports = typeDefs;

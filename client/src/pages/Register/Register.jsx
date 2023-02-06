@@ -5,9 +5,8 @@ import LoginForm from "../../components/Login/LoginForm";
 const Register = ({ color }) => {
     const [openTab, setOpenTab] = React.useState(1);
     return (
-        <div className="absolute h-full w-full">
+        <div className="h-screen w-full">
             <div className="container mx-auto w-full md:w-[700px]">
-
                 <div className="register-style row bg-white" id="form">
                     <div className="flex flex-wrap">
                         <div className="w-full">

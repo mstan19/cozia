@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AiFillHeart, AiFillShopping } from "react-icons/ai";
-import Accordion from "./Accordion";
+import Accordion from "../Accordion/Accordion";
 import { useQuery } from "@apollo/client";
 import { QUERY_CATEGORY } from "../../utils/queries";
 import Auth from "../../utils/auth";
