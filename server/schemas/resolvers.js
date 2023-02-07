@@ -170,7 +170,8 @@ const resolvers = {
             const deleteUser = await User.findOneAndDelete({
                 _id: userId
             });
-        }
+        },
+
     }
 };
 

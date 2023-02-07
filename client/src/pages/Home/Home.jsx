@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import HomeCard from "../../components/HomeCard/HomeCard";
 import { sortDateDesc, sortDiscountDesc } from "../../utils/helpers";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
@@ -80,20 +79,21 @@ const Home = () => {
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {
 					console.log(sectionKey);
-					console.log(sectionCards[sectionKey]);
+					// console.log(sectionCards[sectionKey]);
 					// console.log(sectionCards[sectionKey][0]);
 					
 					return (
-						// <HomeCard
-						// 	key={sectionKey + idx}
-						// 	section={sectionKey}
-						// 	productsArray={sectionCards[sectionKey]}
-						// />
 						<Carousel
 							key={sectionKey + idx}
 							section={sectionKey}
 							products={sectionCards[sectionKey]}
 						/>
+						// <HomeCard
+						// 	key={sectionKey + idx}
+						// 	section={sectionKey}
+						// 	productsArray={sectionCards[sectionKey]}
+						// />
+						
 					);
 				})}
 		</main>

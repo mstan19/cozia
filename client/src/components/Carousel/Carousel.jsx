@@ -1,8 +1,9 @@
 import React from "react";
+import "tw-elements";
+import { calculateDiscountPrice } from "../../utils/helpers";
 
 const Carousel = ({ section, products }) => {
-
-	// TODO: Add discount label again an discount price
+	console.log(products);
 
 	if (products && Object.keys(products).length !== 0) {
 		return (
@@ -34,21 +35,39 @@ const Carousel = ({ section, products }) => {
 					></button>
 				</div>
 				<div className="carousel-inner relative w-full overflow-hidden">
-					<h2 className="flex justify-center text-xl m-3">{section}</h2>
+					<h2 className="flex justify-center text-xl m-3">
+						{section}
+					</h2>
 					<div className="carousel-item active float-left w-full">
 						<img
 							src={products[0].image}
 							className="object-cover aspect-square flex justify-items-center"
 							alt={products[0].productName}
 						/>
+		{products[1].discount !== 0 ? (
+							<div className="discount-label top-14 left-0 absolute bg-red-500 text-white py-3 px-3 text-2xl">
+								<p>-{products[0].discount}%</p>
+							</div>
+						) : (
+							<> </>
+						)}
 						<section className="flex justify-between items-center">
 							<div>
 								<h3 className="mt-2 text-lg">
 									{products[0].productName}
 								</h3>
-								<p className="mb-2 text-lg">
-									${products[0].price}
-								</p>
+								<div className="flex mb-2 text-lg">
+									<p className="discount-price text-red-600 pr-3">
+										$
+										{calculateDiscountPrice(
+											products[0].price,
+											products[0].discount
+										)}
+									</p>
+									<p className="original-price text-neutral-300 line-through">
+										${products[0].price}
+									</p>
+								</div>
 							</div>
 							<div
 								className="color drop-shadow"
@@ -70,14 +89,30 @@ const Carousel = ({ section, products }) => {
 							className="object-cover aspect-square"
 							alt={products[1].productName}
 						/>
+						{products[1].discount !== 0 ? (
+							<div className="discount-label top-14 left-0 absolute bg-red-500 text-white py-3 px-3 text-2xl">
+								<p>-{products[1].discount}%</p>
+							</div>
+						) : (
+							<> </>
+						)}
 						<section className="flex justify-between items-center">
 							<div>
 								<h3 className="mt-2 text-lg">
 									{products[1].productName}
 								</h3>
-								<p className="mb-2 text-lg">
-									${products[1].price}
-								</p>
+								<div className="flex mb-2 text-lg">
+									<p className="discount-price text-red-600 pr-3">
+										$
+										{calculateDiscountPrice(
+											products[1].price,
+											products[1].discount
+										)}
+									</p>
+									<p className="original-price text-neutral-300 line-through">
+										${products[1].price}
+									</p>
+								</div>
 							</div>
 							<div
 								className="color drop-shadow"
@@ -99,14 +134,30 @@ const Carousel = ({ section, products }) => {
 							className="object-cover aspect-square"
 							alt={products[2].productName}
 						/>
+						{products[1].discount !== 0 ? (
+							<div className="discount-label top-14 left-0 absolute bg-red-500 text-white py-3 px-3 text-2xl">
+								<p>-{products[2].discount}%</p>
+							</div>
+						) : (
+							<> </>
+						)}
 						<section className="flex justify-between items-center">
 							<div>
 								<h3 className="mt-2 text-lg">
 									{products[2].productName}
 								</h3>
-								<p className="mb-2 text-lg">
-									${products[2].price}
-								</p>
+								<div className="flex mb-2 text-lg">
+									<p className="discount-price text-red-600 pr-3">
+										$
+										{calculateDiscountPrice(
+											products[2].price,
+											products[2].discount
+										)}
+									</p>
+									<p className="original-price text-neutral-300 line-through">
+										${products[2].price}
+									</p>
+								</div>
 							</div>
 							<div
 								className="color drop-shadow"
