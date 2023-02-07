@@ -7,11 +7,6 @@ const HomeCard = ({ section, productsArray }) => {
 	// console.log(section);
 	// console.log(productsArray);
 	if (productsArray && Object.keys(productsArray).length !== 0) {
-		console.log(section);
-		console.log(productsArray[0]);
-		// console.log(productsArray[1]);
-		// console.log(productsArray[2]);
-		
 		const { productName, image, color, price, discount } = productsArray[0] || {};
 
 		// console.log(productName);

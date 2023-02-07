@@ -1,17 +1,14 @@
 import React from "react";
-// import { Carousel } from 'flowbite';
 
-// const carousel = new Carousel(items, options);
 const Carousel = ({ section, products }) => {
-	// console.log(section);
-	// console.log("products", products);
-	// const { productName, image, color, price, discount } = products[0] || {};
+
+	// TODO: Add discount label again an discount price
 
 	if (products && Object.keys(products).length !== 0) {
 		return (
 			<div
 				id="carouselExampleIndicators"
-				className="carousel slide relative"
+				className="carousel carousel-dark slide relative bg-white drop-shadow min-w-md px-5 mb-5"
 				data-bs-ride="carousel"
 			>
 				<div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
@@ -37,11 +34,11 @@ const Carousel = ({ section, products }) => {
 					></button>
 				</div>
 				<div className="carousel-inner relative w-full overflow-hidden">
-					<h2>{section}</h2>
+					<h2 className="flex justify-center text-xl m-3">{section}</h2>
 					<div className="carousel-item active float-left w-full">
 						<img
 							src={products[0].image}
-							className="object-cover aspect-square"
+							className="object-cover aspect-square flex justify-items-center"
 							alt={products[0].productName}
 						/>
 						<section className="flex justify-between items-center">
@@ -63,7 +60,7 @@ const Carousel = ({ section, products }) => {
 								}}
 							></div>
 						</section>
-						<p className="view-more flex justify-end text-neutral-400 text-sm p-1">
+						<p className="view-more flex justify-end text-neutral-400 text-sm py-1">
 							View more
 						</p>
 					</div>
@@ -92,7 +89,7 @@ const Carousel = ({ section, products }) => {
 								}}
 							></div>
 						</section>
-						<p className="view-more flex justify-end text-neutral-400 text-sm p-1">
+						<p className="view-more flex justify-end text-neutral-400 text-sm py-1">
 							View more
 						</p>
 					</div>
@@ -121,7 +118,7 @@ const Carousel = ({ section, products }) => {
 								}}
 							></div>
 						</section>
-						<p className="view-more flex justify-end text-neutral-400 text-sm p-1">
+						<p className="view-more flex justify-end text-neutral-400 text-sm py-1">
 							View more
 						</p>
 					</div>

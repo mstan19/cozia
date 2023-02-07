@@ -75,14 +75,14 @@ const Home = () => {
 	}, [data]);
 
 	return (
-		<main className="flex flex-wrap items-center h-screen">
+		<main className="flex flex-col items-center">
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {
-					// console.log(sectionKey);
-					// if (sectionCards[sectionKey]) {
-					// 	console.log(sectionCards[sectionKey][0]);
-					// }
+					console.log(sectionKey);
+					console.log(sectionCards[sectionKey]);
+					// console.log(sectionCards[sectionKey][0]);
+					
 					return (
 						// <HomeCard
 						// 	key={sectionKey + idx}
