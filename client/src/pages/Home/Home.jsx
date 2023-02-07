@@ -3,30 +3,41 @@ import HomeCard from "../../components/HomeCard/HomeCard";
 import { sortDateDesc, sortDiscountDesc } from "../../utils/helpers";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
+import Carousel from "../../components/Carousel/Carousel";
 
 const Home = () => {
 	// Create query to find all products
 	const { loading, data } = useQuery(QUERY_PRODUCTS);
 	const [sectionCards, setSectionCards] = useState({
 		"NEWEST ARRIVAL": {},
-		"FEATURED": {},
-		"DEALS": {},
-		"TRENDING": {},
+		FEATURED: {},
+		DEALS: {},
+		TRENDING: {},
 	});
 
 	// Get newest arrival card
 	function getNewestArrival(products) {
 		if (products && Object.keys(products).length !== 0) {
 			const sortedProducts = sortDateDesc([...products]);
-			return sortedProducts[0];
+			let newestArray = [];
+			for (let i = 0; i < 3; i++) {
+				newestArray.push(sortedProducts[i]);
+			}
+			console.log("newestArray", newestArray);
+			return newestArray;
 		}
 	}
 
 	// Get featured card
 	function getFeatured(products) {
 		if (products && Object.keys(products).length !== 0) {
-			let randomNum = Math.floor(Math.random() * products.length);
-			return products[randomNum];
+			let featureArray = [];
+			for (let i = 0; i < 3; i++) {
+				let randomNum = Math.floor(Math.random() * products.length);
+				featureArray.push(products[randomNum]);
+			}
+			console.log("featureArray", featureArray);
+			return featureArray;
 		}
 		// TODO: add to stay for a week
 	}
@@ -35,7 +46,11 @@ const Home = () => {
 	function getHighestDiscount(products) {
 		if (products && Object.keys(products).length !== 0) {
 			const sortedProducts = sortDiscountDesc([...products]);
-			return sortedProducts[0];
+			let discountArray = [];
+			for (let i = 0; i < 3; i++) {
+				discountArray.push(sortedProducts[i]);
+			}
+			return discountArray;
 		}
 	}
 
@@ -50,9 +65,9 @@ const Home = () => {
 		if (products && products.length !== 0) {
 			let sCards = {
 				"NEWEST ARRIVAL": getNewestArrival(products),
-				"FEATURED": getFeatured(products),
-				"DEALS": getHighestDiscount(products),
-				"TRENDING": getTrending(products),
+				FEATURED: getFeatured(products),
+				DEALS: getHighestDiscount(products),
+				TRENDING: getTrending(products),
 			};
 			setSectionCards(sCards);
 			console.log(sCards);
@@ -60,15 +75,24 @@ const Home = () => {
 	}, [data]);
 
 	return (
-		<main className="flex flex-wrap flex-col items-center">
+		<main className="flex flex-wrap items-center h-screen">
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {
+					// console.log(sectionKey);
+					// if (sectionCards[sectionKey]) {
+					// 	console.log(sectionCards[sectionKey][0]);
+					// }
 					return (
-						<HomeCard
+						// <HomeCard
+						// 	key={sectionKey + idx}
+						// 	section={sectionKey}
+						// 	productsArray={sectionCards[sectionKey]}
+						// />
+						<Carousel
 							key={sectionKey + idx}
 							section={sectionKey}
-							product={sectionCards[sectionKey]}
+							products={sectionCards[sectionKey]}
 						/>
 					);
 				})}
