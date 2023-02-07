@@ -6,7 +6,7 @@ import Auth from "../../utils/auth";
 import SalesItemModal from "../Modal/SaleItemsModal";
 
 const SalesItem = ({ data, column }) => {
-    // console.log(data)
+    // console.log("saleItemsInfo", data)
     // console.log(column)
    
     const [editOrder] = useMutation(EDIT_ORDER);
@@ -42,12 +42,11 @@ const SalesItem = ({ data, column }) => {
                 </tr>
             </thead>
             <tbody>
-                <div>
+                {data && data?.map((item, index) => <TableRow key={item._id} item={item}  column={column} className={index % 2 == 0 ? "bg-green-400" : ""} />)}
+                 <div>
                      <button onClick={() => {setModalOpen(true); openModal()}}>edit</button>
                      {modalOpen && <SalesItemModal setOpenModal={setModalOpen} onEditFunction={() => handleEditOrderBtn(selectedOrderId)} onEditOrderID={selectedOrderId}/>}
                 </div>
-               
-                {/* {data && data?.getAllOrders.map((item, index) => <TableRow key={item._id} item={item}  column={column} data={data} className={index % 2 == 0 ? "bg-green-400" : ""} />)} */}
             </tbody>
         </table>
     );
@@ -55,17 +54,25 @@ const SalesItem = ({ data, column }) => {
 
 const TableHeadItem = ({ item }) => <th>{item.heading}</th>
 
-// const TableRow = ({ column, item }) => (
-//     // console.log(item)
-//     <tr>
-//     {column.map((columnItem) => {
-//         // if(columnItem.value === "price") {
-//         //     return <td>$ {item[`${columnItem.value}`]}</td>
-//         // } 
+const TableRow = ({ column, item }) => (
+    // console.log(item)
+    <tr>
+    {column.map((columnItem) => {
+        console.log()
 
-//         return <td key={item._id + "|" + columnItem.value}>{item[`${columnItem.value}`]}</td>
-//     })}
-//     </tr>
-// )
+         if(columnItem.value === "isDelivered" && item.isDelivered === true) {
+            return <td key={item._id + "|" + columnItem.value}>Delivered</td>
+        } else if (columnItem.value === "isDelivered" && item.isDelivered === false){
+            return <td key={item._id + "|" + columnItem.value}>Not Delivered</td>
+        }
+
+        if(columnItem.value === "price") {
+            return <td>$ {item[`${columnItem.value}`]}</td>
+        } 
+
+        return <td key={item._id + "|" + columnItem.value}>{item[`${columnItem.value}`]}</td>
+    })}
+    </tr>
+)
 
 export default SalesItem;

@@ -4,7 +4,7 @@ import PurchasedOrders from "../../components/PurchasedOrders/PurchasedOrders";
 import SalesItem from "../../components/SalesItem/SalesItem";
 import { useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
-import { QUERY_ME, QUERY_ALLORDERS } from "../../utils/queries";
+import { QUERY_ME, QUERY_ALLORDERS, QUERY_SALEITEMS } from "../../utils/queries";
 import Auth from "../../utils/auth";
 
 
@@ -14,6 +14,13 @@ const OrderList = () => {
     const {  data: orderListData, loading: orderListLoading, error:orderListError } = useQuery(QUERY_ALLORDERS, {
 		variables: { userId: data?.me?._id },
 		});
+    const {  data: saleItemsdata, loading: saleItemsLoading, error:saleItemsError } = useQuery(QUERY_SALEITEMS, {
+        variables: { userId: data?.me?._id },
+        });
+
+        
+    let saleItemsInfo = JSON.parse(saleItemsdata?.getSaleItems);
+    // console.log("saleItemsInfo", saleItemsInfo)
 
     useEffect(() => {
         const getUserData = async () => {
@@ -102,14 +109,14 @@ const OrderList = () => {
 
     // function getOrder () {
     //     console.log("orderListData", orderListData) 
-        console.log("orderListData", orderListData?.getAllOrders) 
+        // console.log("orderListData", orderListData?.getAllOrders) 
     //     console.log("orderListData", orderListData?.getAllOrders[0].isDelivered) 
     //     console.log("orderListData", orderListData?.getAllOrders[0].products[0].productName) 
     // }
     // getOrder();
 
     return (
-    <div className="flex justify-center h-screen">
+    <div className="flex flex-wrap justify-center">
         {Auth.loggedIn() ? (
         <div className="container m-0">
             <div className="" id="tables">
@@ -119,7 +126,7 @@ const OrderList = () => {
                 </div>
                 <h2 className="mt-5 text-center">Sale Items</h2>
                 <div className="bg-black-100" id="sales-item-component">
-                    <SalesItem data={orderListData} column={columnSI}/>
+                    <SalesItem data={saleItemsInfo} column={columnSI}/>
                 </div>
             </div>
         </div>

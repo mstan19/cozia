@@ -49,7 +49,8 @@ const resolvers = {
                             let getCity = order?.shippingAddress.city;
                             let getState = order?.shippingAddress.state;
                             let getStreet = order?.shippingAddress.street;
-                            let makeAddress = getStreet + ", " + getCity + ", " + getState
+                            let getZip = order?.shippingAddress.zip;
+                            let makeAddress = getStreet + ", " + getCity + ", " + getState + ", " + getZip
                             productDisplayData.push(
                                 {
                                     purchaseDate: order.purchaseDate,

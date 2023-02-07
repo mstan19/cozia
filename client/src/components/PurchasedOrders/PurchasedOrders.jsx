@@ -82,10 +82,12 @@ const TableRow = ({ selected, setSelected, item, column, data, index }) => (
         } else if (columnItem.value === "isDelivered" && item.isDelivered === false){
             return <td key={item._id + "|" + columnItem.value}>Not Delivered</td>
         }
+
         let getCity = item?.shippingAddress.city;
         let getState = item?.shippingAddress.state;
         let getStreet = item?.shippingAddress.street;
-        let makeAddress = getStreet + ", " + getCity + ", " + getState
+        let getZip = item?.shippingAddress.zip;
+        let makeAddress = getStreet + ", " + getCity + ", " + getState + ", " + getZip
 
         if(columnItem.value === "shippingAddress") {
             return <td key={item._id + "|" + columnItem.value}>{makeAddress}</td>
