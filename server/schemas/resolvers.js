@@ -3,6 +3,7 @@ const { User, Product, Category, Order } = require("../models");
 const { signToken } = require("../utils/auth");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const { faker } = require("@faker-js/faker");
+const mongoose = require("mongoose");
 const resolvers = {
     Query: {
         me: async (parent, args, context) => {
@@ -21,79 +22,54 @@ const resolvers = {
         },
         getSaleItems:async (parent, { userID }) => {
 
-            // let pipeline =[
-            //     {$}
-            // ]
-        //    return await Product.aggregate([
-        //         { $lookup: 
-        //             {
-        //                 from: "orders",
-        //                 localField: "",
-        //                 foreignField: "",
-        //                 as: ""
-        //             }
-        //         },
-        //         { $match: {userId: userID}},
-        //         // { $group: {
-        //         //     orderDate: "$purchaseDate",
-        //         //     status: "$isDelivered",
-        //         //     shippingAddress: "$shippingAddress",
-        //         // }},
-        //         // {
-        //         //     $unwind: "$"
-        //         // },
-                
-        //     ])
+            let productDisplayData = []
 
-
-
-
-
-            // get myproducts
+            // // get myproducts
             let myProductsData = await Product.find({ user: userID });
-            // console.log(myProductsData)
             // grab the id of my products
-            let myproducts = myProductsData.map((productInfo) => productInfo._id);
-            console.log(Object.values(myproducts))
-            // get consumers order
-            let orders = await Order.find({ user: userID })
-            // return products in that order
-            let productsinOrder = orders.map((order) => order.products.map((product) => product._id)).flat();
-            console.log(Object.values(productsinOrder))
+            let myProductIds = myProductsData.map((productInfo) => mongoose.Types.ObjectId(productInfo._id));
 
-            let intersectionResult = [];
+            let ordersWithMyProduct = await Order.find({products: {"$in": myProductIds}}).populate("products")
 
-            for (let i of productsinOrder) {
-                if (myproducts.has(i)) {
-                    intersectionResult.push(i);
-                }
-           
-            }
-                //  console.log(intersectionResult)
+            // console.log("=====ALL MY PRODUCTS======")
+            myProductsData.forEach((u) => {
+                // console.log(u._id)
+                // console.log(u.productName)
+            })
+            // console.log("==========================")
 
-            //compare products from order to myproducts
-            // let salesItems = new Set([...myproducts].filter((x) => productsinOrder.has(x)));
-            // console.log(JSON.stringify(...salesItems))
-            // myproducts.filter(element => productsinOrder.includes(element))
+            ordersWithMyProduct.forEach((order) => {
+                // console.log("ORDER CONTAINING MY PRODUCTS-----")
+                // console.log("ORDER_ID=" + order._id)
+                order.products.forEach((product) => {
+                    myProductIds.forEach((myProductId) => {
+                        if (product._id.equals(myProductId)) { 
+                            console.log("" + product.productName)
 
+                            let getCity = order?.shippingAddress.city;
+                            let getState = order?.shippingAddress.state;
+                            let getStreet = order?.shippingAddress.street;
+                            let makeAddress = getStreet + ", " + getCity + ", " + getState
+                            productDisplayData.push(
+                                {
+                                    purchaseDate: order.purchaseDate,
+                                    productName: product.productName,
+                                    productId: product._id.toString(),
+                                    orderId: order._id.toString(),
+                                    isDelivered: order.isDelivered,
+                                    deliveryDate: order.deliveryDate,
+                                    shippingAddress: makeAddress,
+                                    price: product.price
+                                }
+                            )
+                        }
+                    })
+                })
+                // console.log("---------------------------------")
 
-            // await Order.aggregate([
-            //     { $match: {productID: "$_id"}},
-            //     { $group: {
-            //         orderDate: "$purchaseDate",
-            //         status: "$isDelivered",
-            //         shippingAddress: "$shippingAddress",
-            //     }}
-            // ]
-            // )
-
-            // console.log(typeof myproducts)
-            // console.log(typeof productsinOrder)
-            // console.log(myproducts[0].toString())
-            // console.log(productsinOrder[0].toString())
-            // console.log(myproducts[0].toString() === productsinOrder[0].toString())
-            // console.log(salesItems)
-            // return await Order.find({ products: salesItems });
+            })
+            // console.log(JSON.stringify(productDisplayData))
+            return JSON.stringify(productDisplayData)
             
         },
         categories: async () => {
