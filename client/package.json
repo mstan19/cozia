@@ -26,7 +26,8 @@
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.4.4",
         "react-scripts": "^5.0.1",
-        "tw-elements": "^1.0.0-alpha13"
+        "tw-elements": "^1.0.0-alpha13",
+        "styled-components": "^5.3.6"
     },
     "scripts": {
         "start": "react-scripts start",

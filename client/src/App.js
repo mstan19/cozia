@@ -15,6 +15,7 @@ import Register from "../src/pages/Register/Register";
 import MyProduct from "./pages/MyProducts/MyProducts";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AddProductForm from "./components/AddProductForm";
+import OrderList from "./pages/OrderList/OrderList";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -50,6 +51,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/orderlist" element={<OrderList />} />
                         <Route path="/addproduct" element={<AddProductForm />} />
                         <Route path="/myproducts" element={<MyProduct />} />
                     </Routes>
