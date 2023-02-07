@@ -34,8 +34,6 @@ const OrderList = () => {
         getUserData();
         }, [data]);
 
-    
-    
     const columnPO = [
         {
             heading: "Order ID",
@@ -61,16 +59,50 @@ const OrderList = () => {
             heading: "Delivery Address",
             value: "shippingAddress"
         },
-        // {order.shippingAddress.street}, {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}
         {
             heading: "Total Cost",
             value: "totalCost"
         },
+        
+    ]
+    
+    const columnSI = [
+        {
+            heading: "Order Date",
+            value: "purchaseDate"
+        }, 
+        {
+            heading: "Item Name",
+            value: "productName"
+        },
+        {
+            heading: "Item ID",
+            value: "_id"
+        },
+        {
+            heading: "Delivery Status",
+            value: "isDelivered"
+        },
+        {
+            heading: "Delivery Date",
+            value: "deliveryDate"
+        },
+        {
+            heading: "Delivery Address",
+            value: "shippingAddress"
+        },
+        {
+            heading: "Price",
+            value: "price"
+        },
+        // {
+        //     heading: 
+        // }
     ]
 
     // function getOrder () {
     //     console.log("orderListData", orderListData) 
-    //     console.log("orderListData", orderListData?.getAllOrders) 
+        console.log("orderListData", orderListData?.getAllOrders) 
     //     console.log("orderListData", orderListData?.getAllOrders[0].isDelivered) 
     //     console.log("orderListData", orderListData?.getAllOrders[0].products[0].productName) 
     // }
@@ -85,10 +117,10 @@ const OrderList = () => {
                 <div id="purchased-orders-component">
                     <PurchasedOrders data={orderListData} column={columnPO}/>
                 </div>
-
-                {/* <div className="bg-black-100" id="sales-item-component">
-                    <SalesItem />
-                </div> */}
+                <h2 className="mt-5 text-center">Sale Items</h2>
+                <div className="bg-black-100" id="sales-item-component">
+                    <SalesItem data={orderListData} column={columnSI}/>
+                </div>
             </div>
         </div>
          ) : (

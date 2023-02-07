@@ -37,6 +37,11 @@ const orderSchema = new Schema({
     required: true,
     default: false,
   },
+  isPaid: {
+    type: Boolean,
+    required: true,
+    default: true,
+  },
   totalCost: {
     type: Number,
     required: true,

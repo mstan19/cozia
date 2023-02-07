@@ -19,6 +19,83 @@ const resolvers = {
         getMyProducts:async (parent, { userID }) => {
             return await Product.find({ user: userID });
         },
+        getSaleItems:async (parent, { userID }) => {
+
+            // let pipeline =[
+            //     {$}
+            // ]
+        //    return await Product.aggregate([
+        //         { $lookup: 
+        //             {
+        //                 from: "orders",
+        //                 localField: "",
+        //                 foreignField: "",
+        //                 as: ""
+        //             }
+        //         },
+        //         { $match: {userId: userID}},
+        //         // { $group: {
+        //         //     orderDate: "$purchaseDate",
+        //         //     status: "$isDelivered",
+        //         //     shippingAddress: "$shippingAddress",
+        //         // }},
+        //         // {
+        //         //     $unwind: "$"
+        //         // },
+                
+        //     ])
+
+
+
+
+
+            // get myproducts
+            let myProductsData = await Product.find({ user: userID });
+            // console.log(myProductsData)
+            // grab the id of my products
+            let myproducts = myProductsData.map((productInfo) => productInfo._id);
+            console.log(Object.values(myproducts))
+            // get consumers order
+            let orders = await Order.find({ user: userID })
+            // return products in that order
+            let productsinOrder = orders.map((order) => order.products.map((product) => product._id)).flat();
+            console.log(Object.values(productsinOrder))
+
+            let intersectionResult = [];
+
+            for (let i of productsinOrder) {
+                if (myproducts.has(i)) {
+                    intersectionResult.push(i);
+                }
+           
+            }
+                //  console.log(intersectionResult)
+
+            //compare products from order to myproducts
+            // let salesItems = new Set([...myproducts].filter((x) => productsinOrder.has(x)));
+            // console.log(JSON.stringify(...salesItems))
+            // myproducts.filter(element => productsinOrder.includes(element))
+
+
+            // await Order.aggregate([
+            //     { $match: {productID: "$_id"}},
+            //     { $group: {
+            //         orderDate: "$purchaseDate",
+            //         status: "$isDelivered",
+            //         shippingAddress: "$shippingAddress",
+            //     }}
+            // ]
+            // )
+
+            // console.log(typeof myproducts)
+            // console.log(typeof productsinOrder)
+            // console.log(myproducts[0].toString())
+            // console.log(productsinOrder[0].toString())
+            // console.log(myproducts[0].toString() === productsinOrder[0].toString())
+            // console.log(salesItems)
+            // return await Order.find({ products: salesItems });
+            
+        },
         categories: async () => {
             return await Category.find();
         },
@@ -36,17 +113,6 @@ const resolvers = {
         },
     },
     Mutation: {
-        // requirePassword: async (parent, args, context) => {
-        //     // user Bearer {token}
-        //     // select returns everything exept for the password and version
-        //     if (context.user) {
-        //         const userData = await User.findOne({
-        //             _id: context.user._id,
-        //         }).select("-__v ");
-        //         return userData;
-        //     }
-        //     throw new AuthenticationError("You need to be logged in!");
-        // },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -131,6 +197,15 @@ const resolvers = {
             );
 
             return updateProduct;
+        },
+        updateOrder: async (parent,  { orderId, orderData }, context) => {
+            const updateOrder = await Order.findOneAndUpdate(
+                { _id: orderId },
+                orderData,
+                { new: true }
+            );
+
+            return updateOrder;
         },
         updateUser: async (parent, args, context) => {
             if (context.user) {

@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Auth from "../../utils/auth";
-import { useMutation } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import { QUERY_ME, QUERY_ALLORDERS } from "../../utils/queries";
 
 const PurchasedOrders = ({ data, column }) => {
     const [selected, setSelected] = useState({})
@@ -61,7 +57,7 @@ const TableRow = ({ selected, setSelected, item, column, data, index }) => (
     <tr>
     {column.map((columnItem) => {
         if(columnItem.value === "products"){
-            console.log(selected)
+            // console.log(selected)
             // for (let i = 0; i < deleteBTN.length; i++) {
             //     deleteBTN[i].addEventListener('click', delButtonHandler);
             //   }
@@ -96,7 +92,7 @@ const TableRow = ({ selected, setSelected, item, column, data, index }) => (
         } 
 
         if(columnItem.value === "totalCost") {
-            return <td key={item._id + "|" + columnItem.value}>$ {item[`${columnItem.value}`]}</td>
+            return <td key={item._id + "|" + columnItem.value}>${item[`${columnItem.value}`]}</td>
         } 
 
         return <td key={item._id + "|" + columnItem.value}>{item[`${columnItem.value}`]}</td>

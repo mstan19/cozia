@@ -105,3 +105,6 @@ import DataTable from 'react-data-table-component';
     </tr>
     
 )
+
+
+let productsinOrder = orderItems.map((order) => order.products.map((product) => product))

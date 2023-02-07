@@ -87,3 +87,13 @@ export const REMOVE_USER = gql`
         }
     }
 `;
+
+export const EDIT_ORDER =gql`
+    mutation Mutation($orderId: ID!, $orderData: orderInput!) {
+        updateOrder(orderId: $orderId, orderData: $orderData) {
+        _id
+        deliveryDate
+        isDelivered
+        }
+    }
+`;
