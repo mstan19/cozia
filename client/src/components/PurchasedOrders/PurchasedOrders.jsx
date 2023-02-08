@@ -19,11 +19,11 @@ const PurchasedOrders = ({ data, column }) => {
         <table>
             <thead>
                 <tr>
-                {column.map((item, index) => <TableHeadItem item={item} />)}
+                {column.map((item, index) => <TableHeadItem key={"purchased" + item + index} item={item} />)}
                 </tr>
             </thead>
             <tbody>
-                {data && data?.getAllOrders.map((item, index) =><TableRow selected={selected} setSelected={setSelected} item={item} key={item._id} column={column} data={data} index={index} className={index % 2 == 0 ? "bg-green-400" : ""} />)}
+                {data && data?.getAllOrders.map((item, index) =><TableRow selected={selected} setSelected={setSelected} item={item} key={item._id} column={column} data={data} index={index} className={index % 2 === 0 ? "bg-green-400" : ""} />)}
             </tbody>
         </table>  
    );
@@ -42,7 +42,7 @@ const ItemTableRow = ({selected, item}) => (
         </thead>
         <tbody>
                 {item && item?.products.map((product) =>
-                    <tr key={item._id + "|" + product.productName}>
+                    <tr key={"1" + item._id + "|" + product.productName}>
                         <td>{product.productName}</td>
                         <td>${product.price}</td>
                     </tr>
@@ -78,9 +78,9 @@ const TableRow = ({ selected, setSelected, item, column, data, index }) => (
         }
 
         if(columnItem.value === "isDelivered" && item.isDelivered === true) {
-            return <td key={item._id + "|" + columnItem.value}>Delivered</td>
+            return <td key={"2" + item._id + "|" + columnItem.value}>Delivered</td>
         } else if (columnItem.value === "isDelivered" && item.isDelivered === false){
-            return <td key={item._id + "|" + columnItem.value}>Not Delivered</td>
+            return <td key={"3" + item._id + "|" + columnItem.value}>Not Delivered</td>
         }
 
         let getCity = item?.shippingAddress.city;
@@ -90,14 +90,14 @@ const TableRow = ({ selected, setSelected, item, column, data, index }) => (
         let makeAddress = getStreet + ", " + getCity + ", " + getState + ", " + getZip
 
         if(columnItem.value === "shippingAddress") {
-            return <td key={item._id + "|" + columnItem.value}>{makeAddress}</td>
+            return <td key={"4" + item._id + "|" + columnItem.value}>{makeAddress}</td>
         } 
 
         if(columnItem.value === "totalCost") {
-            return <td key={item._id + "|" + columnItem.value}>${item[`${columnItem.value}`]}</td>
+            return <td key={"5" + item._id + "|" + columnItem.value}>${item[`${columnItem.value}`]}</td>
         } 
 
-        return <td key={item._id + "|" + columnItem.value}>{item[`${columnItem.value}`]}</td>
+        return <td key={"6" + item._id + "|" + columnItem.value}>{item[`${columnItem.value}`]}</td>
         })}
   </tr>
 )

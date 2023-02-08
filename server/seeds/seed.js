@@ -107,6 +107,7 @@ db.once("open", async () => {
                     country: faker.address.country(),
                     phoneNumber: faker.phone.number()
                 },
+                // products: [productsList[0]._id, productsList[1]._id, productsList[2]._id,],
                 products: [productsList[Math.floor(Math.random()*productsList.length)]._id, productsList[Math.floor(Math.random()*productsList.length)]._id, productsList[Math.floor(Math.random()*productsList.length)]._id,],
                 tax: 3.0,
                 shippingPrice: 5.0,

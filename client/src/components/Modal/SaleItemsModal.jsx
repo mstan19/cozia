@@ -5,10 +5,14 @@ import SalesItem from "../SalesItem/SalesItem";
 
 
 
-const SalesItemModal = ({ setOpenModal, onEditOrderID, onEditFunction } ) => {
-// const [productData, setProductData] = useState({
-//     username: ""
-// });
+const SalesItemModal = ({ setOpenModal, preloadData, onEditOrderID, onEditFunction } ) => {
+  console.log(onEditOrderID)
+const [orderData, setOrderData] = useState({
+  deliveryDate: preloadData?.deliveryDate,
+  deliveryStatus: preloadData?.deliveryStatus
+});
+// console.log(orderData)
+
 // const { data, loading } = useQuery(QUERY_ME);
 // // const [login, { error, data:loginData }] = useMutation(LOGIN_USER);
 
@@ -17,39 +21,37 @@ const SalesItemModal = ({ setOpenModal, onEditOrderID, onEditFunction } ) => {
 // // console.log(loginData)
 
 const handleInputChange = async (event) => { 
-    // const { name, value } = event.target;
-    // setOrderData({ ...productData, [name]: value });
-    console.log("change input")
+    const { name, value } = event.target;
+    setOrderData({ ...orderData, [name]: value });
+    console.log(orderData)
+}
+//  console.log(orderData)
+let currentDeliveryStatus;
+if(preloadData?.deliveryStatus === true) {
+  currentDeliveryStatus = "Delivered"
+} else if (preloadData?.deliveryStatus === false){
+  currentDeliveryStatus ="Not Delivered"
 }
 
-// useEffect (() => {
-//     finalProductData = productData
-//   }, [productData])
 
-// const submitHandler = async (event) => {
-//     event.preventDefault();
-//     try {
-       
-//         const username = await data?.me.username;
-       
-//         // console.log(typeof productData);
-//         console.log(finalProductData)
-//         console.log( finalProductData["username"])
-//         console.log( username)
-
-//         if (finalProductData["username"] === username) {
-//             console.log( onDeleteProductID)
-//             await onDeleteFunction(onDeleteProductID); 
-//             setOpenModal(false);
-//         }
+const submitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      // console.log(orderData)
+      // console.log( onEditOrderID)
+      await onEditFunction(orderData); 
+      console.log(orderData)
+      console.log( onEditOrderID)
+      setOpenModal(false);
  
-//     } catch (e) {
-//         console.error(e);
-//     }
-//     setProductData({
-//         username: "",
-//     });
-// };
+    } catch (e) {
+        console.error(e);
+    }
+    setOrderData({
+      deliveryDate:"",
+      deliveryStatus: ""
+    });
+};
 
   return (
     <>
@@ -75,19 +77,24 @@ const handleInputChange = async (event) => {
                     <label className="block text-black text-base mb-1" name="deliveryDate">
                       Delivery Date
                     </label>
-                    <input className="shadow appearance-none border rounded w-full mb-6 py-2 px-1 text-black" name="deliveryDate" onChange={handleInputChange}/>
-
+                    <input className="shadow appearance-none border rounded w-full mb-6 py-2 px-1 text-black" name="deliveryDate" value={orderData.deliveryDate} onChange={handleInputChange}/>
+    
                     <label className="block text-black text-base mb-1" name="deliveryStatus">
                       Delivery Status
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" name="deliveryStatus" onChange={handleInputChange}/>
+                    <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="deliveryStatus" onChange={handleInputChange}>
+                      <option defaultValue >Select Delivery Status</option>
+                      <option value="true">Out for Delivery</option>
+                      <option value="false">Not process</option>
+
+                    </select>
                   </form>
                 </div>
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                 <button
                     className="text-white bg-green-600 active:bg-green-700 text-base px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                     type="submit"
-                    // onClick={submitHandler} 
+                    onClick={submitHandler} 
                 >
                     Save
                 </button>
