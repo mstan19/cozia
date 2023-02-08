@@ -76,7 +76,7 @@ db.once("open", async () => {
                 let product = {
                     productName: faker.commerce.product(),
                     description: faker.commerce.productDescription(),
-                    image: faker.image.fashion(380, 380, true),
+                    image: faker.image.fashion(390, 390, true),
                     price: faker.commerce.price(),
                     size: "small",
                     color: faker.color.rgb(),

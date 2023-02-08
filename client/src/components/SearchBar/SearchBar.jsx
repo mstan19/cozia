@@ -9,7 +9,7 @@ const SearchBar = () => {
   return (
 	<div className="search-bar-component w-full" id="search-bar">
 		<div className="flex items-center py-3">
-			<div className="flex items-center relative w-full px-6">
+			<div className="flex items-center relative px-6">
 				<div className="absolute">
 					<button> <FontAwesomeIcon icon={faMagnifyingGlass} className='search-icons px-2' /></button>
 				</div>

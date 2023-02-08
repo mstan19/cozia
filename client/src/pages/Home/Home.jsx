@@ -75,23 +75,27 @@ const Home = () => {
 	}, [data]);
 
 	return (
-		<main className="flex flex-col items-center">
+		<main className="min-h-screen">
 			<SearchBar />
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {
-					// console.log(sectionCards);
+					// console.log("sectionCards", sectionCards);
 					// console.log(Object.keys(sectionCards));
-					console.log(sectionKey, idx);
+					// console.log(sectionKey, idx);
 					// console.log(Object.keys(sectionCards)[0]);
-					console.log(sectionKey)
+					// console.log("sectionKey", sectionKey)
+					// console.log("sectionCards[sectionKey]", sectionCards[sectionKey]);
+					// console.log("sectionCards[sectionKey][index]", sectionCards[sectionKey][idx]);
+					// console.log(idx)
+					
+					
 					
 					return (
 						<Carousel
 							key={sectionKey + idx}
 							section={sectionKey}
 							index={idx}
-							test={sectionKey + idx}
 							products={sectionCards[sectionKey]}
 						/>
 
