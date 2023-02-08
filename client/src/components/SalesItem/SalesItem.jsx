@@ -18,9 +18,12 @@ const SalesItem = ({ data, column }) => {
 		setSelectedOrderId(id);
 	};
     const [orderId, setOrderId] = useState();
-    const [updateOrder, setUpdateOrder] = useState();
+    const [updateOrder, setUpdateOrder] = useState({
+        deliveryDate: "",
+        deliveryStatus: ""
+      });
 
-    
+    // console.log(selected)
     // const handleEditOrderBtn = async (orderId) => {
 	// 	// try {
 	// 	// const updatedOrder = await editOrder({ variables: { orderId: orderId } });
@@ -45,7 +48,7 @@ const SalesItem = ({ data, column }) => {
                 </tr>
             </thead>
             <tbody>
-                {data && data?.map((item, index) => <TableRow key={"saleItems"+item._id + index} item={item} column={column} className={index % 2 == 0 ? "bg-green-400" : ""} selected={selected} setSelected={setSelected} setModalOpen={setModalOpen} openModal={openModal} modalOpen={modalOpen} onEditOrderID={selectedOrderId} selectedOrderId={selectedOrderId} setSelectedOrderId={setSelectedOrderId} editOrder={editOrder} orderId={orderId} setOrderId={setOrderId} updateOrder={updateOrder} setUpdateOrder={setUpdateOrder}/>)}
+                {data && data?.map((item, index) => <TableRow key={"saleItems"+item._id + index} item={item} column={column} className={index % 2 == 0 ? "bg-green-400" : ""} index={index} data={data} selected={selected} setSelected={setSelected} setModalOpen={setModalOpen} openModal={openModal} modalOpen={modalOpen} onEditOrderID={selectedOrderId} selectedOrderId={selectedOrderId} setSelectedOrderId={setSelectedOrderId} editOrder={editOrder} orderId={orderId} setOrderId={setOrderId} updateOrder={updateOrder} setUpdateOrder={setUpdateOrder}/>)}
                 
             </tbody>
         </table>
@@ -54,7 +57,7 @@ const SalesItem = ({ data, column }) => {
 
 const TableHeadItem = ({ item }) => <th>{item.heading}</th>
 
-const TableRow = ({ column, item, setModalOpen, openModal, modalOpen, onEditOrderID, selectedOrderId, setSelectedOrderId, editOrder, selected, setSelected, orderId, setOrderId, updateOrder, setUpdateOrder}) => (
+const TableRow = ({ column, item, index, data, setModalOpen, openModal, modalOpen, onEditOrderID, selectedOrderId, setSelectedOrderId, editOrder, selected, setSelected, orderId, setOrderId, updateOrder, setUpdateOrder}) => (
     // console.log(item)
     <tr>
     {column.map((columnItem) => {
@@ -75,36 +78,52 @@ const TableRow = ({ column, item, setModalOpen, openModal, modalOpen, onEditOrde
             return <td key={"sales4" + item._id + "|" + columnItem.value}>${item[`${columnItem.value}`]}</td>
         } 
 
-        const handleEditOrderBtn = async ( orderData) => {
+        const handleEditOrderBtn = async (orderData) => {
             try {
                 // console.log("orderId", orderId)
+               
+                // if (orderData.isDelivered ==="true"){
+                //     return true
+                // } else {
+                //     return false
+                // } 
+                console.log("orderData", orderData.isDelivered)
+                let orderStatus = (orderData.isDelivered === "true" || orderData.isDelivered === "false")
+                console.log(orderStatus)
+                orderData.isDelivered = orderStatus
                 console.log("orderData", orderData)
-                console.log("selected", selected)
+                // console.log("onEditFunction", onEditFunction)
+                console.log("selected", selected.orderId)
 
-            // const updatedOrder = await editOrder({ 
-            //     variables: { 
-            //         orderId: selected,
-            //         orderData: updateOrder
-            //     } 
-            // });
-            // // console.log(updatedOrder)
+            const updatedOrder = await editOrder({ 
+                variables: { 
+                    orderId: selected.orderId,
+                    orderData: orderData
+                } 
+            });
+            console.log(updatedOrder)
+            // console.log(updatedOrder)
             // if (!orderId) {
             // 	throw new Error("there is no order with that id");
             // }
     
-            // setSelectedOrderId(updatedOrder);
-            // window.location.reload();
+            setSelectedOrderId(updatedOrder);
+            window.location.reload();
             } catch (err) {
             console.error(err);
             }
             console.log("edit order");
         }
-        // console.log(item)
+        
         if(columnItem.heading === "Edit Order") {
+            // console.log(item)
+            // for (let i = 0; i < data.length; i++) {
+            //     data[i];
+            // }
             return (
                 <td key={"sales5" + item._id + "|" + columnItem.value}>
-                    <button  type="button" onClick={() => {setModalOpen(true); openModal(); setSelected(item.productId)}}>Edit Order</button>
-                {modalOpen && <SalesItemModal setOpenModal={setModalOpen} preloadData={item} onEditFunction={() => handleEditOrderBtn()} onEditOrderID={selected}/>}
+                    <button  type="button" onClick={() => {setModalOpen(true); openModal(); setSelected(data[index])}}>Edit Order</button>
+                {modalOpen && <SalesItemModal setOpenModal={setModalOpen} handleEditOrderBtn={handleEditOrderBtn} updateOrder={updateOrder} setUpdateOrder={setUpdateOrder} onEditOrderID={selected}/>}
                 </td>
                 
             )

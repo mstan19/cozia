@@ -57,13 +57,13 @@ const TableRow = ({ selected, setSelected, item, column, data, index }) => (
     <tr>
     {column.map((columnItem) => {
         if(columnItem.value === "products"){
-            // console.log(selected)
+            // console.log(selected[item._id])
             // for (let i = 0; i < deleteBTN.length; i++) {
             //     deleteBTN[i].addEventListener('click', delButtonHandler);
             //   }
             //   console.log(index)
             return (
-                <td key={item._id + "|" + columnItem.value}>
+                <td key={"itemstable" + item._id + "|" + columnItem.value}>
                     <div className="inline-flex justify-between">
                     <button type="button" onClick={() => setSelected({...selected, [item._id]: !selected[item._id]})}>
                         <span>See My Items</span>

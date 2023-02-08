@@ -24,7 +24,7 @@ const OrderList = () => {
         
     } 
     // let saleItemsInfo = JSON.parse(saleItemsdata?.getSaleItems);
-    // console.log("saleItemsInfo", saleItemsInfo)
+    console.log("saleItemsInfo", saleItemsInfo)
 
     useEffect(() => {
         const getUserData = async () => {

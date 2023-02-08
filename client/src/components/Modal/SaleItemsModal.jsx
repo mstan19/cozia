@@ -5,11 +5,12 @@ import SalesItem from "../SalesItem/SalesItem";
 
 
 
-const SalesItemModal = ({ setOpenModal, preloadData, onEditOrderID, onEditFunction } ) => {
-  console.log(onEditOrderID)
+const SalesItemModal = ({ setOpenModal, preloadData, onEditOrderID, handleEditOrderBtn, updateOrder, setUpdateOrder } ) => {
+  // console.log(onEditOrderID)
+  // console.log(preloadData)
 const [orderData, setOrderData] = useState({
-  deliveryDate: preloadData?.deliveryDate,
-  deliveryStatus: preloadData?.deliveryStatus
+  deliveryDate: onEditOrderID?.deliveryDate,
+  isDelivered: onEditOrderID?.deliveryStatus
 });
 // console.log(orderData)
 
@@ -23,7 +24,7 @@ const [orderData, setOrderData] = useState({
 const handleInputChange = async (event) => { 
     const { name, value } = event.target;
     setOrderData({ ...orderData, [name]: value });
-    console.log(orderData)
+    // console.log(orderData)
 }
 //  console.log(orderData)
 let currentDeliveryStatus;
@@ -37,9 +38,10 @@ if(preloadData?.deliveryStatus === true) {
 const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      // console.log(orderData)
+      console.log(orderData)
+      // orderData = setUpdateOrder(updateOrder)
       // console.log( onEditOrderID)
-      await onEditFunction(orderData); 
+      await handleEditOrderBtn(orderData); 
       console.log(orderData)
       console.log( onEditOrderID)
       setOpenModal(false);
@@ -79,10 +81,11 @@ const submitHandler = async (event) => {
                     </label>
                     <input className="shadow appearance-none border rounded w-full mb-6 py-2 px-1 text-black" name="deliveryDate" value={orderData.deliveryDate} onChange={handleInputChange}/>
     
-                    <label className="block text-black text-base mb-1" name="deliveryStatus">
+    
+                    <label className="block text-black text-base mb-1" name="isDelivered">
                       Delivery Status
                     </label>
-                    <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="deliveryStatus" onChange={handleInputChange}>
+                    <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="isDelivered" onChange={handleInputChange}>
                       <option defaultValue >Select Delivery Status</option>
                       <option value="true">Out for Delivery</option>
                       <option value="false">Not process</option>
