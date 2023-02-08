@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "tw-elements";
 import { calculateDiscountPrice } from "../../utils/helpers";
 
-const Carousel = ({ section, products }) => {
+const Carousel = ({ test, section, products, index }) => {
+	console.log(test.slice(-1));
+	let indexSlice = test.slice(-1);
 	console.log(products);
+	console.log(index);
+	// console.log(products[idx]);
+	const [selected, setSelected] = useState();
+	console.log(selected);
+
+	// function nextOnClick(idx) {
+	// 	console.log(idx);
+	// 	return idx;
+	// }
 
 	if (products && Object.keys(products).length !== 0) {
 		return (
@@ -38,14 +49,14 @@ const Carousel = ({ section, products }) => {
 					<h2 className="flex justify-center text-xl m-3">
 						{section}
 					</h2>
-					<div className="carousel-item active float-left w-full">
+					<div className="carousel-item active float-left w-full relative">
 						<img
 							src={products[0].image}
 							className="object-cover aspect-square flex justify-items-center"
 							alt={products[0].productName}
 						/>
-		{products[1].discount !== 0 ? (
-							<div className="discount-label top-14 left-0 absolute bg-red-500 text-white py-3 px-3 text-2xl">
+						{products[0].discount !== 0 ? (
+							<div className="discount-label top-0 left-0 absolute bg-red-500 text-white py-3 px-3 text-xl">
 								<p>-{products[0].discount}%</p>
 							</div>
 						) : (
@@ -83,14 +94,17 @@ const Carousel = ({ section, products }) => {
 							View more
 						</p>
 					</div>
-					<div className="carousel-item float-left w-full">
+					<div
+						className="carousel-item float-left w-full relative"
+						index={index}
+					>
 						<img
 							src={products[1].image}
 							className="object-cover aspect-square"
 							alt={products[1].productName}
 						/>
 						{products[1].discount !== 0 ? (
-							<div className="discount-label top-14 left-0 absolute bg-red-500 text-white py-3 px-3 text-2xl">
+							<div className="discount-label top-0 left-0 absolute bg-red-500 text-white py-3 px-3 text-2xl">
 								<p>-{products[1].discount}%</p>
 							</div>
 						) : (
@@ -128,14 +142,14 @@ const Carousel = ({ section, products }) => {
 							View more
 						</p>
 					</div>
-					<div className="carousel-item float-left w-full">
+					<div className="carousel-item float-left w-full relative">
 						<img
 							src={products[2].image}
 							className="object-cover aspect-square"
 							alt={products[2].productName}
 						/>
-						{products[1].discount !== 0 ? (
-							<div className="discount-label top-14 left-0 absolute bg-red-500 text-white py-3 px-3 text-2xl">
+						{products[2].discount !== 0 ? (
+							<div className="discount-label top-0 left-0  absolute bg-red-500 text-white py-3 px-3 text-2xl">
 								<p>-{products[2].discount}%</p>
 							</div>
 						) : (
@@ -189,6 +203,8 @@ const Carousel = ({ section, products }) => {
 				<button
 					className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
 					type="button"
+					// onClick={() => nextOnClick(idx)}
+					// index={index}
 					data-bs-target="#carouselExampleIndicators"
 					data-bs-slide="next"
 				>

@@ -3,6 +3,7 @@ import { sortDateDesc, sortDiscountDesc } from "../../utils/helpers";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
 import Carousel from "../../components/Carousel/Carousel";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Home = () => {
 	// Create query to find all products
@@ -75,19 +76,25 @@ const Home = () => {
 
 	return (
 		<main className="flex flex-col items-center">
+			<SearchBar />
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {
-					console.log(sectionKey);
-					// console.log(sectionCards[sectionKey]);
-					// console.log(sectionCards[sectionKey][0]);
+					// console.log(sectionCards);
+					// console.log(Object.keys(sectionCards));
+					console.log(sectionKey, idx);
+					// console.log(Object.keys(sectionCards)[0]);
+					console.log(sectionKey)
 					
 					return (
 						<Carousel
 							key={sectionKey + idx}
 							section={sectionKey}
+							index={idx}
+							test={sectionKey + idx}
 							products={sectionCards[sectionKey]}
 						/>
+
 						// <HomeCard
 						// 	key={sectionKey + idx}
 						// 	section={sectionKey}
