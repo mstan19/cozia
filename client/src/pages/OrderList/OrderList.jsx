@@ -24,7 +24,7 @@ const OrderList = () => {
         
     } 
     // let saleItemsInfo = JSON.parse(saleItemsdata?.getSaleItems);
-    console.log("saleItemsInfo", saleItemsInfo)
+    // console.log("saleItemsInfo", saleItemsInfo)
 
     useEffect(() => {
         const getUserData = async () => {
@@ -130,10 +130,19 @@ const OrderList = () => {
         {Auth.loggedIn() ? (
         <div className="container m-0">
             <div className="" id="tables">
+            {!orderListLoading && Object.keys(orderListData).length !== 0 && orderListData !== undefined ? (
+                <>
                 <h2 className="mt-5 text-center">Purchased Orders</h2>
                 <div className="bg-white py-5" id="purchased-orders-component">
                     <PurchasedOrders data={orderListData} column={columnPO}/>
                 </div>
+                </>
+                ): (
+                    <>
+                        <div>data loading...</div>
+                    </>
+                )
+                }
                 {!saleItemsLoading && Object.keys(saleItemsInfo).length !== 0 && saleItemsInfo !== undefined ? (
                     <>
                         <h2 className="mt-5 text-center">Sale Items</h2>

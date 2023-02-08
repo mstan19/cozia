@@ -2,38 +2,59 @@ import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import SalesItem from "../SalesItem/SalesItem";
+import Datepicker from "react-tailwindcss-datepicker"; 
 
 
 
 const SalesItemModal = ({ setOpenModal, preloadData, onEditOrderID, handleEditOrderBtn, updateOrder, setUpdateOrder } ) => {
-  // console.log(onEditOrderID)
-  // console.log(preloadData)
-const [orderData, setOrderData] = useState({
-  deliveryDate: onEditOrderID?.deliveryDate,
-  isDelivered: onEditOrderID?.deliveryStatus
-});
-// console.log(orderData)
+  const [orderData, setOrderData] = useState({
+    deliveryDate: onEditOrderID?.deliveryDate,
+    isDelivered: onEditOrderID?.deliveryStatus
+  });
 
-// const { data, loading } = useQuery(QUERY_ME);
-// // const [login, { error, data:loginData }] = useMutation(LOGIN_USER);
+  const [dateValue, setDateValue] = useState({ 
+    startDate: new Date(), 
+    endDate: null 
+  });
 
-// let finalProductData = productData;
-// //  console.log(data)
-// // console.log(loginData)
+const handleValueChange = (newValue) => {
+  console.log("newValue:", newValue); 
+  setDateValue(newValue); 
+ 
+  }  
 
 const handleInputChange = async (event) => { 
+    
     const { name, value } = event.target;
+    
+    orderData.deliveryDate = dateValue.endDate
     setOrderData({ ...orderData, [name]: value });
-    // console.log(orderData)
-}
-//  console.log(orderData)
-let currentDeliveryStatus;
-if(preloadData?.deliveryStatus === true) {
-  currentDeliveryStatus = "Delivered"
-} else if (preloadData?.deliveryStatus === false){
-  currentDeliveryStatus ="Not Delivered"
 }
 
+ const today = new Date()
+ const yesterday = new Date(today)
+ 
+ yesterday.setDate(yesterday.getDate() - 1)
+ 
+ function padTo2Digits(num) {
+  // console.log(num.toString().padStart(2, '0'))
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+//   console.log( [
+//   padTo2Digits(date.getMonth() + 1),
+//   padTo2Digits(date.getDate()),date.getFullYear(),
+// ].join('-'))
+  return [
+    
+    padTo2Digits(date.getMonth() + 1),
+    padTo2Digits(date.getDate()),
+    date.getFullYear(),
+  ].join('-');
+}
+
+// console.log(formatDate(yesterday));
 
 const submitHandler = async (event) => {
     event.preventDefault();
@@ -43,7 +64,7 @@ const submitHandler = async (event) => {
       // console.log( onEditOrderID)
       await handleEditOrderBtn(orderData); 
       console.log(orderData)
-      console.log( onEditOrderID)
+      // console.log( onEditOrderID)
       setOpenModal(false);
  
     } catch (e) {
@@ -79,8 +100,23 @@ const submitHandler = async (event) => {
                     <label className="block text-black text-base mb-1" name="deliveryDate">
                       Delivery Date
                     </label>
-                    <input className="shadow appearance-none border rounded w-full mb-6 py-2 px-1 text-black" name="deliveryDate" value={orderData.deliveryDate} onChange={handleInputChange}/>
-    
+                    {/* <input className="shadow appearance-none border rounded w-full mb-6 py-2 px-1 text-black" name="deliveryDate" value={orderData.deliveryDate} onChange={handleInputChange}/> */}
+
+                     {/* Date Picker */}
+                    <Datepicker 
+                    useRange={false} 
+                    asSingle={true}
+                    name="deliveryDate" 
+                    value={dateValue} 
+                    onChange={handleValueChange}
+                    displayFormat={"MM/DD/YYYY"}
+                    disabledDates={[
+                      {
+                      startDate: "2000-01-01",
+                      endDate: formatDate(yesterday),
+                      },
+                      ]}   
+                    /> 
     
                     <label className="block text-black text-base mb-1" name="isDelivered">
                       Delivery Status

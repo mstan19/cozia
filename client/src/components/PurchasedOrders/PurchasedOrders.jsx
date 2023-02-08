@@ -31,7 +31,7 @@ const PurchasedOrders = ({ data, column }) => {
 
 const TableHeadItem = ({ item }) => <th>{item.heading}</th>
 
-const ItemTableRow = ({selected, item}) => (
+const ItemTableRow = ({selected, item, index}) => (
     // console.log(item)
     <table className={selected === true ? "" : "hidden"}>
         <thead>
@@ -56,6 +56,7 @@ const TableRow = ({ selected, setSelected, item, column, data, index }) => (
     
     <tr>
     {column.map((columnItem) => {
+        // console.log(item)
         if(columnItem.value === "products"){
             // console.log(selected[item._id])
             // for (let i = 0; i < deleteBTN.length; i++) {
@@ -72,7 +73,7 @@ const TableRow = ({ selected, setSelected, item, column, data, index }) => (
                         </svg>
                     </button>  
                    </div>
-                    <ItemTableRow selected={selected[item._id]} item={item} />
+                    <ItemTableRow selected={selected[item._id]} item={item} index={index} />
                 </td>
             )
         }
@@ -96,6 +97,15 @@ const TableRow = ({ selected, setSelected, item, column, data, index }) => (
         if(columnItem.value === "totalCost") {
             return <td key={"5" + item._id + "|" + columnItem.value}>${item[`${columnItem.value}`]}</td>
         } 
+
+        if (columnItem.value === "purchaseDate") {
+            // console.log( item.purchaseDate.toString().slice(0, 15))
+            return <td key={"7" + item._id + "|" + columnItem.value}>{item.purchaseDate.toString().slice(0, 16)}</td>
+            // item.purchaseDate.toString().slice(0, 10)
+            // console.log( item.purchaseDate.toString().slice(0, 10))
+        } else if (columnItem.value === "deliveryDate") {
+            return <td key={"8" + item._id + "|" + columnItem.value}>{ item.deliveryDate.toString().slice(0, 16)}</td>
+        }
 
         return <td key={"6" + item._id + "|" + columnItem.value}>{item[`${columnItem.value}`]}</td>
         })}

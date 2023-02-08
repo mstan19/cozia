@@ -48,11 +48,11 @@ const orderSchema = new Schema({
     default: 0.0
   },
   purchaseDate: {
-    type: Date,
-    default: Date.now
+    type: String,
+   
   },
   deliveryDate: {
-    type: Date
+    type: String
   }
 });
 

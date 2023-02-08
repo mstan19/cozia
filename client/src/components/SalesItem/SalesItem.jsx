@@ -4,6 +4,7 @@ import { EDIT_ORDER } from "../../utils/mutations";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
 import SalesItemModal from "../Modal/SaleItemsModal";
+const dayjs = require('dayjs')
 
 const SalesItem = ({ data, column }) => {
     // console.log("saleItemsInfo", data)
@@ -58,10 +59,16 @@ const SalesItem = ({ data, column }) => {
 const TableHeadItem = ({ item }) => <th>{item.heading}</th>
 
 const TableRow = ({ column, item, index, data, setModalOpen, openModal, modalOpen, onEditOrderID, selectedOrderId, setSelectedOrderId, editOrder, selected, setSelected, orderId, setOrderId, updateOrder, setUpdateOrder}) => (
-    // console.log(item)
+  
     <tr>
     {column.map((columnItem) => {
-        // console.log(item)
+        //  console.log(item)
+        if (item.purchaseDate && columnItem.value === "purchaseDate") {
+            return <td key={"sales0" + item._id + "|" + columnItem.value}>{item.purchaseDate.toString().slice(0, 16)}</td>
+            
+        } else if (item.deliveryDate && columnItem.value === "deliveryDate") {
+            return <td key={"sales0.1" + item._id + "|" + columnItem.value}>{item.deliveryDate.toString().slice(0, 16)}</td>
+        }
 
         if(columnItem.value === "_id") {
             // console.log(item.productId)
@@ -80,34 +87,30 @@ const TableRow = ({ column, item, index, data, setModalOpen, openModal, modalOpe
 
         const handleEditOrderBtn = async (orderData) => {
             try {
-                // console.log("orderId", orderId)
-               
-                // if (orderData.isDelivered ==="true"){
-                //     return true
-                // } else {
-                //     return false
-                // } 
-                console.log("orderData", orderData.isDelivered)
-                let orderStatus = (orderData.isDelivered === "true" || orderData.isDelivered === "false")
-                console.log(orderStatus)
+                
+                // console.log("orderData", orderData.isDelivered)
+                let orderStatus;
+                if(orderData.isDelivered === "true"){
+                    orderStatus = orderData.isDelivered = true
+                } else {
+                    orderStatus = orderData.isDelivered = false
+                }
+                // let orderStatus = (orderData.isDelivered === "true" || orderData.isDelivered === "false")
+                // console.log(orderStatus)
                 orderData.isDelivered = orderStatus
-                console.log("orderData", orderData)
-                // console.log("onEditFunction", onEditFunction)
-                console.log("selected", selected.orderId)
-
-            const updatedOrder = await editOrder({ 
-                variables: { 
-                    orderId: selected.orderId,
-                    orderData: orderData
-                } 
-            });
-            console.log(updatedOrder)
-            // console.log(updatedOrder)
-            // if (!orderId) {
-            // 	throw new Error("there is no order with that id");
-            // }
-    
-            setSelectedOrderId(updatedOrder);
+                let formatDate = dayjs(orderData.deliveryDate).format('ddd MMM DD YYYY') 
+                console.log(formatDate)
+                orderData.deliveryDate = formatDate
+                console.log(orderData)
+                const updatedOrder = await editOrder({ 
+                    variables: { 
+                        orderId: selected.orderId,
+                        orderData: orderData
+                    } 
+                });
+                console.log(updatedOrder)
+                
+                setSelectedOrderId(updatedOrder);
             window.location.reload();
             } catch (err) {
             console.error(err);
@@ -116,10 +119,6 @@ const TableRow = ({ column, item, index, data, setModalOpen, openModal, modalOpe
         }
         
         if(columnItem.heading === "Edit Order") {
-            // console.log(item)
-            // for (let i = 0; i < data.length; i++) {
-            //     data[i];
-            // }
             return (
                 <td key={"sales5" + item._id + "|" + columnItem.value}>
                     <button  type="button" onClick={() => {setModalOpen(true); openModal(); setSelected(data[index])}}>Edit Order</button>
