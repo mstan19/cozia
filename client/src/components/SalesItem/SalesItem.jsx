@@ -24,23 +24,6 @@ const SalesItem = ({ data, column }) => {
         deliveryStatus: ""
       });
 
-    // console.log(selected)
-    // const handleEditOrderBtn = async (orderId) => {
-	// 	// try {
-	// 	// const updatedOrder = await editOrder({ variables: { orderId: orderId } });
-	// 	// console.log(updatedOrder)
-	// 	// if (!orderId) {
-	// 	// 	throw new Error("there is no product with that id");
-	// 	// }
-
-	// 	// setSelectedOrderId(updatedOrder);
-	// 	// window.location.reload();
-	// 	// } catch (err) {
-	// 	// console.error(err);
-	// 	// }
-	// 	console.log("edit order");
-	// }
-
     return (
         <table>
             <thead>
@@ -111,7 +94,7 @@ const TableRow = ({ column, item, index, data, setModalOpen, openModal, modalOpe
                 console.log(updatedOrder)
                 
                 setSelectedOrderId(updatedOrder);
-            // window.location.reload();
+            window.location.reload();
             } catch (err) {
             console.error(err);
             }

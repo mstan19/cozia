@@ -13,7 +13,7 @@ const SalesItemModal = ({ setOpenModal, preloadData, onEditOrderID, handleEditOr
   });
 
   const [dateValue, setDateValue] = useState({ 
-    startDate: new Date(), 
+    startDate: null, 
     endDate: null 
   });
 
@@ -23,6 +23,8 @@ const handleValueChange = async (newValue) => {
   // orderData.deliveryDate = dateValue.startDate
   console.log("after:", newValue); 
   // setOrderData(dateValue.startDate)
+  console.log(orderData)
+
   }  
 
 const handleInputChange = async (event) => { 
@@ -62,6 +64,7 @@ function formatDate(date) {
 const submitHandler = async (event) => {
     event.preventDefault();
     try {
+      orderData.deliveryDate = dateValue.startDate
       console.log(orderData)
       // orderData = setUpdateOrder(updateOrder)
       // console.log( onEditOrderID)
