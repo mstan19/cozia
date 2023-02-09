@@ -153,7 +153,7 @@ console.log(userId)
 };
   
   return (
-    <div className="absolute h-full w-full">
+    <div className="m-5 h-full w-full">
         <div className="container mx-auto w-full pt-0 md:w-[44rem]">
             <div className="registerStyle product-form row bg-white p-6" data-testid="product-form">
             <form onSubmit={onSubmit} className="p-0 m-0">

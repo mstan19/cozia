@@ -108,3 +108,37 @@ query GetMyProducts($userId: ID!) {
   }
 }
 `;
+
+export const QUERY_ALLORDERS = gql`
+query GetAllOrders($userId: ID!) {
+  getAllOrders(userID: $userId) {
+    _id
+    deliveryDate
+    isDelivered
+    purchaseDate
+     totalCost
+    shippingAddress {
+      street
+      city
+      zip
+      state
+      country
+    }
+    products {
+      _id
+      productName
+      gender
+      color
+      discount
+      size
+      price
+    }
+  }
+}
+`;
+
+export const QUERY_SALEITEMS = gql`
+query Query($userId: ID!) {
+    getSaleItems(userID: $userId)
+  }
+`;
