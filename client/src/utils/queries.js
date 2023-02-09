@@ -136,3 +136,9 @@ query GetAllOrders($userId: ID!) {
   }
 }
 `;
+
+export const QUERY_SALEITEMS = gql`
+query Query($userId: ID!) {
+    getSaleItems(userID: $userId)
+  }
+`;

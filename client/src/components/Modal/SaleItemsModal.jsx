@@ -2,54 +2,85 @@ import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import SalesItem from "../SalesItem/SalesItem";
+import Datepicker from "react-tailwindcss-datepicker"; 
 
 
 
-const SalesItemModal = ({ setOpenModal, onEditOrderID, onEditFunction } ) => {
-// const [productData, setProductData] = useState({
-//     username: ""
-// });
-// const { data, loading } = useQuery(QUERY_ME);
-// // const [login, { error, data:loginData }] = useMutation(LOGIN_USER);
+const SalesItemModal = ({ setOpenModal, preloadData, onEditOrderID, handleEditOrderBtn, updateOrder, setUpdateOrder } ) => {
+  const [orderData, setOrderData] = useState({
+    deliveryDate: onEditOrderID?.deliveryDate,
+    isDelivered: onEditOrderID?.deliveryStatus
+  });
 
-// let finalProductData = productData;
-// //  console.log(data)
-// // console.log(loginData)
+  const [dateValue, setDateValue] = useState({ 
+    startDate: null, 
+    endDate: null 
+  });
+
+const handleValueChange = async (newValue) => {
+  // console.log("newValue:", newValue); 
+  setDateValue(newValue); 
+  // orderData.deliveryDate = dateValue.startDate
+  // console.log("after:", newValue); 
+  // setOrderData(dateValue.startDate)
+  // console.log(orderData)
+
+  }  
 
 const handleInputChange = async (event) => { 
-    // const { name, value } = event.target;
-    // setOrderData({ ...productData, [name]: value });
-    console.log("change input")
+    
+    const { name, value } = event.target;
+    
+    orderData.deliveryDate = dateValue.startDate
+    setOrderData({ ...orderData, [name]: value });
+    // console.log(orderData)
 }
 
-// useEffect (() => {
-//     finalProductData = productData
-//   }, [productData])
-
-// const submitHandler = async (event) => {
-//     event.preventDefault();
-//     try {
-       
-//         const username = await data?.me.username;
-       
-//         // console.log(typeof productData);
-//         console.log(finalProductData)
-//         console.log( finalProductData["username"])
-//         console.log( username)
-
-//         if (finalProductData["username"] === username) {
-//             console.log( onDeleteProductID)
-//             await onDeleteFunction(onDeleteProductID); 
-//             setOpenModal(false);
-//         }
+ const today = new Date()
+ const yesterday = new Date(today)
  
-//     } catch (e) {
-//         console.error(e);
-//     }
-//     setProductData({
-//         username: "",
-//     });
-// };
+ yesterday.setDate(yesterday.getDate() - 1)
+ 
+ function padTo2Digits(num) {
+  // console.log(num.toString().padStart(2, '0'))
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+//   console.log( [
+//   padTo2Digits(date.getMonth() + 1),
+//   padTo2Digits(date.getDate()),date.getFullYear(),
+// ].join('-'))
+  return [
+    
+    padTo2Digits(date.getMonth() + 1),
+    padTo2Digits(date.getDate()),
+    date.getFullYear(),
+  ].join('-');
+}
+
+// console.log(formatDate(yesterday));
+
+const submitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      orderData.deliveryDate = dateValue.startDate
+      // console.log(orderData)
+      // orderData = setUpdateOrder(updateOrder)
+      // console.log( onEditOrderID)
+      await handleEditOrderBtn(orderData); 
+      // console.log(orderData)
+      // console.log( onEditOrderID)
+      setOpenModal(false);
+ 
+    } catch (e) {
+        console.error(e);
+    }
+    setOrderData({
+      deliveryDate:"",
+      deliveryStatus: ""
+    });
+};
 
   return (
     <>
@@ -75,19 +106,40 @@ const handleInputChange = async (event) => {
                     <label className="block text-black text-base mb-1" name="deliveryDate">
                       Delivery Date
                     </label>
-                    <input className="shadow appearance-none border rounded w-full mb-6 py-2 px-1 text-black" name="deliveryDate" onChange={handleInputChange}/>
+                    {/* <input className="shadow appearance-none border rounded w-full mb-6 py-2 px-1 text-black" name="deliveryDate" value={orderData.deliveryDate} onChange={handleInputChange}/> */}
 
-                    <label className="block text-black text-base mb-1" name="deliveryStatus">
+                     {/* Date Picker */}
+                    <Datepicker 
+                    useRange={false} 
+                    asSingle={true}
+                    name="deliveryDate" 
+                    value={dateValue} 
+                    onChange={handleValueChange}
+                    displayFormat={"MM/DD/YYYY"}
+                    disabledDates={[
+                      {
+                      startDate: "2000-01-01",
+                      endDate: formatDate(yesterday),
+                      },
+                      ]}   
+                    /> 
+    
+                    <label className="block text-black text-base mt-6 mb-1" name="isDelivered">
                       Delivery Status
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" name="deliveryStatus" onChange={handleInputChange}/>
+                    <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="isDelivered" onChange={handleInputChange}>
+                      <option defaultValue >Select Delivery Status</option>
+                      <option value="true">Out for Delivery</option>
+                      <option value="false">Not process</option>
+
+                    </select>
                   </form>
                 </div>
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                 <button
                     className="text-white bg-green-600 active:bg-green-700 text-base px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                     type="submit"
-                    // onClick={submitHandler} 
+                    onClick={submitHandler} 
                 >
                     Save
                 </button>

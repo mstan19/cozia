@@ -108,3 +108,7 @@ import DataTable from 'react-data-table-component';
 
 
 let productsinOrder = orderItems.map((order) => order.products.map((product) => product))
+
+
+ <button type="button" className="bg-black hover:bg-black-700 text-white py-2 px-4 rounded" onClick={() => {setModalOpen(true); openModal(); setSelected(data[index])}}><BsPencilSquare /></button>
+ import { BsPencilSquare } from "react-icons/bs";

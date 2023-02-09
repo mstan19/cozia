@@ -138,3 +138,7 @@ table th, table td {
     border: 1px solid #000000;
     padding: 8px;
 }
+
+th {
+    width: auto
+}

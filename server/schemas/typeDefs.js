@@ -93,7 +93,7 @@ const typeDefs = gql`
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
         getAllOrders(userID: ID!): [Order]
-        getSaleItems(userID: ID!): [Order]
+        getSaleItems(userID: ID!): String
     }
 
     #Inputs
