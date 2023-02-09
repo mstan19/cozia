@@ -41,6 +41,7 @@ export default function Navbar() {
             subcategories: [
                 {
                     name: "WOMEN",
+                    link: "/women",
                     items: [
                         "Activewear",
                         "Coats & Jackets",
@@ -155,3 +156,33 @@ export default function Navbar() {
         </header>
     );
 }
+
+
+// {
+//     clothes: "Activewear",
+//     link: "/activewear"
+// },
+// {
+//     clothes: "Coats & Jackets",
+//     link: "/coats&jackets",
+// },
+// {
+//     clothes: "Dresses",
+//     link: "/dresses",
+// },
+// {
+//     clothes: "Hoodies & Sweatshirts",
+//     link: "/hoodies&sweatshirts",
+// },
+// {
+//     clothes: "Activewear",
+//     link: "/activewear",
+// },
+
+// ,
+// "",
+// ,
+// "Jeans",
+// "Shorts & Skirts",
+// "Tops",
+// ],
