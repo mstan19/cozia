@@ -9,7 +9,7 @@ const Home = () => {
 	// Create query to find all products
 	const { loading, data } = useQuery(QUERY_PRODUCTS);
 	const [sectionCards, setSectionCards] = useState({
-		"NEWEST ARRIVAL": {},
+		"NEWEST ARRIVALS": {},
 		FEATURED: {},
 		DEALS: {},
 		TRENDING: {},
@@ -64,7 +64,7 @@ const Home = () => {
 		let products = data?.products;
 		if (products && products.length !== 0) {
 			let sCards = {
-				"NEWEST ARRIVAL": getNewestArrival(products),
+				"NEWEST ARRIVALS": getNewestArrival(products),
 				FEATURED: getFeatured(products),
 				DEALS: getHighestDiscount(products),
 				TRENDING: getTrending(products),
