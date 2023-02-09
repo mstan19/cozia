@@ -17,18 +17,21 @@ const SalesItemModal = ({ setOpenModal, preloadData, onEditOrderID, handleEditOr
     endDate: null 
   });
 
-const handleValueChange = (newValue) => {
+const handleValueChange = async (newValue) => {
   console.log("newValue:", newValue); 
   setDateValue(newValue); 
- 
+  // orderData.deliveryDate = dateValue.startDate
+  console.log("after:", newValue); 
+  // setOrderData(dateValue.startDate)
   }  
 
 const handleInputChange = async (event) => { 
     
     const { name, value } = event.target;
     
-    orderData.deliveryDate = dateValue.endDate
+    orderData.deliveryDate = dateValue.startDate
     setOrderData({ ...orderData, [name]: value });
+    console.log(orderData)
 }
 
  const today = new Date()

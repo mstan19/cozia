@@ -55,7 +55,7 @@ const ItemTableRow = ({selected, item, index}) => (
 const TableRow = ({ selected, setSelected, item, column, data, index }) => (
     
     <tr>
-    {column.map((columnItem) => {
+    {item && column.map((columnItem) => {
         // console.log(item)
         if(columnItem.value === "products"){
             // console.log(selected[item._id])

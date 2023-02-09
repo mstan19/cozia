@@ -61,7 +61,7 @@ const TableHeadItem = ({ item }) => <th>{item.heading}</th>
 const TableRow = ({ column, item, index, data, setModalOpen, openModal, modalOpen, onEditOrderID, selectedOrderId, setSelectedOrderId, editOrder, selected, setSelected, orderId, setOrderId, updateOrder, setUpdateOrder}) => (
   
     <tr>
-    {column.map((columnItem) => {
+    {item && column.map((columnItem) => {
         //  console.log(item)
         if (item.purchaseDate && columnItem.value === "purchaseDate") {
             return <td key={"sales0" + item._id + "|" + columnItem.value}>{item.purchaseDate.toString().slice(0, 16)}</td>
@@ -111,7 +111,7 @@ const TableRow = ({ column, item, index, data, setModalOpen, openModal, modalOpe
                 console.log(updatedOrder)
                 
                 setSelectedOrderId(updatedOrder);
-            window.location.reload();
+            // window.location.reload();
             } catch (err) {
             console.error(err);
             }
