@@ -5,7 +5,7 @@ import CarouselItem from "../CarouselItem/CarouselItem";
 const Carousel = ({ section, products, index }) => {
 	console.log(section);
 	console.log(products);
-	console.log(index);
+	// console.log(index);
 
 	const [current, setCurrent] = useState(0);
 	const previous = () =>
@@ -17,13 +17,11 @@ const Carousel = ({ section, products, index }) => {
 		return (
 			<section className="overflow-hidden relative">
 				<h2>{section}</h2>
-				<div
-					className="flex transition-transform ease-out duration-500"
-					style={{ transform: `translate(-${current * 100}%)` }}
-				>
-					{products.map((product, index) => (
-						<CarouselItem key={product + index} product={product} />
-					))}
+				<div className="transition-transform ease-out duration-500">
+					<CarouselItem
+						key={products[current]}
+						product={products[current]}
+					/>
 				</div>
 				<div className="absolute inset-0 flex items-center justify-between bg:hover-white p-4">
 					<button
@@ -72,7 +70,8 @@ const Carousel = ({ section, products, index }) => {
 					<div className="flex items-center justify-center gap-2">
 						{products.map((_, i) => (
 							<div
-								key={i} className={`transition-all w-3 h-3 bg-white rounded-full ${
+								key={i}
+								className={`transition-all w-3 h-3 bg-white rounded-full ${
 									current === i ? "p-2" : "bg-opacity-50"
 								}`}
 							/>

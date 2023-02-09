@@ -75,7 +75,7 @@ const Home = () => {
 	}, [data]);
 
 	return (
-		<main className="min-h-screen">
+		<main className="min-h-screen max-w-lg">
 			<SearchBar />
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
