@@ -75,22 +75,11 @@ const Home = () => {
 	}, [data]);
 
 	return (
-		<main className="min-h-screen max-w-lg">
+		<main className="min-h-screen max-w-xl m-auto">
 			<SearchBar />
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {
-					// console.log("sectionCards", sectionCards);
-					// console.log(Object.keys(sectionCards));
-					// console.log(sectionKey, idx);
-					// console.log(Object.keys(sectionCards)[0]);
-					// console.log("sectionKey", sectionKey)
-					// console.log("sectionCards[sectionKey]", sectionCards[sectionKey]);
-					// console.log("sectionCards[sectionKey][index]", sectionCards[sectionKey][idx]);
-					// console.log(idx)
-					
-					
-					
 					return (
 						<Carousel
 							key={sectionKey + idx}
@@ -98,13 +87,6 @@ const Home = () => {
 							index={idx}
 							products={sectionCards[sectionKey]}
 						/>
-
-						// <HomeCard
-						// 	key={sectionKey + idx}
-						// 	section={sectionKey}
-						// 	productsArray={sectionCards[sectionKey]}
-						// />
-						
 					);
 				})}
 		</main>
