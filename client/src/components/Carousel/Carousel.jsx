@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { calculateDiscountPrice } from "../../utils/helpers";
+import CarouselItem from "../CarouselItem/CarouselItem";
 
 const Carousel = ({ section, products, index }) => {
 	console.log(section);
@@ -21,18 +22,8 @@ const Carousel = ({ section, products, index }) => {
 					style={{ transform: `translate(-${current * 100}%)` }}
 				>
 					{products.map((product, index) => (
-						<>
-							<img
-								className=""
-								key={product.productName + index}
-								src={product.image}
-								alt={product.productName}
-							></img>
-							<h2 className="">{product.productName}</h2>
-						</>
-						
+						<CarouselItem key={product + index} product={product} />
 					))}
-					{/* <img src={products[0].image}></img> */}
 				</div>
 				<div className="absolute inset-0 flex items-center justify-between bg:hover-white p-4">
 					<button
