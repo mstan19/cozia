@@ -129,11 +129,11 @@ const OrderList = () => {
     <div className="flex flex-wrap justify-center min-h-screen">
         {Auth.loggedIn() ? (
         <div className="container m-0">
-            <div className="" id="tables">
+            <div className="sm:overflow-x-auto" id="tables">
             {!orderListLoading && Object.keys(orderListData).length !== 0 && orderListData !== undefined ? (
                 <>
-                <h2 className="mt-5 text-center">Purchased Orders</h2>
-                <div className="bg-white py-5" id="purchased-orders-component">
+                <h2 className="mt-8 text-center text-xl font-semibold uppercase">Purchased Orders</h2>
+                <div id="purchased-orders-component">
                     <PurchasedOrders data={orderListData} column={columnPO}/>
                 </div>
                 </>
@@ -145,7 +145,7 @@ const OrderList = () => {
                 }
                 {!saleItemsLoading && Object.keys(saleItemsInfo).length !== 0 && saleItemsInfo !== undefined ? (
                     <>
-                        <h2 className="mt-5 text-center">Sale Items</h2>
+                        <h2 className="mt-5 text-center text-xl font-semibold uppercase">Sale Items</h2>
                         <div id="sales-item-component">
                             <SalesItem data={saleItemsInfo} column={columnSI}/>
                         </div>

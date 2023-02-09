@@ -18,12 +18,12 @@ const SalesItemModal = ({ setOpenModal, preloadData, onEditOrderID, handleEditOr
   });
 
 const handleValueChange = async (newValue) => {
-  console.log("newValue:", newValue); 
+  // console.log("newValue:", newValue); 
   setDateValue(newValue); 
   // orderData.deliveryDate = dateValue.startDate
-  console.log("after:", newValue); 
+  // console.log("after:", newValue); 
   // setOrderData(dateValue.startDate)
-  console.log(orderData)
+  // console.log(orderData)
 
   }  
 
@@ -33,7 +33,7 @@ const handleInputChange = async (event) => {
     
     orderData.deliveryDate = dateValue.startDate
     setOrderData({ ...orderData, [name]: value });
-    console.log(orderData)
+    // console.log(orderData)
 }
 
  const today = new Date()
@@ -65,11 +65,11 @@ const submitHandler = async (event) => {
     event.preventDefault();
     try {
       orderData.deliveryDate = dateValue.startDate
-      console.log(orderData)
+      // console.log(orderData)
       // orderData = setUpdateOrder(updateOrder)
       // console.log( onEditOrderID)
       await handleEditOrderBtn(orderData); 
-      console.log(orderData)
+      // console.log(orderData)
       // console.log( onEditOrderID)
       setOpenModal(false);
  
@@ -124,7 +124,7 @@ const submitHandler = async (event) => {
                       ]}   
                     /> 
     
-                    <label className="block text-black text-base mb-1" name="isDelivered">
+                    <label className="block text-black text-base mt-6 mb-1" name="isDelivered">
                       Delivery Status
                     </label>
                     <select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="isDelivered" onChange={handleInputChange}>
