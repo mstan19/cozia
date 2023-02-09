@@ -129,11 +129,11 @@ const OrderList = () => {
     <div className="flex flex-wrap justify-center min-h-screen">
         {Auth.loggedIn() ? (
         <div className="container m-0">
-            <div className="sm:overflow-x-auto" id="tables">
-            {!orderListLoading && Object.keys(orderListData).length !== 0 && orderListData !== undefined ? (
+            <div id="tables">
+            {!orderListLoading && orderListData !== undefined ? (
                 <>
                 <h2 className="mt-8 text-center text-xl font-semibold uppercase">Purchased Orders</h2>
-                <div id="purchased-orders-component">
+                <div className="overflow-x-scroll md:overflow-x-hidden" id="purchased-orders-component">
                     <PurchasedOrders data={orderListData} column={columnPO}/>
                 </div>
                 </>
@@ -146,7 +146,7 @@ const OrderList = () => {
                 {!saleItemsLoading && Object.keys(saleItemsInfo).length !== 0 && saleItemsInfo !== undefined ? (
                     <>
                         <h2 className="mt-5 text-center text-xl font-semibold uppercase">Sale Items</h2>
-                        <div id="sales-item-component">
+                        <div className="overflow-x-scroll md:overflow-x-hidden" id="sales-item-component">
                             <SalesItem data={saleItemsInfo} column={columnSI}/>
                         </div>
                     </>

@@ -64,7 +64,7 @@ const TableRow = ({ selected, setSelected, item, column, data, index, BsPlusLg }
             //   }
             //   console.log(index)
             return (
-                <td className={index % 2 === 0 ? "bg-emerald-100" : "bg-white"} key={"itemstable" + item._id + "|" + columnItem.value}>
+                <td className={index % 2 === 0 ? "bg-slate-300" : "bg-white"} key={"itemstable" + item._id + "|" + columnItem.value}>
                     <div className="flex inline-flex justify-evenly">
                     <button type="button" className="flex inline-flex justify-evenly" onClick={() => setSelected({...selected, [item._id]: !selected[item._id]})}>
                         <span >See My Items </span>
@@ -77,9 +77,9 @@ const TableRow = ({ selected, setSelected, item, column, data, index, BsPlusLg }
         }
 
         if(columnItem.value === "isDelivered" && item.isDelivered === true) {
-            return <td className={index % 2 === 0 ? "bg-emerald-100" : "bg-white"} key={"2" + item._id + "|" + columnItem.value}>Delivered</td>
+            return <td className={index % 2 === 0 ? "bg-slate-300" : "bg-white"} key={"2" + item._id + "|" + columnItem.value}>Delivered</td>
         } else if (columnItem.value === "isDelivered" && item.isDelivered === false){
-            return <td className={index % 2 === 0 ? "bg-emerald-100" : "bg-white"} key={"3" + item._id + "|" + columnItem.value}>Not Delivered</td>
+            return <td className={index % 2 === 0 ? "bg-slate-300" : "bg-white"} key={"3" + item._id + "|" + columnItem.value}>Not Delivered</td>
         }
 
         let getCity = item?.shippingAddress.city;
@@ -89,23 +89,23 @@ const TableRow = ({ selected, setSelected, item, column, data, index, BsPlusLg }
         let makeAddress = getStreet + ", " + getCity + ", " + getState + ", " + getZip
 
         if(columnItem.value === "shippingAddress") {
-            return <td className={index % 2 === 0 ? "bg-emerald-100" : "bg-white"} key={"4" + item._id + "|" + columnItem.value}>{makeAddress}</td>
+            return <td className={index % 2 === 0 ? "bg-slate-300" : "bg-white"} key={"4" + item._id + "|" + columnItem.value}>{makeAddress}</td>
         } 
 
         if(columnItem.value === "totalCost") {
-            return <td className={index % 2 === 0 ? "bg-emerald-100" : "bg-white"} key={"5" + item._id + "|" + columnItem.value}>${item[`${columnItem.value}`]}</td>
+            return <td className={index % 2 === 0 ? "bg-slate-300" : "bg-white"} key={"5" + item._id + "|" + columnItem.value}>${item[`${columnItem.value}`]}</td>
         } 
 
         if (columnItem.value === "purchaseDate") {
             // console.log( item.purchaseDate.toString().slice(0, 15))
-            return <td className={index % 2 === 0 ? "bg-emerald-100" : "bg-white"} key={"7" + item._id + "|" + columnItem.value}>{item.purchaseDate.toString().slice(0, 16)}</td>
+            return <td className={index % 2 === 0 ? "bg-slate-300" : "bg-white"} key={"7" + item._id + "|" + columnItem.value}>{item.purchaseDate.toString().slice(0, 16)}</td>
             // item.purchaseDate.toString().slice(0, 10)
             // console.log( item.purchaseDate.toString().slice(0, 10))
         } else if (columnItem.value === "deliveryDate") {
-            return <td className={index % 2 === 0 ? "bg-emerald-100" : "bg-white"} key={"8" + item._id + "|" + columnItem.value}>{ item.deliveryDate.toString().slice(0, 16)}</td>
+            return <td className={index % 2 === 0 ? "bg-slate-300" : "bg-white"} key={"8" + item._id + "|" + columnItem.value}>{ item.deliveryDate.toString().slice(0, 16)}</td>
         }
 
-        return <td className={index % 2 === 0 ? "bg-emerald-100" : "bg-white"} key={"6" + item._id + "|" + columnItem.value}>{item[`${columnItem.value}`]}</td>
+        return <td className={index % 2 === 0 ? "bg-slate-300" : "bg-white"} key={"6" + item._id + "|" + columnItem.value}>{item[`${columnItem.value}`]}</td>
         })}
   </tr>
 )
