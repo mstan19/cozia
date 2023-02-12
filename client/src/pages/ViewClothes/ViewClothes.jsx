@@ -63,6 +63,7 @@ const ViewClothes = () => {
 				</button>
 			</section>
 			{/* ClothesCard Component */}
+			<section className="flex flex-wrap justify-center bg-white">
 			{!loading &&
 				products &&
 				products.length !== 0 &&
@@ -72,6 +73,7 @@ const ViewClothes = () => {
 						<ClothesCard key={product + idx} product={product} />
 					);
 				})}
+				</section>
 		</main>
 	);
 };
