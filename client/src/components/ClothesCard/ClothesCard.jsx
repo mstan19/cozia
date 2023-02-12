@@ -30,7 +30,7 @@ const ClothesCard = ({ product }) => {
 						${calculateDiscountPrice(price, discount)}
 					</p>
 					<p className="original-price text-neutral-300 line-through">
-						${price}
+						${price.toFixed(2)}
 					</p>
 				</div>
                 {/* TODO: Include icons for stars rating and total number calculated after */}

@@ -27,7 +27,7 @@ const CarouselItem = ({ product }) => {
 							${calculateDiscountPrice(price, discount)}
 						</p>
 						<p className="original-price text-neutral-300 line-through">
-							${price}
+							${price.toFixed(2)}
 						</p>
 					</div>
 				</div>
