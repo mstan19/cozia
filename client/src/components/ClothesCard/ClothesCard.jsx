@@ -5,10 +5,10 @@ const ClothesCard = ({ product }) => {
 	const { productName, image, price, discount, color } = product;
 
 	return (
-		<article className="bg-white relative flex flex-col flex-wrap w-auto mx-5 mb-5">
+		<article className="bg-white relative flex flex-col flex-wrap w-5/12 md:w-auto mx-3 mb-5">
 			<img src={image} alt={productName} />
 			{discount !== 0 ? (
-				<div className="discount-label top-0 left-0 absolute bg-red-500 text-white py-2 px-2 text-md">
+				<div className="discount-label top-0 left-0 absolute bg-red-500 text-white py-1 px-1 text-md">
 					<p>-{discount}%</p>
 				</div>
 			) : (
@@ -24,8 +24,8 @@ const ClothesCard = ({ product }) => {
 						borderRadius: 50,
 					}}
 				></div>
-				<h3 className="text-lg">{productName}</h3>
-				<div className="flex mb-2 text-lg">
+				<h3 className="md:text-lg">{productName}</h3>
+				<div className="flex mb-2 text-md">
 					<p className="discount-price text-red-600 pr-3">
 						${calculateDiscountPrice(price, discount)}
 					</p>
