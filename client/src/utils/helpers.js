@@ -12,7 +12,6 @@ export function sortDiscountDesc(array) {
 	return array.sort((a, b) => (a.discount > b.discount ? -1 : 1));
 }
 
-
 export function displayRatings(totalRating) {
 	// TODO: See how to include half stars, but mongoose doesn't accept decimals and clothes data won't load
 	switch (totalRating) {

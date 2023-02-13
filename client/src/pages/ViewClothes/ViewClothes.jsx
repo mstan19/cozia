@@ -22,7 +22,6 @@ const ViewClothes = () => {
 		let products = data?.products;
 		if (products && products.length !== 0) {
 			console.log(products);
-			// let filteredProducts = {};
 
 			setProducts(products);
 		}

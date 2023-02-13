@@ -15,6 +15,7 @@ export const QUERY_ME = gql`
 export const QUERY_PRODUCTS = gql`
     query Products {
         products {
+            _id
             productName
             createdAt
             color
