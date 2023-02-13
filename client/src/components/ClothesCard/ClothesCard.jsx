@@ -3,6 +3,7 @@ import { calculateDiscountPrice, displayRatings } from "../../utils/helpers";
 
 const ClothesCard = ({ product }) => {
 	const {
+		_id,
 		productName,
 		image,
 		price,
@@ -10,6 +11,7 @@ const ClothesCard = ({ product }) => {
 		color,
 		numberReviews,
 		totalRating,
+		gender
 	} = product;
 
 	return (

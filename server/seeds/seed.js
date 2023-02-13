@@ -13,7 +13,9 @@ db.once("open", async () => {
 		//creating categories
 		// let createdCategories = [];
 		// for (let i = 0; i < 1; i++) {
-		let category = [
+
+		let genderCategory = ["women", "men", "women"];
+		let clothesCategory = [
 			{
 				name: "activeWear",
 			},
@@ -43,7 +45,7 @@ db.once("open", async () => {
 			},
 		];
 
-		const newCategory = await Category.create(category);
+		const newCategory = await Category.create(clothesCategory);
 		// }
 
 		//creating users. if consumer, then they will have an order
@@ -84,6 +86,7 @@ db.once("open", async () => {
 					countInStock: 3,
 					createdAt: faker.date.past(),
 					reviews: [reviewSchema],
+					gender: genderCategory[Math.floor(Math.random() * 2)],
 					totalRating: Math.floor(Math.random() * 5),
 					numberReviews: Math.floor(Math.random() * 100),
 					category: newCategory[l]._id,
