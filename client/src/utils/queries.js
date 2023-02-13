@@ -21,6 +21,8 @@ export const QUERY_PRODUCTS = gql`
             image
             price
             discount
+            totalRating
+            numberReviews
         }
     }
 `;

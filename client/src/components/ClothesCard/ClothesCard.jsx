@@ -1,11 +1,19 @@
 import React from "react";
-import { calculateDiscountPrice } from "../../utils/helpers";
+import { calculateDiscountPrice, displayRatings } from "../../utils/helpers";
 
 const ClothesCard = ({ product }) => {
-	const { productName, image, price, discount, color } = product;
+	const {
+		productName,
+		image,
+		price,
+		discount,
+		color,
+		numberReviews,
+		totalRating,
+	} = product;
 
 	return (
-		<article className="bg-white relative flex flex-col flex-wrap w-5/12 md:w-auto mx-3 mb-5">
+		<article className="bg-white relative flex flex-col flex-wrap w-5/12 md:w-auto mx-3 mb-5 hover:cursor-pointer">
 			<img src={image} alt={productName} />
 			{discount !== 0 ? (
 				<div className="discount-label top-0 left-0 absolute bg-red-500 text-white py-1 px-1 text-md">
@@ -29,14 +37,23 @@ const ClothesCard = ({ product }) => {
 					<p className="discount-price text-red-600 pr-3">
 						${calculateDiscountPrice(price, discount)}
 					</p>
-					<p className="original-price text-neutral-300 line-through">
+					<p className="original-price text-neutral-400 line-through">
 						${price.toFixed(2)}
 					</p>
 				</div>
-                {/* TODO: Include icons for stars rating and total number calculated after */}
-                <div className="reviews">
-
-                </div>
+				{/* TODO: See how to include decimals */}
+				<div className="reviews flex items-center">
+					{numberReviews !== 0 ? (
+						<>
+							{displayRatings(totalRating)}
+							<p className="ml-2">({numberReviews})</p>
+						</>
+					) : (
+						<>
+							<p className="text-neutral-400">No ratings yet</p>
+						</>
+					)}
+				</div>
 			</section>
 		</article>
 	);
