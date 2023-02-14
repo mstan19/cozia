@@ -135,7 +135,7 @@ const MyProduct = () => {
   return (
 	<div className="my-product-page">
 		 {Auth.loggedIn() ? (
-		<div className="absolute bg-white h-full w-full">
+		<div className="">
 			<SearchBar />
 
 			<div className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4" id="my-product-header">
@@ -168,7 +168,7 @@ const MyProduct = () => {
 				<div className="my-product-cards flex flex-wrap w-full grid sm:grid-cols-3 gap-x-8 gap-y-4" id="product-cards">
 				{myProductsData && myProductsData.getMyProducts.map((product, index) => { 
 					return (
-					<div className="my-product-card px-2 pt-3" key={product._id} >
+					<div className="my-product-card bg-white px-2 pt-3" key={product._id} >
 						<div className="flex justify-center">
 							<img src={samplePic} alt="product-image" id="product-image" className="object-cover" />
 						</div>
