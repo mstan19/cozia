@@ -6,8 +6,9 @@ import Auth from "../../utils/auth";
 import Stats from "../../components/Stats/Stats";
 import OrderList from "../OrderList/OrderList";
 import MyProduct from "../MyProducts/MyProducts";
-// import Reviews from "../../components/Reviews/Reviews";
-// import Wishlist from "../../components/";
+import Profile from "../../components/Profile/Profile";
+import Reviews from "../../components/Reviews/Reviews";
+import Wishlist from "../../components/Wishlist/Wishlist";
 import { BsCardChecklist } from "react-icons/bs";
 import { IoIosContact } from "react-icons/io";
 import { IoStatsChartSharp } from "react-icons/io5";
@@ -80,37 +81,25 @@ const Dashboard = () => {
     
     };
     
-	// const renderComponent = async (selectedOption) => {
-	// 	console.log(selectedOption)
-        
-    //     // if (selectedOption === "mystats"){
-
-    //     // }
-
-	// };
-    {/* {renderComponent}
-                        <Stats />
-                        <OrderList />
-                        <MyProduct /> */}
-                        {/* <Reviews />
-                        <Profile />
-                        <Wishlist /> */}
     const [components] = useState([
         {
-            name: "orderlist"
+            name: "orderlist",
+            title: "Order List",
+            key: "orderlistkey",
+            icon: <BiPurchaseTag className="sidebar-icon"/>,
         },
-        // { 
-        //     name: "reviews"
-        // },
-        // { 
-        //     name: "profile"
-        // },
+        { 
+            name: "myreviews"
+        },
+        { 
+            name: "profile"
+        },
         {
             name: "myproducts",
         },
-        // {
-        //     name: "wishlist"
-        // },
+        {
+            name: "wishlist"
+        },
         {
             name: "mystats"
         }
@@ -128,25 +117,24 @@ const Dashboard = () => {
             case "orderlist":
                 setCurrentComponent(<OrderList />);
                 return;
-            // case 'reviews':
-            //     return <Reviews />;
-            // case 'profile':
-            //     return <Profile />;
+            case 'myreviews':
+                setCurrentComponent(<Reviews />);
+                return;
+            case 'profile':
+                setCurrentComponent(<Profile />);
+                return;
             case "myproducts":
                 setCurrentComponent(<MyProduct />);
                 return;
-            // case 'wishlist':
-            //     return <Wishlist />;
+            case 'wishlist':
+                setCurrentComponent(<Wishlist />);
+                return;
             default:
                 setCurrentComponent(<Stats />);
                 return;  
         }
-        // window.location.reload();
       };
-    //   render() {
-    //     const { content } =
-    //   }
-
+    
     return (
         <div>
             {Auth.loggedIn() ? (
@@ -174,64 +162,40 @@ const Dashboard = () => {
                                                 </button>
                                             </li>
                                             <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                {/* <a
-                                                    href="/orderlist"
-                                                    className="flex items-center p-5 space-x-3 rounded-md"
-                                                > */}
                                                 <BiPurchaseTag className="sidebar-icon"/>
                                                 <button name="orderlist" onClick={() => {renderComponent("orderlist")}}>
                                                     <span>Purchased List</span>
                                                 </button>
                                                     
-                                                {/* </a> */}
                                             </li>
                                             <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                {/* <a
-                                                    href="#"
-                                                    className="flex items-center p-5 space-x-3 rounded-md"
-                                                > */}
                                                 <BsCardChecklist className="sidebar-icon"/>
                                                 <button name="myproducts" onClick={() => {renderComponent("myproducts")}}>
                                                     <span>My Products</span>
                                                 </button>
-                                                {/* </a> */}
                                             </li>
                                             <li className="bg-white mb-5 flex items-center p-5 space-x-3">
-                                                {/* <a
-                                                    href="/myreviews"
-                                                    className="flex items-center p-5 space-x-3 rounded-md"
-                                                > */}
-                                                    <AiOutlineStar className="sidebar-icon"/>
+                                                <AiOutlineStar className="sidebar-icon"/>
+                                                <button name="myreviews" onClick={() => {renderComponent("myreviews")}}>
                                                     <span>My Reveiws</span>
-                                                {/* </a> */}
+                                                </button>
                                             </li>
                                             <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                {/* <a
-                                                    href="/profile"
-                                                    className="flex items-center p-5 space-x-3 rounded-md"
-                                                > */}
-                                                    <IoIosContact className="sidebar-icon"/>
+                                                <IoIosContact className="sidebar-icon"/>
+                                                <button name="profile" onClick={() => {renderComponent("profile")}}>
                                                     <span>Profile</span>
-                                                {/* </a> */}
+                                                </button>
                                             </li>
                                             <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                {/* <a
-                                                    href="/wishlist"
-                                                    className="flex items-center p-5 space-x-3 rounded-md"
-                                                > */}
-                                                    <AiFillHeart className="sidebar-icon"/>
+                                                <AiFillHeart className="sidebar-icon"/>
+                                                <button name="wishlist" onClick={() => {renderComponent("wishlist")}}>
                                                     <span>Wishlist</span>
-                                                {/* </a> */}
+                                                </button>
                                             </li>
                                             
                                             <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                {/* <a
-                                                    href="/"
-                                                    className="flex items-center p-5 space-x-3 rounded-md"
-                                                > */}
-                                                    <MdLogout className="sidebar-icon"/>
-                                                    <button onClick={logoutBtn} className="">Logout</button>
-                                                {/* </a> */}
+                                                <MdLogout className="sidebar-icon"/>
+                                                <button onClick={logoutBtn} className="">Logout</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -244,16 +208,9 @@ const Dashboard = () => {
 
                 {/* Dashboard's components */}
                     <section className="col-span-4">
-                        {/* <h2>{selectedOption}</h2> */}
                        {currentComponent}
                     </section>
-                    {/* {renderComponent}
-                        <Stats />
-                        <OrderList />
-                        <MyProduct /> */}
-                        {/* <Reviews />
-                        <Profile />
-                        <Wishlist /> */}
+                
                         
                     
                 </div>

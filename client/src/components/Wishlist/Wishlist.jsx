@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SideBar from "../../components/Navbar/SideBar";
 import Auth from "../../utils/auth";
 
-const Dashboard = () => {
+const Wishlist = () => {
 
     return (
         <div>
-          
+          Wishlist
         </div>
     );
 }
 
-export default Dashboard;
+export default Wishlist;

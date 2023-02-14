@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
 
-const Reviews = () => {
+const Profile = () => {
 
     return (
         <div>
-          My reviews
+          My Profile
         </div>
     );
 }
 
-export default Reviews;
+export default Profile;
