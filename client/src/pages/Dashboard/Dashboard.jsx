@@ -81,29 +81,44 @@ const Dashboard = () => {
     
     };
     
-    const [components] = useState([
+    const components = [
+        {
+            name: "mystats",
+            title: "Dashboard",
+            key: "dashboardkey",
+            icon: <IoStatsChartSharp className="sidebar-icon"/>,
+        },
         {
             name: "orderlist",
             title: "Order List",
             key: "orderlistkey",
             icon: <BiPurchaseTag className="sidebar-icon"/>,
         },
-        { 
-            name: "myreviews"
-        },
-        { 
-            name: "profile"
-        },
         {
             name: "myproducts",
+            title: "My Products",
+            key: "myproductskey",
+            icon: <BsCardChecklist className="sidebar-icon"/>,
+        },
+        { 
+            name: "myreviews",
+            title: "My Reviews",
+            key: "myreviewskey",
+            icon: <AiOutlineStar className="sidebar-icon"/>,
+        },
+        { 
+            name: "profile",
+            title: "Profile",
+            key: "profilekey",
+            icon: <IoIosContact className="sidebar-icon"/>,
         },
         {
-            name: "wishlist"
+            name: "wishlist",
+            title: "Wishlist",
+            key: "wishlistkey",
+            icon: <AiFillHeart className="sidebar-icon"/>,
         },
-        {
-            name: "mystats"
-        }
-        ]);
+        ];
     
         const [currentComponent, setCurrentComponent] = useState(<Stats />);
 
@@ -140,9 +155,9 @@ const Dashboard = () => {
             {Auth.loggedIn() ? (
                 <div className="grid grid-cols-5">
                 {/* navbar for dashboard only */}
-                    <div className="col-span-1">
+                    <div className="col-span-1 h-full dark-gray">
                         <div className="flex">
-                            <div className="flex flex-col h-screen dark-gray w-full md:w-full">
+                            <div className="flex flex-col w-full md:w-full">
                                 <div className="space-y-3">
                                     {/* Header */}
                                     <div className="flex justify-center">
@@ -155,44 +170,21 @@ const Dashboard = () => {
                                     {/* Navbar's options */}
                                     <div className="flex flex-col">
                                         <ul className="pt-2 text-xl">
-                                            <li className="bg-white mb-5 flex items-center p-5 space-x-3 ">
-                                                <IoStatsChartSharp className="sidebar-icon"/>
-                                                <button name="mystats" onClick={() => {renderComponent("mystats")}}>
-                                                    <span>My Stats</span>
-                                                </button>
-                                            </li>
-                                            <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                <BiPurchaseTag className="sidebar-icon"/>
-                                                <button name="orderlist" onClick={() => {renderComponent("orderlist")}}>
-                                                    <span>Purchased List</span>
-                                                </button>
-                                                    
-                                            </li>
-                                            <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                <BsCardChecklist className="sidebar-icon"/>
-                                                <button name="myproducts" onClick={() => {renderComponent("myproducts")}}>
-                                                    <span>My Products</span>
-                                                </button>
-                                            </li>
-                                            <li className="bg-white mb-5 flex items-center p-5 space-x-3">
-                                                <AiOutlineStar className="sidebar-icon"/>
-                                                <button name="myreviews" onClick={() => {renderComponent("myreviews")}}>
-                                                    <span>My Reveiws</span>
-                                                </button>
-                                            </li>
-                                            <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                <IoIosContact className="sidebar-icon"/>
-                                                <button name="profile" onClick={() => {renderComponent("profile")}}>
-                                                    <span>Profile</span>
-                                                </button>
-                                            </li>
-                                            <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                <AiFillHeart className="sidebar-icon"/>
-                                                <button name="wishlist" onClick={() => {renderComponent("wishlist")}}>
-                                                    <span>Wishlist</span>
-                                                </button>
-                                            </li>
-                                            
+                                            {components.map((component) => (
+                                                <li
+                                                    className={`bg-white flex items-center p-5 space-x-3 ${
+                                                        component.name === "mystats" ||  component.name === "myreviews" ? "mb-5 " : "mb-1"
+                                                        }`}
+                                                    key={component.key}
+                                               >
+                                                {component.icon}
+                                                 <span
+                                                   onClick={() => renderComponent(component.name)}
+                                                 >
+                                                   {component.title}
+                                                 </span>
+                                               </li>
+                                            ))}
                                             <li className="bg-white mb-1 flex items-center p-5 space-x-3">
                                                 <MdLogout className="sidebar-icon"/>
                                                 <button onClick={logoutBtn} className="">Logout</button>
@@ -207,7 +199,7 @@ const Dashboard = () => {
                     </div>
 
                 {/* Dashboard's components */}
-                    <section className="col-span-4">
+                    <section className="col-span-4 h-screen">
                        {currentComponent}
                     </section>
                 
