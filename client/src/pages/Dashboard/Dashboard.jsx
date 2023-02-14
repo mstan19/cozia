@@ -7,7 +7,7 @@ import Stats from "../../components/Stats/Stats";
 import OrderList from "../OrderList/OrderList";
 import MyProduct from "../MyProducts/MyProducts";
 // import Reviews from "../../components/Reviews/Reviews";
-// import Wishlist from "../../components/"
+// import Wishlist from "../../components/";
 import { BsCardChecklist } from "react-icons/bs";
 import { IoIosContact } from "react-icons/io";
 import { IoStatsChartSharp } from "react-icons/io5";
@@ -80,12 +80,72 @@ const Dashboard = () => {
     
     };
     
-	function renderComponents(selectedOption) {
-		if (selectedOption === ""){
+	// const renderComponent = async (selectedOption) => {
+	// 	console.log(selectedOption)
+        
+    //     // if (selectedOption === "mystats"){
 
+    //     // }
+
+	// };
+    {/* {renderComponent}
+                        <Stats />
+                        <OrderList />
+                        <MyProduct /> */}
+                        {/* <Reviews />
+                        <Profile />
+                        <Wishlist /> */}
+    const [components] = useState([
+        {
+            name: "orderlist"
+        },
+        // { 
+        //     name: "reviews"
+        // },
+        // { 
+        //     name: "profile"
+        // },
+        {
+            name: "myproducts",
+        },
+        // {
+        //     name: "wishlist"
+        // },
+        {
+            name: "mystats"
         }
+        ]);
+    
+        const [currentComponent, setCurrentComponent] = useState(<Stats />);
 
-	}
+    const renderComponent = (selectedOption) => {
+        console.log(selectedOption)
+        
+        switch (selectedOption) {
+            case "mystats":
+                setCurrentComponent(<Stats />);
+                return;  
+            case "orderlist":
+                setCurrentComponent(<OrderList />);
+                return;
+            // case 'reviews':
+            //     return <Reviews />;
+            // case 'profile':
+            //     return <Profile />;
+            case "myproducts":
+                setCurrentComponent(<MyProduct />);
+                return;
+            // case 'wishlist':
+            //     return <Wishlist />;
+            default:
+                setCurrentComponent(<Stats />);
+                return;  
+        }
+        // window.location.reload();
+      };
+    //   render() {
+    //     const { content } =
+    //   }
 
     return (
         <div>
@@ -109,7 +169,7 @@ const Dashboard = () => {
                                         <ul className="pt-2 text-xl">
                                             <li className="bg-white mb-5 flex items-center p-5 space-x-3 ">
                                                 <IoStatsChartSharp className="sidebar-icon"/>
-                                                <button name="mystats" onClick={() => { }}>
+                                                <button name="mystats" onClick={() => {renderComponent("mystats")}}>
                                                     <span>My Stats</span>
                                                 </button>
                                             </li>
@@ -118,8 +178,11 @@ const Dashboard = () => {
                                                     href="/orderlist"
                                                     className="flex items-center p-5 space-x-3 rounded-md"
                                                 > */}
-                                                    <BiPurchaseTag className="sidebar-icon"/>
+                                                <BiPurchaseTag className="sidebar-icon"/>
+                                                <button name="orderlist" onClick={() => {renderComponent("orderlist")}}>
                                                     <span>Purchased List</span>
+                                                </button>
+                                                    
                                                 {/* </a> */}
                                             </li>
                                             <li className="bg-white mb-1 flex items-center p-5 space-x-3">
@@ -127,8 +190,10 @@ const Dashboard = () => {
                                                     href="#"
                                                     className="flex items-center p-5 space-x-3 rounded-md"
                                                 > */}
-                                                    <BsCardChecklist className="sidebar-icon"/>
+                                                <BsCardChecklist className="sidebar-icon"/>
+                                                <button name="myproducts" onClick={() => {renderComponent("myproducts")}}>
                                                     <span>My Products</span>
+                                                </button>
                                                 {/* </a> */}
                                             </li>
                                             <li className="bg-white mb-5 flex items-center p-5 space-x-3">
@@ -178,15 +243,18 @@ const Dashboard = () => {
                     </div>
 
                 {/* Dashboard's components */}
-                    <div className="col-span-4 ">
+                    <section className="col-span-4">
+                        {/* <h2>{selectedOption}</h2> */}
+                       {currentComponent}
+                    </section>
+                    {/* {renderComponent}
                         <Stats />
                         <OrderList />
-                        <MyProduct />
+                        <MyProduct /> */}
                         {/* <Reviews />
                         <Profile />
                         <Wishlist /> */}
                         
-                    </div>
                     
                 </div>
                 
