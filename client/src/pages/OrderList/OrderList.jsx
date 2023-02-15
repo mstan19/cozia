@@ -109,21 +109,11 @@ const OrderList = () => {
         {
             heading: "Edit Order",
             value:""
-            // accessor: "action"
-            // Cell:<div>
-            //         <button onClick={() => {setModalOpen(true); openModal()}}>edit</button>
-            //     {modalOpen && <SalesItemModal setOpenModal={setModalOpen} onEditFunction={() => handleEditOrderBtn(selectedOrderId)} onEditOrderID={selectedOrderId}/>}
-            //     </div>
+           
         }
     ]
 
-    // function getOrder () {
-    //     console.log("orderListData", orderListData) 
-        // console.log("orderListData", orderListData?.getAllOrders) 
-    //     console.log("orderListData", orderListData?.getAllOrders[0].isDelivered) 
-    //     console.log("orderListData", orderListData?.getAllOrders[0].products[0].productName) 
-    // }
-    // getOrder();
+   
 
     return (
     <div className="flex flex-wrap justify-center min-h-screen">

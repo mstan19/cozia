@@ -12,14 +12,15 @@ import Wishlist from "../../components/Wishlist/Wishlist";
 import { BsCardChecklist } from "react-icons/bs";
 import { IoIosContact } from "react-icons/io";
 import { IoStatsChartSharp } from "react-icons/io5";
-import { MdLogout } from "react-icons/md";
+import { MdLogout, MdPerson } from "react-icons/md";
 import { BiPurchaseTag } from "react-icons/bi";
 import { AiFillHeart, AiOutlineStar } from "react-icons/ai";
-
+import { IoMdArrowBack } from "react-icons/io";
 const Dashboard = () => {
     const { data, loading } = useQuery(QUERY_ME);
     const [userData, setUserData] = useState({});
-    const [renderOption, setRenderOption] = useState(false);
+    let [title, setTitle] = useState();
+    let [open, setOpen] = useState(false);
 
     useEffect(() => {
 		const getUserData = async () => {
@@ -32,8 +33,8 @@ const Dashboard = () => {
 	
 			const user = await data?.me;
 			
-			console.log("user", user);
-			console.log("data", data);
+			// console.log("user", user);
+			// console.log("data", data);
 			setUserData(user);
 		  } catch (err) {
 			console.error(err);
@@ -43,35 +44,6 @@ const Dashboard = () => {
 		getUserData();
 	  }, [data]);
 
-      console.log(data)
-      
-    //   const sideBarNav = [
-    //     {
-    //         label: "Purchased Items",
-    //         key: "/",
-    //     },
-    //     {
-    //         label: "My Products",
-    //         key: "/myproducts",
-    //     },
-    //     {
-    //         label: "My Reviews",
-    //         key: "/myreviews",
-    //     },
-    //     {
-    //         label: "Profile",
-    //         key: "/profile",
-    //     },
-    //     {
-    //         label: "Wishlist",
-    //         key: "/wishlist",
-    //     },
-    //     {
-    //       label: "Login",
-    //       key: "/signout",
-    //     }
-    //   ];
-    
       const navigate = useNavigate();
     
       const logoutBtn = (event) => {
@@ -123,7 +95,8 @@ const Dashboard = () => {
         const [currentComponent, setCurrentComponent] = useState(<Stats />);
 
     const renderComponent = (selectedOption) => {
-        console.log(selectedOption)
+        console.log(selectedOption);
+        setTitle(selectedOption)
         
         switch (selectedOption) {
             case "mystats":
@@ -149,58 +122,83 @@ const Dashboard = () => {
                 return;  
         }
       };
+    //   console.log(currentComponent)
+
+      let impropertitle = currentComponent.type.name
+      function titlePage () {
+        let properTitle;
+        if (impropertitle === "Stats") {
+            return "Dashboard"
+        }
+        // console.log(impropertitle)
+        properTitle = impropertitle.replace(/([A-Z])/g, ' $1').trim()
+        // console.log(properTitle)
+        return properTitle
+      }
     
     return (
         <div>
             {Auth.loggedIn() ? (
-                <div className="grid grid-cols-5">
+                <div className="grid grid-cols-1  md:grid-cols-5">
                 {/* navbar for dashboard only */}
-                    <div className="col-span-1 h-full dark-gray">
-                        <div className="flex">
-                            <div className="flex flex-col w-full md:w-full">
-                                <div className="space-y-3">
-                                    {/* Header */}
-                                    <div className="flex justify-center">
-                                        <div className="w-60 h-60 mt-4 coal rounded-full relative flex justify-center items-center text-center">
-                                            <h2 className="text-xl text-white grid place-items-center">{`${data?.me?.firstName} ${data?.me?.lastName}`}</h2>
-                                        </div>
-                                    
-                                    </div>
 
-                                    {/* Navbar's options */}
-                                    <div className="flex flex-col">
-                                        <ul className="pt-2 text-xl">
-                                            {components.map((component) => (
-                                                <li
-                                                    className={`bg-white flex items-center p-5 space-x-3 ${
-                                                        component.name === "mystats" ||  component.name === "myreviews" ? "mb-5 " : "mb-1"
-                                                        }`}
-                                                    key={component.key}
-                                               >
-                                                {component.icon}
-                                                 <span
-                                                   onClick={() => renderComponent(component.name)}
-                                                 >
-                                                   {component.title}
-                                                 </span>
-                                               </li>
-                                            ))}
-                                            <li className="bg-white mb-1 flex items-center p-5 space-x-3">
-                                                <MdLogout className="sidebar-icon"/>
-                                                <button onClick={logoutBtn} className="">Logout</button>
-                                            </li>
-                                        </ul>
+                    <div onClick={()=>setOpen(!open)} name={open ? "close":"menu"} className={` ease-in col-span-1 text-3xl cursor-pointer `}>
+                        <div className={`md:hidden relative flex justify-start inline my-4 bg-white`}>
+                            <div className="flex inline"><IoMdArrowBack /><MdPerson />
+                                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl flex uppercase">{titlePage()}</div>
+                            </div>
+                        </div>
+                    
+                        <div className={`md:block col-span-1 md:h-full dark-gray pb-4 ${open ? "hidden" : "block "}`}>
+                            <div className="flex">
+                                <div className="flex flex-col w-full">
+                                    <div className="space-y-3">
+
+                                        {/* Header */}
+                                        <div className="flex justify-center">
+                                            <div className="w-60 h-60 mt-4 coal rounded-full relative flex justify-center items-center text-center">
+                                                <h2 className="text-xl text-white grid place-items-center">{`${data?.me?.firstName} ${data?.me?.lastName}`}</h2>
+                                            </div>
+                                        
+                                        </div>
+
+                                        {/* Navbar's options */}
+                                        <div className="flex flex-col">
+                                            <ul className="md:static pt-2 text-xl">
+                                                {components.map((component) => (
+                                                    <li
+                                                        className={`bg-white flex items-center p-5 space-x-3 ${
+                                                            component.name === "mystats" ||  component.name === "myreviews" ? "mb-5 " : "mb-1"
+                                                            }`}
+                                                        key={component.key}
+                                                >
+                                                    {component.icon}
+                                                    <span
+                                                    onClick={() => renderComponent(component.name)}
+                                                    >
+                                                    {component.title}
+                                                    </span>
+                                                </li>
+                                                ))}
+                                                <li className="bg-white mb-1 flex items-center p-5 space-x-3">
+                                                    <MdLogout className="sidebar-icon"/>
+                                                    <button onClick={logoutBtn} className="">Logout</button>
+                                                </li>
+                                            </ul>
+                                            
+                                        </div>
                                     </div>
                                 </div>
+                                
                             </div>
-                            
+                        
                         </div>
-                      
                     </div>
 
                 {/* Dashboard's components */}
-                    <section className="col-span-4 h-screen">
-                       {currentComponent}
+                    <section className="md:col-span-4 md:min-h-screen">
+                        {currentComponent}
+                      
                     </section>
                 
                         

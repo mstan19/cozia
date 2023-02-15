@@ -21,8 +21,8 @@ const MyProduct = () => {
 	const [removeProduct] = useMutation(REMOVE_PRODUCT);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [selectedProductId, setSelectedProductId] = useState();
-	const [width, setWidth] = useState(window.innerWidth);
-  	const breakpoint = 640; 
+	// const [width, setWidth] = useState(window.innerWidth);
+  	// const breakpoint = 640; 
 // console.log(width) 
 
 	useEffect(() => {
@@ -48,13 +48,13 @@ const MyProduct = () => {
 	  }, [data]);
 	// console.log(myProductsData?.getMyProducts)
 
-	useEffect(() => {
-		const handleResizeWindow = () => setWidth(window.innerWidth);
-			window.addEventListener("resize", handleResizeWindow);
-			return () => {
-			window.removeEventListener("resize", handleResizeWindow);
-			};
-	}, []);
+	// useEffect(() => {
+	// 	const handleResizeWindow = () => setWidth(window.innerWidth);
+	// 		window.addEventListener("resize", handleResizeWindow);
+	// 		return () => {
+	// 		window.removeEventListener("resize", handleResizeWindow);
+	// 		};
+	// }, []);
 
 	function stockCheck(index) {
 		if (myProductsData?.getMyProducts[index].countInStock <= 3) {
@@ -188,10 +188,10 @@ const MyProduct = () => {
 									{modalOpen && <DeleteModal setOpenModal={setModalOpen} onDeleteFunction={() => handleDeleteProductBtn(selectedProductId)} onDeleteProductID={selectedProductId}/>}
 								</div>
 						</div>
-						{ width < breakpoint ? (
+						{/* { width < breakpoint ? (
 								<hr className="my-8 mx-14 border-0 h-0.5 w-2/3 my-6 bg-neutral-300 border-0" />
 
-							) : null}
+							) : null} */}
 					</div>
 				)})}
 				</div>
