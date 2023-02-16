@@ -23,7 +23,7 @@ const Home = () => {
 			for (let i = 0; i < 3; i++) {
 				newestArray.push(sortedProducts[i]);
 			}
-			console.log("newestArray", newestArray);
+			// console.log("newestArray", newestArray);
 			return newestArray;
 		}
 	}
@@ -36,7 +36,7 @@ const Home = () => {
 				let randomNum = Math.floor(Math.random() * products.length);
 				featureArray.push(products[randomNum]);
 			}
-			console.log("featureArray", featureArray);
+			// console.log("featureArray", featureArray);
 			return featureArray;
 		}
 		// TODO: add to stay for a week
@@ -70,7 +70,7 @@ const Home = () => {
 				TRENDING: getTrending(products),
 			};
 			setSectionCards(sCards);
-			console.log(sCards);
+			// console.log(sCards);
 		}
 	}, [data]);
 

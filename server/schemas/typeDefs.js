@@ -38,7 +38,7 @@ const typeDefs = gql`
         countInStock: Int
         createdAt: DateTime
         reviews: [Reviews]
-        totalRating: Int
+        totalRating: Float
         numberReviews: Int
         category: Category!
         user: User!

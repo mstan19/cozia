@@ -56,6 +56,7 @@ function App() {
                         <Route path="/orderlist" element={<OrderList />} />
                         <Route path="/addproduct" element={<AddProductForm />} />
                         <Route path="/myproducts" element={<MyProduct />} />
+                        {/* TODO: Add items page here */}
                     </Routes>
                     <Footer />
                 </div>

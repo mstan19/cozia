@@ -17,31 +17,31 @@ db.once("open", async () => {
 		let genderCategory = ["women", "men", "women"];
 		let clothesCategory = [
 			{
-				name: "activeWear",
+				name: "Activewear",
 			},
 			{
-				name: "coatsAndJackets",
+				name: "Coats & Jackets",
 			},
 			{
-				name: "dresses",
+				name: "Dresses",
 			},
 			{
-				name: "hoodiesAndSweatshirts",
+				name: "Hoodies & Sweatshirts",
 			},
 			{
-				name: "jeans",
+				name: "Jeans",
 			},
 			{
-				name: "shortsAndSkirts",
+				name: "Shorts & Skirts",
 			},
 			{
-				name: "tops",
+				name: "Tops",
 			},
 			{
-				name: "pants",
+				name: "Pants",
 			},
 			{
-				name: "shirts",
+				name: "Shirts",
 			},
 		];
 
@@ -87,7 +87,7 @@ db.once("open", async () => {
 					createdAt: faker.date.past(),
 					reviews: [reviewSchema],
 					gender: genderCategory[Math.floor(Math.random() * 2)],
-					totalRating: Math.floor(Math.random() * 5),
+					totalRating: (Math.random() * 5),
 					numberReviews: Math.floor(Math.random() * 100),
 					category: newCategory[l]._id,
 					user: userList[l]._id,

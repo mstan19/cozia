@@ -22,7 +22,7 @@ const ClothesCard = ({ product }) => {
 					<p>-{discount}%</p>
 				</div>
 			) : (
-				<> </>
+				<></>
 			)}
 			<section className="my-3">
 				<div

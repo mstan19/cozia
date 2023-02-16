@@ -15,8 +15,8 @@ export function sortDiscountDesc(array) {
 
 export function displayRatings(totalRating) {
 	// TODO: See how to include half stars, but mongoose doesn't accept decimals and clothes data won't load
-	switch (totalRating) {
-		case 0:
+	switch (true) {
+		case (totalRating === 0):
 			return (
 				<>
 					<ImStarEmpty />
@@ -26,7 +26,27 @@ export function displayRatings(totalRating) {
 					<ImStarEmpty />
 				</>
 			);
-		case 1:
+		case (0 < totalRating < 1):
+			return (
+				<>
+					<ImStarHalf />
+					<ImStarEmpty />
+					<ImStarEmpty />
+					<ImStarEmpty />
+					<ImStarEmpty />
+				</>
+			);
+		case (totalRating === 1):
+			return (
+				<>
+					<ImStarFull />
+					<ImStarEmpty />
+					<ImStarEmpty />
+					<ImStarEmpty />
+					<ImStarEmpty />
+				</>
+			);
+		case (1 < totalRating < 2):
 			return (
 				<>
 					<ImStarFull />

@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AiFillHeart, AiFillShopping } from "react-icons/ai";
 import Accordion from "../Accordion/Accordion";
 import { useQuery } from "@apollo/client";
-import { QUERY_CATEGORY } from "../../utils/queries";
+import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY } from "../../utils/queries";
 import Auth from "../../utils/auth";
 
 export default function Navbar() {
@@ -12,10 +12,31 @@ export default function Navbar() {
 	const navigate = useNavigate();
 	const titleRef = useRef();
 	const {
-		data: categoryData,
-		loading: loadingCategory,
-		error: errorCategory,
+		data,
+		loading: categoryLoad,
+		error: categoryError,
 	} = useQuery(QUERY_CATEGORY);
+
+	// const { data: productsCategoryData, loading: prodCateLoad } = useQuery(
+	// 	PRODUCTS_BY_CATEGORYID,
+	// 	{
+	// 		variables: { categoryId: categoryData?._id },
+	// 	}
+	// );
+	// console.log(productsCategoryData);
+
+	const [categories, setCategory] = useState();
+
+	useEffect(() => {
+		let categories = data?.categories;
+		if (categories && categories.length !== 0) {
+			console.log(categories);
+			// let filteredProducts = {};
+
+			setCategory(categories);
+		}
+	}, [data]);
+
 	const showNavbar = () => {
 		navRef.current.classList.toggle("responsive_nav");
 		titleRef.current.classList.toggle("invisible");
@@ -23,51 +44,34 @@ export default function Navbar() {
 
 	const navList = [
 		{
-			name: "DASHBOARD",
+			name: "MY ACCOUNT",
 			link: "/dashboard",
-			subcategories: [
-				{
-					name: "MY ACCOUNT",
-					items: [
-						"Profile",
-						"Purchased Orders",
-						"My Products",
-						"My Review & Comments",
-						"Wishlist",
-						"Shopping Cart",
-					],
-				},
-			],
+			items: "",
+		},
+		// {
+		// 	name: "Clothes",
+		// 	link: "/clothes",
+		// 	subcategories: [
+		// 		{
+		// 			name: "WOMEN",
+		// 			link: "/women",
+		// 			items: [categoryData?.categories],
+		// 		},
+		// 		{
+		// 			name: "MEN",
+		// 			items: [categoryData?.categories],
+		// 		},
+		// 	],
+		// },
+		{
+			name: "WOMEN",
+			link: "/women",
+			items: categories,
 		},
 		{
-			name: "Clothes",
-			link: "/clothes",
-			subcategories: [
-				{
-					name: "WOMEN",
-					link: "/women",
-					items: [
-						"Activewear",
-						"Coats & Jackets",
-						"Dresses",
-						"Hoodies & Sweatshirts",
-						"Jeans",
-						"Shorts & Skirts",
-						"Tops",
-					],
-				},
-				{
-					name: "MEN",
-					items: [
-						"Activewear",
-						"Coats & Jackets",
-						"Hoodies & Sweatshirts",
-						"Jeans",
-						"Pants",
-						"Shirts",
-					],
-				},
-			],
+			name: "MEN",
+			link: "/men",
+			items: categories,
 		},
 		{
 			name: "SALES & CLEARANCE",
@@ -76,6 +80,7 @@ export default function Navbar() {
 		{
 			name: "TRENDING",
 			link: "/trending",
+			items: "",
 		},
 	];
 
@@ -97,16 +102,10 @@ export default function Navbar() {
 				</button>
 				<h2 className="nav-header flex items-center">Menu</h2>
 				{/* If menu item has subcategories, then make it an accordion; else, menu item becomes normal nav-link */}
-				{navList.length > 0 &&
+				{/* {navList.length > 0 &&
 					navList.map((menu) => {
-						if (Object.hasOwn(menu, "subcategories")) {
-							return menu.subcategories.map(({ name, items }) => (
-								<Accordion
-									key={name}
-									title={name}
-									items={items}
-								/>
-							));
+						if (Object.hasOwn(menu, "items") && menu) {
+							<Accordion key={menu._id} title={menu.name} items={menu.items} link={menu.link} />;
 						} else {
 							return (
 								<Link
@@ -118,6 +117,34 @@ export default function Navbar() {
 								</Link>
 							);
 						}
+					})} */}
+				{navList &&
+					navList.length !== 0 &&
+					navList.map((menu, idx) => {
+						console.log(menu);
+						return (
+							<>
+								{menu &&
+								menu.name &&
+								menu.items &&
+								menu.link ? (
+									<Accordion
+										key={menu.name + idx}
+										title={menu.name}
+										items={menu.items}
+										link={menu.link}
+									/>
+								) : (
+									<Link
+										key={menu.name + idx}
+										className="flex nav-category text-2xl p-6 category-border"
+										to={menu.link}
+									>
+										{menu.name}
+									</Link>
+								)}
+							</>
+						);
 					})}
 
 				{Auth.loggedIn() ? (
