@@ -10,38 +10,34 @@ db.once("open", async () => {
 		await Category.deleteMany({});
 		await Order.deleteMany({});
 
-		//creating categories
-		// let createdCategories = [];
-		// for (let i = 0; i < 1; i++) {
-
 		let genderCategory = ["women", "men", "women"];
 		let clothesCategory = [
 			{
-				name: "Activewear",
+				name: "activewear",
 			},
 			{
-				name: "Coats & Jackets",
+				name: "coats-&-jackets",
 			},
 			{
-				name: "Dresses",
+				name: "dresses",
 			},
 			{
-				name: "Hoodies & Sweatshirts",
+				name: "hoodies-&-sweatshirts",
 			},
 			{
-				name: "Jeans",
+				name: "jeans",
 			},
 			{
-				name: "Shorts & Skirts",
+				name: "shorts-&-skirts",
 			},
 			{
-				name: "Tops",
+				name: "tops",
 			},
 			{
-				name: "Pants",
+				name: "pants",
 			},
 			{
-				name: "Shirts",
+				name: "shirts",
 			},
 		];
 

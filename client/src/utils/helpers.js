@@ -12,6 +12,9 @@ export function sortDiscountDesc(array) {
 	return array.sort((a, b) => (a.discount > b.discount ? -1 : 1));
 }
 
+export function removeHyphensAndCapitalize(string) {
+    return string.replace(/-/g, ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase())
+}
 
 export function displayRatings(totalRating) {
 	// TODO: See how to include half stars, but mongoose doesn't accept decimals and clothes data won't load

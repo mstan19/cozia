@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
 	MdOutlineKeyboardArrowUp,
 	MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
+import { removeHyphensAndCapitalize } from "../../utils/helpers";
 
 const Accordion = ({ title, items, link }) => {
 	const [isActive, setIsActive] = useState(false);
+	const navRef = useRef();
 
 	console.log(title);
 	console.log(items);
 	console.log(link);
+
+	const showNavbar = () => {
+		navRef.current.classList.toggle("responsive_nav");
+	};
 
 	return (
 		<section className="accordion-wrapper category-border flex flex-col">
@@ -37,13 +43,10 @@ const Accordion = ({ title, items, link }) => {
 							<Link
 								className="p-1"
 								key={item._id}
-								to={
-									title.toLowerCase() +
-									"/" +
-									item.name.toLowerCase().replace(/\s+/g, "")
-								}
+								to={title.toLowerCase() + "/" + item.name}
+								onClick={showNavbar}
 							>
-								{item.name}
+								{removeHyphensAndCapitalize(item.name)}
 							</Link>
 						);
 					})}

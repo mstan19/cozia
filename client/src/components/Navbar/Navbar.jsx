@@ -101,23 +101,6 @@ export default function Navbar() {
 					<FaTimes />
 				</button>
 				<h2 className="nav-header flex items-center">Menu</h2>
-				{/* If menu item has subcategories, then make it an accordion; else, menu item becomes normal nav-link */}
-				{/* {navList.length > 0 &&
-					navList.map((menu) => {
-						if (Object.hasOwn(menu, "items") && menu) {
-							<Accordion key={menu._id} title={menu.name} items={menu.items} link={menu.link} />;
-						} else {
-							return (
-								<Link
-									key={menu.name}
-									className="flex nav-category text-2xl p-6 category-border"
-									to={menu.link}
-								>
-									{menu.name}
-								</Link>
-							);
-						}
-					})} */}
 				{navList &&
 					navList.length !== 0 &&
 					navList.map((menu, idx) => {
@@ -139,6 +122,7 @@ export default function Navbar() {
 										key={menu.name + idx}
 										className="flex nav-category text-2xl p-6 category-border"
 										to={menu.link}
+										onClick={showNavbar}
 									>
 										{menu.name}
 									</Link>
@@ -150,7 +134,7 @@ export default function Navbar() {
 				{Auth.loggedIn() ? (
 					<>
 						<button
-							onClick={logoutBtn}
+							onClick={logoutBtn + showNavbar}
 							className="flex nav-category text-2xl p-6 category-border"
 						>
 							Logout
@@ -161,6 +145,7 @@ export default function Navbar() {
 						key="signInBtnKey"
 						className="flex nav-category text-2xl p-6 category-border"
 						to="/register"
+						onClick={showNavbar}
 					>
 						Sign In
 					</Link>
