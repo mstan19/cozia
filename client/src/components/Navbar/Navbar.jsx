@@ -19,21 +19,8 @@ export default function Navbar() {
 
     const navList = [
         {
-            name: "DASHBOARD",
+            name: "MY ACCOUNT",
             link: "/dashboard",
-            subcategories: [
-                {
-                    name: "MY ACCOUNT",
-                    items: [
-                        "Profile",
-                        "Purchased Orders",
-                        "My Products",
-                        "My Review & Comments",
-                        "Wishlist",
-                        "Shopping Cart"
-                    ],
-                }
-            ],
         },
         {
             name: "Clothes",
