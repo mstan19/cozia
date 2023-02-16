@@ -93,7 +93,6 @@ const Dashboard = () => {
 	const [currentComponent, setCurrentComponent] = useState(<Stats />);
 
 	const renderComponent = (selectedOption) => {
-		console.log(selectedOption);
 		setTitle(selectedOption)
 
 		switch (selectedOption) {
