@@ -48,21 +48,6 @@ export default function Navbar() {
 			link: "/dashboard",
 			items: "",
 		},
-		// {
-		// 	name: "Clothes",
-		// 	link: "/clothes",
-		// 	subcategories: [
-		// 		{
-		// 			name: "WOMEN",
-		// 			link: "/women",
-		// 			items: [categoryData?.categories],
-		// 		},
-		// 		{
-		// 			name: "MEN",
-		// 			items: [categoryData?.categories],
-		// 		},
-		// 	],
-		// },
 		{
 			name: "WOMEN",
 			link: "/women",
@@ -134,7 +119,7 @@ export default function Navbar() {
 				{Auth.loggedIn() ? (
 					<>
 						<button
-							onClick={logoutBtn + showNavbar}
+							onClick={logoutBtn}
 							className="flex nav-category text-2xl p-6 category-border"
 						>
 							Logout
