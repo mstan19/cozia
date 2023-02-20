@@ -25,15 +25,12 @@ export default function Navbar() {
 	// );
 	// console.log(productsCategoryData);
 
-	const [categories, setCategory] = useState();
+	const [categories, setCategories] = useState();
 
 	useEffect(() => {
 		let categories = data?.categories;
 		if (categories && categories.length !== 0) {
-			console.log(categories);
-			// let filteredProducts = {};
-
-			setCategory(categories);
+			setCategories(categories);
 		}
 	}, [data]);
 
@@ -44,25 +41,30 @@ export default function Navbar() {
 
 	const navList = [
 		{
+			id: 1,
 			name: "MY ACCOUNT",
 			link: "/dashboard",
 			items: "",
 		},
 		{
+			id: 2,
 			name: "WOMEN",
 			link: "/women",
 			items: categories,
 		},
 		{
+			id: 3,
 			name: "MEN",
 			link: "/men",
 			items: categories,
 		},
 		{
+			id: 4,
 			name: "SALES & CLEARANCE",
 			link: "/sales",
 		},
 		{
+			id: 5,
 			name: "TRENDING",
 			link: "/trending",
 			items: "",
@@ -88,23 +90,23 @@ export default function Navbar() {
 				<h2 className="nav-header flex items-center">Menu</h2>
 				{navList &&
 					navList.length !== 0 &&
-					navList.map((menu, idx) => {
-						console.log(menu);
+					navList.map((menu) => {
+						// console.log(menu);
 						return (
 							<>
-								{menu &&
+								{menu && menu.id &&
 								menu.name &&
 								menu.items &&
 								menu.link ? (
 									<Accordion
-										key={menu.name + idx}
+										key={menu.id}
 										title={menu.name}
 										items={menu.items}
 										link={menu.link}
 									/>
 								) : (
 									<Link
-										key={menu.name + idx}
+										key={menu.id}
 										className="flex nav-category text-2xl p-6 category-border"
 										to={menu.link}
 										onClick={showNavbar}
@@ -145,7 +147,7 @@ export default function Navbar() {
 				to="/"
 				className="app-title absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
 				ref={titleRef}
-				key="homepageBtn"
+				key="homepage-btn"
 			>
 				Cozia
 			</Link>
@@ -161,32 +163,3 @@ export default function Navbar() {
 		</header>
 	);
 }
-
-// {
-//     clothes: "Activewear",
-//     link: "/activewear"
-// },
-// {
-//     clothes: "Coats & Jackets",
-//     link: "/coats&jackets",
-// },
-// {
-//     clothes: "Dresses",
-//     link: "/dresses",
-// },
-// {
-//     clothes: "Hoodies & Sweatshirts",
-//     link: "/hoodies&sweatshirts",
-// },
-// {
-//     clothes: "Activewear",
-//     link: "/activewear",
-// },
-
-// ,
-// "",
-// ,
-// "Jeans",
-// "Shorts & Skirts",
-// "Tops",
-// ],

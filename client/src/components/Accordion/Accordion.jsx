@@ -5,14 +5,11 @@ import {
 	MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 import { removeHyphensAndCapitalize } from "../../utils/helpers";
+import ViewClothes from "../../pages/ViewClothes/ViewClothes";
 
 const Accordion = ({ title, items, link }) => {
 	const [isActive, setIsActive] = useState(false);
 	const navRef = useRef();
-
-	console.log(title);
-	console.log(items);
-	console.log(link);
 
 	const showNavbar = () => {
 		navRef.current.classList.toggle("responsive_nav");
@@ -39,11 +36,12 @@ const Accordion = ({ title, items, link }) => {
 				{isActive &&
 					items &&
 					items.map((item) => {
+						console.log(item);
 						return (
 							<Link
 								className="p-1"
 								key={item._id}
-								to={title.toLowerCase() + "/" + item.name}
+								to={title.toLowerCase() + "/" + item._id}
 								onClick={showNavbar}
 							>
 								{removeHyphensAndCapitalize(item.name)}

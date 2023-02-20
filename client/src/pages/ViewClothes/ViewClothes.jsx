@@ -1,22 +1,62 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
+import { PRODUCTS_BY_CATEGORYID, QUERY_PRODUCTS } from "../../utils/queries";
+import { removeHyphensAndCapitalize } from "../../utils/helpers";
+import Filter from "../../components/Filter/Filter";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import { PRODUCTS_BY_CATEGORYID, QUERY_PRODUCTS } from "../../utils/queries";
-import Filter from "../../components/Filter/Filter";
 
 const ViewClothes = () => {
-	// Appears as some link based on category
+
+	const { gender } = useParams();
+	const { categoryId } = useParams();
+
+	const { loading, data } = useQuery(PRODUCTS_BY_CATEGORYID, {
+		variables: { gender: gender, categoryId: categoryId },
+	});
+	const navigate = useNavigate();
+
+	const goToGenderPage = (event) => {
+		navigate({gender});
+	}
+
+	if (!loading) {
+		console.log(data);
+	}
+
+	const [genderCategory, setGenderCategory] = useState("");
+	const [clothesCategory, setClothesCategory] = useState("");
+	const [searchTerm, setSearchTerm] = useState("");
+
+	useEffect(() => {
+		let category = data?.productsByCategoryID;
+		if (category && category.length !== 0) {
+			console.log(category);
+			setClothesCategory(category);
+		}
+	}, [data]);
+
+	// const clothes = useMemo(() => {
+	// 	if (gender === "") {
+	// 		if (searchTerm === "") {
+	// 			return products;
+	// 		} else {
+	// 			return products.filter((product) => {
+	// 				console.log(product)
+	// 				const searchFields =
+	// 				`${product.productName}`;
+	// 				return searchFields.includes(searchTerm.toLowerCase());
+	// 			});
+	// 		}
+	// 	}
+	// }, [gender, searchTerm]);
 
 	// In navbar, click on navbar will print out the categoryId - useState to store categoryId and pass that state into ViewClothes (useRef stores things w/o reloading)
 	// Or can store in the localStorage
 
 	// ViewClothes - grab the cateogryId and use it in the query
 
-	const { loading: productsLoad, data: productsData } = useQuery(QUERY_PRODUCTS);
-	const { loading: categoryLoad, data: categoryData } = useQuery(PRODUCTS_BY_CATEGORYID);
-	const [products, setProducts] = useState();
 	// const [filter, setFilter] = useState();
 
 	// function filterItems(value, products) {
@@ -29,19 +69,6 @@ const ViewClothes = () => {
 	// 	}
 	// }
 
-	useEffect(() => {
-		let products = productsData?.products;
-		if (products && products.length !== 0) {
-			console.log(products);
-			// let filteredProducts = {};
-
-			setProducts(products);
-		}
-	}, [productsData]);
-
-	const [genderCategory, setGenderCategory] = useState("Women");
-	const [clothesCategory, setClothesCategory] = useState("");
-
 	return (
 		<main className="min-h-screen">
 			<SearchBar />
@@ -49,8 +76,8 @@ const ViewClothes = () => {
 				{/* TODO: Insert categories */}
 				<h3 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
 					{/* TODO: Set filter to go back to women if gender category is clicked on */}
-					<Link className="text-blue-800 underline" to="#">
-						{genderCategory}
+					<Link className="text-blue-800 underline" to={goToGenderPage}>
+						{removeHyphensAndCapitalize(gender)}
 					</Link>{" "}
 					{/* If clothes category exists, show extension; else, do not show */}
 					{clothesCategory !== "" ? `/ ${clothesCategory}` : <></>}
@@ -59,20 +86,19 @@ const ViewClothes = () => {
 			</section>
 			{/* ClothesCard Component */}
 			<section className="flex flex-wrap justify-center bg-white">
-				{!productsLoad &&
-					products &&
-					products.length !== 0 &&
-					products.map((product, idx) => {
-						// console.log(product);
+				{!loading &&
+					clothesCategory &&
+					clothesCategory.length !== 0 &&
+					clothesCategory.filter(clothes => clothes.gender === gender).map((clothes, idx) => {
+						// TODO: If there are no results, say no results
 						return (
 							<ClothesCard
-								key={product + idx}
-								product={product}
+								key={clothes + idx}
+								product={clothes}
 							/>
 						);
 					})}
 			</section>
-
 		</main>
 	);
 };
