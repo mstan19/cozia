@@ -52,7 +52,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/:gender/:categoryId" element={<ViewClothes />} />
+                        <Route path="/:gender/:categoryName" element={<ViewClothes />} />
                         <Route path="/orderlist" element={<OrderList />} />
                         <Route path="/addproduct" element={<AddProductForm />} />
                         <Route path="/myproducts" element={<MyProduct />} />

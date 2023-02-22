@@ -41,7 +41,7 @@ const Accordion = ({ title, items, link }) => {
 							<Link
 								className="p-1"
 								key={item._id}
-								to={title.toLowerCase() + "/" + item._id}
+								to={title.toLowerCase() + "/" + item.name}
 								onClick={showNavbar}
 							>
 								{removeHyphensAndCapitalize(item.name)}
