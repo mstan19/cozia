@@ -4,20 +4,26 @@ const Filter = (clothesDisplay) => {
 	const [filter, setFilter] = useState("");
 	const [searchTerm, setSearchTerm] = useState("");
 
-	const filterList = [
-		{
-			value: "Newest",
-			function: "",
-		},
-		{
-			value: "Price: Low to High",
-			function: "",
-		},
-		{
-			value: "Price: High to Low",
-			function: "",
-		},
-	];
+	function sortByNewest() {}
+
+	function sortByLowPrice() {}
+
+	function sortByHighPrice() {}
+
+	const filterList = ["Newest", "Low Price", "High Price"];
+	// 	{
+	// 		value: "Newest",
+	// 		function: sortByNewest(),
+	// 	},
+	// 	{
+	// 		value: "Price: Low to High",
+	// 		function: sortByLowPrice,
+	// 	},
+	// 	{
+	// 		value: "Price: High to Low",
+	// 		function: sortByHighPrice(),
+	// 	},
+	// ];
 
 	const clothes = useMemo(() => {
 		if (filter === "") {
@@ -29,13 +35,42 @@ const Filter = (clothesDisplay) => {
 					return searchFields.includes(searchTerm.toLowerCase());
 				});
 			}
+		} else if (filter === "Newest") {
+			return clothesDisplay;
+		} else if (filter === "Low Price") {
+		} else {
 		}
 		// Filter clothes based on the dropdown menu
-		return clothesDisplay.filter(clothes);
-	});
+		// Newest, Low Price, High Price
+		// return clothesDisplay.filter((clothes) => {
+		// 	const selectedFilter =
+		// });
+	}, [filter, searchTerm]);
+
+	useEffect(() => {
+		if (searchTerm !== "") {
+			setFilter("");
+		}
+	}, [searchTerm]);
 
 	return (
 		<button className="filter">
+			<form>
+				<select
+					className="px-2 py-1 border"
+					value={filter}
+					onChange={(e) => setFilter(e.target.value)}
+				>
+					{filterList.map((option, idx) => {
+						return (
+							<option className="" value={option} key={idx}>
+								{option}
+							</option>
+						);
+					})}
+				</select>
+				{/* TODO: Include searchbar here??? (input) */}
+			</form>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
