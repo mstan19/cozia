@@ -8,7 +8,7 @@ import ClothesCard from "../../components/ClothesCard/ClothesCard";
 import SearchBar from "../../components/SearchBar/SearchBar";
 
 const ViewClothes = () => {
-	// Grab gender and categoryName
+	// Grab gender and categoryName from url
 	const { gender } = useParams();
 	const { categoryName } = useParams();
 
@@ -21,7 +21,7 @@ const ViewClothes = () => {
 	const [clothesCategory, setClothesCategory] = useState();
 	const [categoryId, setCategoryId] = useState();
 	const [clothesDisplay, setClothesDisplay] = useState();
-
+	
 	// Query to grab existing categories
 	const { data: categoryData, loading: categoryLoad } =
 		useQuery(QUERY_CATEGORY);
@@ -31,7 +31,6 @@ const ViewClothes = () => {
 		variables: { categoryId: categoryId },
 	});
 
-	// const [searchTerm, setSearchTerm] = useState("");
 
 	useEffect(() => {
 		// Grab data from QUERY_CATEGORY to find the selected category and store its values (name and _id)
@@ -76,7 +75,7 @@ const ViewClothes = () => {
 						<></>
 					)}
 				</h3>
-				<Filter />
+				<Filter clothes={clothesDisplay}/>
 			</section>
 			{/* ClothesCard Component */}
 			<section className="flex flex-wrap justify-center bg-white">

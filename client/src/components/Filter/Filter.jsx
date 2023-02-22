@@ -1,8 +1,38 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
-const Filter = () => {
+const Filter = (clothesDisplay) => {
+	const [filter, setFilter] = useState("");
+	const [searchTerm, setSearchTerm] = useState("");
 
-	
+	const filterList = [
+		{
+			value: "Newest",
+			function: "",
+		},
+		{
+			value: "Price: Low to High",
+			function: "",
+		},
+		{
+			value: "Price: High to Low",
+			function: "",
+		},
+	];
+
+	const clothes = useMemo(() => {
+		if (filter === "") {
+			if (searchTerm === "") {
+				return clothesDisplay;
+			} else {
+				return clothesDisplay.filter((clothes) => {
+					const searchFields = `${clothes.productName}`;
+					return searchFields.includes(searchTerm.toLowerCase());
+				});
+			}
+		}
+		// Filter clothes based on the dropdown menu
+		return clothesDisplay.filter(clothes);
+	});
 
 	return (
 		<button className="filter">
