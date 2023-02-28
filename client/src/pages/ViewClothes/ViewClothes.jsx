@@ -53,7 +53,7 @@ const ViewClothes = () => {
 			<SearchBar />
 			<section className="flex justify-between justify-end items-center bg-white relative p-5">
 				{/* TODO: Insert categories */}
-				<h3 className="lg:absolute lg:top-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2">
+				<h3>
 					{/* TODO: Set filter to go back to women if gender category is clicked on */}
 					<Link
 						className="text-blue-800 underline"
