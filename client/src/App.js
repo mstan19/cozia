@@ -53,7 +53,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/orderlist" element={<OrderList />} />
                         <Route path="/addproduct" element={<AddProductForm />} />
-                        <Route path="/myproducts" element={<MyProduct />} />
+                        {/* <Route path="/myproducts" element={<MyProduct />} /> */}
                     </Routes>
                     <Footer />
                 </div>
