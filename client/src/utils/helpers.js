@@ -8,6 +8,14 @@ export function sortDateDesc(array) {
 	return array.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
 }
 
+export function sortByHighPrice(array) {
+	return array.sort((a, b) => (a.price > b.price ? -1 : 1));
+}
+
+export function sortByLowPrice(array) {
+	return array.sort((a, b) => (a.price > b.price ? 1 : -1));
+}
+
 export function sortDiscountDesc(array) {
 	return array.sort((a, b) => (a.discount > b.discount ? -1 : 1));
 }
