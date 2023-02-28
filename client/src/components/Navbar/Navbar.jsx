@@ -45,29 +45,35 @@ export default function Navbar() {
 			name: "MY ACCOUNT",
 			link: "/dashboard",
 			items: "",
+			key: "accountNavKey",
 		},
 		{
 			id: 2,
 			name: "WOMEN",
 			link: "/women",
 			items: categories,
+			key: "womenNavKey",
 		},
 		{
 			id: 3,
 			name: "MEN",
 			link: "/men",
 			items: categories,
+			key: "menNavKey",
 		},
 		{
 			id: 4,
 			name: "SALES & CLEARANCE",
 			link: "/sales",
+			items: "",
+			key: "salesNavKey",
 		},
 		{
 			id: 5,
 			name: "TRENDING",
 			link: "/trending",
 			items: "",
+			key: "trendingNavKey",
 		},
 	];
 
@@ -90,23 +96,20 @@ export default function Navbar() {
 				<h2 className="nav-header flex items-center">Menu</h2>
 				{navList &&
 					navList.length !== 0 &&
-					navList.map((menu) => {
-						// console.log(menu);
+					navList.map((menu, idx) => {
+						// TODO: FIX KEY ERROR
 						return (
 							<>
-								{menu && menu.id &&
-								menu.name &&
-								menu.items &&
-								menu.link ? (
+								{menu && menu.items !== "" ? (
 									<Accordion
-										key={menu.id}
+										key={menu.key + menu.id + idx}
 										title={menu.name}
 										items={menu.items}
 										link={menu.link}
 									/>
 								) : (
 									<Link
-										key={menu.id}
+										key={menu.key + idx}
 										className="flex nav-category text-2xl p-6 category-border"
 										to={menu.link}
 										onClick={showNavbar}

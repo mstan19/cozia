@@ -20,7 +20,9 @@ const Filter = (clothesDisplay) => {
 
 	const clothes = useMemo(() => {
 		try {
-			console.log(clothesDisplay);
+			// if (clothesDisplay) {
+			// 	console.log(clothesDisplay);
+			// }
 			if (filter === "") {
 				if (searchTerm === "") {
 					return clothesDisplay;
