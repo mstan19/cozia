@@ -137,7 +137,7 @@ const MyProduct = () => {
 				
 			</div>
 				
-			<div className="container mx-auto pt-2 mx-5">
+			<div className="container mx-auto pt-2">
 
 				{/* Gallery product Card */}
 				<div className="my-product-cards flex flex-wrap w-full grid sm:grid-cols-3 gap-x-8 gap-y-4" id="product-cards">
