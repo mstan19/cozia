@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
+import { CountryDropdown, RegionDropdown, CountryRegionData } from "react-country-region-selector";
+
 
 
 const Checkout = () => {
 	const [CheckoutData, setCheckoutData] = useState();
+	const [country, setCountry] = useState("");
+	const [region, setRegion] = useState("");
+
+	
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -27,7 +33,7 @@ const Checkout = () => {
 				<form onSubmit={onSubmit} className="p-0 m-0">
 					{/* Personal Info */}
 					<div className="mb-2">
-						<h2 className="text-center">Personal Info</h2>
+						<h2 className="text-lg text-center">Personal Info</h2>
 						<label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="firstName">
 							FIRST NAME
 							<p className="text-red-700">*</p>
@@ -57,7 +63,7 @@ const Checkout = () => {
 					</div>
 
 					{/* Billing Info */}
-					<h2 className="text-center text-base">Billing Address</h2>
+					<h2 className="text-center text-lg pt-2">Billing Address</h2>
 					
 					<div className="mb-2">
 						<label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="streetBilling">
@@ -91,7 +97,7 @@ const Checkout = () => {
 					</div>
 
 					{/* Shipping Info */}
-					<h2 className="text-center text-base">Shipping Address</h2>
+					<h2 className="text-center text-lg">Shipping Address</h2>
 					
 					<div className="mb-2">
 						<label className="flex flex-row block text-black-700 text-sm mb-2" htmlFor="streetShipping">

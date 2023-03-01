@@ -17,6 +17,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import AddProductForm from "./components/AddProductForm";
 import OrderList from "./pages/OrderList/OrderList";
 import Checkout from "./pages/Checkout/Checkout";
+import Cart from "./components/Cart/Cart";
 
 
 // Construct our main GraphQL API endpoint

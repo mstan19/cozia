@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AiFillHeart, AiFillShopping } from "react-icons/ai";
@@ -6,6 +6,7 @@ import Accordion from "../Accordion/Accordion";
 import { useQuery } from "@apollo/client";
 import { QUERY_CATEGORY } from "../../utils/queries";
 import Auth from "../../utils/auth";
+import Cart from "../Cart/Cart.jsx";
 
 export default function Navbar() {
     const navRef = useRef();
@@ -16,6 +17,8 @@ export default function Navbar() {
         navRef.current.classList.toggle("responsive_nav");
         titleRef.current.classList.toggle("invisible");
     };
+	const [openModal, setOpenModal] = useState(false);
+
 
     const navList = [
         {
@@ -135,9 +138,10 @@ export default function Navbar() {
                 <Link className="wishlist" key="wishlist-page" to="/wishlist">
                     <AiFillHeart />
                 </Link>
-                <Link className="cart pl-4" key="cart-page" to="/cart">
+                <button className="cart pl-4" key="cart-page" onClick={() => {setOpenModal(true)}}>
                     <AiFillShopping />
-                </Link>
+                    {openModal && <Cart setOpenModal={setOpenModal} />}
+                </button>
             </section>
         </header>
     );
