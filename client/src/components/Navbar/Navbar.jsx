@@ -18,7 +18,6 @@ export default function Navbar() {
 		error: categoryError,
 	} = useQuery(QUERY_CATEGORY);
 
-		const [openModal, setOpenModal] = useState(false);
 
 	// const { data: productsCategoryData, loading: prodCateLoad } = useQuery(
 	// 	PRODUCTS_BY_CATEGORYID,
@@ -85,6 +84,7 @@ export default function Navbar() {
 		navigate("/");
 		Auth.logout();
 	};
+
 
 	return (
 		<header className="flex items-center justify-between">
@@ -162,9 +162,9 @@ export default function Navbar() {
 				<Link className="wishlist" key="wishlist-page" to="/wishlist">
 					<AiFillHeart />
 				</Link>
-				<button className="cart pl-4" key="cart-page" onClick={() => {setOpenModal(true)}}>
+				<button className="cart pl-4" key="cart-page" >
                     <AiFillShopping />
-                    {openModal && <Cart setOpenModal={setOpenModal} />}
+                    <Cart />
                 </button>
 			</section>
 		</header>

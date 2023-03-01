@@ -1,5 +1,6 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { VscChromeClose } from "react-icons/vsc";
 // import { XMarkIcon } from '@heroicons/react/24/outline'
 import Auth from "../../utils/auth";
 
@@ -28,157 +29,52 @@ const products = [
 	// More products...
 ]
 
-export default function Example() {
-	const [open, setOpen] = useState(true)
-
+const Cart = () => {
+	const [showSidebar, setShowSidebar] = useState(false);
+	
 	return (
 		<div>
 			{Auth.loggedIn() ? (
-				<div className="grid grid-cols-1">
-
-					{/* navbar for dashboard only */}
-					<div onClick={() => setOpen(!open)} name={open ? "close" : "menu"} className={`ease-in col-span-1 text-3xl cursor-pointer `}>
-						<div className={`md:block col-span-1 md:h-full dark-gray pb-4 ${open ? "hidden" : "block "}`}>
-							<div className="flex">
-								<div className="flex flex-col w-full">
-									
-									
-								</div>
-
-							</div>
-
-						</div>
-					</div>
-
-					
+				<>
+				{/* Does not render sidebar but onClick it will show the sidebar */}
+				{showSidebar ? (
+				  <button
+					className="flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-50"
+					onClick={() => setShowSidebar(!showSidebar)}
+				  >
+					<VscChromeClose />
+				  </button>
+				) : (
+				// Renders sidebar but onClick the sidebar will render
+				  <svg
+					onClick={() => setShowSidebar(!showSidebar)}
+					className="fixed z-30 flex items-center cursor-pointer right-6 top-6"
+					fill="#2563EB"
+					viewBox="0 0 100 80"
+					width="40"
+					height="40"
+				  >
+				
+				  </svg>
+				)}
+		  
+				<div
+				  className={`top-0 right-0 w-full sm:w-5/6 lg:w-1/2 bg-white p-10  fixed h-full z-40  ease-in-out duration-300 ${
+					showSidebar ? "translate-x-0 " : "translate-x-full"
+				  }`}
+				>
+				  <h3 className="mt-20 text-4xl text-black">
+					Sidebar
+				  </h3>
 				</div>
+			  </>
 			) : (
 				<>
 					<div>please log in</div>
 				</>
 			)}
 		</div>
-		// <Transition.Root show={open} as={Fragment}>
-		// 	<Dialog as="div" className="relative z-10" onClose={setOpen}>
-		// 		<Transition.Child
-		// 			as={Fragment}
-		// 			enter="ease-in-out duration-500"
-		// 			enterFrom="opacity-0"
-		// 			enterTo="opacity-100"
-		// 			leave="ease-in-out duration-500"
-		// 			leaveFrom="opacity-100"
-		// 			leaveTo="opacity-0"
-		// 		>
-		// 			<div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-		// 		</Transition.Child>
-
-		// 		<div className="fixed inset-0 overflow-hidden">
-		// 			<div className="absolute inset-0 overflow-hidden">
-		// 				<div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-		// 					<Transition.Child
-		// 						as={Fragment}
-		// 						enter="transform transition ease-in-out duration-500 sm:duration-700"
-		// 						enterFrom="translate-x-full"
-		// 						enterTo="translate-x-0"
-		// 						leave="transform transition ease-in-out duration-500 sm:duration-700"
-		// 						leaveFrom="translate-x-0"
-		// 						leaveTo="translate-x-full"
-		// 					>
-		// 						<Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-		// 							<div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-		// 								<div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
-		// 									<div className="flex items-start justify-between">
-		// 										<Dialog.Title className="text-lg font-medium text-gray-900">Shopping cart</Dialog.Title>
-		// 										<div className="ml-3 flex h-7 items-center">
-		// 											<button
-		// 												type="button"
-		// 												className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-		// 												onClick={() => setOpen(false)}
-		// 											>
-		// 												<span className="sr-only">Close panel</span>
-		// 												{/* <XMarkIcon className="h-6 w-6" aria-hidden="true" /> */}
-		// 											</button>
-		// 										</div>
-		// 									</div>
-
-		// 									<div className="mt-8">
-		// 										<div className="flow-root">
-		// 											<ul role="list" className="-my-6 divide-y divide-gray-200">
-		// 												{products.map((product) => (
-		// 													<li key={product.id} className="flex py-6">
-		// 														<div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-		// 															<img
-		// 																src={product.imageSrc}
-		// 																alt={product.imageAlt}
-		// 																className="h-full w-full object-cover object-center"
-		// 															/>
-		// 														</div>
-
-		// 														<div className="ml-4 flex flex-1 flex-col">
-		// 															<div>
-		// 																<div className="flex justify-between text-base font-medium text-gray-900">
-		// 																	<h3>
-		// 																		<a href={product.href}>{product.name}</a>
-		// 																	</h3>
-		// 																	<p className="ml-4">{product.price}</p>
-		// 																</div>
-		// 																<p className="mt-1 text-sm text-gray-500">{product.color}</p>
-		// 															</div>
-		// 															<div className="flex flex-1 items-end justify-between text-sm">
-		// 																<p className="text-gray-500">Qty {product.quantity}</p>
-
-		// 																<div className="flex">
-		// 																	<button
-		// 																		type="button"
-		// 																		className="font-medium text-indigo-600 hover:text-indigo-500"
-		// 																	>
-		// 																		Remove
-		// 																	</button>
-		// 																</div>
-		// 															</div>
-		// 														</div>
-		// 													</li>
-		// 												))}
-		// 											</ul>
-		// 										</div>
-		// 									</div>
-		// 								</div>
-
-		// 								<div className="border-t border-gray-200 py-6 px-4 sm:px-6">
-		// 									<div className="flex justify-between text-base font-medium text-gray-900">
-		// 										<p>Subtotal</p>
-		// 										<p>$262.00</p>
-		// 									</div>
-		// 									<p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-		// 									<div className="mt-6">
-		// 										<a
-		// 											href="#"
-		// 											className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-		// 										>
-		// 											Checkout
-		// 										</a>
-		// 									</div>
-		// 									<div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-		// 										<p>
-		// 											or
-		// 											<button
-		// 												type="button"
-		// 												className="font-medium text-indigo-600 hover:text-indigo-500"
-		// 												onClick={() => setOpen(false)}
-		// 											>
-		// 												Continue Shopping
-		// 												<span aria-hidden="true"> &rarr;</span>
-		// 											</button>
-		// 										</p>
-		// 									</div>
-		// 								</div>
-		// 							</div>
-		// 						</Dialog.Panel>
-		// 					</Transition.Child>
-		// 				</div>
-		// 			</div>
-		// 		</div>
-		// 	</Dialog>
-		// </Transition.Root>
+		
 	)
 }
+export default Cart;
