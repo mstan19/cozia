@@ -96,20 +96,19 @@ export default function Navbar() {
 				<h2 className="nav-header flex items-center">Menu</h2>
 				{navList &&
 					navList.length !== 0 &&
-					navList.map((menu, idx) => {
-						// TODO: FIX KEY ERROR
+					navList.map((menu) => {
 						return (
-							<>
+							<div key={menu.key}>
 								{menu && menu.items !== "" ? (
 									<Accordion
-										key={menu.key + menu.id + idx}
+										key={menu.key}
 										title={menu.name}
 										items={menu.items}
 										link={menu.link}
 									/>
 								) : (
 									<Link
-										key={menu.key + idx}
+										key={menu.key + menu.id}
 										className="flex nav-category text-2xl p-6 category-border"
 										to={menu.link}
 										onClick={showNavbar}
@@ -117,7 +116,7 @@ export default function Navbar() {
 										{menu.name}
 									</Link>
 								)}
-							</>
+							</div>
 						);
 					})}
 
