@@ -130,7 +130,7 @@ const Checkout = () => {
 
 
 					<div className="flex flex-col items-center justify-between">
-						<button className="bg-green-600 w-1/2 rounded-full hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none" type="submit">
+						<button className="bg-green-600 w-1/2 rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none" type="submit">
 							MAKE PAYMENT
 						</button>
 					</div>

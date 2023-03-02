@@ -11,12 +11,20 @@ const Cart = () => {
 	const [count, setCount] = useState(0);
 	const nav = useNavigate();
 
-	const handleClick = () => {
+	const increment = () => {
+		setShowSidebar(true);
 		setCount(count + 1);
+		
 	  };
-	  const handleReset = () => {
-		setCount(0);
-	  };
+
+	const decrement = () => {
+		setShowSidebar(true);
+		
+		setCount(count - 1);
+	};
+	//   const handleReset = () => {
+	// 	setCount(0);
+	//   };
 
 	// console.log(showSidebar)
 	let taxes = "$2.01";
@@ -30,6 +38,7 @@ const Cart = () => {
 			color: "Blue",
 			price: 32.32,
 			quantity: 1,
+			key: "mshirtcart"
 
 		},
 		{
@@ -37,25 +46,11 @@ const Cart = () => {
 			name: "Women's Shirt",
 			color: "White",
 			price: 57.32,
-			quantity: 1
-
-		},
-		{
-			image: samplePic,
-			name: "Men's Shirt",
-			color: "Blue",
-			price: 32.32,
 			quantity: 1,
+			key: "wshirtcart"
 
 		},
-		{
-			image: sample2Pic,
-			name: "Women's Shirt",
-			color: "White",
-			price: 57.32,
-			quantity: 1
-
-		},
+		
 	]
 
 	const onSubmit = async (event) => {
@@ -99,7 +94,7 @@ const Cart = () => {
 						</svg>
 					)}
 
-					<form onSubmit={onSubmit} className={`top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"
+					<form onSubmit={onSubmit} className={`shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"
 							}`}
 					>
 						<h3 className="mt-6 text-2xl text-center text-black">
@@ -110,7 +105,7 @@ const Cart = () => {
 						<div className="overflow-y-scroll">
 							{products.map((product) => {
 								return (
-									<div className="grid grid-cols-3 mt-6 overflow-y-auto px-10">
+									<div key={product.key} className="grid grid-cols-3 mt-6 overflow-y-auto px-10">
 										<div className="w-50 h-full mr-2">
 											<img src={product.image} alt="product-image-cart" id="product-image-cart"/>
 										</div>
@@ -118,26 +113,33 @@ const Cart = () => {
 										<div className="">
 											<div className="text-lg">{product.name}</div>
 											<div className="text-base text-neutral-500">{product.color}</div>
-											<div className="text-base text-neutral-500">Qty {product.quantity}</div>
+											<div className="text-base text-neutral-500 flex inline">
+												<div className="grid grid-cols-2">Qty</div> 
+												<div className="grid grid-cols-3">
+													<button className="px-2 coal rounded-l-md text-white text-md w-full" onClick={decrement}>
+														<span>-</span>
+													</button>
+
+													<div className="m-0 p-0 text-center border border-neutral-300">{count}</div>
+
+													<button className="px-2 coal rounded-r-md text-white text-md w-full" onClick={increment}>
+														<span className="">+</span>
+													</button>
+												</div>
+											</div>
 										</div>
 
 										<div className="text-right">
 											<div className="text-xl">${product.price}</div>
 											<button className="text-base text-red-500">Remove</button>
 										</div>
-										
-										{/* <div className="">
-											<h1>You've clicked the button {count} times.</h1>
-											<button onClick={handleClick}>Click me!</button>
-											<button onClick={handleReset}>Reset</button>
-										</div> */}
 									</div>
 								)
 							})}
 						</div>
 						{/* <hr className="border-0 h-0.5 w-full my-6 bg-neutral-300 border-0" /> */}
 						<div className="grid grid-rows-2 z-50">
-							<div className="text-black grid grid-cols-2 fixed bottom-20 border-t-2 w-full px-10 border-neutral-300">
+							<div className="text-black grid grid-cols-2 fixed bottom-20 border-t-2 w-full px-10 border-neutral-200">
 								{/* title */}
 								<div className="pt-2">
 									<div className="text-xl">Taxes</div>
@@ -157,7 +159,7 @@ const Cart = () => {
 								<button
 									className="bg-green-600 fixed bottom-4 w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 px-4 focus:outline-none focus:shadow-outline"
 									type="submit">
-										Checkout
+										CHECKOUT
 								</button>
 							</div>
 						</div>
