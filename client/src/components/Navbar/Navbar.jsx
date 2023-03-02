@@ -100,9 +100,8 @@ export default function Navbar() {
 				{navList &&
 					navList.length !== 0 &&
 					navList.map((menu, idx) => {
-						// TODO: FIX KEY ERROR
 						return (
-							<>
+							<div key={menu.key}>
 								{menu && menu.items !== "" ? (
 									<Accordion
 										key={menu.key + menu.id + idx}
@@ -120,7 +119,7 @@ export default function Navbar() {
 										{menu.name}
 									</Link>
 								)}
-							</>
+							</div>
 						);
 					})}
 

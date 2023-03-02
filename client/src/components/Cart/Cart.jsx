@@ -40,6 +40,22 @@ const Cart = () => {
 			quantity: 1
 
 		},
+		{
+			image: samplePic,
+			name: "Men's Shirt",
+			color: "Blue",
+			price: 32.32,
+			quantity: 1,
+
+		},
+		{
+			image: sample2Pic,
+			name: "Women's Shirt",
+			color: "White",
+			price: 57.32,
+			quantity: 1
+
+		},
 	]
 
 	const onSubmit = async (event) => {
@@ -140,7 +156,7 @@ const Cart = () => {
 							<div className="w-full flex justify-center">
 								<button
 									className="bg-green-600 fixed bottom-4 w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 px-4 focus:outline-none focus:shadow-outline"
-									type="submit"  >
+									type="submit">
 										Checkout
 								</button>
 							</div>
