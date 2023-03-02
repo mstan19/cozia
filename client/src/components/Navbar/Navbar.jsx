@@ -162,10 +162,10 @@ export default function Navbar() {
 				<Link className="wishlist" key="wishlist-page" to="/wishlist">
 					<AiFillHeart />
 				</Link>
-				<button className="cart pl-4" key="cart-page" >
+				<div className="cart pl-4" key="cart-page" >
                     <AiFillShopping />
                     <Cart />
-                </button>
+                </div>
 			</section>
 		</header>
 	);

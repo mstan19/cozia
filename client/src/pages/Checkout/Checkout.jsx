@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
-import { CountryDropdown, RegionDropdown, CountryRegionData } from "react-country-region-selector";
 
 
 
 const Checkout = () => {
 	const [CheckoutData, setCheckoutData] = useState();
-	const [country, setCountry] = useState("");
-	const [region, setRegion] = useState("");
+
 
 	
 
