@@ -8,37 +8,35 @@ import { IoCloseOutline } from "react-icons/io5";
 
 const Cart = () => {
 	const [showSidebar, setShowSidebar] = useState(false);
-	const [count, setCount] = useState(0);
+	const [qty, setQty] = useState();
 	const [selected, setSelected] = useState({})
-	const [selectedOrderId, setSelectedOrderId] = useState();
 	const nav = useNavigate();
 
+
 	const increment = (index) => {
-		console.log(index)
-		setCount(count + 1);
+		let newProducts = [...products];
+		newProducts[index].quantity++;
+		setProducts(newProducts)
 		
 	  };
 
 	const decrement = (index) => {
-		console.log(index)
-		
-
-		if (count <= 1) {
-			setCount(1)
+		let newProducts = [...products];
+		if (newProducts[index].quantity <= 1) {
+			
 		} else {
-			setCount(count - 1);
+			newProducts[index].quantity--;
+			setProducts(newProducts);
 		}
 	};
-	//   const handleReset = () => {
-	// 	setCount(0);
-	//   };
+	
 
-	// console.log(showSidebar)
+
 	let taxes = "$2.01";
 	let subtotal = "$5.00";
 	let total = "$50.00";
 
-	const products = [
+	const [products, setProducts] = useState([
 		{
 			image: samplePic,
 			name: "Men's Shirt",
@@ -58,7 +56,7 @@ const Cart = () => {
 
 		},
 		
-	]
+	])
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
@@ -123,13 +121,13 @@ const Cart = () => {
 											<div className="text-base text-neutral-500 flex inline">
 												<div className="grid grid-cols-2">Qty</div> 
 												<div className="grid grid-cols-3">
-													<button className="px-2 coal rounded-l-md text-white text-md w-full" onClick={(e) => {e.preventDefault();decrement(index)}}>
+													<button className="px-2 coal rounded-l-md text-white text-md w-full" name={product.name} onClick={(e) => {e.preventDefault();decrement(index)}}>
 														<span>-</span>
 													</button>
 
-													<div className="m-0 p-0 text-center border border-neutral-300">{count}</div>
+													<div className="m-0 p-0 text-center border border-neutral-300">{product.quantity}</div>
 
-													<button className="px-2 coal rounded-r-md text-white text-md w-full" onClick={(e) => {e.preventDefault();increment(index)}}>
+													<button className="px-2 coal rounded-r-md text-white text-md w-full"  onClick={(e) => {e.preventDefault();increment(index)}}>
 														<span className="">+</span>
 													</button>
 												</div>
