@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
-import { calculateDiscountPrice, displayRatings } from "../../utils/helpers";
+import {
+	calculateDiscountPrice,
+	displayRatings,
+	removeHyphensAndCapitalize,
+} from "../../utils/helpers";
 
 const OneClothes = () => {
 	const { productId } = useParams();
@@ -32,11 +36,15 @@ const OneClothes = () => {
 	return (
 		<main className="flex justify-center">
 			{!loading && clothes && clothes.length !== 0 ? (
-				<div className="flex flex-col lg:flex-row min-w-xl">
-					<img className="w-full" src={clothes.image} alt={clothes.productName} />
+				<div className="flex flex-col lg:flex-row min-w-2xl">
+					<img
+						className="w-full h-full"
+						src={clothes.image}
+						alt={clothes.productName}
+					/>
 					<section className="mx-5 my-3">
 						<article className="flex justify-between">
-							<h1 className="text-xl">{clothes.productName}</h1>
+							<h1 className="text-2xl">{clothes.productName}</h1>
 							<div className="reviews flex items-center">
 								{clothes.numberReviews !== 0 ? (
 									<>
@@ -67,8 +75,8 @@ const OneClothes = () => {
 							</p>
 						</div>
 						<hr className="bg-zinc-700 m-3" />
-
-						<h2 className="pb-1">COLOR:</h2>
+						{/* TODO: Allow color to be selected - show some highlights */}
+						<h2 className="pb-1 text-lg">COLOR:</h2>
 						<div
 							className="color drop-shadow mb-1"
 							style={{
@@ -79,19 +87,34 @@ const OneClothes = () => {
 							}}
 						></div>
 						<hr className="bg-zinc-700 m-3" />
-						<h2 className="pb-3">SIZE: {clothes.size}</h2>
+						<h2 className="pb-3 text-lg">
+							SIZE: {removeHyphensAndCapitalize(clothes.size)}
+						</h2>
 						<article className="flex justify-between">
-							<button className="bg-gray-400 text-black rounded-full p-3 drop-shadow-xl w-40">
-								{/* TODO: Quantity - cannot go over what they have */}
+							<button className="bg-sky-600 text-white rounded-lg p-3 drop-shadow-xl text-lg w-40">
+								{/* TODO: Fix quantity - cannot go over what they have */}
 								{clothes.countInStock}
 							</button>
-
-							<button className="add-cart-btn rounded-full p-3 text-white drop-shadow-xl w-40">
+							<button className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
 								Add to Cart
 							</button>
-							{/* Product Details */}
-							{/* Shipping Details */}
-							{/* About Product */}
+						</article>
+						<hr className="bg-zinc-700 m-3" />
+						<article>
+							<h3 className="text-2xl">Product Details</h3>
+						</article>
+						<hr className="bg-zinc-700 m-3" />
+						<article>
+							<h3 className="text-2xl">Shipping Details</h3>
+						</article>
+						<hr className="bg-zinc-700 m-3" />
+						<article>
+							<h3 className="text-2xl">About Product</h3>
+						</article>
+						<article>
+							<hr className="bg-zinc-700 m-3" />
+							<h3 className="text-2xl">Customer Reviews</h3>
+
 							{/* Customer Reviews */}
 						</article>
 					</section>
