@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
-// import { Dialog, Transition } from "@headlessui/react";
 import { VscChromeClose } from "react-icons/vsc";
-// import { XMarkIcon } from '@heroicons/react/24/outline'
+import { useNavigate } from "react-router-dom";
 import Auth from "../../utils/auth";
 import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import { IoCloseOutline } from "react-icons/io5";
@@ -9,6 +8,7 @@ import { IoCloseOutline } from "react-icons/io5";
 const Cart = () => {
 	const [showSidebar, setShowSidebar] = useState(false);
 	const [count, setCount] = useState(0);
+	const nav = useNavigate();
 
 	const handleClick = () => {
 		setCount(count + 1);
@@ -39,8 +39,25 @@ const Cart = () => {
 			quantity: 1
 
 		},
-		
 	]
+
+	const onSubmit = async (event) => {
+		event.preventDefault();
+		try {
+			
+
+			// await addProduct({
+			// 	variables: { productData: finalFormProductData, productsByCategory: categoryID, userId: userId }
+			// });
+			nav("/checkout");
+
+			setShowSidebar(false);
+		} catch (e) {
+			console.error(e);
+		}
+
+	};
+
 	return (
 		<div>
 			{Auth.loggedIn() ? (
@@ -48,7 +65,7 @@ const Cart = () => {
 					{/* Does not render sidebar but onClick it will show the sidebar */}
 					{showSidebar ? (
 						<button
-							className="flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-30"
+							className="flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-50"
 							onClick={() => setShowSidebar(!showSidebar)}
 						>
 							<IoCloseOutline className="text-neutral-500"/>
@@ -58,14 +75,14 @@ const Cart = () => {
 
 						<svg
 							onClick={() => setShowSidebar(!showSidebar)}
-							className="fixed z-40 flex items-center cursor-pointer right-6 top-6"
+							className="fixed z-30 flex items-center cursor-pointer right-6 top-6"
 							fill="#2563EB"
 						>
 
 						</svg>
 					)}
 
-					<div className={`top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"
+					<form onSubmit={onSubmit} className={`top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"
 							}`}
 					>
 						<h3 className="mt-6 text-2xl text-center text-black">
@@ -105,16 +122,16 @@ const Cart = () => {
 						<div className="grid grid-rows-2 z-50">
 							<div className="text-black grid grid-cols-2 fixed bottom-20 border-t-2 w-full px-10 border-neutral-300">
 								{/* title */}
-								<div className="">
+								<div className="pt-2">
 									<div className="text-xl">Taxes</div>
 									<div className="text-xl">Subtotal</div>
-									<div className="text-2xl mt-10">Total</div>
+									<div className="text-2xl mt-8">Total</div>
 								</div>
 								{/* prices */}
-								<div className="text-right">
+								<div className="text-right pt-2 mb-2">
 									<div className="text-xl">{taxes}</div>
 									<div className="text-xl">{subtotal}</div>
-									<div className="text-2xl mt-10">{total}</div>
+									<div className="text-2xl mt-8">{total}</div>
 								</div>
 								
 							</div>
@@ -122,13 +139,13 @@ const Cart = () => {
 							<div className="w-full flex justify-center">
 								<button
 									className="bg-green-600 fixed bottom-4 w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 px-4 focus:outline-none focus:shadow-outline"
-									type="submit">
+									type="submit"  >
 										Checkout
 								</button>
 							</div>
 						</div>
 						
-					</div>
+					</form>
 				</>
 			) : (
 				<>
