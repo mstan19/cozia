@@ -9,18 +9,25 @@ import { IoCloseOutline } from "react-icons/io5";
 const Cart = () => {
 	const [showSidebar, setShowSidebar] = useState(false);
 	const [count, setCount] = useState(0);
+	const [selected, setSelected] = useState({})
+	const [selectedOrderId, setSelectedOrderId] = useState();
 	const nav = useNavigate();
 
-	const increment = () => {
-		setShowSidebar(true);
+	const increment = (index) => {
+		console.log(index)
 		setCount(count + 1);
 		
 	  };
 
-	const decrement = () => {
-		setShowSidebar(true);
+	const decrement = (index) => {
+		console.log(index)
 		
-		setCount(count - 1);
+
+		if (count <= 1) {
+			setCount(1)
+		} else {
+			setCount(count - 1);
+		}
 	};
 	//   const handleReset = () => {
 	// 	setCount(0);
@@ -103,7 +110,7 @@ const Cart = () => {
 
 						{/* render the products */}
 						<div className="overflow-y-scroll">
-							{products.map((product) => {
+							{products.map((product, index) => {
 								return (
 									<div key={product.key} className="grid grid-cols-3 mt-6 overflow-y-auto px-10">
 										<div className="w-50 h-full mr-2">
@@ -116,13 +123,13 @@ const Cart = () => {
 											<div className="text-base text-neutral-500 flex inline">
 												<div className="grid grid-cols-2">Qty</div> 
 												<div className="grid grid-cols-3">
-													<button className="px-2 coal rounded-l-md text-white text-md w-full" onClick={decrement}>
+													<button className="px-2 coal rounded-l-md text-white text-md w-full" onClick={(e) => {e.preventDefault();decrement(index)}}>
 														<span>-</span>
 													</button>
 
 													<div className="m-0 p-0 text-center border border-neutral-300">{count}</div>
 
-													<button className="px-2 coal rounded-r-md text-white text-md w-full" onClick={increment}>
+													<button className="px-2 coal rounded-r-md text-white text-md w-full" onClick={(e) => {e.preventDefault();increment(index)}}>
 														<span className="">+</span>
 													</button>
 												</div>
@@ -131,7 +138,7 @@ const Cart = () => {
 
 										<div className="text-right">
 											<div className="text-xl">${product.price}</div>
-											<button className="text-base text-red-500">Remove</button>
+											<button className="text-base text-red-500" onClick={(e) => {e.preventDefault()}}> Remove</button>
 										</div>
 									</div>
 								)
