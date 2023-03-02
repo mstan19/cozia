@@ -3,6 +3,7 @@ import { VscChromeClose } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../utils/auth";
 import samplePic from "../../assets/sample-image-ecommerce.jpg";
+import sample2Pic from "../../assets/images/white-sweater.jpg";
 import { IoCloseOutline } from "react-icons/io5";
 
 const Cart = () => {
@@ -25,16 +26,16 @@ const Cart = () => {
 	const products = [
 		{
 			image: samplePic,
-			name: "Shirt",
-			color: "Red",
+			name: "Men's Shirt",
+			color: "Blue",
 			price: 32.32,
 			quantity: 1,
 
 		},
 		{
-			image: samplePic,
-			name: "Beanie",
-			color: "Blue",
+			image: sample2Pic,
+			name: "Women's Shirt",
+			color: "White",
 			price: 57.32,
 			quantity: 1
 

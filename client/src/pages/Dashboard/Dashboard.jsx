@@ -16,6 +16,8 @@ import { MdLogout, MdPerson } from "react-icons/md";
 import { BiPurchaseTag } from "react-icons/bi";
 import { AiFillHeart, AiOutlineStar } from "react-icons/ai";
 import { IoMdArrowBack } from "react-icons/io";
+import NeedLogin from "../../components/NeedLogin/NeedLogin";
+
 const Dashboard = () => {
 	const { data, loading } = useQuery(QUERY_ME);
 	const [userData, setUserData] = useState({});
@@ -196,7 +198,7 @@ const Dashboard = () => {
 				</div>
 			) : (
 				<>
-					<div>please log in</div>
+					<NeedLogin />
 				</>
 			)}
 		</div>

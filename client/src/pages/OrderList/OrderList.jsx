@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_ALLORDERS, QUERY_SALEITEMS } from "../../utils/queries";
 import Auth from "../../utils/auth";
+import NeedLogin from "../../components/NeedLogin/NeedLogin";
 
 
 const OrderList = () => {
@@ -151,7 +152,7 @@ const OrderList = () => {
         </div>
          ) : (
             <>
-                <div>please log in</div>
+                <NeedLogin />
             </>
         )}
     </div> 
