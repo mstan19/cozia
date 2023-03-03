@@ -55,6 +55,42 @@ const Cart = () => {
 			key: "wshirtcart"
 
 		},
+		{
+			image: samplePic,
+			name: "Men's Shirt",
+			color: "Blue",
+			price: 32.32,
+			quantity: 1,
+			key: "1mshirtcart"
+
+		},
+		{
+			image: sample2Pic,
+			name: "Women's Shirt",
+			color: "White",
+			price: 57.32,
+			quantity: 1,
+			key: "1wshirtcart"
+
+		},
+		{
+			image: samplePic,
+			name: "Men's Shirt",
+			color: "Blue",
+			price: 32.32,
+			quantity: 1,
+			key: "12mshirtcart"
+
+		},
+		{
+			image: sample2Pic,
+			name: "Women's Shirt",
+			color: "White",
+			price: 57.32,
+			quantity: 1,
+			key: "12wshirtcart"
+
+		},
 		
 	])
 
@@ -105,12 +141,12 @@ const Cart = () => {
 						<h3 className="mt-6 text-2xl text-center text-black">
 							Shopping Cart
 						</h3>
-
+						{/* scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-slate-700 */}
 						{/* render the products */}
-						<div className="overflow-y-scroll">
+						<div className="container overflow-hidden overflow-y-scroll">
 							{products.map((product, index) => {
 								return (
-									<div key={product.key} className="grid grid-cols-3 mt-6 overflow-y-auto px-10">
+									<div key={product.key} className="grid grid-cols-3 mt-6 px-10">
 										<div className="w-50 h-full mr-2">
 											<img src={product.image} alt="product-image-cart" id="product-image-cart"/>
 										</div>
@@ -142,8 +178,9 @@ const Cart = () => {
 								)
 							})}
 						</div>
+
 						{/* <hr className="border-0 h-0.5 w-full my-6 bg-neutral-300 border-0" /> */}
-						<div className="grid grid-rows-2 z-50">
+						<div className="grid grid-rows-2 z-50 bg-white">
 							<div className="text-black grid grid-cols-2 fixed bottom-20 border-t-2 w-full px-10 border-neutral-200">
 								{/* title */}
 								<div className="pt-2">
