@@ -161,3 +161,14 @@ let productsinOrder = orderItems.map((order) => order.products.map((product) => 
 
 						</div>
 					</div>
+
+
+                    <div className="h-10 absolute w-full">
+							1
+						</div>
+						<div className="h-full pt-10 pb-10">
+							2
+						</div>
+						<div className="h-10 absolute w-full">
+							3
+						</div>

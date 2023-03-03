@@ -47,6 +47,18 @@ footer {
     left: 0;
 }
 
+/* .cart-products{
+    height: 65%;
+} */
+
+/* .cart-prices{
+    height: 25%;
+}
+
+.cart-title{
+    height: 5%;
+} */
+
 .light-gray {
     background-color: var(--light-gray);
 }

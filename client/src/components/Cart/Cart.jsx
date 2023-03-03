@@ -38,7 +38,7 @@ const Cart = () => {
 
 	const [products, setProducts] = useState([
 		{
-			image: samplePic,
+			image: sample2Pic,
 			name: "Men's Shirt",
 			color: "Blue",
 			price: 32.32,
@@ -56,7 +56,7 @@ const Cart = () => {
 
 		},
 		{
-			image: samplePic,
+			image: sample2Pic,
 			name: "Men's Shirt",
 			color: "Blue",
 			price: 32.32,
@@ -74,7 +74,7 @@ const Cart = () => {
 
 		},
 		{
-			image: samplePic,
+			image: sample2Pic,
 			name: "Men's Shirt",
 			color: "Blue",
 			price: 32.32,
@@ -138,12 +138,12 @@ const Cart = () => {
 					<form onSubmit={onSubmit} className={`shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"
 							}`}
 					>
-						<h3 className="mt-6 text-2xl text-center text-black">
+						<h3 className="mt-6 text-2xl text-center text-black h-10">
 							Shopping Cart
 						</h3>
 						{/* scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-slate-700 */}
 						{/* render the products */}
-						<div className="container overflow-hidden overflow-y-scroll">
+						<div className="grid grid-cols-1 overflow-y-scroll h-2/3">
 							{products.map((product, index) => {
 								return (
 									<div key={product.key} className="grid grid-cols-3 mt-6 px-10">
@@ -172,7 +172,7 @@ const Cart = () => {
 
 										<div className="text-right">
 											<div className="text-xl">${product.price}</div>
-											<button className="text-base text-red-500" onClick={(e) => {e.preventDefault()}}> Remove</button>
+											<button className="text-base text-red-500" onClick={(e) => {e.preventDefault();}}> Remove</button>
 										</div>
 									</div>
 								)
@@ -180,7 +180,7 @@ const Cart = () => {
 						</div>
 
 						{/* <hr className="border-0 h-0.5 w-full my-6 bg-neutral-300 border-0" /> */}
-						<div className="grid grid-rows-2 z-50 bg-white">
+						<div className="grid grid-rows-1 z-50 bg-white h-full">
 							<div className="text-black grid grid-cols-2 fixed bottom-20 border-t-2 w-full px-10 border-neutral-200">
 								{/* title */}
 								<div className="pt-2">
@@ -199,7 +199,7 @@ const Cart = () => {
 
 							<div className="w-full flex justify-center">
 								<button
-									className="bg-green-600 fixed bottom-4 w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 px-4 focus:outline-none focus:shadow-outline"
+									className="bg-green-600 fixed w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 mt-44 focus:outline-none focus:shadow-outline"
 									type="submit">
 										CHECKOUT
 								</button>
