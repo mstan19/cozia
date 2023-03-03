@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { calculateDiscountPrice, displayRatings } from "../../utils/helpers";
 
 const ClothesCard = ({ product }) => {
@@ -16,7 +17,10 @@ const ClothesCard = ({ product }) => {
 
 	return (
 		<article className="bg-white relative flex flex-col flex-wrap w-5/12 md:w-auto mx-3 mb-5 hover:cursor-pointer">
-			<img src={image} alt={productName} />
+			<Link to={`${product._id}`} prop={product}
+			>
+				<img src={image} alt={productName} />
+			</Link>
 			{discount !== 0 ? (
 				<div className="discount-label top-0 left-0 absolute bg-red-500 text-white py-1 px-1 text-md">
 					<p>-{discount}%</p>

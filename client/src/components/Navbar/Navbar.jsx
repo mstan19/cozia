@@ -85,7 +85,6 @@ export default function Navbar() {
 		Auth.logout();
 	};
 
-
 	return (
 		<header className="flex items-center justify-between">
 			<nav
@@ -119,7 +118,7 @@ export default function Navbar() {
 										{menu.name}
 									</Link>
 								)}
-							</div>
+							</>
 						);
 					})}
 
