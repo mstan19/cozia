@@ -8,11 +8,11 @@ import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
 import { REMOVE_PRODUCT } from "../../utils/mutations";
 import filterIcon from "../../assets/filter.png";
+import NeedLogin from "../../components/NeedLogin/NeedLogin";
 // import { LOGIN_USER } from "../../utils/mutations";
 
 const MyProduct = () => {
 	const [userData, setUserData] = useState({});
-
 	const { data, loading } = useQuery(QUERY_ME);
 	const {
 		data: myProductsData,
@@ -24,23 +24,17 @@ const MyProduct = () => {
 	const [removeProduct] = useMutation(REMOVE_PRODUCT);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [selectedProductId, setSelectedProductId] = useState();
-	const [width, setWidth] = useState(window.innerWidth);
-	const breakpoint = 640;
-	// console.log(width)
 
 	useEffect(() => {
 		const getUserData = async () => {
 			try {
 				const token = Auth.loggedIn() ? Auth.getToken() : null;
-				// console.log("token", token)
+
 				if (!token) {
 					return false;
 				}
 
 				const user = await data?.me;
-
-				console.log("user", user);
-				console.log("data", data);
 				setUserData(user);
 			} catch (err) {
 				console.error(err);
@@ -49,15 +43,6 @@ const MyProduct = () => {
 
 		getUserData();
 	}, [data]);
-	// console.log(myProductsData?.getMyProducts)
-
-	useEffect(() => {
-		const handleResizeWindow = () => setWidth(window.innerWidth);
-		window.addEventListener("resize", handleResizeWindow);
-		return () => {
-			window.removeEventListener("resize", handleResizeWindow);
-		};
-	}, []);
 
 	function stockCheck(index) {
 		if (myProductsData?.getMyProducts[index].countInStock <= 3) {
@@ -103,8 +88,6 @@ const MyProduct = () => {
 	}
 
 	function handleAddProductBtn() {
-		// console.log("adding product");
-		// console.log(data?.me._id)
 		nav("/addproduct");
 	}
 
@@ -114,26 +97,19 @@ const MyProduct = () => {
 
 	const openModal = (id) => {
 		setModalOpen(true);
-		console.log(id);
 		setSelectedProductId(id);
-		// console.log(setProductData({...productData}))
 	};
-	// console.log(productData)
 
 	const handleDeleteProductBtn = async (productId) => {
 		const token = Auth.loggedIn() ? Auth.getToken() : null;
-		// console.log("token", token)
 		if (!token) {
 			throw new Error("please login");
 		}
 
 		try {
-			console.log("product id:", productId);
-			console.log("myProductsData", myProductsData);
 			const updatedProducts = await removeProduct({
 				variables: { productId: productId },
 			});
-			console.log(updatedProducts);
 			if (!productId) {
 				throw new Error("there is no product with that id");
 			}
@@ -143,13 +119,12 @@ const MyProduct = () => {
 		} catch (err) {
 			console.error(err);
 		}
-		console.log("delete product");
 	};
 
 	return (
 		<div className="my-product-page">
 			{Auth.loggedIn() ? (
-				<div className="absolute bg-white h-full w-full">
+				<div className="">
 					<SearchBar />
 
 					<div
@@ -217,7 +192,7 @@ const MyProduct = () => {
 									(product, index) => {
 										return (
 											<div
-												className="my-product-card px-2 pt-3"
+												className="my-product-card bg-white px-2 pt-3"
 												key={product._id}
 											>
 												<div className="flex justify-center">
@@ -300,9 +275,6 @@ const MyProduct = () => {
 														)}
 													</div>
 												</div>
-												{width < breakpoint ? (
-													<hr className="my-8 mx-14 border-0 h-0.5 w-2/3 my-6 bg-neutral-300 border-0" />
-												) : null}
 											</div>
 										);
 									}
@@ -312,7 +284,7 @@ const MyProduct = () => {
 				</div>
 			) : (
 				<>
-					<div>please log in</div>
+					<NeedLogin />
 				</>
 			)}
 		</div>

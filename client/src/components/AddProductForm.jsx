@@ -135,8 +135,8 @@ console.log(userId)
         return primaryWord + " is required.";
     } else {
         let genericMsg = msg?.split("is")[1];
-            let firstWord =
-                    inputField.charAt(0).toUpperCase() + inputField.slice(1);
+        let firstWord =
+                inputField.charAt(0).toUpperCase() + inputField.slice(1);
         let strArray = firstWord.split(/(?=[A-Z])/);
 
         if (strArray.length === 1) {

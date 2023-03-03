@@ -55,6 +55,10 @@ footer {
     background-color: var(--dark-gray);
 }
 
+.coal {
+    background-color: var(--coal);
+}
+
 .footer-body, .footer-divider, .footer-label {
     color: var(--dark-gray);
 }
@@ -63,6 +67,10 @@ footer {
 .nav-header,
 .accordion-icon {
     font-size: 2rem;
+}
+
+.sidebar-icon {
+    font-size: 1.7rem;
 }
 
 .nav-header {
