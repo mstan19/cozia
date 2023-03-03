@@ -54,7 +54,7 @@ const Filter = (clothesDisplay) => {
 		// return clothesDisplay.filter((clothes) => {
 		// 	const selectedFilter =
 		// });
-	}, [filter, searchTerm]);
+	}, [clothesDisplay, filter, searchTerm]);
 
 	useEffect(() => {
 		if (searchTerm !== "") {

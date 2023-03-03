@@ -135,6 +135,10 @@ footer {
     font-weight: 500;
 }
 
+.add-cart-btn {
+    background-color: var(--green);
+}
+
 table {
     border-collapse: collapse;
     max-width: 900px;
