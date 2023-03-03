@@ -135,15 +135,15 @@ const Cart = () => {
 						</svg>
 					)}
 
-					<form onSubmit={onSubmit} className={`shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"
+					<form onSubmit={onSubmit} className={`grid grid-cols-1 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"
 							}`}
 					>
-						<h3 className="mt-6 text-2xl text-center text-black h-10">
+						<h3 className="text-2xl text-center text-black py-8">
 							Shopping Cart
 						</h3>
 						{/* scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-slate-700 */}
 						{/* render the products */}
-						<div className="grid grid-cols-1 overflow-y-scroll h-2/3">
+						<div className="grid grid-cols-1 overflow-y-auto">
 							{products.map((product, index) => {
 								return (
 									<div key={product.key} className="grid grid-cols-3 mt-6 px-10">
@@ -180,8 +180,8 @@ const Cart = () => {
 						</div>
 
 						{/* <hr className="border-0 h-0.5 w-full my-6 bg-neutral-300 border-0" /> */}
-						<div className="grid grid-rows-1 z-50 bg-white h-full">
-							<div className="text-black grid grid-cols-2 fixed bottom-20 border-t-2 w-full px-10 border-neutral-200">
+						<div className="z-50 bg-white py-4">
+							<div className="text-black grid grid-cols-2 border-t-2 w-full px-10 border-neutral-200">
 								{/* title */}
 								<div className="pt-2">
 									<div className="text-xl">Taxes</div>
@@ -197,9 +197,9 @@ const Cart = () => {
 								
 							</div>
 
-							<div className="w-full flex justify-center">
+							<div className="w-full justify-center flex flex-col items-center">
 								<button
-									className="bg-green-600 fixed w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 mt-44 focus:outline-none focus:shadow-outline"
+									className="bg-green-600 w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 focus:outline-none focus:shadow-outline"
 									type="submit">
 										CHECKOUT
 								</button>
