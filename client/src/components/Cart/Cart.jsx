@@ -1,15 +1,14 @@
-import { Fragment, useState } from "react";
-import { VscChromeClose } from "react-icons/vsc";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../utils/auth";
 import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import sample2Pic from "../../assets/images/white-sweater.jpg";
 import { IoCloseOutline } from "react-icons/io5";
+import { CartState } from "../../context/CartContext";
 
-const Cart = ({cart, setCart}) => {
+const Cart = () => {
 	const [showSidebar, setShowSidebar] = useState(false);
-	const [qty, setQty] = useState();
-	const [selected, setSelected] = useState({})
+	const { cart } = CartState();
 	const nav = useNavigate();
 	console.log(cart)
 

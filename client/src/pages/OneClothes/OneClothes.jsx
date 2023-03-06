@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
+import Cart from "../../context/CartContext";
+import { CartState } from "../../context/CartContext";
 import {
 	calculateDiscountPrice,
 	displayRatings,
@@ -13,11 +15,10 @@ const OneClothes = () => {
 	const { productId } = useParams();
 	const { meData, meLoading } = useQuery(QUERY_ME);
 	const [userData, setUserData] = useState({});
-	const [ cart, setCart ] = useState([]);
 	const { loading, data, error } = useQuery(GET_ONE_PRODUCT, {
 		variables: { id: productId },
 	});
-
+	const {cart, setCart} = CartState();
 	const [clothes, setClothes] = useState();
 
 	if (error) {
@@ -35,20 +36,12 @@ const OneClothes = () => {
 		}
 	}, [data]);
 
-
-	const addToCart = async (name) => {
-		// event.preventDefault();
+	// console.log(useContext(Cart))
+	const addToCart = async () => {
 		try {
-
-			console.log("one", clothes)
-			setCart([...cart, clothes]);
-			console.log(cart)
-			// const user = await meData;
-
-			// console.log("add to cart", user)
-			// setUserData(user);
-
-			// console.log("add to cart", user)
+			let addedProducts = [clothes];
+			setCart([...cart, addedProducts]);
+			console.log("after set", [...cart, addedProducts])
 		} catch (e) {
 			console.error(e);
 		}
@@ -122,7 +115,7 @@ const OneClothes = () => {
 							{/* () => setCart(...cart) */}
 							{/* () => addToCart() */}
 							{/*  setCart([...cart, clothes]) */}
-							<button onClick={() => addToCart()} className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
+							<button onClick={(e) => {e.preventDefault();addToCart()}} className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
 								Add to Cart
 							</button>
 						</article>
