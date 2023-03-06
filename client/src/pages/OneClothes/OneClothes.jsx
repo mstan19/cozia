@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import { QUERY_ME } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
 import {
 	calculateDiscountPrice,
@@ -10,6 +11,9 @@ import {
 
 const OneClothes = () => {
 	const { productId } = useParams();
+	const { meData, meLoading } = useQuery(QUERY_ME);
+	const [userData, setUserData] = useState({});
+	const [ cart, setCart ] = useState([]);
 	const { loading, data, error } = useQuery(GET_ONE_PRODUCT, {
 		variables: { id: productId },
 	});
@@ -30,6 +34,26 @@ const OneClothes = () => {
 			setClothes(product);
 		}
 	}, [data]);
+
+
+	const addToCart = async (name) => {
+		// event.preventDefault();
+		try {
+
+			console.log("one", clothes)
+			setCart([...cart, clothes]);
+			console.log(cart)
+			// const user = await meData;
+
+			// console.log("add to cart", user)
+			// setUserData(user);
+
+			// console.log("add to cart", user)
+		} catch (e) {
+			console.error(e);
+		}
+
+	};
 
 	// const { productName, description, image, price, discount, numberReviews } = clothes;
 
@@ -95,7 +119,10 @@ const OneClothes = () => {
 								{/* TODO: Fix quantity - cannot go over what they have */}
 								{clothes.countInStock}
 							</button>
-							<button className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
+							{/* () => setCart(...cart) */}
+							{/* () => addToCart() */}
+							{/*  setCart([...cart, clothes]) */}
+							<button onClick={() => addToCart()} className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
 								Add to Cart
 							</button>
 						</article>

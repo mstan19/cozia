@@ -6,12 +6,12 @@ import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import sample2Pic from "../../assets/images/white-sweater.jpg";
 import { IoCloseOutline } from "react-icons/io5";
 
-const Cart = () => {
+const Cart = ({cart, setCart}) => {
 	const [showSidebar, setShowSidebar] = useState(false);
 	const [qty, setQty] = useState();
 	const [selected, setSelected] = useState({})
 	const nav = useNavigate();
-
+	console.log(cart)
 
 	const increment = (index) => {
 		let newProducts = [...products];
