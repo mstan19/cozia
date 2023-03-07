@@ -5,13 +5,17 @@ import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import sample2Pic from "../../assets/images/white-sweater.jpg";
 import { IoCloseOutline } from "react-icons/io5";
 import { CartState } from "../../context/CartContext";
+import NeedLogin from "../NeedLogin/NeedLogin";
+import { Link } from "react-router-dom";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import shoppingBag from "../../assets/images/shoppingBag.jpg";
 
 const Cart = () => {
 	const [showSidebar, setShowSidebar] = useState(false);
+	const [msg, setMsg] = useState(false)
 	const { cart, setCart } = CartState();
-	console.log(cart)
-	const nav = useNavigate();
 	// console.log(cart)
+	const nav = useNavigate();
 
 	const increment = (index) => {
 		let newProducts = [...cart];
@@ -29,105 +33,20 @@ const Cart = () => {
 			setCart(newProducts);
 		}
 	};
-	const [viewCart, setViewCart] = useState();
-	let arrayProducts = [];
-	// useEffect(() => {
-		// if(showSidebar === true) {
-			let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
-			// console.log("cart", parsedProducts)
-			// setViewCart(parsedProducts)
-			// console.log("viewCart", viewCart)
-			// arrayProducts = parsedProducts
-			console.log("viewCart", parsedProducts)
-			// console.log("look", arrayProducts)
+	
+	let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
+	
+	console.log("viewCart", parsedProducts)
 
-		// }
-		
-	// useEffect(() => {
-		// setProducts([...parsedProducts])
-	// }, [JSON.parse(localStorage.getItem( "product")) || []]);
-	// let arrayProducts = JSON.parse(localStorage.getItem( "product")) || [];
-	// console.log("cart", arrayProducts)
-	// for (let i = 0; i < arrayProducts.length; i++) {
-	// 	let parsedProducts = [...arrayProducts];
-		// console.log(parsedProducts)
-	// }
+	
 	let taxes = "$2.01";
 	let subtotal = "$5.00";
 	let total = "$50.00";
-	// arrayProducts = parsedProducts
-	// const [products, setProducts] = useState(parsedProducts)
-	// console.log("products", products)
 	
-
-	// const [products, setProducts] = useState([
-	// 	{
-	// 		image: sample2Pic,
-	// 		name: "Men's Shirt",
-	// 		color: "Blue",
-	// 		price: 32.32,
-	// 		quantity: 1,
-	// 		key: "mshirtcart"
-
-	// 	},
-	// 	{
-	// 		image: sample2Pic,
-	// 		name: "Women's Shirt",
-	// 		color: "White",
-	// 		price: 57.32,
-	// 		quantity: 1,
-	// 		key: "wshirtcart"
-
-	// 	},
-	// 	{
-	// 		image: sample2Pic,
-	// 		name: "Men's Shirt",
-	// 		color: "Blue",
-	// 		price: 32.32,
-	// 		quantity: 1,
-	// 		key: "1mshirtcart"
-
-	// 	},
-	// 	{
-	// 		image: sample2Pic,
-	// 		name: "Women's Shirt",
-	// 		color: "White",
-	// 		price: 57.32,
-	// 		quantity: 1,
-	// 		key: "1wshirtcart"
-
-	// 	},
-	// 	{
-	// 		image: sample2Pic,
-	// 		name: "Men's Shirt",
-	// 		color: "Blue",
-	// 		price: 32.32,
-	// 		quantity: 1,
-	// 		key: "12mshirtcart"
-
-	// 	},
-	// 	{
-	// 		image: sample2Pic,
-	// 		name: "Women's Shirt",
-	// 		color: "White",
-	// 		price: 57.32,
-	// 		quantity: 1,
-	// 		key: "12wshirtcart"
-
-	// 	},
-		
-	// ])
-
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			
-
-			// await addProduct({
-			// 	variables: { productData: finalFormProductData, productsByCategory: categoryID, userId: userId }
-			// });
 			nav("/checkout");
-
 			setShowSidebar(false);
 		} catch (e) {
 			console.error(e);
@@ -159,9 +78,7 @@ const Cart = () => {
 						</svg>
 					)}
 
-					<form onSubmit={onSubmit} className={`grid grid-cols-1 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"
-							}`}
-					>
+					<form onSubmit={onSubmit} className={`grid grid-cols-1 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"}`}>
 						<h3 className="text-2xl text-center text-black py-8">
 							Shopping Cart
 						</h3>
@@ -234,7 +151,37 @@ const Cart = () => {
 				</>
 			) : (
 				<>
+					{msg ? (
+						<button
+							className="flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-50"
+							onClick={() => setMsg(!msg)}
+						>
+							<IoCloseOutline className="text-neutral-500"/>
+						</button>
+					) : (
+						//Renders sidebar but onClick the sidebar will disappear
 
+						<svg
+							onClick={() => setMsg(!msg)}
+							className="fixed z-30 flex items-center cursor-pointer right-6 top-6"
+							fill="#2563EB"
+						>
+
+						</svg>
+					)}
+					<div className={`grid grid-rows-2 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2 bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${msg ? "translate-x-0 " : "translate-x-full"}`}>
+					<div className="grid place-items-center self-center justify-self-center">
+						<div className="w-14 h-14 bg-slate-800 text-slate-200 rounded-full flex justify-center text-center  mb-6">
+							<h2 className="text-2xl grid place-items-center"><HiOutlineShoppingBag /></h2>
+						</div>
+						
+						<h1 className="text-2xl text-center self-center justify-self-center">
+							<Link to="/register" className="text-blue-600 underline underline-offset-1">Login</Link> to continue shopping
+						</h1>
+					</div>
+						<img className="h-full w-full object-cover" src={shoppingBag} alt="shoppingBag" />
+					</div>
+				
 				</>
 			)}
 		</div>
