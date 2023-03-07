@@ -28,40 +28,40 @@ const Cart = () => {
 		let newProducts = [...cart];
 		newProducts[index].quantity++;
 		setCart(newProducts)
-		
+
 	};
 
 	const decrement = (index) => {
 		let newProducts = [...cart];
 		if (newProducts[index].quantity <= 1) {
-			
+
 		} else {
 			newProducts[index].quantity--;
 			setCart(newProducts);
 		}
 	};
-	
+
 	// let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
 	// let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
-	
+
 	// console.log("viewCart", parsedProducts)
 
 
-	useEffect (() => {
+	useEffect(() => {
 		console.log("cart", cart)
-		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator +  parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
+		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
 		// cart.reduce((accumulator, currentValue) => {console.log(Number(currentValue.discount/100));console.log("-----")})
 		setSubtotal(tempsubtotal);
 
-        let calTax = parseInt(tempsubtotal * (.10))
-        console.log(calTax)
-        setTaxes((calTax).toFixed(2));
-        console.log("taxes", taxes)
+		let calTax = parseInt(tempsubtotal * (.10))
+		console.log(calTax)
+		setTaxes((calTax).toFixed(2));
+		console.log("taxes", taxes)
 		console.log("tempsubtotal", tempsubtotal)
-        setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
+		setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
 	}, [cart])
-	
-	
+
+
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
@@ -94,7 +94,7 @@ const Cart = () => {
 							className="flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-50"
 							onClick={() => setShowSidebar(!showSidebar)}
 						>
-							<IoCloseOutline className="text-neutral-500"/>
+							<IoCloseOutline className="text-neutral-500" />
 						</button>
 					) : (
 						//Renders sidebar but onClick the sidebar will disappear
@@ -118,22 +118,22 @@ const Cart = () => {
 								return (
 									<div key={index + "cartKey"} className="grid grid-cols-3 mt-6 px-10">
 										<div className="w-50 h-full mr-2">
-											<img src={product.image} alt="product-image-cart" id="product-image-cart"/>
+											<img src={product.image} alt="product-image-cart" id="product-image-cart" />
 										</div>
 
 										<div className="">
 											<div className="text-lg">{product.productName}</div>
 											<div className="text-base text-neutral-500">{product.color}</div>
 											<div className="text-base text-neutral-500 flex inline">
-												<div className="grid grid-cols-2">Qty</div> 
+												<div className="grid grid-cols-2">Qty</div>
 												<div className="grid grid-cols-3">
-													<button className="px-2 coal rounded-l-md text-white text-md w-full" name={product.productName} onClick={(e) => {e.preventDefault();decrement(index)}}>
+													<button className="px-2 coal rounded-l-md text-white text-md w-full" name={product.productName} onClick={(e) => { e.preventDefault(); decrement(index) }}>
 														<span>-</span>
 													</button>
 
 													<div className="m-0 p-0 text-center border border-neutral-300">{product.quantity}</div>
 
-													<button className="px-2 coal rounded-r-md text-white text-md w-full"  onClick={(e) => {e.preventDefault();increment(index)}}>
+													<button className="px-2 coal rounded-r-md text-white text-md w-full" onClick={(e) => { e.preventDefault(); increment(index) }}>
 														<span className="">+</span>
 													</button>
 												</div>
@@ -145,7 +145,7 @@ const Cart = () => {
 												product.price,
 												product.discount
 											)}</div>
-											<button className="text-base text-red-500" onClick={(e) => {e.preventDefault();}}> Remove</button>
+											<button className="text-base text-red-500" onClick={(e) => { e.preventDefault(); }}> Remove</button>
 										</div>
 									</div>
 								)
@@ -166,18 +166,18 @@ const Cart = () => {
 									<div className="text-xl">${subtotal}</div>
 									<div className="text-2xl mt-8">${total}</div>
 								</div>
-								
+
 							</div>
 
 							<div className="w-full justify-center flex flex-col items-center">
 								<button
 									className="bg-green-600 w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 focus:outline-none focus:shadow-outline"
 									type="submit">
-										CHECKOUT
+									CHECKOUT
 								</button>
 							</div>
 						</div>
-						
+
 					</form>
 				</>
 			) : (
@@ -187,7 +187,7 @@ const Cart = () => {
 							className="flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-50"
 							onClick={() => setMsg(!msg)}
 						>
-							<IoCloseOutline className="text-neutral-500"/>
+							<IoCloseOutline className="text-neutral-500" />
 						</button>
 					) : (
 						//Renders sidebar but onClick the sidebar will disappear
@@ -205,14 +205,14 @@ const Cart = () => {
 							<div className="w-14 h-14 bg-slate-800 text-slate-200 rounded-full flex justify-center text-center  mb-6">
 								<h2 className="text-2xl grid place-items-center"><HiOutlineShoppingBag /></h2>
 							</div>
-							
+
 							<h1 className="text-2xl text-center self-center justify-self-center">
 								<div className="text-blue-600 underline underline-offset-1">Login</div> to continue shopping
 							</h1>
 						</button>
 						<img className="h-full w-full object-cover" src={shoppingBag} alt="shoppingBag" />
 					</div>
-				
+
 				</>
 			)}
 		</div>

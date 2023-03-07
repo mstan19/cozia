@@ -1,9 +1,8 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
-// import {Cart, subtotal, taxes, total} from "../../context/CartContext";
 import { CartState } from "../../context/CartContext";
 import {
 	calculateDiscountPrice,
@@ -18,10 +17,7 @@ const OneClothes = () => {
 	const { loading, data, error } = useQuery(GET_ONE_PRODUCT, {
 		variables: { id: productId },
 	});
-	const {cart, setCart} = CartState();
-	// const { subtotal, setSubtotal } = CartState();
-	// const { taxes, setTaxes } = CartState();
-	// const { total, setTotal } = CartState();
+	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
 
 	if (error) {
@@ -39,31 +35,17 @@ const OneClothes = () => {
 		}
 	}, [data]);
 
-	// useEffect(() => {
-	// 	setCount(JSON.parse(window.localStorage.getItem('count')));
-	// }, []);
-
-	// useEffect(() => {
-	// 	window.localStorage.setItem('count', count);
-	// }, [count]);
-
-	// console.log(useContext(Cart))
 	const addToCart = async () => {
 		try {
-			
+
 			setCart([...cart, clothes])
-			// setSubtotal([...cart, clothes.price]);
-			// console.log("on clothes subtotal", subtotal)
-			// setTaxes([...cart, clothes.price]);
-			// setTotal([...cart, clothes.price]);
-			
+
 		} catch (e) {
 			console.error(e);
 		}
 
 	};
 
-	// const { productName, description, image, price, discount, numberReviews } = clothes;
 
 	return (
 		<main className="flex justify-center">
@@ -127,10 +109,8 @@ const OneClothes = () => {
 								{/* TODO: Fix quantity - cannot go over what they have */}
 								{clothes.countInStock}
 							</button>
-							{/* () => setCart(...cart) */}
-							{/* () => addToCart() */}
-							{/*  setCart([...cart, clothes]) */}
-							<button onClick={(e) => {e.preventDefault();addToCart()}} className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
+
+							<button onClick={(e) => { e.preventDefault(); addToCart() }} className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
 								Add to Cart
 							</button>
 						</article>
