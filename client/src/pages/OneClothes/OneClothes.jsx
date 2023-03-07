@@ -36,12 +36,28 @@ const OneClothes = () => {
 		}
 	}, [data]);
 
+	// useEffect(() => {
+	// 	setCount(JSON.parse(window.localStorage.getItem('count')));
+	// }, []);
+
+	// useEffect(() => {
+	// 	window.localStorage.setItem('count', count);
+	// }, [count]);
+
 	// console.log(useContext(Cart))
 	const addToCart = async () => {
 		try {
-			let addedProducts = [clothes];
-			setCart([...cart, addedProducts]);
-			console.log("after set", [...cart, addedProducts])
+			
+			// let addedProducts = [clothes];
+			// let arrayProducts = [...addedProducts];
+			//  let x = [...cart, addedProducts].push(clothes)
+			// console.log("list of products", x)
+			// let y = JSON.parse(localStorage.getItem( "product")) || [];
+			// let x = localStorage.setItem( "product", JSON.stringify([...y, clothes]));
+			setCart([...cart, clothes])
+			console.log("me", cart)
+			// window.location.reload();
+			// console.log("cart", cart)
 		} catch (e) {
 			console.error(e);
 		}

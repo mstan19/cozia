@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../utils/auth";
 import samplePic from "../../assets/sample-image-ecommerce.jpg";
@@ -8,90 +8,115 @@ import { CartState } from "../../context/CartContext";
 
 const Cart = () => {
 	const [showSidebar, setShowSidebar] = useState(false);
-	const { cart } = CartState();
-	const nav = useNavigate();
+	const { cart, setCart } = CartState();
 	console.log(cart)
+	const nav = useNavigate();
+	// console.log(cart)
 
 	const increment = (index) => {
-		let newProducts = [...products];
+		let newProducts = [...cart];
 		newProducts[index].quantity++;
-		setProducts(newProducts)
+		setCart(newProducts)
 		
-	  };
+	};
 
 	const decrement = (index) => {
-		let newProducts = [...products];
+		let newProducts = [...cart];
 		if (newProducts[index].quantity <= 1) {
 			
 		} else {
 			newProducts[index].quantity--;
-			setProducts(newProducts);
+			setCart(newProducts);
 		}
 	};
-	
+	const [viewCart, setViewCart] = useState();
+	let arrayProducts = [];
+	// useEffect(() => {
+		// if(showSidebar === true) {
+			let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
+			// console.log("cart", parsedProducts)
+			// setViewCart(parsedProducts)
+			// console.log("viewCart", viewCart)
+			// arrayProducts = parsedProducts
+			console.log("viewCart", parsedProducts)
+			// console.log("look", arrayProducts)
 
-
+		// }
+		
+	// useEffect(() => {
+		// setProducts([...parsedProducts])
+	// }, [JSON.parse(localStorage.getItem( "product")) || []]);
+	// let arrayProducts = JSON.parse(localStorage.getItem( "product")) || [];
+	// console.log("cart", arrayProducts)
+	// for (let i = 0; i < arrayProducts.length; i++) {
+	// 	let parsedProducts = [...arrayProducts];
+		// console.log(parsedProducts)
+	// }
 	let taxes = "$2.01";
 	let subtotal = "$5.00";
 	let total = "$50.00";
+	// arrayProducts = parsedProducts
+	// const [products, setProducts] = useState(parsedProducts)
+	// console.log("products", products)
+	
 
-	const [products, setProducts] = useState([
-		{
-			image: sample2Pic,
-			name: "Men's Shirt",
-			color: "Blue",
-			price: 32.32,
-			quantity: 1,
-			key: "mshirtcart"
+	// const [products, setProducts] = useState([
+	// 	{
+	// 		image: sample2Pic,
+	// 		name: "Men's Shirt",
+	// 		color: "Blue",
+	// 		price: 32.32,
+	// 		quantity: 1,
+	// 		key: "mshirtcart"
 
-		},
-		{
-			image: sample2Pic,
-			name: "Women's Shirt",
-			color: "White",
-			price: 57.32,
-			quantity: 1,
-			key: "wshirtcart"
+	// 	},
+	// 	{
+	// 		image: sample2Pic,
+	// 		name: "Women's Shirt",
+	// 		color: "White",
+	// 		price: 57.32,
+	// 		quantity: 1,
+	// 		key: "wshirtcart"
 
-		},
-		{
-			image: sample2Pic,
-			name: "Men's Shirt",
-			color: "Blue",
-			price: 32.32,
-			quantity: 1,
-			key: "1mshirtcart"
+	// 	},
+	// 	{
+	// 		image: sample2Pic,
+	// 		name: "Men's Shirt",
+	// 		color: "Blue",
+	// 		price: 32.32,
+	// 		quantity: 1,
+	// 		key: "1mshirtcart"
 
-		},
-		{
-			image: sample2Pic,
-			name: "Women's Shirt",
-			color: "White",
-			price: 57.32,
-			quantity: 1,
-			key: "1wshirtcart"
+	// 	},
+	// 	{
+	// 		image: sample2Pic,
+	// 		name: "Women's Shirt",
+	// 		color: "White",
+	// 		price: 57.32,
+	// 		quantity: 1,
+	// 		key: "1wshirtcart"
 
-		},
-		{
-			image: sample2Pic,
-			name: "Men's Shirt",
-			color: "Blue",
-			price: 32.32,
-			quantity: 1,
-			key: "12mshirtcart"
+	// 	},
+	// 	{
+	// 		image: sample2Pic,
+	// 		name: "Men's Shirt",
+	// 		color: "Blue",
+	// 		price: 32.32,
+	// 		quantity: 1,
+	// 		key: "12mshirtcart"
 
-		},
-		{
-			image: sample2Pic,
-			name: "Women's Shirt",
-			color: "White",
-			price: 57.32,
-			quantity: 1,
-			key: "12wshirtcart"
+	// 	},
+	// 	{
+	// 		image: sample2Pic,
+	// 		name: "Women's Shirt",
+	// 		color: "White",
+	// 		price: 57.32,
+	// 		quantity: 1,
+	// 		key: "12wshirtcart"
 
-		},
+	// 	},
 		
-	])
+	// ])
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
@@ -143,20 +168,20 @@ const Cart = () => {
 						{/* scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-slate-700 */}
 						{/* render the products */}
 						<div className="grid grid-cols-1 overflow-y-auto">
-							{products.map((product, index) => {
+							{cart.map((product, index) => {
 								return (
-									<div key={product.key} className="grid grid-cols-3 mt-6 px-10">
+									<div key={index + "cartKey"} className="grid grid-cols-3 mt-6 px-10">
 										<div className="w-50 h-full mr-2">
 											<img src={product.image} alt="product-image-cart" id="product-image-cart"/>
 										</div>
 
 										<div className="">
-											<div className="text-lg">{product.name}</div>
+											<div className="text-lg">{product.productName}</div>
 											<div className="text-base text-neutral-500">{product.color}</div>
 											<div className="text-base text-neutral-500 flex inline">
 												<div className="grid grid-cols-2">Qty</div> 
 												<div className="grid grid-cols-3">
-													<button className="px-2 coal rounded-l-md text-white text-md w-full" name={product.name} onClick={(e) => {e.preventDefault();decrement(index)}}>
+													<button className="px-2 coal rounded-l-md text-white text-md w-full" name={product.productName} onClick={(e) => {e.preventDefault();decrement(index)}}>
 														<span>-</span>
 													</button>
 
