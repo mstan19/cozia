@@ -8,7 +8,7 @@ import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
 import { REMOVE_PRODUCT } from "../../utils/mutations";
 import filterIcon from "../../assets/filter.png";
-import NeedLogin from "../../components/NeedLogin/NeedLogin";
+// import NeedLogin from "../../components/NeedLogin/NeedLogin";
 // import { LOGIN_USER } from "../../utils/mutations";
 
 const MyProduct = () => {
@@ -284,7 +284,7 @@ const MyProduct = () => {
 				</div>
 			) : (
 				<>
-					<NeedLogin />
+					{/* <NeedLogin /> */}
 				</>
 			)}
 		</div>

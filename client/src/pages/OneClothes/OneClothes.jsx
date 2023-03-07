@@ -15,7 +15,17 @@ const OneClothes = () => {
 	});
 
 	const [clothes, setClothes] = useState();
+	const [quantity, setQuantity] = useState(1);
 
+	const handleDecrement = () =>
+		setQuantity((prevCount) => (quantity < 2 ? prevCount : prevCount - 1));
+
+	const handleIncrement = () =>
+		setQuantity((prevCount) =>
+			quantity === clothes.countInStock ? prevCount : prevCount + 1
+		);
+
+	// console.log(clothes.countInStock);
 	if (error) {
 		console.log(error);
 	}
@@ -91,14 +101,28 @@ const OneClothes = () => {
 							SIZE: {removeHyphensAndCapitalize(clothes.size)}
 						</h2>
 						<article className="flex justify-between">
-							<button className="bg-sky-600 text-white rounded-lg p-3 drop-shadow-xl text-lg w-40">
+							<section className="flex bg-white rounded-lg drop-shadow-xl text-xl w-40 justify-between items-center">
+								<button
+									className="bg-sky-600 py-3 px-4 text-white"
+									onClick={handleDecrement}
+								>
+									-
+								</button>
+								<div className="bg-white">{quantity}</div>
 								{/* TODO: Fix quantity - cannot go over what they have */}
-								{clothes.countInStock}
-							</button>
-							<button className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
+								<button
+									className="bg-sky-600 py-3 px-4 text-white"
+									onClick={handleIncrement}
+								>
+									+
+								</button>
+							</section>
+
+							<button className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-xl w-40">
 								Add to Cart
 							</button>
 						</article>
+						{clothes.countInStock}
 						<hr className="bg-zinc-700 m-3" />
 						<article>
 							<h3 className="text-2xl">Product Details</h3>
