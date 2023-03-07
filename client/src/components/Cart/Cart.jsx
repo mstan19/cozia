@@ -1,20 +1,27 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../utils/auth";
-import samplePic from "../../assets/sample-image-ecommerce.jpg";
-import sample2Pic from "../../assets/images/white-sweater.jpg";
 import { IoCloseOutline } from "react-icons/io5";
 import { CartState } from "../../context/CartContext";
-import NeedLogin from "../NeedLogin/NeedLogin";
-import { Link } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import shoppingBag from "../../assets/images/shoppingBag.jpg";
+import {
+	calculateDiscountPrice,
+	displayRatings,
+	removeHyphensAndCapitalize,
+} from "../../utils/helpers";
 
 const Cart = () => {
 	const [showSidebar, setShowSidebar] = useState(false);
 	const [msg, setMsg] = useState(false)
+	const [subtotal, setSubtotal] = useState();
+	const [taxes, setTaxes] = useState();
+	const [total, setTotal] = useState()
 	const { cart, setCart } = CartState();
-	// console.log(cart)
+	// const { subtotal, setSubtotal } = CartState();
+	// const { taxes, setTaxes } = CartState();
+	// const { total, setTotal } = CartState();
+	console.log(cart)
 	const nav = useNavigate();
 
 	const increment = (index) => {
@@ -34,20 +41,42 @@ const Cart = () => {
 		}
 	};
 	
-	let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
+	// let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
+	// let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
 	
-	console.log("viewCart", parsedProducts)
+	// console.log("viewCart", parsedProducts)
 
+
+	useEffect (() => {
+		console.log("cart", cart)
+		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator +  parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
+		// cart.reduce((accumulator, currentValue) => {console.log(Number(currentValue.discount/100));console.log("-----")})
+		setSubtotal(tempsubtotal);
+
+        let calTax = parseInt(tempsubtotal * (.10))
+        console.log(calTax)
+        setTaxes((calTax).toFixed(2));
+        console.log("taxes", typeof taxes)
+        setTotal((parseInt(tempsubtotal) + parseInt(taxes)).toFixed(2))
+	}, [cart])
 	
-	let taxes = "$2.01";
-	let subtotal = "$5.00";
-	let total = "$50.00";
 	
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
 			nav("/checkout");
 			setShowSidebar(false);
+		} catch (e) {
+			console.error(e);
+		}
+
+	};
+
+	const LogIn = async (event) => {
+		event.preventDefault();
+		try {
+			nav("/register");
+			setMsg(false);
 		} catch (e) {
 			console.error(e);
 		}
@@ -82,7 +111,6 @@ const Cart = () => {
 						<h3 className="text-2xl text-center text-black py-8">
 							Shopping Cart
 						</h3>
-						{/* scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-slate-700 */}
 						{/* render the products */}
 						<div className="grid grid-cols-1 overflow-y-auto">
 							{cart.map((product, index) => {
@@ -112,7 +140,10 @@ const Cart = () => {
 										</div>
 
 										<div className="text-right">
-											<div className="text-xl">${product.price}</div>
+											<div className="text-xl">${calculateDiscountPrice(
+												product.price,
+												product.discount
+											)}</div>
 											<button className="text-base text-red-500" onClick={(e) => {e.preventDefault();}}> Remove</button>
 										</div>
 									</div>
@@ -120,7 +151,6 @@ const Cart = () => {
 							})}
 						</div>
 
-						{/* <hr className="border-0 h-0.5 w-full my-6 bg-neutral-300 border-0" /> */}
 						<div className="z-50 bg-white py-4">
 							<div className="text-black grid grid-cols-2 border-t-2 w-full px-10 border-neutral-200">
 								{/* title */}
@@ -131,9 +161,9 @@ const Cart = () => {
 								</div>
 								{/* prices */}
 								<div className="text-right pt-2 mb-2">
-									<div className="text-xl">{taxes}</div>
-									<div className="text-xl">{subtotal}</div>
-									<div className="text-2xl mt-8">{total}</div>
+									<div className="text-xl">${taxes}</div>
+									<div className="text-xl">${subtotal}</div>
+									<div className="text-2xl mt-8">${total}</div>
 								</div>
 								
 							</div>
@@ -170,15 +200,15 @@ const Cart = () => {
 						</svg>
 					)}
 					<div className={`grid grid-rows-2 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2 bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${msg ? "translate-x-0 " : "translate-x-full"}`}>
-					<Link to="/register" className="grid place-items-center self-center justify-self-center">
-						<div className="w-14 h-14 bg-slate-800 text-slate-200 rounded-full flex justify-center text-center  mb-6">
-							<h2 className="text-2xl grid place-items-center"><HiOutlineShoppingBag /></h2>
-						</div>
-						
-						<h1 className="text-2xl text-center self-center justify-self-center">
-							<Link to="/register" className="text-blue-600 underline underline-offset-1">Login</Link> to continue shopping
-						</h1>
-					</Link>
+						<button onClick={LogIn} className="grid place-items-center self-center justify-self-center">
+							<div className="w-14 h-14 bg-slate-800 text-slate-200 rounded-full flex justify-center text-center  mb-6">
+								<h2 className="text-2xl grid place-items-center"><HiOutlineShoppingBag /></h2>
+							</div>
+							
+							<h1 className="text-2xl text-center self-center justify-self-center">
+								<div className="text-blue-600 underline underline-offset-1">Login</div> to continue shopping
+							</h1>
+						</button>
 						<img className="h-full w-full object-cover" src={shoppingBag} alt="shoppingBag" />
 					</div>
 				

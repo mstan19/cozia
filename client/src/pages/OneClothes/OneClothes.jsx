@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
-import Cart from "../../context/CartContext";
+// import {Cart, subtotal, taxes, total} from "../../context/CartContext";
 import { CartState } from "../../context/CartContext";
 import {
 	calculateDiscountPrice,
@@ -19,6 +19,9 @@ const OneClothes = () => {
 		variables: { id: productId },
 	});
 	const {cart, setCart} = CartState();
+	// const { subtotal, setSubtotal } = CartState();
+	// const { taxes, setTaxes } = CartState();
+	// const { total, setTotal } = CartState();
 	const [clothes, setClothes] = useState();
 
 	if (error) {
@@ -48,16 +51,12 @@ const OneClothes = () => {
 	const addToCart = async () => {
 		try {
 			
-			// let addedProducts = [clothes];
-			// let arrayProducts = [...addedProducts];
-			//  let x = [...cart, addedProducts].push(clothes)
-			// console.log("list of products", x)
-			// let y = JSON.parse(localStorage.getItem( "product")) || [];
-			// let x = localStorage.setItem( "product", JSON.stringify([...y, clothes]));
 			setCart([...cart, clothes])
-			console.log("me", cart)
-			// window.location.reload();
-			// console.log("cart", cart)
+			// setSubtotal([...cart, clothes.price]);
+			// console.log("on clothes subtotal", subtotal)
+			// setTaxes([...cart, clothes.price]);
+			// setTotal([...cart, clothes.price]);
+			
 		} catch (e) {
 			console.error(e);
 		}
