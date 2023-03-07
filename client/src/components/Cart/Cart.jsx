@@ -170,7 +170,7 @@ const Cart = () => {
 						</svg>
 					)}
 					<div className={`grid grid-rows-2 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2 bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${msg ? "translate-x-0 " : "translate-x-full"}`}>
-					<div className="grid place-items-center self-center justify-self-center">
+					<Link to="/register" className="grid place-items-center self-center justify-self-center">
 						<div className="w-14 h-14 bg-slate-800 text-slate-200 rounded-full flex justify-center text-center  mb-6">
 							<h2 className="text-2xl grid place-items-center"><HiOutlineShoppingBag /></h2>
 						</div>
@@ -178,7 +178,7 @@ const Cart = () => {
 						<h1 className="text-2xl text-center self-center justify-self-center">
 							<Link to="/register" className="text-blue-600 underline underline-offset-1">Login</Link> to continue shopping
 						</h1>
-					</div>
+					</Link>
 						<img className="h-full w-full object-cover" src={shoppingBag} alt="shoppingBag" />
 					</div>
 				
