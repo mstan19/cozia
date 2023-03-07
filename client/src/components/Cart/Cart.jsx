@@ -56,8 +56,9 @@ const Cart = () => {
         let calTax = parseInt(tempsubtotal * (.10))
         console.log(calTax)
         setTaxes((calTax).toFixed(2));
-        console.log("taxes", typeof taxes)
-        setTotal((parseInt(tempsubtotal) + parseInt(taxes)).toFixed(2))
+        console.log("taxes", taxes)
+		console.log("tempsubtotal", tempsubtotal)
+        setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
 	}, [cart])
 	
 	
