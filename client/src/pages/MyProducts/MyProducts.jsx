@@ -9,6 +9,11 @@ import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
 import { REMOVE_PRODUCT } from "../../utils/mutations";
 import filterIcon from "../../assets/filter.png";
 import NeedLogin from "../../components/NeedLogin/NeedLogin";
+import {
+	calculateDiscountPrice,
+	displayRatings,
+	removeHyphensAndCapitalize,
+} from "../../utils/helpers";
 // import { LOGIN_USER } from "../../utils/mutations";
 
 const MyProduct = () => {
@@ -197,7 +202,7 @@ const MyProduct = () => {
 											>
 												<div className="flex justify-center">
 													<img
-														src={samplePic}
+														src={product.image}
 														alt="product-image"
 														id="product-image"
 														className="object-cover"
@@ -208,10 +213,15 @@ const MyProduct = () => {
 													<h3 className="text-lg">
 														{product.productName}
 													</h3>
-													<div className="">
-														<p>
-															Price: $
-															{product.price}
+													<div>
+														<p className="flex">
+															Price:
+															<div className="text-xl discount-price text-red-600 pr-3">
+																${calculateDiscountPrice(product.price, product.discount)}
+															</div>
+															<div className="text-xl original-price text-neutral-400 line-through">
+																${parseInt(product.price).toFixed(2)}
+															</div>
 														</p>
 														<p>
 															Stock:{" "}

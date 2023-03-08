@@ -1,9 +1,12 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Product, Category, Order } = require("../models");
 const { signToken } = require("../utils/auth");
-const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
-const { faker } = require("@faker-js/faker");
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+// const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
+// const { faker } = require("@faker-js/faker");
 const mongoose = require("mongoose");
+
 const resolvers = {
 	Query: {
 		me: async (parent, args, context) => {
@@ -94,6 +97,26 @@ const resolvers = {
 		products: async () => {
 			return await Product.find();
 		},
+		checkout: async (parent, { orderID }, context) => {
+			const url = new URL(context.headers.referer).origin;
+			const session = await stripe.checkout.sessions.create({
+				payment_method_types: ["card"],
+				line_items: [{
+					price_data: {
+						currency: "usd",
+						unit_amount: "",
+						product_data: {
+							name: ""
+						},
+					},
+					quantity: 1,
+				}],
+				mode: "payment",
+				success_url: `${url}/success/${orderID}`,
+				cancel_url: `${url}/`
+			});
+			return { session: session.id };
+		}
 	},
 	Mutation: {
 		login: async (parent, { email, password }) => {

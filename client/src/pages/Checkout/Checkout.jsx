@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { QUERY_PRODUCTS } from "../../utils/queries";
-
+import { QUERY_PRODUCTS,  QUERY_CHECKOUT } from "../../utils/queries";
+import { useLazyQuery } from "@apollo/client";
+import { loadStripe } from "@stripe/stripe-js";
+// require("dotenv").config();
+const stripePromise = loadStripe("pk_test_51MEcXfKCu6tOY76M3glH98vnG12XLfoyY7tA9sT5APZOwtj6LnhXMPiatC5I8BealmLrL3ejoUoLVU2Se51Caoty00ul1ZAgr5");
 
 
 const Checkout = () => {
 	const [CheckoutData, setCheckoutData] = useState();
+	const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+	console.log("data", data)
 
+	useEffect(() => {
+		if (data) {
+		  stripePromise.then((res) => {
+			res.redirectToCheckout({ sessionId: data.checkout.session });
+		  });
+		}
+	}, [data]); 
 
-	
+	const handleRedirectDashboard = () => {
+		window.location.assign('/dashboard');
+	  }
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -132,6 +146,9 @@ const Checkout = () => {
 					<div className="flex flex-col items-center justify-between">
 						<button className="bg-green-600 w-1/2 rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none" type="submit">
 							MAKE PAYMENT
+						</button>
+						<button className="bg-green-600 w-1/2 rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none" onClick={handleRedirectDashboard}>
+							Dashboard
 						</button>
 					</div>
 				</form>

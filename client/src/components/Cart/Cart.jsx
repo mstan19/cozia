@@ -21,7 +21,7 @@ const Cart = () => {
 	// const { subtotal, setSubtotal } = CartState();
 	// const { taxes, setTaxes } = CartState();
 	// const { total, setTotal } = CartState();
-	console.log(cart)
+	// console.log(cart)
 	const nav = useNavigate();
 
 	const increment = (index) => {
@@ -48,16 +48,16 @@ const Cart = () => {
 
 
 	useEffect(() => {
-		console.log("cart", cart)
+		// console.log("cart", cart)
 		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
 		// cart.reduce((accumulator, currentValue) => {console.log(Number(currentValue.discount/100));console.log("-----")})
 		setSubtotal(tempsubtotal);
 
 		let calTax = parseInt(tempsubtotal * (.10))
-		console.log(calTax)
+		// console.log(calTax)
 		setTaxes((calTax).toFixed(2));
-		console.log("taxes", taxes)
-		console.log("tempsubtotal", tempsubtotal)
+		// console.log("taxes", taxes)
+		// console.log("tempsubtotal", tempsubtotal)
 		setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
 	}, [cart])
 
