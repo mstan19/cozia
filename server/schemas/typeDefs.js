@@ -50,6 +50,7 @@ const typeDefs = gql`
         zip: String!
         state: String!
         country: String!
+        phoneNumber: String!
     }
 
     type productOrder {
@@ -127,9 +128,19 @@ const typeDefs = gql`
         category: CategoryInput
         user: userInput
     }
+    input shippingAddressInput {
+        street: String!
+        city: String!
+        zip: String!
+        state: String!
+        country: String!
+        phoneNumber: String
+    }
 
     input orderInput {
         tax: Int
+        products: [ID]
+        shippingAddress: shippingAddressInput
         shippingPrice: Int
         isDelivered: Boolean!
         isPaid: Boolean
@@ -137,6 +148,8 @@ const typeDefs = gql`
         purchaseDate: String
         deliveryDate: String
     }
+
+
 
     #Mutation
 
@@ -167,6 +180,10 @@ const typeDefs = gql`
         ): Product
         updateOrder(
             orderId: ID!
+            orderData: orderInput!
+        ): Order
+        addOrder(
+            userId: ID!
             orderData: orderInput!
         ): Order
     }

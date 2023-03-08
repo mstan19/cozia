@@ -188,6 +188,19 @@ const resolvers = {
 
 			return newProduct;
 		},
+		addOrder: async (
+			parent,
+			{ orderData, userId },
+			context
+		) => {
+			// orderInfoData["productOrderData"] = productOrderData;
+			// orderData["deliveryData"] = deliveryData;
+			orderData["user"] = userId;
+			// let orderData = 
+			const newOrder = await Order.create(orderData);
+
+			return newOrder;
+		},
 		removeProduct: async (parent, { productId }, context) => {
 			const deleteProduct = await Product.findOneAndDelete({
 				_id: productId,

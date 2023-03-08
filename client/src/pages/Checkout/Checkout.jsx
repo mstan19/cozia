@@ -20,6 +20,14 @@ const Checkout = () => {
 		}
 	}, [data]); 
 
+	const createOrder = () => {
+
+		// getCheckout({
+		//   variables: { resumeId: resumeId },
+		// });
+		// message.success("Your ResuMate is ready to download!");
+	  };
+
 	const handleRedirectDashboard = () => {
 		window.location.assign('/dashboard');
 	  }
