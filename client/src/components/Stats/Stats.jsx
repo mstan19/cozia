@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const Stats = () => {
 
     return (
-        <div className="container ml-5 mt-12">
-            <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
+        <div className="container mt-12">
+            <div className="grid grid-cols-1 gap-4 mb-6 lg:grid-cols-3">
                 <div className="w-1/2 px-4 py-5 bg-white rounded-lg shadow">
                     <div className="text-sm font-medium text-gray-500 truncate">
                         Total Profit

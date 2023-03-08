@@ -6,6 +6,7 @@ import Accordion from "../Accordion/Accordion";
 import { useQuery } from "@apollo/client";
 import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY } from "../../utils/queries";
 import Auth from "../../utils/auth";
+import Cart from "../Cart/Cart.jsx";
 
 export default function Navbar() {
 	const navRef = useRef();
@@ -16,6 +17,7 @@ export default function Navbar() {
 		loading: categoryLoad,
 		error: categoryError,
 	} = useQuery(QUERY_CATEGORY);
+
 
 	// const { data: productsCategoryData, loading: prodCateLoad } = useQuery(
 	// 	PRODUCTS_BY_CATEGORYID,
@@ -96,19 +98,19 @@ export default function Navbar() {
 				<h2 className="nav-header flex items-center">Menu</h2>
 				{navList &&
 					navList.length !== 0 &&
-					navList.map((menu) => {
+					navList.map((menu, idx) => {
 						return (
 							<div key={menu.key}>
 								{menu && menu.items !== "" ? (
 									<Accordion
-										key={menu.key}
+										key={menu.key + menu.id + idx}
 										title={menu.name}
 										items={menu.items}
 										link={menu.link}
 									/>
 								) : (
 									<Link
-										key={menu.key + menu.id}
+										key={menu.key + idx}
 										className="flex nav-category text-2xl p-6 category-border"
 										to={menu.link}
 										onClick={showNavbar}
@@ -158,9 +160,10 @@ export default function Navbar() {
 				<Link className="wishlist" key="wishlist-page" to="/wishlist">
 					<AiFillHeart />
 				</Link>
-				<Link className="cart pl-4" key="cart-page" to="/cart">
-					<AiFillShopping />
-				</Link>
+				<div className="cart pl-4" key="cart-page" >
+                    <AiFillShopping />
+                    <Cart />
+                </div>
 			</section>
 		</header>
 	);
