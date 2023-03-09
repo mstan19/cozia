@@ -84,7 +84,7 @@ const AddProductForm = () => {
 			finalFormProductData["price"] = parseFloat(finalFormProductData.price);
 			finalFormProductData["discount"] = parseFloat(finalFormProductData.discount);
 			finalFormProductData["countInStock"] = parseFloat(finalFormProductData.countInStock);
-			delete finalFormProductData['category'];
+			delete finalFormProductData["category"];
 
 			await addProduct({
 				variables: { productData: finalFormProductData, productsByCategory: categoryID, userId: userId }

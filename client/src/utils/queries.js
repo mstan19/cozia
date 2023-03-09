@@ -127,7 +127,6 @@ export const QUERY_ALLORDERS = gql`
 				city
 				zip
 				state
-				country
 			}
 			products {
 				_id
