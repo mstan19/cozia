@@ -148,8 +148,8 @@ export const QUERY_SALEITEMS = gql`
 `;
 
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($orderID: ID!) {
-    checkout(orderID: $orderID) {
+  query getCheckout($orderId: ID!) {
+    checkout(orderID: $orderId) {
       session
     }
   }

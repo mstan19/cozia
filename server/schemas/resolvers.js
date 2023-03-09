@@ -99,14 +99,56 @@ const resolvers = {
 		},
 		checkout: async (parent, { orderID }, context) => {
 			const url = new URL(context.headers.referer).origin;
+			// const order = new Order({ products: args.products });
+			// const line_items = [];
+
+			// const { products } = await order.populate('products');
+			// console.log("order", order)
+			// for (let i = 0; i < products.length; i++) {
+			// 	const product = await stripe.products.create({
+			// 		name: products[i].name,
+			// 		description: products[i].description,
+			// 		// images: [`${url}/images/${products[i].image}`]
+			// 	});
+
+			// 	const price = await stripe.prices.create({
+			// 		product: product.id,
+			// 		unit_amount: products[i].price * 100,
+			// 		currency: 'usd',
+			// 	});
+
+			// 	line_items.push({
+			// 		price: price.id,
+			// 		quantity: 1
+			// 	});
+			// 	console.log("line_items", line_items)
+			// }
+			// const line_items = cart.map((product) => {
+			// 	return {
+			// 		price_data: {
+			// 			currency: "usd",
+			// 			unit_amount: "",
+			// 			product_data: {
+			// 				name: product.name,
+			// 				Images: product.image,
+			// 				metadata: {
+			// 					id:product.id
+			// 				}
+
+			// 			},
+			// 		},
+			// 		quantity: 1,
+			// 	}
+			// })
+			// orderID = "640a1b9fe93c13d53c980416"
 			const session = await stripe.checkout.sessions.create({
 				payment_method_types: ["card"],
 				line_items: [{
 					price_data: {
 						currency: "usd",
-						unit_amount: "",
+						unit_amount: "500",
 						product_data: {
-							name: ""
+							name: "ksj"
 						},
 					},
 					quantity: 1,

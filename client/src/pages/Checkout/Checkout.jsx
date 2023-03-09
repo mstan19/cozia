@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
-import { QUERY_ME, QUERY_CHECKOUT } from "../../utils/queries";
+import { QUERY_ME, QUERY_CHECKOUT, QUERY_ALLORDERS } from "../../utils/queries";
 import { ADD_ORDER } from "../../utils/mutations";
 import { CartState } from "../../context/CartContext";
 import { useLazyQuery } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import {
 	calculateDiscountPrice,
@@ -22,15 +23,24 @@ const Checkout = () => {
 	const [CheckoutData, setCheckoutData] = useState();
 	// const [orderData, setOrderData] = useState();
 	const { data, loading: meLoading } = useQuery(QUERY_ME);
+	const [orderId, setOrderId] = useState();
 	const [userData, setUserData] = useState({});
 	const [subtotal, setSubtotal] = useState();
 	const [taxes, setTaxes] = useState();
 	const [total, setTotal] = useState();
-	// const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+	const {
+		data: orderListData,
+		loading: orderListLoading,
+		error: orderListError,
+	} = useQuery(QUERY_ALLORDERS, {
+		variables: { userId: data?.me?._id },
+	});
+	const [getCheckout, { data: stripeData }] = useLazyQuery(QUERY_CHECKOUT);
 	const [addOrder, { error: addOrderError, data: addOrderData }] =
 		useMutation(ADD_ORDER);
 	const { cart, setCart } = CartState();
 	const today = new Date();
+	const nav = useNavigate();
 
 	// console.log("data", data)
 	useEffect(() => {
@@ -42,17 +52,23 @@ const Checkout = () => {
 				console.error(err);
 			}
 		};
-
+		
 		getUserData();
 	}, [data]);
 
+	useEffect(() => {
+		if (orderListData) {
+		 console.log(orderListData)
+		}
+	}, [orderListData]);
+
 	// useEffect(() => {
-	// 	if (data) {
+	// 	if (stripeData) {
 	// 	  stripePromise.then((res) => {
-	// 		res.redirectToCheckout({ sessionId: data.checkout.session });
+	// 		res.redirectToCheckout({ sessionId: stripeData.checkout.session });
 	// 	  });
 	// 	}
-	// }, [data]);
+	// }, [stripeData]);
 
 	useEffect(() => {
 		const tempsubtotal = cart
@@ -76,9 +92,9 @@ const Checkout = () => {
 	}, [cart]);
 
 	const createOrder = () => {
-		// getCheckout({
-		//   variables: { resumeId: resumeId },
-		// });
+		getCheckout({
+		  variables: { products:  getProductId () },
+		});
 		// message.success("Your ResuMate is ready to download!");
 	};
 
@@ -106,7 +122,7 @@ const Checkout = () => {
 		event.preventDefault();
 		try {
 			let nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-
+			
 			let orderData = {
 				products: getProductId(),
 				tax: parseInt(taxes),
@@ -122,10 +138,23 @@ const Checkout = () => {
 				purchaseDate: dayjs(today).format("ddd MMM DD YYYY"),
 				deliveryDate: dayjs(nextWeek).format("ddd MMM DD YYYY"),
 			};
-			console.log("orderData", orderData)
 			await addOrder({
 				variables: { orderData: orderData, userId: data?.me?._id },
 			});
+			// JSON.parse(localStorage.getItem("orderData"))
+			localStorage.setItem("orderData", JSON.stringify(orderData));
+			getCheckout({
+				variables: { products:  getProductId () },
+			  });
+			
+			nav("/confirmation");
+			window.location.reload();
+			// const newOrderId =
+			// 	orderListData._id;
+
+      		// setOrderId(newOrderId);
+			// console.log(newOrderId)
+			// console.log(orderListData)
 		} catch (e) {
 			console.error(e);
 		}
@@ -134,7 +163,7 @@ const Checkout = () => {
 	return (
 		<div className="h-full w-full">
 			<div className="container m-auto w-full py-8 md:w-[44rem]">
-				<form onSubmit={onSubmit} className="p-0 m-0">
+				<div className="p-0 m-0">
 					{/* Personal Info */}
 					<div className="mb-2">
 						<h2 className="text-lg text-center">Personal Info</h2>
@@ -342,7 +371,7 @@ const Checkout = () => {
 					<div className="flex flex-col items-center justify-between">
 						<button
 							className="bg-green-600 w-1/2 rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none"
-							type="submit"
+							onClick={onSubmit}
 						>
 							MAKE PAYMENT
 						</button>
@@ -353,7 +382,7 @@ const Checkout = () => {
 							Dashboard
 						</button>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	);
