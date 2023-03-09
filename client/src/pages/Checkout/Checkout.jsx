@@ -92,21 +92,23 @@ const Checkout = () => {
 		setCheckoutData({ ...CheckoutData, [name]: value });
 	};
 
+	function getProductId () {
+		const copyCart = [];
+		cart.forEach(function(product) {
+			if(typeof product._id === "string"){
+				copyCart.push(product._id);
+			}
+		  })
+		  return copyCart;
+	}
+
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const copyCart = [];
-			let x = cart.forEach((product) => {
-				copyCart.push(product._id);
-			});
-			console.log("arst", x);
 			let nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
 
 			let orderData = {
-				products: [
-					"6407f5954f89d08d0a1dd9f8",
-					"6407f5954f89d08d0a1dda04",
-				],
+				products: getProductId(),
 				tax: parseInt(taxes),
 				shippingPrice: 10,
 				totalCost: parseInt(total),
@@ -120,7 +122,7 @@ const Checkout = () => {
 				purchaseDate: dayjs(today).format("ddd MMM DD YYYY"),
 				deliveryDate: dayjs(nextWeek).format("ddd MMM DD YYYY"),
 			};
-
+			console.log("orderData", orderData)
 			await addOrder({
 				variables: { orderData: orderData, userId: data?.me?._id },
 			});
