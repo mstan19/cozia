@@ -119,6 +119,7 @@ console.log(userId)
         size: "",
         color:"",
         countInStock: "",
+        // abountBrand: "",
         // category: ""
     });
   };

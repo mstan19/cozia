@@ -197,7 +197,7 @@ const MyProduct = () => {
 											>
 												<div className="flex justify-center">
 													<img
-														src={samplePic}
+														src={product.image}
 														alt="product-image"
 														id="product-image"
 														className="object-cover"

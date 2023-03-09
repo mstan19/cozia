@@ -7,6 +7,8 @@ import {
 	displayRatings,
 	removeHyphensAndCapitalize,
 } from "../../utils/helpers";
+import Accordion from "../../components/Accordion/Accordion";
+import Collapsible from "../../components/Collapsible/Collapsible";
 
 const OneClothes = () => {
 	const { productId } = useParams();
@@ -103,7 +105,7 @@ const OneClothes = () => {
 						<article className="flex justify-between">
 							<section className="flex bg-white rounded-lg drop-shadow-xl text-xl w-40 justify-between items-center">
 								<button
-									className="bg-sky-600 py-3 px-4 text-white"
+									className="bg-sky-600 py-3 px-4 text-white rounded-l-lg"
 									onClick={handleDecrement}
 								>
 									-
@@ -111,21 +113,31 @@ const OneClothes = () => {
 								<div className="bg-white">{quantity}</div>
 								{/* TODO: Fix quantity - cannot go over what they have */}
 								<button
-									className="bg-sky-600 py-3 px-4 text-white"
+									className="bg-sky-600 py-3 px-4 text-white rounded-r-lg"
 									onClick={handleIncrement}
 								>
 									+
 								</button>
 							</section>
 
-							<button className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-xl w-40">
+							<button className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-xl w-40 md:ml-5">
 								Add to Cart
 							</button>
 						</article>
 						{clothes.countInStock}
 						<hr className="bg-zinc-700 m-3" />
 						<article>
-							<h3 className="text-2xl">Product Details</h3>
+							<h3 className="text-2xl text-black">
+								Product Details
+							</h3>
+							<Accordion
+								className="text-black"
+								key="productDetails"
+								title="Product Details"
+								items={clothes.description}
+								link={""}
+							/>
+							<Collapsible />
 						</article>
 						<hr className="bg-zinc-700 m-3" />
 						<article>
