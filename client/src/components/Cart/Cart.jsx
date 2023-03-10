@@ -124,6 +124,10 @@ const Cart = () => {
 						</h3>
 						{/* render the products */}
 						<div className="grid grid-cols-1 overflow-y-auto">
+							{ cart && cart.length === 0 ? 
+							<div className="text-center text-2xl">Empty Cart</div>
+							:
+							<div> 
 							{cart.map((product, index) => {
 								return (
 									<div key={index + "cartKey"} className="grid grid-cols-3 mt-6 px-10">
@@ -160,6 +164,8 @@ const Cart = () => {
 									</div>
 								)
 							})}
+							</div>
+			}
 						</div>
 
 						<div className="z-50 bg-white py-4">
@@ -181,7 +187,7 @@ const Cart = () => {
 
 							<div className="w-full justify-center flex flex-col items-center">
 								<button
-									className="bg-green-600 w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 focus:outline-none focus:shadow-outline"
+									className={`${total === "0.00" ? "bg-slate-400 hover:bg-slate-300" : "bg-green-600 hover:bg-green-500"} w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 focus:outline-none focus:shadow-outline`}
 									type="submit">
 									CHECKOUT
 								</button>

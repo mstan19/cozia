@@ -52,13 +52,13 @@ const Checkout = () => {
 				console.error(err);
 			}
 		};
-		
+
 		getUserData();
 	}, [data]);
 
 	useEffect(() => {
 		if (orderListData) {
-		 console.log(orderListData)
+			console.log(orderListData)
 		}
 	}, [orderListData]);
 
@@ -88,16 +88,16 @@ const Checkout = () => {
 
 		let calTax = parseInt(tempsubtotal * 0.1);
 		setTaxes(calTax.toFixed(2));
-		if (cart.length === 0){
+		if (cart.length === 0) {
 			setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
-		} else{
+		} else {
 			setTotal((parseInt(tempsubtotal) + parseInt(calTax) + 10).toFixed(2))
 		}
 	}, [cart]);
 
 	const createOrder = () => {
 		getCheckout({
-		  variables: { products:  getProductId () },
+			variables: { products: getProductId() },
 		});
 		// message.success("Your ResuMate is ready to download!");
 	};
@@ -112,21 +112,21 @@ const Checkout = () => {
 		setCheckoutData({ ...CheckoutData, [name]: value });
 	};
 
-	function getProductId () {
+	function getProductId() {
 		const copyCart = [];
-		cart.forEach(function(product) {
-			if(typeof product._id === "string"){
+		cart.forEach(function (product) {
+			if (typeof product._id === "string") {
 				copyCart.push(product._id);
 			}
-		  })
-		  return copyCart;
+		})
+		return copyCart;
 	}
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
 			let nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-			
+
 			let orderData = {
 				products: getProductId(),
 				tax: parseInt(taxes),
@@ -148,14 +148,14 @@ const Checkout = () => {
 			// JSON.parse(localStorage.getItem("orderData"))
 			localStorage.setItem("orderData", JSON.stringify(orderData));
 			getCheckout({
-				variables: { products:  getProductId () },
-			  });
-			
+				variables: { products: getProductId() },
+			});
+
 			nav("/confirmation");
 			// const newOrderId =
 			// 	orderListData._id;
 
-      		// setOrderId(newOrderId);
+			// setOrderId(newOrderId);
 			// console.log(newOrderId)
 			// console.log(orderListData)
 		} catch (e) {
