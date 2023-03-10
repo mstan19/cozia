@@ -152,7 +152,6 @@ const Checkout = () => {
 			  });
 			
 			nav("/confirmation");
-			window.location.reload();
 			// const newOrderId =
 			// 	orderListData._id;
 

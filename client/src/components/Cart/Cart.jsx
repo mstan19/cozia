@@ -70,7 +70,12 @@ const Cart = () => {
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			nav("/checkout");
+			console.log(typeof total)
+			if (total === "0.00") {
+				nav("/");
+			} else {
+				nav("/checkout");
+			}
 			setShowSidebar(false);
 		} catch (e) {
 			console.error(e);
