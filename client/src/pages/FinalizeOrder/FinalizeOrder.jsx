@@ -17,12 +17,18 @@ const FinalizeOrder = () => {
 		data: orderListData,
 		loading: orderListLoading,
 		error: orderListError,
+		refetch: refetch,
 	} = useQuery(QUERY_ALLORDERS, {
 		variables: { userId: meData?.me?._id },
 	});
 	const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 	const [userData, setUserData] = useState({});
-
+	if (orderListData) {
+		refetch();
+	  }
+	const newOrderId =
+		orderListData?.getAllOrders.slice(-1).pop()._id;
+	console.log(newOrderId)
 
 	useEffect(() => {
 		const getUserData = async () => {
@@ -33,14 +39,12 @@ const FinalizeOrder = () => {
 				console.error(err);
 			}
 		};
-
+		console.log(newOrderId)
 		getUserData();
 	}, [meData]);
 
 
-	const newOrderId =
-		orderListData?.getAllOrders.slice(-1).pop()._id;
-	console.log(newOrderId)
+	
 
 
 	useEffect(() => {

@@ -14,12 +14,13 @@ const Success = () => {
 	let updatepayment = {
 		isPaid: true
 	}
-	// const updatedOrder = editOrder({
-	// 	variables: {
-	// 		orderId: orderID,
-	// 		orderData: updatepayment,
-	// 	},
-	// });
+	
+	const updatedOrder = editOrder({
+		variables: {
+			orderId: orderID,
+			orderData: updatepayment,
+		},
+	});
 	console.log(orderID)
 
 	let keysToRemove = ["orderData", "product"];
@@ -46,7 +47,7 @@ const Success = () => {
 				
 				<div className="items-center justify-between">
 					<button
-						className="bg-green-600 w-full rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none"
+						className="bg-green-600 w-full rounded-sm shadow-lg hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none"
 						onClick={handleRedirectDashboard}
 					>
 						Dashboard

@@ -14,7 +14,6 @@ import {
 } from "../../utils/helpers";
 const dayjs = require("dayjs");
 
-// require("dotenv").config();
 const stripePromise = loadStripe(
 	"pk_test_51MEcXfKCu6tOY76M3glH98vnG12XLfoyY7tA9sT5APZOwtj6LnhXMPiatC5I8BealmLrL3ejoUoLVU2Se51Caoty00ul1ZAgr5"
 );
@@ -99,7 +98,6 @@ const Checkout = () => {
 		getCheckout({
 			variables: { products: getProductId() },
 		});
-		// message.success("Your ResuMate is ready to download!");
 	};
 
 	const handleRedirectDashboard = () => {
@@ -145,19 +143,15 @@ const Checkout = () => {
 			await addOrder({
 				variables: { orderData: orderData, userId: data?.me?._id },
 			});
-			// JSON.parse(localStorage.getItem("orderData"))
 			localStorage.setItem("orderData", JSON.stringify(orderData));
 			getCheckout({
 				variables: { products: getProductId() },
 			});
+			
 
 			nav("/confirmation");
-			// const newOrderId =
-			// 	orderListData._id;
-
-			// setOrderId(newOrderId);
-			// console.log(newOrderId)
-			// console.log(orderListData)
+			// window.location.reload();
+			
 		} catch (e) {
 			console.error(e);
 		}
