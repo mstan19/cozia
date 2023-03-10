@@ -92,6 +92,7 @@ const typeDefs = gql`
         products: [Product]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
+        getOneOrder(_id: ID!): Order
         getAllOrders(userID: ID!): [Order]
         getSaleItems(userID: ID!): String
         checkout(orderID: ID!): Checkout

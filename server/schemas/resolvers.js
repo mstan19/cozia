@@ -91,6 +91,9 @@ const resolvers = {
 		getOneProduct: async (parent, { _id }) => {
 			return await Product.findById(_id).populate("category");
 		},
+		getOneOrder: async (parent, { _id }, context) => {
+			return await Order.findById(_id).populate("products");
+		},
 		getAllOrders: async (parent, { userID }) => {
 			return await Order.find({ user: userID }).populate("products");
 		},
@@ -98,66 +101,56 @@ const resolvers = {
 			return await Product.find();
 		},
 		checkout: async (parent, { orderID }, context) => {
-			const url = new URL(context.headers.referer).origin;
-			// const order = new Order({ products: args.products });
-			// const line_items = [];
+			// const url = new URL(context.headers.referer).origin;
+			const order = await Order.findById({ _id: orderID }).populate("products");
+			console.log("order with products", order.products)
 
-			// const { products } = await order.populate('products');
-			// console.log("order", order)
-			// for (let i = 0; i < products.length; i++) {
-			// 	const product = await stripe.products.create({
-			// 		name: products[i].name,
-			// 		description: products[i].description,
-			// 		// images: [`${url}/images/${products[i].image}`]
-			// 	});
-
-			// 	const price = await stripe.prices.create({
-			// 		product: product.id,
-			// 		unit_amount: products[i].price * 100,
-			// 		currency: 'usd',
-			// 	});
-
-			// 	line_items.push({
-			// 		price: price.id,
-			// 		quantity: 1
-			// 	});
-			// 	console.log("line_items", line_items)
-			// }
-			// const line_items = cart.map((product) => {
-			// 	return {
-			// 		price_data: {
-			// 			currency: "usd",
-			// 			unit_amount: "",
-			// 			product_data: {
-			// 				name: product.name,
-			// 				Images: product.image,
-			// 				metadata: {
-			// 					id:product.id
-			// 				}
-
-			// 			},
-			// 		},
-			// 		quantity: 1,
-			// 	}
-			// })
+			console.log("order", order)
+			const line_items = order.products.map((product) => {
+				return {
+					price_data: {
+						currency: 'usd',
+						product_data: {
+							name: product.productName,
+							images: [product.image],
+							description: product.description,
+							metadata: {
+								id: JSON.stringify(product._id)
+							}
+						},
+						unit_amount: Math.floor((product.price + (product.price / 10)) - (product.price + (product.price / 10)) * (product.discount / 100)) * 100,
+						tax_behavior: 'exclusive',
+					},
+					quantity: 1,
+				}
+			})
+			// console.log("line_items", line_items)
 			// orderID = "640a1b9fe93c13d53c980416"
 			const session = await stripe.checkout.sessions.create({
 				payment_method_types: ["card"],
-				line_items: [{
-					price_data: {
-						currency: "usd",
-						unit_amount: "500",
-						product_data: {
-							name: "ksj"
+				shipping_options: [
+					{
+						shipping_rate_data: {
+							type: 'fixed_amount',
+							fixed_amount: { amount: (10 * 100), currency: 'usd' },
+							display_name: 'Shipping',
+							// tax_behavior: 'exclusive',
+							// tax_code: 'txcd_92010001',
+							delivery_estimate: {
+								minimum: { unit: 'business_day', value: 5 },
+								maximum: { unit: 'business_day', value: 7 },
+							},
 						},
 					},
-					quantity: 1,
-				}],
+				],
+				line_items,
+				// automatic_tax: { enabled: true },
 				mode: "payment",
-				success_url: `${url}/success/${orderID}`,
-				cancel_url: `${url}/`
+				success_url: `${process.env.CLIENT_URL}/success/${orderID}`,
+				cancel_url: `${process.env.CLIENT_URL}/`
 			});
 			return { session: session.id };
+
 		}
 	},
 	Mutation: {
