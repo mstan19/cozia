@@ -195,7 +195,7 @@ const Checkout = () => {
 							type="text"
 						></input>
 						{errors && errors.first_name?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.first_name?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.first_name?.message}</p>
 						) : null}
 					</div>
 					<div className="mb-2">
@@ -220,7 +220,7 @@ const Checkout = () => {
 							type="text"
 						></input>
 						{errors && errors.last_name?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.last_name?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.last_name?.message}</p>
 						) : null}
 					</div>
 					<div className="mb-2">
@@ -245,7 +245,7 @@ const Checkout = () => {
 							type="text"
 						></input>
 						{errors && errors.user_email?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.user_email?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.user_email?.message}</p>
 						) : null}
 					</div>
 					<div className="mb-2">
@@ -271,7 +271,7 @@ const Checkout = () => {
 							onChange={handleInputChange}
 						></input>
 						{errors && errors.phoneNumber?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.phoneNumber?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.phoneNumber?.message}</p>
 						) : null}
 					</div>
 
@@ -303,7 +303,7 @@ const Checkout = () => {
 							type="text"
 						></input>
 						{errors && errors.streetBilling?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.streetBilling?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.streetBilling?.message}</p>
 						) : null}
 					</div>
 					<div className="grid grid-cols-4 gap-4 mb-4">
@@ -329,7 +329,7 @@ const Checkout = () => {
 								type="text"
 							></input>
 							{errors && errors.cityBilling?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.cityBilling?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.cityBilling?.message}</p>
 						) : null}
 						</div>
 						<div className="mb-2">
@@ -354,7 +354,7 @@ const Checkout = () => {
 								type="text"
 							></input>
 							{errors && errors.stateBilling?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.stateBilling?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.stateBilling?.message}</p>
 						) : null}
 						</div>
 						<div className="mb-2">
@@ -380,7 +380,7 @@ const Checkout = () => {
 								type="text"
 							></input>
 							{errors && errors.zipBilling?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.zipBilling?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.zipBilling?.message}</p>
 						) : null}
 						</div>
 					</div>
@@ -419,7 +419,7 @@ const Checkout = () => {
 							onChange={handleInputChange}
 						></input>
 						{errors && errors.streetShipping?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.streetShipping?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.streetShipping?.message}</p>
 						) : null}
 					</div>
 					<div className="grid grid-cols-4 gap-4 mb-4">
@@ -446,7 +446,7 @@ const Checkout = () => {
 								onChange={handleInputChange}
 							></input>
 							{errors && errors.cityShipping?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.cityShipping?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center 2 m-2">{errors.cityShipping?.message}</p>
 						) : null}
 						</div>
 						<div className="mb-2">
@@ -472,7 +472,7 @@ const Checkout = () => {
 								onChange={handleInputChange}
 							></input>
 							{errors && errors.stateShipping?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.stateShipping?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.stateShipping?.message}</p>
 						) : null}
 						</div>
 						<div className="mb-2">
@@ -499,7 +499,7 @@ const Checkout = () => {
 								onChange={handleInputChange}
 							></input>
 							{errors && errors.zipShipping?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-7 m-2">{errors.zipShipping?.message}</p>
+							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.zipShipping?.message}</p>
 						) : null}
 						</div>
 					</div>
