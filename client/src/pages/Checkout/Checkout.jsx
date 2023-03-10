@@ -504,18 +504,19 @@ const Checkout = () => {
 						</div>
 					</div>
 
-					<div className="flex flex-col items-center justify-between">
+					<div className=" grid grid-cols-1  md:grid-cols-2 items-center justify-between gap-4 content-center place-items-center">
+						<button
+							className="coal w-1/3 rounded-sm text-white mt-4 py-2 px-4 focus:outline-none"
+							onClick={handleRedirectDashboard}
+						>
+							Dashboard
+						</button>
 						<button
 							className="bg-green-600 w-1/2 rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none"
 						>
 							MAKE PAYMENT
 						</button>
-						<button
-							className="bg-green-600 w-1/2 rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none"
-							onClick={handleRedirectDashboard}
-						>
-							Dashboard
-						</button>
+						
 					</div>
 				</form>
 			</div>
