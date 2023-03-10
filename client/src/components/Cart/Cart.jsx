@@ -63,7 +63,6 @@ const Cart = () => {
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			console.log(typeof total)
 			if (total === "0.00") {
 				nav("/");
 			} else {
@@ -94,7 +93,7 @@ const Cart = () => {
 					{/* Does not render sidebar but onClick it will show the sidebar */}
 					{showSidebar ? (
 						<button
-							className="flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-50"
+							className="h-10 w-10 flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-50"
 							onClick={() => setShowSidebar(!showSidebar)}
 						>
 							<IoCloseOutline className="text-neutral-500" />
@@ -104,7 +103,7 @@ const Cart = () => {
 
 						<svg
 							onClick={() => setShowSidebar(!showSidebar)}
-							className="fixed z-30 flex items-center cursor-pointer right-6 top-6"
+							className="h-10 w-10 fixed z-30 flex items-center cursor-pointer right-6 top-6"
 							fill="#2563EB"
 						>
 

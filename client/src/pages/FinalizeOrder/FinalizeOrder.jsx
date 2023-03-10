@@ -44,9 +44,6 @@ const FinalizeOrder = () => {
 	}, [meData]);
 
 
-	
-
-
 	useEffect(() => {
 		if (data) {
 			stripePromise.then((res) => {
