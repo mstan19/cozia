@@ -88,7 +88,11 @@ const Checkout = () => {
 
 		let calTax = parseInt(tempsubtotal * 0.1);
 		setTaxes(calTax.toFixed(2));
-		setTotal((parseInt(tempsubtotal) + parseInt(calTax) + 10).toFixed(2));
+		if (cart.length === 0){
+			setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
+		} else{
+			setTotal((parseInt(tempsubtotal) + parseInt(calTax) + 10).toFixed(2))
+		}
 	}, [cart]);
 
 	const createOrder = () => {

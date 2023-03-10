@@ -58,7 +58,12 @@ const Cart = () => {
 		setTaxes((calTax).toFixed(2));
 		// console.log("taxes", taxes)
 		// console.log("tempsubtotal", tempsubtotal)
-		setTotal((parseInt(tempsubtotal) + parseInt(calTax) + 10).toFixed(2))
+		if (cart.length === 0){
+			setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
+		} else{
+			setTotal((parseInt(tempsubtotal) + parseInt(calTax) + 10).toFixed(2))
+		}
+		
 	}, [cart])
 
 
