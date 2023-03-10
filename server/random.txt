@@ -112,3 +112,63 @@ let productsinOrder = orderItems.map((order) => order.products.map((product) => 
 
  <button type="button" className="bg-black hover:bg-black-700 text-white py-2 px-4 rounded" onClick={() => {setModalOpen(true); openModal(); setSelected(data[index])}}><BsPencilSquare /></button>
  import { BsPencilSquare } from "react-icons/bs";
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <div className="grid grid-cols-2">
+				<div onClick={() => setShowSidebar(!showSidebar)} name={showSidebar ? "close" : "menu"} className={` ease-in col-span-1 text-3xl cursor-pointer `}>
+
+						<div className={`md:block col-span-1 md:h-full dark-gray pb-4 ${showSidebar ? "hidden" : "block "}`}>
+							<div className="flex">
+								<div className="flex flex-col w-full">
+									<div className="space-y-3">
+										
+										{/* Checkout products */}
+										<div className="flex flex-col">
+											<ul className="md:static pt-2 text-xl">
+												{/* {components.map((component) => (
+													<li
+														className={`bg-white flex items-center p-5 space-x-3 ${component.name === "mystats" || component.name === "myreviews" ? "mb-5 " : "mb-1"
+															}`}
+														key={component.key}
+													>
+														{component.icon}
+														<span
+															onClick={() => renderComponent(component.name)}
+														>
+															{component.title}
+														</span>
+													</li>
+												))} */}
+
+											</ul>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+
+                    <div className="h-10 absolute w-full">
+							1
+						</div>
+						<div className="h-full pt-10 pb-10">
+							2
+						</div>
+						<div className="h-10 absolute w-full">
+							3
+						</div>

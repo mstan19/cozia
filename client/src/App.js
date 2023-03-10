@@ -16,6 +16,9 @@ import MyProduct from "./pages/MyProducts/MyProducts";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AddProductForm from "./components/AddProductForm";
 import OrderList from "./pages/OrderList/OrderList";
+import Checkout from "./pages/Checkout/Checkout";
+import Cart from "./components/Cart/Cart";
+
 import ViewClothes from "./pages/ViewClothes/ViewClothes";
 import OneClothes from "./pages/OneClothes/OneClothes";
 
@@ -44,39 +47,34 @@ const client = new ApolloClient({
 });
 
 function App() {
-	return (
-		<ApolloProvider client={client}>
-			<Router>
-				<div
-					className="page-container light-gray"
-					data-testid="page-container"
-				>
-					<Navbar />
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/register" element={<Register />} />
-						<Route path="/dashboard" element={<Dashboard />} />
-						<Route
-							path="/:gender/:categoryName"
-							element={<ViewClothes />}
-						/>
-						<Route
-							path="/:gender/:categoryName/:productId"
-							element={<OneClothes />}
-						/>
-						<Route path="/orderlist" element={<OrderList />} />
-						<Route
-							path="/addproduct"
-							element={<AddProductForm />}
-						/>
-						<Route path="/myproducts" element={<MyProduct />} />
-						{/* TODO: Add items page here */}
-					</Routes>
-					<Footer />
-				</div>
-			</Router>
-		</ApolloProvider>
-	);
+    return (
+        <ApolloProvider client={client}>
+            <Router>
+                <div className="page-container light-gray" data-testid="page-container">
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/:gender/:categoryName" element={<ViewClothes />} />
+                        <Route path="/orderlist" element={<OrderList />} />
+                        <Route path="/addproduct" element={<AddProductForm />} />
+
+                        <Route
+                            path="/:gender/:categoryName/:productId"
+                        	element={<OneClothes />}
+                        						/>
+                        <Route path="/checkout" element={<Checkout />} />
+
+                        {/* <Route path="/myproducts" element={<MyProduct />} /> */}
+                    </Routes>
+                    <Footer />
+                </div>
+            </Router>
+        </ApolloProvider>
+    );
 }
 
 export default App;
+
+

@@ -31,7 +31,7 @@ const Register = ({ color }) => {
                                         role="tablist"
                                     >
                                         <i className="fas fa-space-shuttle text-base mr-1"></i>{" "}
-                                        SIGN UP
+                                        LOGIN
                                     </a>
                                 </li>
                                 <li className="flex-auto text-center">
@@ -51,7 +51,7 @@ const Register = ({ color }) => {
                                         role="tablist"
                                     >
                                         <i className="fas fa-cog text-base mr-1"></i>{" "}
-                                        LOGIN
+                                        SIGN UP
                                     </a>
                                 </li>
                             </ul>
@@ -61,13 +61,13 @@ const Register = ({ color }) => {
                                         {openTab === 1 ? (
                                             <div data-testid="link1">
                                                 {" "}
-                                                <SignUpForm />{" "}
+                                                <LoginForm />{" "}
                                             </div>
                                         ) : null}
                                         {openTab === 2 ? (
                                             <div data-testid="link2">
                                                 {" "}
-                                                <LoginForm />{" "}
+                                                <SignUpForm />{" "}
                                             </div>
                                         ) : null}
                                     </div>

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import { QUERY_ME } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
+import { CartState } from "../../context/CartContext";
 import {
 	calculateDiscountPrice,
 	displayRatings,
@@ -12,10 +14,12 @@ import Collapsible from "../../components/Collapsible/Collapsible";
 
 const OneClothes = () => {
 	const { productId } = useParams();
+	const { meData, meLoading } = useQuery(QUERY_ME);
+	const [userData, setUserData] = useState({});
 	const { loading, data, error } = useQuery(GET_ONE_PRODUCT, {
 		variables: { id: productId },
 	});
-
+	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
 	const [quantity, setQuantity] = useState(1);
 
@@ -43,7 +47,17 @@ const OneClothes = () => {
 		}
 	}, [data]);
 
-	// const { productName, description, image, price, discount, numberReviews } = clothes;
+	const addToCart = async () => {
+		try {
+
+			setCart([...cart, clothes])
+			console.log("cart length", cart.length)
+		} catch (e) {
+			console.error(e);
+		}
+
+	};
+
 
 	return (
 		<main className="flex justify-center">
@@ -120,7 +134,7 @@ const OneClothes = () => {
 								</button>
 							</section>
 
-							<button className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-xl w-40 md:ml-5">
+							<button className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-xl w-40 md:ml-5" onClick={(e) => { e.preventDefault(); addToCart()}}>
 								Add to Cart
 							</button>
 						</article>
