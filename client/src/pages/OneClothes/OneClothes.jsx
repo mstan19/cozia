@@ -39,7 +39,7 @@ const OneClothes = () => {
 		try {
 
 			setCart([...cart, clothes])
-			
+
 		} catch (e) {
 			console.error(e);
 		}

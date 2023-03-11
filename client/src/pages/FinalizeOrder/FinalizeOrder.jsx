@@ -122,20 +122,20 @@ const FinalizeOrder = () => {
 									<div className="pt-2">${cartItem.price * 2}</div>
 								</div>
 							))}
-							<div className="text-black grid grid-cols-2 w-full px-10">
-								{/* title */}
-								<div className="pt-2">
-									<div className="text-xl">Taxes</div>
-									<div className="text-xl">Subtotal</div>
-									<div className="text-2xl mt-8">Total</div>
-								</div>
-								{/* prices */}
-								<div className="text-right pt-2 mb-2">
-									<div className="text-xl">${taxes}</div>
-									<div className="text-xl">${subtotal}</div>
-									<div className="text-2xl mt-8">${total}</div>
-								</div>
+						<div className="text-black grid grid-cols-2 w-full px-10">
+							{/* title */}
+							<div className="pt-2">
+								<div className="text-xl">Taxes</div>
+								<div className="text-xl">Subtotal</div>
+								<div className="text-2xl mt-8">Total</div>
 							</div>
+							{/* prices */}
+							<div className="text-right pt-2 mb-2">
+								<div className="text-xl">${taxes}</div>
+								<div className="text-xl">${subtotal}</div>
+								<div className="text-2xl mt-8">${total}</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div className=" grid grid-cols-1 md:grid-cols-2 items-center justify-between gap-2 content-center place-items-center mb-4">
