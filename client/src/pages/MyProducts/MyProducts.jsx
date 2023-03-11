@@ -138,7 +138,7 @@ const MyProduct = () => {
 					>
 						{/* Add product Card */}
 						<button
-							className="add-product row inline-block w-1/5 ml-6 mt-2 rounded-lg text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+							className="add-product row inline-block w-1/5 ml-6 mt-2 rounded-lg text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
 							id="add-product-btn"
 							onClick={handleAddProductBtn}
 							type="submit"
@@ -146,44 +146,10 @@ const MyProduct = () => {
 							Add
 						</button>
 						{/* Filter */}
-						<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-block">
+						<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-block text-xl">
 							My Products
 						</div>
-						<div className="dropdown-filter py-3 pr-5">
-							<button className="inline-block mr-2">
-								<div>
-									<select
-										className="w-full block appearance-none bg-white px-4 py-2 pr-8 rounded leading-tight focus:outline-none"
-										name="filter"
-										onChange={handleInputChange}
-									>
-										<option value="recentlyAdd">
-											Recently Add
-										</option>
-										<option value="mostSold">
-											Most Sold
-										</option>
-										<option value="stockLtoH">
-											Stock (Low to High)
-										</option>
-										<option value="priceLtoH">
-											Price (Low to High)
-										</option>
-										<option value="priceHtoL">
-											Price (High to Low)
-										</option>
-									</select>
-								</div>
-								<div>
-									<img
-										src={filterIcon}
-										alt="filter-image"
-										id="filter-image"
-										className="w-7"
-									/>
-								</div>
-							</button>
-						</div>
+						
 					</div>
 
 					<div className="container mx-auto pt-2">
@@ -216,10 +182,10 @@ const MyProduct = () => {
 													<div>
 														<p className="flex">
 															Price:
-															<div className="text-xl discount-price text-red-600 pr-3">
+															<div className=" discount-price text-red-600 pr-3">
 																${calculateDiscountPrice(product.price, product.discount)}
 															</div>
-															<div className="text-xl original-price text-neutral-400 line-through">
+															<div className=" original-price text-neutral-400 line-through">
 																${parseInt(product.price).toFixed(2)}
 															</div>
 														</p>

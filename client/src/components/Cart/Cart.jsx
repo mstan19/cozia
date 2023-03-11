@@ -166,7 +166,7 @@ const Cart = () => {
 								<div className="pt-2">
 									<div className="text-xl">Taxes</div>
 									<div className="text-xl">Subtotal</div>
-									<div className="text-2xl mt-8">Total</div>
+									<div className="text-2xl mt-10">Total</div>
 								</div>
 								{/* prices */}
 								<div className="text-right pt-2 mb-2">

@@ -152,12 +152,12 @@ const Checkout = () => {
 			getCheckout({
 				variables: { products: getProductId() },
 			});
-			
+
 
 			nav("/confirmation");
-		// }
+			// }
 			// window.location.reload();
-			
+
 		} catch (e) {
 			console.error(e);
 		}
@@ -166,7 +166,7 @@ const Checkout = () => {
 	return (
 		<div className="h-full w-full">
 			<div className="container m-auto w-full py-8 md:w-[44rem]">
-				<form 
+				<form
 					onSubmit={handleSubmit(onSubmit)}
 					// ref={form}
 					className="p-0 m-0"
@@ -257,13 +257,13 @@ const Checkout = () => {
 							<p className="text-red-700">*</p>
 						</label>
 						<input
-						{...register("phoneNumber", {
-							required: "Phone number is required.",
-							minLength: {
-								value: 9,
-								message: "Phone Number must have 9 digits."
-							},
-						})}
+							{...register("phoneNumber", {
+								required: "Phone number is required.",
+								minLength: {
+									value: 9,
+									message: "Phone Number must have 9 digits."
+								},
+							})}
 							className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight "
 							name="phoneNumber"
 							id="phoneNumber"
@@ -289,14 +289,14 @@ const Checkout = () => {
 							<p className="text-red-700">*</p>
 						</label>
 						<input
-						{...register("streetBilling", {
-							required: "Street is required.",
-							pattern: {
-							  value: 5,
-							  message:
-								"Street must be at least be 5 characters long.",
-							},
-						})}
+							{...register("streetBilling", {
+								required: "Street is required.",
+								pattern: {
+									value: 5,
+									message:
+										"Street must be at least be 5 characters long.",
+								},
+							})}
 							className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight"
 							name="streetBilling"
 							id="streetBilling"
@@ -316,21 +316,21 @@ const Checkout = () => {
 								<p className="text-red-700">*</p>
 							</label>
 							<input
-							{...register("cityBilling", {
-								required: "City is required.",
-								minLength: {
-									value: 3,
-									message: "City must be at least be 3 characters long."
-								},
-							})}
+								{...register("cityBilling", {
+									required: "City is required.",
+									minLength: {
+										value: 3,
+										message: "City must be at least be 3 characters long."
+									},
+								})}
 								className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight "
 								name="cityBilling"
 								id="cityBilling"
 								type="text"
 							></input>
 							{errors && errors.cityBilling?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.cityBilling?.message}</p>
-						) : null}
+								<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.cityBilling?.message}</p>
+							) : null}
 						</div>
 						<div className="mb-2">
 							<label
@@ -341,21 +341,21 @@ const Checkout = () => {
 								<p className="text-red-700">*</p>
 							</label>
 							<input
-							{...register("stateBilling", {
-								required: "State is required.",
-								minLength: {
-									value: 2,
-									message: "State must be at least be 2 characters long."
-								},
-							})}
+								{...register("stateBilling", {
+									required: "State is required.",
+									minLength: {
+										value: 2,
+										message: "State must be at least be 2 characters long."
+									},
+								})}
 								className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight "
 								name="stateBilling"
 								id="stateBilling"
 								type="text"
 							></input>
 							{errors && errors.stateBilling?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.stateBilling?.message}</p>
-						) : null}
+								<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.stateBilling?.message}</p>
+							) : null}
 						</div>
 						<div className="mb-2">
 							<label
@@ -366,13 +366,13 @@ const Checkout = () => {
 								<p className="text-red-700">*</p>
 							</label>
 							<input
-							{...register("zipBilling", {
-								required: "Zip code is required.",
-								minLength: {
-									value: 5,
-									message: "Zip Code must be at least be 5 characters long."
-								},
-							})}
+								{...register("zipBilling", {
+									required: "Zip code is required.",
+									minLength: {
+										value: 5,
+										message: "Zip Code must be at least be 5 characters long."
+									},
+								})}
 								className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight"
 								name="zipBilling"
 								id="zipBilling"
@@ -380,8 +380,8 @@ const Checkout = () => {
 								type="text"
 							></input>
 							{errors && errors.zipBilling?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.zipBilling?.message}</p>
-						) : null}
+								<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.zipBilling?.message}</p>
+							) : null}
 						</div>
 					</div>
 
@@ -397,21 +397,21 @@ const Checkout = () => {
 							<p className="text-red-700">*</p>
 						</label>
 						<input
-						{...register("stateBilling", {
-							required: "State is required.",
-							minLength: {
-								value: 2,
-								message: "State must be at least be 2 characters long."
-							},
-						})}
-						{...register("streetShipping", {
-							required: "Street is required.",
-							pattern: {
-							  value: 5,
-							  message:
-								"Street must be at least be 5 characters long.",
-							},
-						})}
+							{...register("stateBilling", {
+								required: "State is required.",
+								minLength: {
+									value: 2,
+									message: "State must be at least be 2 characters long."
+								},
+							})}
+							{...register("streetShipping", {
+								required: "Street is required.",
+								pattern: {
+									value: 5,
+									message:
+										"Street must be at least be 5 characters long.",
+								},
+							})}
 							className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight"
 							name="streetShipping"
 							id="streetShipping"
@@ -432,13 +432,13 @@ const Checkout = () => {
 								<p className="text-red-700">*</p>
 							</label>
 							<input
-							{...register("cityShipping", {
-								required: "City is required.",
-								minLength: {
-									value: 3,
-									message: "City must be at least be 3 characters long."
-								},
-							})}
+								{...register("cityShipping", {
+									required: "City is required.",
+									minLength: {
+										value: 3,
+										message: "City must be at least be 3 characters long."
+									},
+								})}
 								className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight "
 								name="cityShipping"
 								id="cityShipping"
@@ -446,8 +446,8 @@ const Checkout = () => {
 								onChange={handleInputChange}
 							></input>
 							{errors && errors.cityShipping?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center 2 m-2">{errors.cityShipping?.message}</p>
-						) : null}
+								<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center 2 m-2">{errors.cityShipping?.message}</p>
+							) : null}
 						</div>
 						<div className="mb-2">
 							<label
@@ -458,13 +458,13 @@ const Checkout = () => {
 								<p className="text-red-700">*</p>
 							</label>
 							<input
-							{...register("stateShipping", {
-								required: "State is required.",
-								minLength: {
-									value: 2,
-									message: "State must be at least be 2 characters long."
-								},
-							})}
+								{...register("stateShipping", {
+									required: "State is required.",
+									minLength: {
+										value: 2,
+										message: "State must be at least be 2 characters long."
+									},
+								})}
 								className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight "
 								name="stateShipping"
 								id="stateShipping"
@@ -472,8 +472,8 @@ const Checkout = () => {
 								onChange={handleInputChange}
 							></input>
 							{errors && errors.stateShipping?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.stateShipping?.message}</p>
-						) : null}
+								<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.stateShipping?.message}</p>
+							) : null}
 						</div>
 						<div className="mb-2">
 							<label
@@ -484,13 +484,13 @@ const Checkout = () => {
 								<p className="text-red-700">*</p>
 							</label>
 							<input
-							{...register("zipShipping", {
-								required: "Zip code is required.",
-								minLength: {
-									value: 5,
-									message: "Zip Code must be at least be 5 characters long."
-								},
-							})}
+								{...register("zipShipping", {
+									required: "Zip code is required.",
+									minLength: {
+										value: 5,
+										message: "Zip Code must be at least be 5 characters long."
+									},
+								})}
 								className="appearance-none border border-black w-full py-2 px-3 text-black-700 leading-tight"
 								name="zipShipping"
 								id="zipShipping"
@@ -499,24 +499,24 @@ const Checkout = () => {
 								onChange={handleInputChange}
 							></input>
 							{errors && errors.zipShipping?.message ? (
-							<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.zipShipping?.message}</p>
-						) : null}
+								<p className="text-red-700 bg-red-100 text-base border-solid border border-red-700 text-center p-2 m-2">{errors.zipShipping?.message}</p>
+							) : null}
 						</div>
 					</div>
 
 					<div className=" grid grid-cols-1  md:grid-cols-2 items-center justify-between gap-4 content-center place-items-center">
 						<button
-							className="coal w-1/3 rounded-sm text-white mt-4 py-2 px-4 focus:outline-none"
+							className="coal w-1/3 rounded-sm text-white mt-4 py-2 px-4 focus:outline-none shadow-lg"
 							onClick={handleRedirectDashboard}
 						>
 							Dashboard
 						</button>
 						<button
-							className="bg-green-600 w-1/2 rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none"
+							className="bg-green-600 w-1/2 rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none shadow-lg"
 						>
 							MAKE PAYMENT
 						</button>
-						
+
 					</div>
 				</form>
 			</div>

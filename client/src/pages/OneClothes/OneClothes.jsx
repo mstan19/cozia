@@ -49,7 +49,7 @@ const OneClothes = () => {
 
 	return (
 		<main className="flex justify-center">
-			<div><Toaster position="top-right"
+			<div><Toaster position="top-center"
 				reverseOrder={false} /></div>
 			{!loading && clothes && clothes.length !== 0 ? (
 				<div className="flex flex-col lg:flex-row min-w-2xl">
