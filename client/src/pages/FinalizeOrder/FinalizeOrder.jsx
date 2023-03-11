@@ -113,9 +113,9 @@ const FinalizeOrder = () => {
 						{cart &&
 							cart.map((cartItem, index) => (
 								<div className="grid grid-cols-4 mx-4 text-center" key={index + "finalizeOrderkey"}>
-									<div className="flex inline-block">
-										<img className="h-40 w-36 pt-2" src={cartItem.image} alt={cartItem.productName} />
-										<h3 className="mt-14 text-lg h-40 w-36">{cartItem.productName}</h3>
+									<div className="grid grid-cols-1 md:grid-cols-2 md:flex md:inline md:flex-row-reverse">
+										<h3 className="text-lg pt-2 md:pl-2">{cartItem.productName}</h3>
+										<img className="h-40 w-36 py-2" src={cartItem.image} alt={cartItem.productName} />
 									</div>
 									<div className="pt-2">${cartItem.price}</div>
 									<div className="pt-2">2</div>
