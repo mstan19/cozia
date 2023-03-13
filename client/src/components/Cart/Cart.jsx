@@ -19,7 +19,7 @@ const Cart = () => {
 	const [total, setTotal] = useState();
 	const { cart, setCart } = CartState();
 
-	const [quantity, setQuantity] = useState(1);
+	// const [quantity, setQuantity] = useState(1);
 
 	// const { subtotal, setSubtotal } = CartState();
 	// const { taxes, setTaxes } = CartState();
@@ -46,12 +46,15 @@ const Cart = () => {
 
 
 	useEffect(() => {
+		// TODO: Add in quantity
 		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
 		
 		setSubtotal(tempsubtotal);
 
 		let calTax = parseInt(tempsubtotal * (.10))
 		setTaxes((calTax).toFixed(2));
+
+		console.log(cart);
 		
 		if (cart.length === 0) {
 			setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))

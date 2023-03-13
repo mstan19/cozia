@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
 import { CartState } from "../../context/CartContext";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import {
 	calculateDiscountPrice,
 	displayRatings,
@@ -22,16 +22,19 @@ const OneClothes = () => {
 	});
 	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
-	const [quantity, setQuantity] = useState(1);
+	const [quantityInput, setQuantityInput] = useState(1);
 	const [date, setDate] = useState();
 
 	const handleDecrement = () =>
-		setQuantity((prevCount) => (quantity < 2 ? prevCount : prevCount - 1));
+		setQuantityInput((prevCount) =>
+			quantityInput < 2 ? prevCount : prevCount - 1
+		);
 
 	const handleIncrement = () =>
-		setQuantity((prevCount) =>
-			quantity === clothes.countInStock ? prevCount : prevCount + 1
+		setQuantityInput((prevCount) =>
+			quantityInput === clothes.countInStock ? prevCount : prevCount + 1
 		);
+	console.log(quantityInput);
 
 	// console.log(clothes.countInStock);
 	if (error) {
@@ -40,9 +43,9 @@ const OneClothes = () => {
 
 	useEffect(() => {
 		const date = new Date();
-		 setDate(date.getDate());
+		setDate(date.getDate());
 		let product = data?.getOneProduct;
-		console.log(product);
+		// console.log(product);
 		if (product && product.length !== 0) {
 			setClothes(product);
 		}
@@ -52,8 +55,12 @@ const OneClothes = () => {
 
 	const addToCart = async () => {
 		try {
-
-			setCart([...cart, clothes])
+			// console.log(clothes)
+			let oneProduct = {...clothes};
+			console.log(oneProduct);
+			oneProduct["quantity"] = quantityInput;
+			console.log(oneProduct["quantity"]);
+			setCart([...cart, oneProduct]);
 
 		} catch (e) {
 			console.error(e);
@@ -62,8 +69,9 @@ const OneClothes = () => {
 
 	return (
 		<main className="flex justify-center">
-			<div><Toaster position="top-center"
-				reverseOrder={false} /></div>
+			<div>
+				<Toaster position="top-center" reverseOrder={false} />
+			</div>
 			{!loading && clothes && clothes.length !== 0 ? (
 				<div className="flex flex-col lg:flex-row min-w-2xl">
 					<img
@@ -127,7 +135,7 @@ const OneClothes = () => {
 								>
 									-
 								</button>
-								<div className="bg-white">{quantity}</div>
+								<div className="bg-white">{quantityInput}</div>
 								{/* TODO: Fix quantity - cannot go over what they have */}
 								<button
 									className="bg-sky-600 py-3 px-4 text-white rounded-r-lg"
@@ -137,10 +145,16 @@ const OneClothes = () => {
 								</button>
 							</section>
 
-							<button onClick={(e) => { e.preventDefault(); notify(); addToCart() }} className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
+							<button
+								onClick={(e) => {
+									e.preventDefault();
+									notify();
+									addToCart();
+								}}
+								className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40"
+							>
 								Add to Cart
 							</button>
-
 						</article>
 						<hr className="bg-zinc-700 m-3" />
 						<article>
@@ -153,7 +167,9 @@ const OneClothes = () => {
 						<article>
 							<Collapsible
 								title="Shipping Details"
-								body={`Order now to get the delivery on ${(new Date(new Date().setDate(new Date().getDate() + 7))).toLocaleDateString()}. Shipping will cost $5.`}
+								body={`Order now to get the delivery on ${new Date(
+									new Date().setDate(new Date().getDate() + 7)
+								).toLocaleDateString()}. Shipping will cost $5.`}
 							/>
 						</article>
 						<hr className="bg-zinc-700 m-3" />
