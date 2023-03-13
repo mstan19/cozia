@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
@@ -12,6 +12,7 @@ import {
 } from "../../utils/helpers";
 import Accordion from "../../components/Accordion/Accordion";
 import Collapsible from "../../components/Collapsible/Collapsible";
+import Auth from "../../utils/auth";
 
 const OneClothes = () => {
 	const { productId } = useParams();
@@ -24,6 +25,7 @@ const OneClothes = () => {
 	const [clothes, setClothes] = useState();
 	const [quantityInput, setQuantityInput] = useState(1);
 	const [date, setDate] = useState();
+	const navigate = useNavigate();
 
 	const handleDecrement = () =>
 		setQuantityInput((prevCount) =>
@@ -51,24 +53,28 @@ const OneClothes = () => {
 		}
 	}, [data]);
 
+	const navigateToRegistration = (event) => {
+		event.preventDefault();
+		navigate("/register");
+	};
+
 	const notify = () => toast.success("Item was added to the cart.");
 
 	const addToCart = async () => {
 		try {
 			// console.log(clothes)
-			let oneProduct = {...clothes};
+			let oneProduct = { ...clothes };
 			console.log(oneProduct);
 			oneProduct["quantity"] = quantityInput;
 			console.log(oneProduct["quantity"]);
 			setCart([...cart, oneProduct]);
-
 		} catch (e) {
 			console.error(e);
 		}
 	};
 
 	return (
-		<main className="flex justify-center">
+		<main className="flex justify-center bg-white">
 			<div>
 				<Toaster position="top-center" reverseOrder={false} />
 			</div>
@@ -127,18 +133,18 @@ const OneClothes = () => {
 						<h2 className="pb-3 text-lg">
 							SIZE: {removeHyphensAndCapitalize(clothes.size)}
 						</h2>
-						<article className="flex justify-between">
+						<article className="flex justify-between ">
 							<section className="flex bg-white rounded-lg drop-shadow-xl text-xl w-40 justify-between items-center">
 								<button
-									className="bg-sky-600 py-3 px-4 text-white rounded-l-lg"
+									className="bg-slate-500 py-3 px-4 text-white rounded-l-lg"
 									onClick={handleDecrement}
 								>
 									-
 								</button>
-								<div className="bg-white">{quantityInput}</div>
+								<div>{quantityInput}</div>
 								{/* TODO: Fix quantity - cannot go over what they have */}
 								<button
-									className="bg-sky-600 py-3 px-4 text-white rounded-r-lg"
+									className="bg-slate-500 py-3 px-4 text-white rounded-r-lg"
 									onClick={handleIncrement}
 								>
 									+
@@ -174,14 +180,57 @@ const OneClothes = () => {
 						</article>
 						<hr className="bg-zinc-700 m-3" />
 						<article>
-							<h3 className="text-2xl">Customer Reviews</h3>
-
-							{/* Customer Reviews */}
+							<section className="flex justify-between">
+								<h3 className="text-2xl">Customer Reviews</h3>
+								<div className="reviews flex items-center">
+									{clothes.numberReviews !== 0 ? (
+										<>
+											{displayRatings(
+												clothes.totalRating
+											)}
+										</>
+									) : (
+										<>
+											<p className="text-neutral-400">
+												No ratings yet
+											</p>
+										</>
+									)}
+								</div>
+							</section>
+							<section className="flex justify-between">
+								<p className="text-neutral-500">
+									({clothes.numberReviews} reviews total)
+								</p>
+								<p className="text-neutral-500">
+									{clothes.totalRating.toFixed(1)} out of 5
+								</p>
+							</section>
+							{/* TODO: If condition for when user is logged in or not */}
+							{Auth.loggedIn() ? (
+								<button
+									onClick={(e) => {
+										e.preventDefault();
+									}}
+									className="rounded-lg p-3 my-3 bg-sky-600 text-white drop-shadow-xl text-lg w-full"
+								>
+									Write a review
+								</button>
+							) : (
+								<button
+									onClick={(e) => {
+										navigateToRegistration(e);
+									}}
+									className="rounded-lg p-3 my-3 bg-sky-600 text-white drop-shadow-xl text-lg w-full"
+								>
+									Login to write a review
+								</button>
+							)}
 						</article>
 					</section>
 				</div>
 			) : (
-				<h3>Loading</h3>
+				<p>Loading</p>
 			)}
 		</main>
 	);
