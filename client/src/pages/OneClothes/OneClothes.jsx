@@ -169,7 +169,7 @@ const OneClothes = () => {
 								title="Shipping Details"
 								body={`Order now to get the delivery on ${new Date(
 									new Date().setDate(new Date().getDate() + 7)
-								).toLocaleDateString()}. Shipping will cost $5.`}
+								).toLocaleDateString()}. Shipping will cost $10.`}
 							/>
 						</article>
 						<hr className="bg-zinc-700 m-3" />
