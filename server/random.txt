@@ -1,58 +1,243 @@
+react-table-component
 
-        input InputShippingAddress {
-        street: String!
-        city: String!
-        zip: String!
-        country: String!
-    }
+    const COLUMNSPO = [
+        {
+            name: "Order ID",
+            selector: (row) =>row._id
+        },
+        {
+            name: "Order Date",
+            selector: (row) =>row.purchaseDate
+        },
+        {
+            name: "Delivery Status",
+            selector: (row) =>row.isDelivered
+        },
+        {
+            name: "Delivery Date",
+            selector: (row) =>row.deliveryDate
+        },
+        {
+            name: "Delivery Address",
+            selector: (row) =>row.shippingAddress.street 
+        },
+        // {order.shippingAddress.street}, {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}
+        {
+            name: "Total Cost",
+            selector: (row) =>row.totalCost
+        },
+    ]
 
-    input InputProduct {
-        productName: String!
-        description: String
-        image: String
-        price: Float!
-        sizes: String
-        countInStock: Int
-        inStock: Boolean!
-        reviews: [Reviews]
-        totalRating: Int
-        numberReviews: Int
-        category: Category
-      }
+import DataTable from 'react-data-table-component';
 
-      input InputReviews {
-        user: User!
-        rating: Float!
-        comment: String!
-        createdAt: String    
-    }
+
+ <DataTable
+                        title = "Purchased Orders"
+                        columns={COLUMNSPO}
+                        data={orderListData?.getAllOrders}
+                        className="content-center"
+                       />
+
+                           {orderListData && orderListData.getAllOrders.map((order, index) => { 
+                        return (
+                            <div className="" key={order._id} >
+                               <p>Order ID {order._id}</p>
+                               <p>Items</p>
+                               <p>Order Date {order.purchaseDate}</p>
+                               <div>Delivery Status   
+                                    { order.isDelivered === true ? (<div className="inline-flex">  Delivered</div>) : <div className="inline-flex">  Not Delivered</div>}
+                               </div>
+                               <p>Delivery Date {order.deliveryDate}</p>
+                               <p>Delivery Address {order.shippingAddress.street}, {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}</p>
+                               <p>Total Cost ${order.totalCost}</p>
+
+                            </div>
+                        )})}
+
+
+
+                         {data && data?.getAllOrders.map((item, index) =>
+                            <ItemTableRow item={item}/>
+                        )}
+
+
+
+                         if(columnItem.value === "products"){
+            // let listOfProducts = []
+            // console.log(listOfProducts)
+
+            // for (var i=0; i < item?.products?.length; i++) {
+            //     listOfProducts.push(<div>{item?.products[i]?.productName}</div>)
+            //     listOfProducts.push(<div>$ {item?.products[i]?.price}</div>)
+            //     // listOfProducts.push(<div >{item?.products[i]?.quantity}</div>)
+                
+
+            // }
+
+            // console.log(listOfProducts)
+            return (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                {item && item?.products.map((product, index) =>
+                                    <ItemTableRow product={product}/>,
+                                    // console.log(product)
+                                )}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>  
+            )
+        }
+
+
+        const ItemTableRow = ({product}) => (
+    <tr>
+        <td>{product.productName}</td>
+        <td>{product.price}</td>
+    </tr>
     
-    #Queries
-    type Query {
-        me: User
-        user: User
-        categories: [Category]
-        products(category: ID, productName: String): [Product]
-        product(_id: ID!): Product
-        order(_id: ID!): Order
-        checkout(products: [ID]!): Checkout
-      }
+)
 
-    #Mutation
 
-    type Mutation{ 
-        login(email: String!, password: String!): Auth
-        addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-        updateUser(firstName: String, lastName: String, email: String, password: String): User
+let productsinOrder = orderItems.map((order) => order.products.map((product) => product))
 
-        addProduct(input: InputProduct!): Product
-        updateProduct(_id: ID!, input: InputProduct!): Product
-        removeProduct(_id: ID!): Product
 
-        addReview(input: InputReviews): Product
-        updateReview(_id: ID!, input: InputReviews): Product
+ <button type="button" className="bg-black hover:bg-black-700 text-white py-2 px-4 rounded" onClick={() => {setModalOpen(true); openModal(); setSelected(data[index])}}><BsPencilSquare /></button>
+ import { BsPencilSquare } from "react-icons/bs";
 
-        addOrder(products: [ID]!): Order
-        updateOrder(_id: ID!, input: InputShippingAddress): Order
-        removeOrder(_id: ID!): Order
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+ <div className="grid grid-cols-2">
+				<div onClick={() => setShowSidebar(!showSidebar)} name={showSidebar ? "close" : "menu"} className={` ease-in col-span-1 text-3xl cursor-pointer `}>
+
+						<div className={`md:block col-span-1 md:h-full dark-gray pb-4 ${showSidebar ? "hidden" : "block "}`}>
+							<div className="flex">
+								<div className="flex flex-col w-full">
+									<div className="space-y-3">
+										
+										{/* Checkout products */}
+										<div className="flex flex-col">
+											<ul className="md:static pt-2 text-xl">
+												{/* {components.map((component) => (
+													<li
+														className={`bg-white flex items-center p-5 space-x-3 ${component.name === "mystats" || component.name === "myreviews" ? "mb-5 " : "mb-1"
+															}`}
+														key={component.key}
+													>
+														{component.icon}
+														<span
+															onClick={() => renderComponent(component.name)}
+														>
+															{component.title}
+														</span>
+													</li>
+												))} */}
+
+											</ul>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+
+                    <div className="h-10 absolute w-full">
+							1
+						</div>
+						<div className="h-full pt-10 pb-10">
+							2
+						</div>
+						<div className="h-10 absolute w-full">
+							3
+						</div>
+
+
+
+                        
+{
+  "userId": "6407f5944f89d08d0a1dd9e3",
+  "orderData": {
+    "products":{
+        "productName": "Tuna",
+        "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+        "image": "https://loremflickr.com/390/390/fashion?lock=62243",
+        "price": 1,
+        "discount": 93,
+        "gender": "men",
+        "size": "small",
+        "color": "#ffa8a1",
+        "countInStock": 3,
+        "createdAt": "2022-10-08T18:40:56.820Z",
+        "totalRating": 4.030115452097376,
+        "numberReviews": 4
+    },
+    "shippingAddress": {
+		"street": "123 street",
+		"city": "city name",
+		"state": "ga",
+		"zip": "30123",
+		"country": "usa",
+		"phoneNumber": "123456789",
+	  },
+  "tax": 45,
+	"shippingPrice": 10,
+	"isDelivered": true,
+	"isPaid": false,
+	"totalCost": 300,
+  },
+
+}
+
+{
+  "userId": "6407f5944f89d08d0a1dd9e3",
+  "orderInfoData": {
+  "tax": 45,
+	"shippingPrice": 10,
+	"isDelivered": true,
+	"isPaid": false,
+	"totalCost": 300,
+  },
+  "productOrderData": {
+        "productName": "dog",
+        "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+        "image": "https://loremflickr.com/390/390/fashion?lock=62243",
+        "price": 1,
+        "discount": 93,
+        "gender": "men",
+        "size": "small",
+        "color": "#ffa8a1",
+        "countInStock": 3,
+        "totalRating": 4.030115452097376,
+        "numberReviews": 4
+  },
+  "shippingAddressInput": {
+     "street": "123 street",
+      "city": "city name",
+      "state": "ga",
+      "zip": "30123",
+      "country": "usa",
+      "phoneNumber": "123456789",
+  }
+}

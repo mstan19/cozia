@@ -1,6 +1,9 @@
 const { gql } = require("apollo-server-express");
+const { GraphQLScalarType, Kind } = require("graphql");
 
 const typeDefs = gql`
+    scalar DateTime
+
     type User {
         _id: ID!
         firstName: String!
@@ -28,14 +31,17 @@ const typeDefs = gql`
         description: String
         image: String
         price: Float!
+        discount: Float!
         gender: String!
         size: String
         color: String!
         countInStock: Int
+        createdAt: DateTime
         reviews: [Reviews]
-        totalRating: Int
+        totalRating: Float
         numberReviews: Int
         category: Category!
+        user: User!
     }
 
     type ShippingAddress {
@@ -43,7 +49,7 @@ const typeDefs = gql`
         city: String!
         zip: String!
         state: String!
-        country: String!
+        phoneNumber: String!
     }
 
     type productOrder {
@@ -51,6 +57,7 @@ const typeDefs = gql`
         image: String!
         quantity: String!
         price: Float!
+        discount: Float!
         product: [Product]
     }
 
@@ -58,10 +65,11 @@ const typeDefs = gql`
         _id: ID
         user: User!
         shippingAddress: ShippingAddress!
-        productOrder: productOrder!
+        products: [Product]
         tax: Int!
         shippingPrice: Int!
-        isDelivered: Boolean!
+        isDelivered: Boolean
+        isPaid: Boolean!
         totalCost: Int!
         purchaseDate: String
         deliveryDate: String
@@ -79,10 +87,15 @@ const typeDefs = gql`
     #Queries
     type Query {
         me: User
+        getMyProducts(userID: ID!): [Product]
         categories: [Category]
+        products: [Product]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
-        order(_id: ID!): Order
+        getOneOrder(_id: ID!): Order
+        getAllOrders(userID: ID!): [Order]
+        getSaleItems(userID: ID!): String
+        checkout(orderID: ID!): Checkout
     }
 
     #Inputs
@@ -95,12 +108,16 @@ const typeDefs = gql`
     input CategoryInput {
         name: String
     }
+    input userInput {
+        email: String
+    }
 
     input productInput {
         productName: String!
         description: String
         image: String
         price: Float
+        discount: Float!
         size: String
         gender: String
         color: String
@@ -109,11 +126,34 @@ const typeDefs = gql`
         totalRating: Int
         numberReviews: Int
         category: CategoryInput
+        user: userInput
     }
+    input shippingAddressInput {
+        street: String!
+        city: String!
+        zip: String!
+        state: String!
+        phoneNumber: String
+    }
+
+    input orderInput {
+        tax: Int
+        products: [ID]
+        shippingAddress: shippingAddressInput
+        shippingPrice: Int
+        isDelivered: Boolean
+        isPaid: Boolean
+        totalCost: Int
+        purchaseDate: String
+        deliveryDate: String
+    }
+
+
 
     #Mutation
 
     type Mutation {
+        requirePassword( password: String!): Auth
         login(email: String!, password: String!): Auth
         addUser(
             firstName: String!
@@ -130,14 +170,41 @@ const typeDefs = gql`
             username: String
         ): User
         removeUser(userId: ID!): User
-        addProduct(productsByCategory: ID!, productData: productInput!): Product
+        addProduct(productsByCategory: ID!, productData: productInput!, userId: ID!): Product
         removeProduct(productId: ID!): Product
         updateProduct(
             productsByCategory: ID!
             productId: ID!
             productData: productInput!
         ): Product
+        updateOrder(
+            orderId: ID!
+            orderData: orderInput!
+        ): Order
+        addOrder(
+            userId: ID!
+            orderData: orderInput!
+        ): Order
     }
 `;
+
+const dateTimeScalar = new GraphQLScalarType({
+    name: "DateTime",
+    description: "Date custom scalar type",
+    serialize(value) {
+        return value.getTime(); // Convert outgoing Date to integer for JSON
+    },
+    parseValue(value) {
+        return new Date(value); // Convert incoming integer to Date
+    },
+    parseLiteral(ast) {
+        if (ast.kind === Kind.INT) {
+            // Convert hard-coded AST string to integer and then to Date
+            return new Date(parseInt(ast.value, 10));
+        }
+        // Invalid hard-coded value (not an integer)
+        return null;
+    }
+});
 
 module.exports = typeDefs;

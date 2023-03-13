@@ -20,7 +20,7 @@
         "graphql": "^15.4.0",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.9.10",
-        "stripe": "^11.1.0"
+        "stripe": "^11.13.0"
     },
     "devDependencies": {
         "@faker-js/faker": "^7.3.0",
