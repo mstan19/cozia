@@ -7,6 +7,7 @@ import { useQuery } from "@apollo/client";
 import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY } from "../../utils/queries";
 import Auth from "../../utils/auth";
 import Cart from "../Cart/Cart.jsx";
+import { CartState } from "../../context/CartContext";
 
 export default function Navbar() {
 	const navRef = useRef();
@@ -17,7 +18,7 @@ export default function Navbar() {
 		loading: categoryLoad,
 		error: categoryError,
 	} = useQuery(QUERY_CATEGORY);
-
+	const { cart, setCart } = CartState();
 
 	// const { data: productsCategoryData, loading: prodCateLoad } = useQuery(
 	// 	PRODUCTS_BY_CATEGORYID,
@@ -161,8 +162,21 @@ export default function Navbar() {
 					<AiFillHeart />
 				</Link>
 				<div className="cart pl-4" key="cart-page" >
-                    <AiFillShopping />
-                    <Cart />
+					{cart.length > 0 ? 
+					<div className="relative">
+					<div
+					  className="absolute top-0 right-0 z-10 translate-x-2/4 -translate-y-1/2 rounded-full bg-red-600 p-2.5"></div>
+						<AiFillShopping />
+						<Cart />
+				  </div>
+					: 
+					<div>
+						<AiFillShopping />
+						<Cart />
+					</div>
+					}
+                    {/* <AiFillShopping />
+                    <Cart /> */}
                 </div>
 			</section>
 		</header>

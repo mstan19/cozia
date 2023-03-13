@@ -34,7 +34,7 @@ const Dashboard = () => {
 
 				const user = await data?.me;
 
-				
+
 				setUserData(user);
 			} catch (err) {
 				console.error(err);

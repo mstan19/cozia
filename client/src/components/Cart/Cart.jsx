@@ -21,7 +21,7 @@ const Cart = () => {
 	// const { subtotal, setSubtotal } = CartState();
 	// const { taxes, setTaxes } = CartState();
 	// const { total, setTotal } = CartState();
-	console.log(cart)
+	// console.log(cart)
 	const nav = useNavigate();
 
 	const increment = (index) => {
@@ -41,31 +41,33 @@ const Cart = () => {
 		}
 	};
 
-	// let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
-	// let parsedProducts = JSON.parse(localStorage.getItem( "product")) || [];
-
-	// console.log("viewCart", parsedProducts)
-
 
 	useEffect(() => {
-		console.log("cart", cart)
 		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
-		// cart.reduce((accumulator, currentValue) => {console.log(Number(currentValue.discount/100));console.log("-----")})
+		
 		setSubtotal(tempsubtotal);
 
 		let calTax = parseInt(tempsubtotal * (.10))
-		console.log(calTax)
 		setTaxes((calTax).toFixed(2));
-		console.log("taxes", taxes)
-		console.log("tempsubtotal", tempsubtotal)
-		setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
+		
+		if (cart.length === 0) {
+			setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
+
+		} else {
+			setTotal((parseInt(tempsubtotal) + parseInt(calTax) + 10).toFixed(2))
+		}
+
 	}, [cart])
 
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			nav("/checkout");
+			if (total === "0.00") {
+				nav("/");
+			} else {
+				nav("/checkout");
+			}
 			setShowSidebar(false);
 		} catch (e) {
 			console.error(e);
@@ -91,7 +93,7 @@ const Cart = () => {
 					{/* Does not render sidebar but onClick it will show the sidebar */}
 					{showSidebar ? (
 						<button
-							className="flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-50"
+							className="h-10 w-10 flex text-4xl text-black items-center cursor-pointer fixed right-8 top-6 z-50"
 							onClick={() => setShowSidebar(!showSidebar)}
 						>
 							<IoCloseOutline className="text-neutral-500" />
@@ -101,7 +103,7 @@ const Cart = () => {
 
 						<svg
 							onClick={() => setShowSidebar(!showSidebar)}
-							className="fixed z-30 flex items-center cursor-pointer right-6 top-6"
+							className="h-10 w-10 fixed z-30 flex items-center cursor-pointer right-6 top-6"
 							fill="#2563EB"
 						>
 
@@ -114,42 +116,48 @@ const Cart = () => {
 						</h3>
 						{/* render the products */}
 						<div className="grid grid-cols-1 overflow-y-auto">
-							{cart.map((product, index) => {
-								return (
-									<div key={index + "cartKey"} className="grid grid-cols-3 mt-6 px-10">
-										<div className="w-50 h-full mr-2">
-											<img src={product.image} alt="product-image-cart" id="product-image-cart" />
-										</div>
+							{cart && cart.length === 0 ?
+								<div className="text-center text-2xl">Empty Cart</div>
+								:
+								<div>
+									{cart.map((product, index) => {
+										return (
+											<div key={index + "cartKey"} className="grid grid-cols-3 mt-6 px-10">
+												<div className="w-50 h-full mr-2">
+													<img src={product.image} alt="product-image-cart" id="product-image-cart" />
+												</div>
 
-										<div className="">
-											<div className="text-lg">{product.productName}</div>
-											<div className="text-base text-neutral-500">{product.color}</div>
-											<div className="text-base text-neutral-500 flex inline">
-												<div className="grid grid-cols-2">Qty</div>
-												<div className="grid grid-cols-3">
-													<button className="px-2 coal rounded-l-md text-white text-md w-full" name={product.productName} onClick={(e) => { e.preventDefault(); decrement(index) }}>
-														<span>-</span>
-													</button>
+												<div className="">
+													<div className="text-lg">{product.productName}</div>
+													<div className="text-base text-neutral-500">{product.color}</div>
+													<div className="text-base text-neutral-500 flex inline">
+														<div className="grid grid-cols-2">Qty</div>
+														<div className="grid grid-cols-3">
+															<button className="px-2 coal rounded-l-md text-white text-md w-full" name={product.productName} onClick={(e) => { e.preventDefault(); decrement(index) }}>
+																<span>-</span>
+															</button>
 
-													<div className="m-0 p-0 text-center border border-neutral-300">{product.quantity}</div>
+															<div className="m-0 p-0 text-center border border-neutral-300">{product.quantity}</div>
 
-													<button className="px-2 coal rounded-r-md text-white text-md w-full" onClick={(e) => { e.preventDefault(); increment(index) }}>
-														<span className="">+</span>
-													</button>
+															<button className="px-2 coal rounded-r-md text-white text-md w-full" onClick={(e) => { e.preventDefault(); increment(index) }}>
+																<span className="">+</span>
+															</button>
+														</div>
+													</div>
+												</div>
+
+												<div className="text-right">
+													<div className="text-xl">${calculateDiscountPrice(
+														product.price,
+														product.discount
+													)}</div>
+													<button className="text-base text-red-500" onClick={(e) => { e.preventDefault(); }}> Remove</button>
 												</div>
 											</div>
-										</div>
-
-										<div className="text-right">
-											<div className="text-xl">${calculateDiscountPrice(
-												product.price,
-												product.discount
-											)}</div>
-											<button className="text-base text-red-500" onClick={(e) => { e.preventDefault(); }}> Remove</button>
-										</div>
-									</div>
-								)
-							})}
+										)
+									})}
+								</div>
+							}
 						</div>
 
 						<div className="z-50 bg-white py-4">
@@ -158,7 +166,7 @@ const Cart = () => {
 								<div className="pt-2">
 									<div className="text-xl">Taxes</div>
 									<div className="text-xl">Subtotal</div>
-									<div className="text-2xl mt-8">Total</div>
+									<div className="text-2xl mt-10">Total</div>
 								</div>
 								{/* prices */}
 								<div className="text-right pt-2 mb-2">
@@ -171,7 +179,7 @@ const Cart = () => {
 
 							<div className="w-full justify-center flex flex-col items-center">
 								<button
-									className="bg-green-600 w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 focus:outline-none focus:shadow-outline"
+									className={`${total === "0.00" ? "bg-slate-400 hover:bg-slate-300" : "bg-green-600 hover:bg-green-500"} w-2/3 text-center shadow-lg rounded hover:bg-green-600 text-white py-2 focus:outline-none focus:shadow-outline`}
 									type="submit">
 									CHECKOUT
 								</button>

@@ -103,7 +103,6 @@ db.once("open", async () => {
 						city: faker.address.cityName(),
 						state: faker.address.state(),
 						zip: faker.address.zipCode(),
-						country: faker.address.country(),
 						phoneNumber: faker.phone.number(),
 					},
 					// products: [productsList[0]._id, productsList[1]._id, productsList[2]._id,],
