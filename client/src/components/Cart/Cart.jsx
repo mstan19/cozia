@@ -76,7 +76,7 @@ const Cart = () => {
 		console.log("taxes", taxes);
 		console.log("tempsubtotal", tempsubtotal);
 		setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2));
-	}, [cart]);
+	}, [cart, taxes]);
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
@@ -149,16 +149,23 @@ const Cart = () => {
 											<div className="text-lg">
 												{product.productName}
 											</div>
-											<div className="text-base text-neutral-500">
-												{product.color}
-											</div>
+											<div
+												className="color drop-shadow mb-1"
+												style={{
+													backgroundColor:
+														product.color,
+													height: 30,
+													width: 30,
+													borderRadius: 50,
+												}}
+											></div>
 											<div className="text-base text-neutral-500 flex inline">
 												<div className="grid grid-cols-2">
 													Qty
 												</div>
 												<div className="grid grid-cols-3">
 													<button
-														className="px-2 coal rounded-l-md text-white text-md w-full"
+														className="px-2 coal rounded-l-md text-white text-md min-w-full"
 														name={
 															product.productName
 														}
@@ -171,14 +178,17 @@ const Cart = () => {
 													</button>
 
 													<div className="m-0 p-0 text-center border border-neutral-300">
-														{product.quantity}
+														{isNaN(product.quantity)
+															? product.quantity ===
+															  1
+															: product.quantity}
 													</div>
 
 													<button
 														className="px-2 coal rounded-r-md text-white text-md w-full"
 														onClick={(e) => {
 															e.preventDefault();
-															increment(index);
+															increment(console.log(index));
 														}}
 													>
 														<span className="">
@@ -192,10 +202,12 @@ const Cart = () => {
 										<div className="text-right">
 											<div className="text-xl">
 												$
-												{((calculateDiscountPrice(
-													product.price,
-													product.discount
-												))*product.quantity).toFixed(2)}
+												{(
+													calculateDiscountPrice(
+														product.price,
+														product.discount
+													) * product.quantity
+												).toFixed(2)}
 											</div>
 											<button
 												className="text-base text-red-500"

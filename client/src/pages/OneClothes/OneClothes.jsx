@@ -22,6 +22,7 @@ const OneClothes = () => {
 	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
 	const [quantity, setQuantity] = useState(1);
+	const [date, setDate] = useState();
 
 	const handleDecrement = () =>
 		setQuantity((prevCount) => (quantity < 2 ? prevCount : prevCount - 1));
@@ -40,6 +41,8 @@ const OneClothes = () => {
 	// console.log(product);
 
 	useEffect(() => {
+		const date = new Date();
+		 setDate(date.getDate());
 		let product = data?.getOneProduct;
 		console.log(product);
 		if (product && product.length !== 0) {
@@ -49,15 +52,12 @@ const OneClothes = () => {
 
 	const addToCart = async () => {
 		try {
-
-			setCart([...cart, clothes])
-			console.log("cart length", cart.length)
+			setCart([...cart, clothes]);
+			console.log("cart length", cart.length);
 		} catch (e) {
 			console.error(e);
 		}
-
 	};
-
 
 	return (
 		<main className="flex justify-center">
@@ -134,35 +134,32 @@ const OneClothes = () => {
 								</button>
 							</section>
 
-							<button className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-xl w-40 md:ml-5" onClick={(e) => { e.preventDefault(); addToCart()}}>
+							<button
+								className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-xl w-40 md:ml-5"
+								onClick={(e) => {
+									e.preventDefault();
+									addToCart();
+								}}
+							>
 								Add to Cart
 							</button>
 						</article>
-						{clothes.countInStock}
 						<hr className="bg-zinc-700 m-3" />
 						<article>
-							<h3 className="text-2xl text-black">
-								Product Details
-							</h3>
-							<Accordion
-								className="text-black"
-								key="productDetails"
-								title="Product Details"
-								items={clothes.description}
-								link={""}
+							<Collapsible
+								title="About Product"
+								body={clothes.description}
 							/>
-							<Collapsible />
 						</article>
 						<hr className="bg-zinc-700 m-3" />
 						<article>
-							<h3 className="text-2xl">Shipping Details</h3>
+							<Collapsible
+								title="Shipping Details"
+								body={`Order now to get the delivery on ${(new Date(new Date().setDate(new Date().getDate() + 7))).toLocaleDateString()}. Shipping will cost $5.`}
+							/>
 						</article>
 						<hr className="bg-zinc-700 m-3" />
 						<article>
-							<h3 className="text-2xl">About Product</h3>
-						</article>
-						<article>
-							<hr className="bg-zinc-700 m-3" />
 							<h3 className="text-2xl">Customer Reviews</h3>
 
 							{/* Customer Reviews */}
