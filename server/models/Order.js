@@ -20,7 +20,6 @@ const orderSchema = new Schema({
 		city: { type: String, required: true },
 		state: { type: String, required: true },
 		zip: { type: String, required: true },
-		country: { type: String, required: true },
 		phoneNumber: { type: String, required: true },
 	},
 	tax: {
@@ -30,22 +29,18 @@ const orderSchema = new Schema({
 	},
 	shippingPrice: {
 		type: Number,
-		required: true,
-		default: 5.0,
+		default: 10.0,
 	},
 	isDelivered: {
 		type: Boolean,
-		required: true,
 		default: false,
 	},
 	isPaid: {
 		type: Boolean,
-		required: true,
-		default: true,
+		default: false,
 	},
 	totalCost: {
 		type: Number,
-		required: true,
 		default: 0.0,
 	},
 	purchaseDate: {

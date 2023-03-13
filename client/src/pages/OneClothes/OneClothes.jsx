@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
 import { CartState } from "../../context/CartContext";
+import toast, { Toaster } from 'react-hot-toast';
 import {
 	calculateDiscountPrice,
 	displayRatings,
@@ -37,9 +38,6 @@ const OneClothes = () => {
 		console.log(error);
 	}
 
-	// let product = data?.getOneProduct;
-	// console.log(product);
-
 	useEffect(() => {
 		const date = new Date();
 		 setDate(date.getDate());
@@ -50,10 +48,13 @@ const OneClothes = () => {
 		}
 	}, [data]);
 
+	const notify = () => toast.success("Item was added to the cart.");
+
 	const addToCart = async () => {
 		try {
-			setCart([...cart, clothes]);
-			console.log("cart length", cart.length);
+
+			setCart([...cart, clothes])
+
 		} catch (e) {
 			console.error(e);
 		}
@@ -61,6 +62,8 @@ const OneClothes = () => {
 
 	return (
 		<main className="flex justify-center">
+			<div><Toaster position="top-center"
+				reverseOrder={false} /></div>
 			{!loading && clothes && clothes.length !== 0 ? (
 				<div className="flex flex-col lg:flex-row min-w-2xl">
 					<img
@@ -134,15 +137,10 @@ const OneClothes = () => {
 								</button>
 							</section>
 
-							<button
-								className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-xl w-40 md:ml-5"
-								onClick={(e) => {
-									e.preventDefault();
-									addToCart();
-								}}
-							>
+							<button onClick={(e) => { e.preventDefault(); notify(); addToCart() }} className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40">
 								Add to Cart
 							</button>
+
 						</article>
 						<hr className="bg-zinc-700 m-3" />
 						<article>

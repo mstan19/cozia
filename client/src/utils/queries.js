@@ -109,6 +109,7 @@ export const QUERY_MYPRODUCTS = gql`
 			color
 			image
 			size
+			discount
 		}
 	}
 `;
@@ -126,7 +127,6 @@ export const QUERY_ALLORDERS = gql`
 				city
 				zip
 				state
-				country
 			}
 			products {
 				_id
@@ -145,4 +145,12 @@ export const QUERY_SALEITEMS = gql`
 	query Query($userId: ID!) {
 		getSaleItems(userID: $userId)
 	}
+`;
+
+export const QUERY_CHECKOUT = gql`
+  query getCheckout($orderId: ID!) {
+    checkout(orderID: $orderId) {
+      session
+    }
+  }
 `;

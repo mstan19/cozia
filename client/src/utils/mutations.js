@@ -42,7 +42,7 @@ mutation AddProduct($productsByCategory: ID!, $productData: productInput!, $user
     }
 `;
 
-export const REMOVE_PRODUCT =gql`
+export const REMOVE_PRODUCT = gql`
     mutation RemoveProduct($productId: ID!) {
         removeProduct(productId: $productId) {
         _id
@@ -88,7 +88,7 @@ export const REMOVE_USER = gql`
     }
 `;
 
-export const EDIT_ORDER =gql`
+export const EDIT_ORDER = gql`
     mutation Mutation($orderId: ID!, $orderData: orderInput!) {
         updateOrder(orderId: $orderId, orderData: $orderData) {
         _id
@@ -97,3 +97,30 @@ export const EDIT_ORDER =gql`
         }
     }
 `;
+
+export const ADD_ORDER = gql`
+    mutation AddOrder($userId: ID!, $orderData: orderInput!) {
+        addOrder(userId: $userId, orderData: $orderData) {
+        _id
+        isPaid
+        products {
+            _id
+        }
+        shippingAddress {
+            city
+            phoneNumber
+            state
+            street
+            zip
+        }
+        shippingPrice
+        tax
+        totalCost
+        purchaseDate
+        deliveryDate
+        isDelivered
+        }
+    }
+    
+`;
+
