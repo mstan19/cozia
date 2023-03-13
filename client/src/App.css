@@ -151,6 +151,11 @@ footer {
     background-color: var(--green);
 }
 
+/* .hero {
+	height: 95vh;
+	width: 100vw;
+} */
+
 table {
     border-collapse: collapse;
     max-width: 900px;

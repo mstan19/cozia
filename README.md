@@ -88,7 +88,7 @@ WHEN a user is given the option to login or signup, <br>
 THEN the user can login or sign up, where they will be redirected to the dahsboard. <br>
 WHEN the user access their dashboard, <br>
 THEN they can view many tabs, such as My Products page, Order List page, and their profile page. <br>
-WHEN the user clicks on the "My Product" page, <br>
+WHEN the user clicks on the "My Products" page, <br>
 THEN they can see all of their items that they are selling and edit/delete their products. <br>
 WHEN the user clicks on the Order List page, <br>
 THEN they can view two tables: Purchased Items and Sales Items. <br>
@@ -131,7 +131,7 @@ Github Repository: [https://github.com/mstan19/cozia]
 
 -   Add a wishlist
 -   Build a contact page for technical support
--   Handle a better way to upload images
+-   Make the search bar functional
 -   Turn the app into a PWA
 
 ## Installation

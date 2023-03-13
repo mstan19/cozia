@@ -514,7 +514,7 @@ const Checkout = () => {
 						<button
 							className="bg-green-600 w-1/2 rounded-sm hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none shadow-lg"
 						>
-							MAKE PAYMENT
+							CONFIRM ORDER
 						</button>
 
 					</div>

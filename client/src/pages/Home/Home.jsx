@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
 import Carousel from "../../components/Carousel/Carousel";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import hero from "../../assets/images/hero.jpg";
 
 const Home = () => {
 	// Create query to find all products
@@ -75,8 +76,11 @@ const Home = () => {
 	}, [data]);
 
 	return (
-		<main className="min-h-screen max-w-xl m-auto">
+		<div>
+			<img className="hero pb-5 w-full h-full" src={hero} alt="backgroundPic" />
+			<main className="min-h-screen max-w-xl m-auto">
 			<SearchBar />
+			
 			{!loading &&
 				Object.keys(sectionCards).length !== 0 &&
 				Object.keys(sectionCards).map((sectionKey, idx) => {
@@ -90,6 +94,8 @@ const Home = () => {
 					);
 				})}
 		</main>
+		</div>
+		
 	);
 };
 
