@@ -1,29 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
-import { LOGIN_USER } from "../../utils/mutations";
 
 
-
-const DeleteModal = ({ setOpenModal, onDeleteProductID, onDeleteFunction }) => {
-	const [productData, setProductData] = useState({
+const DeleteModal = ({ setOpenModal, onDeleteUserID, onDeleteFunction }) => {
+	const [accountData, setAccountData] = useState({
 		username: ""
 	});
 	const { data, loading } = useQuery(QUERY_ME);
 	// const [login, { error, data:loginData }] = useMutation(LOGIN_USER);
 
-	let finalProductData = productData;
+	let finalAccountData = accountData;
 	//  console.log(data)
 	// console.log(loginData)
 	const handleInputChange = async (event) => {
 		const { name, value } = event.target;
-		setProductData({ ...productData, [name]: value });
+		setAccountData({ ...accountData, [name]: value });
 		console.log(value)
 
 	}
 	useEffect(() => {
-		finalProductData = productData
-	}, [productData])
+		finalAccountData = accountData
+	}, [accountData])
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
@@ -32,23 +30,26 @@ const DeleteModal = ({ setOpenModal, onDeleteProductID, onDeleteFunction }) => {
 			const username = await data?.me.username;
 
 			// console.log(typeof productData);
-			console.log(finalProductData)
-			console.log(finalProductData["username"])
+			console.log(finalAccountData)
+			console.log(finalAccountData["username"])
 			console.log(username)
+			console.log(finalAccountData)
 
-			if (finalProductData["username"] === username) {
-				console.log(onDeleteProductID)
-				await onDeleteFunction(onDeleteProductID);
+			if (accountData["username"] === username) {
+				console.log(onDeleteUserID)
+				await onDeleteFunction(onDeleteUserID);
 				setOpenModal(false);
 			}
 
 		} catch (e) {
 			console.error(e);
 		}
-		setProductData({
+		setAccountData({
 			username: "",
 		});
 	};
+
+	
 
 	return (
 		<>
@@ -56,7 +57,7 @@ const DeleteModal = ({ setOpenModal, onDeleteProductID, onDeleteFunction }) => {
 				<div className="relative w-auto my-6 mx-auto max-w-3xl">
 					<div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 						<div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-							<h3 className="text-3xl font=semibold">Delete Product</h3>
+							<h3 className="text-3xl font=semibold">Delete Account</h3>
 							<button
 								className="bg-transparent border-0 text-black float-right"
 								onClick={() => { setOpenModal(false) }}
@@ -67,7 +68,7 @@ const DeleteModal = ({ setOpenModal, onDeleteProductID, onDeleteFunction }) => {
 							</button>
 						</div>
 						<div className="relative p-6 flex-auto">
-							<div className="block text-black text-lg ">Please enter your username to delete this product.</div>
+							<div className="block text-black text-lg ">Please enter your username to delete your account. Beware this action cannot be undone once you submit this request.</div>
 
 						</div>
 						<div className="relative p-6 flex-auto">

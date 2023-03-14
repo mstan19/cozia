@@ -130,7 +130,6 @@ const MyProduct = () => {
 		<div className="my-product-page">
 			{Auth.loggedIn() ? (
 				<div className="">
-					<SearchBar />
 					<div
 						className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4"
 						id="my-product-header"
