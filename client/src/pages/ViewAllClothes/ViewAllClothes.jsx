@@ -23,11 +23,11 @@ const ViewAllClothes = () => {
 				<SearchBar />
 			</div>
 			<h1 className="text-center my-6 text-3xl underline underline-offset-8">All of the Latest Fashion!</h1>
-			<section className="flex flex-wrap justify-center bg-white pt-5 mb-5 mx-10">
+			<section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 justify-center bg-white pt-5 mb-5 mx-auto">
 				{!loading && data?.products
 					.map((clothes, index) => {
 						return (
-							<button onClick={(e) => { e.preventDefault(); productPage(index) }} key={`${clothes + index}+ViewAll`}>
+							<button onClick={(e) => { e.preventDefault(); productPage(index) }} key={`${clothes + index}ViewAll`} className="bg-white w-full hover:cursor-pointer 2xl:w-[22rem] 2xl:mx-10">
 								<ClothesCard
 									product={clothes}
 								/>

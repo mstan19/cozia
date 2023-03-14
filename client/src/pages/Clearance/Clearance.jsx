@@ -53,11 +53,11 @@ const Clearance = () => {
 				<SearchBar />
 			</div>
 			<h1 className="text-center my-6 text-3xl underline underline-offset-8">All Sales Are Final</h1>
-			<section className="flex flex-wrap justify-center bg-white pt-5 mb-5 mx-10">
+			<section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 justify-center bg-white pt-5 mb-5 mx-auto">
 				{!loading && sectionCards.DEALS
 					.map((clothes, index) => {
 						return (
-							<button onClick={(e) => { e.preventDefault(); productPage(index) }} key={`${clothes + index}+OnSales`}>
+							<button onClick={(e) => { e.preventDefault(); productPage(index) }} key={`${clothes + index}+OnSales`} className="bg-white w-full hover:cursor-pointer 2xl:w-[22rem] 2xl:mx-10">
 								<ClothesCard
 									product={clothes}
 								/>

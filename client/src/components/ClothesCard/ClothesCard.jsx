@@ -16,11 +16,10 @@ const ClothesCard = ({ product }) => {
 	} = product;
 
 	return (
-		<article className="bg-white relative flex flex-col flex-wrap w-5/12 md:w-auto mx-3 mb-5 hover:cursor-pointer">
-			<Link to={`${product._id}`} prop={product}
-			>
+		<article className="relative flex flex-col flex-wrap w-5/12 w-auto mx-3 mb-5 hover:cursor-pointer">
+			<div className="2xl:w-[22rem]">
 				<img src={image} alt={productName} />
-			</Link>
+			</div>
 			{discount !== 0 ? (
 				<div className="discount-label top-0 left-0 absolute bg-red-500 text-white py-1 px-1 text-md">
 					<p>-{discount}%</p>

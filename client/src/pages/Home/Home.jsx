@@ -88,7 +88,7 @@ const Home = () => {
 				<div className="text-center text-xl underline underline-offset-8 mb-7">
 					<Link to="/all">View All</Link>
 				</div>
-				<div className="grid grid-cols-1 lg:grid-cols-3 mx-3 mb-20">
+				<div className="sm:grid sm:grid-cols-3  sm:mx-3 mb-20">
 					{!loading &&
 						Object.keys(sectionCards).length !== 0 &&
 						Object.keys(sectionCards).map((sectionKey, idx) => {
