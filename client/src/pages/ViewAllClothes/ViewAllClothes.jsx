@@ -6,37 +6,32 @@ import Filter from "../../components/Filter/Filter";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { QUERY_PRODUCTS } from "../../utils/queries";
+import { GET_ONE_PRODUCT } from "../../utils/queries";
 
 const ViewAllClothes = () => {
 	const { data, loading } = useQuery(QUERY_PRODUCTS);
-	// useEffect(() => {
-	const getAllProductsData = async () => {
-		try {
-			console.log("hi", data)
-			// const products = await data?.me;
 
-
-		} catch (err) {
-			console.error(err);
-		}
+	const productPage = (index) => {
+		let productObj = data.products[index]
+		console.log(productObj._id)
+		
 	};
-	// },[data])
-	getAllProductsData()
 
 	return (
 		<main className="min-h-screen">
 			<div className="m-10">
 				<SearchBar />
 			</div>
-
+			<h1 className="text-center my-6 text-3xl underline underline-offset-8">All of the Latest Fashion!</h1>
 			<section className="flex flex-wrap justify-center bg-white pt-5 mb-5 mx-10">
-				{!loading && data.products
-					.map((clothes, idx) => {
+				{!loading && data?.products
+					.map((clothes, index) => {
 						return (
-							<ClothesCard
-								key={clothes + idx}
-								product={clothes}
-							/>
+							<button onClick={(e) => { e.preventDefault(); productPage(index) }} key={`${clothes + index}+ViewAll`}>
+								<ClothesCard
+									product={clothes}
+								/>
+							</button>
 						);
 					})}
 			</section>

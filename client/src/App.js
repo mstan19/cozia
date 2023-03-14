@@ -23,6 +23,8 @@ import ViewClothes from "./pages/ViewClothes/ViewClothes";
 import OneClothes from "./pages/OneClothes/OneClothes";
 import FinalizeOrder from "./pages/FinalizeOrder/FinalizeOrder";
 import Success from "./pages/Success/Success";
+import Trending from "./pages/Trending/Trending";
+import Clearance from "./pages/Clearance/Clearance";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -58,6 +60,8 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/sales" element={<Clearance />} />
+                        <Route path="/trending" element={<Trending />} />
                         <Route path="/all" element={<ViewAllClothes />} />
                         <Route path="/:gender/:categoryName" element={<ViewClothes />} />
                         <Route path="/orderlist" element={<OrderList />} />
@@ -66,10 +70,20 @@ function App() {
                         <Route path="/success/:orderID" element={<Success />} />
 
                         <Route path="/confirmation" element={<FinalizeOrder />} />
-
-
                         <Route
                             path="/:gender/:categoryName/:productId"
+                            element={<OneClothes />}
+                        />
+                        <Route
+                            path="/all/:productId"
+                            element={<OneClothes />}
+                        />
+                        <Route
+                            path="/sales/:productId"
+                            element={<OneClothes />}
+                        />
+                        <Route
+                            path="/trending/:productId"
                             element={<OneClothes />}
                         />
                         <Route path="/checkout" element={<Checkout />} />
