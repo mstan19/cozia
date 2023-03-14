@@ -25,7 +25,7 @@ const ViewAllClothes = () => {
 
 	return (
 		<main className="min-h-screen">
-			<div className="m-5 h-10">
+			<div className="m-10">
 				<SearchBar />
 			</div>
 
