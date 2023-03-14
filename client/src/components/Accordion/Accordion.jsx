@@ -35,7 +35,6 @@ const Accordion = ({ title, items, link }) => {
 				{isActive &&
 					items &&
 					items.map((item) => {
-						console.log(item);
 						return (
 							<Link
 								className="p-1"

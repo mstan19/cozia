@@ -44,7 +44,6 @@ const Cart = () => {
 		}
 	};
 
-
 	useEffect(() => {
 		// TODO: Add in quantity
 		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
@@ -131,7 +130,7 @@ const Cart = () => {
 										return (
 											<div key={index + "cartKey"} className="grid grid-cols-3 mt-6 px-10">
 												<div className="w-50 h-full mr-2">
-													<img src={product.image} alt="product-image-cart" id="product-image-cart" />
+													<img src={product.image} alt="product-cart" id="product-image-cart" />
 												</div>
 
 												<div className="">

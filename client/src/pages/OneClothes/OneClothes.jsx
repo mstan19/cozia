@@ -13,6 +13,7 @@ import {
 import Accordion from "../../components/Accordion/Accordion";
 import Collapsible from "../../components/Collapsible/Collapsible";
 import Auth from "../../utils/auth";
+import { IoIosContact } from "react-icons/io";
 
 const OneClothes = () => {
 	const { productId } = useParams();
@@ -226,6 +227,24 @@ const OneClothes = () => {
 									Login to write a review
 								</button>
 							)}
+							{/* TODO: Add review comments here */}
+							{/* If there is no reviews, say no reviews atm */}
+							<section className="bg-neutral-300 rounded-md p-3 flex-col">
+								<article className="flex justify-between pb-2">
+									<div className="flex">
+										<IoIosContact className="sidebar-icon" />
+										<h2 className="ml-2">meow123</h2>
+									</div>
+									<div className="flex">
+										{/* Make it show the individual review */}
+										{displayRatings(clothes.totalRating)}
+									</div>
+								</article>
+								<p className="pb-2">
+									Good sweater. Would it buy more when I can!
+								</p>
+								<p className="text-neutral-500">1/22/22</p>
+							</section>
 						</article>
 					</section>
 				</div>
