@@ -4,23 +4,20 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const SearchBar = () => {
 	return (
-		<div
-			className="search-bar-component flex justify-center"
-			id="search-bar"
-		>
-			<div className="flex items-center py-3">
-				<div className="flex items-center relative px-6">
+		<div className="search-bar-component flex justify-center">
+			<div className="flex items-center">
+				<div className="flex items-center relative h-7 w-[20rem] sm:w-[30rem]">
 					<div className="absolute">
-						<button>
+						<button className="">
 							<FontAwesomeIcon
 								icon={faMagnifyingGlass}
-								className="search-icons px-2"
+								className="search-icons pl-6"
 							/>
 						</button>
 					</div>
 					<input
 						type="text"
-						className="h-7 rounded-full px-8 py-5 focus:shadow focus:outline-none w-full text-lg"
+						className="h-7 p-8 px-12 focus:shadow focus:outline-none w-full text-xl"
 						placeholder="Search"
 					></input>
 				</div>

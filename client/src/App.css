@@ -151,6 +151,20 @@ footer {
     background-color: var(--green);
 }
 
+
+/* .hero {
+    width:100%;
+    height:400px;
+    background: url('../src/assets/images/hero.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } */
+
 /* .hero {
 	height: 95vh;
 	width: 100vw;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { sortDateDesc, sortDiscountDesc } from "../../utils/helpers";
+import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
 import Carousel from "../../components/Carousel/Carousel";
@@ -77,25 +78,33 @@ const Home = () => {
 
 	return (
 		<div>
-			<img className="hero pb-5 w-full h-full" src={hero} alt="backgroundPic" />
+			<img className="relative object-cover bg-contain hero pb-5 w-full h-[44rem]" src={hero} alt="backgroundPic" />
+			{/* <img className="relative object-cover bg-contain hero w-full h-[44rem]" src={hero} alt="backgroundPic" ></img> */}
+			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white opacity-60 focus:opacity-0 focus:ring-4 focus:outline-none dark:border-white dark:text-black dark:hover:text-white dark:hover:bg-white dark:focus:ring-white">
+				<SearchBar />
+			</div>
+
 			<main className="min-h-screen max-w-xl m-auto">
-			<SearchBar />
-			
-			{!loading &&
-				Object.keys(sectionCards).length !== 0 &&
-				Object.keys(sectionCards).map((sectionKey, idx) => {
-					return (
-						<Carousel
-							key={sectionKey + idx}
-							section={sectionKey}
-							index={idx}
-							products={sectionCards[sectionKey]}
-						/>
-					);
-				})}
-		</main>
+				<div className="text-center font-semibold mt-8 mb-3 text-3xl">Let's Shop!</div>
+				<div className="text-center text-xl underline underline-offset-8 mb-7">
+					<Link to="/all">View All</Link>
+				</div>
+
+				{!loading &&
+					Object.keys(sectionCards).length !== 0 &&
+					Object.keys(sectionCards).map((sectionKey, idx) => {
+						return (
+							<Carousel
+								key={sectionKey + idx}
+								section={sectionKey}
+								index={idx}
+								products={sectionCards[sectionKey]}
+							/>
+						);
+					})}
+			</main>
 		</div>
-		
+
 	);
 };
 

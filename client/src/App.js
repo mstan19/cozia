@@ -18,7 +18,7 @@ import AddProductForm from "./components/AddProductForm";
 import OrderList from "./pages/OrderList/OrderList";
 import Checkout from "./pages/Checkout/Checkout";
 import Cart from "./components/Cart/Cart";
-
+import ViewAllClothes from "./pages/ViewAllClothes/ViewAllClothes";
 import ViewClothes from "./pages/ViewClothes/ViewClothes";
 import OneClothes from "./pages/OneClothes/OneClothes";
 import FinalizeOrder from "./pages/FinalizeOrder/FinalizeOrder";
@@ -58,6 +58,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/all" element={<ViewAllClothes />} />
                         <Route path="/:gender/:categoryName" element={<ViewClothes />} />
                         <Route path="/orderlist" element={<OrderList />} />
                         <Route path="/addproduct" element={<AddProductForm />} />
