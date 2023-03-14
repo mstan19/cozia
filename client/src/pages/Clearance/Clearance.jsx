@@ -40,12 +40,7 @@ const Clearance = () => {
 			setSectionCards(sCards);
 		}
 	}, [data]);
-	// console.log(sectionCards)
 
-	const productPage = (index) => {
-		let productObj = data.products[index]
-		console.log(productObj._id)
-	};
 
 	return (
 		<div className="min-h-screen">
@@ -57,11 +52,10 @@ const Clearance = () => {
 				{!loading && sectionCards.DEALS
 					.map((clothes, index) => {
 						return (
-							<button onClick={(e) => { e.preventDefault(); productPage(index) }} key={`${clothes + index}+OnSales`} className="bg-white w-full hover:cursor-pointer 2xl:w-[22rem] 2xl:mx-10">
-								<ClothesCard
-									product={clothes}
-								/>
-							</button>
+							<ClothesCard
+								product={clothes}
+								key={clothes + index}
+							/>
 						);
 					})}
 			</section>

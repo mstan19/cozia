@@ -17,9 +17,9 @@ const ClothesCard = ({ product }) => {
 
 	return (
 		<article className="relative flex flex-col flex-wrap w-5/12 w-auto mx-3 mb-5 hover:cursor-pointer">
-			<div className="2xl:w-[22rem]">
+			<Link to={`${product._id}`} prop={product}
+			>
 				<img src={image} alt={productName} />
-			</div>
 			{discount !== 0 ? (
 				<div className="discount-label top-0 left-0 absolute bg-red-500 text-white py-1 px-1 text-md">
 					<p>-{discount}%</p>
@@ -60,6 +60,8 @@ const ClothesCard = ({ product }) => {
 					)}
 				</div>
 			</section>
+			</Link>
+
 		</article>
 	);
 };

@@ -11,12 +11,6 @@ import { GET_ONE_PRODUCT } from "../../utils/queries";
 const ViewAllClothes = () => {
 	const { data, loading } = useQuery(QUERY_PRODUCTS);
 
-	const productPage = (index) => {
-		let productObj = data.products[index]
-		console.log(productObj._id)
-		
-	};
-
 	return (
 		<main className="min-h-screen">
 			<div className="m-10">
@@ -27,11 +21,10 @@ const ViewAllClothes = () => {
 				{!loading && data?.products
 					.map((clothes, index) => {
 						return (
-							<button onClick={(e) => { e.preventDefault(); productPage(index) }} key={`${clothes + index}ViewAll`} className="bg-white w-full hover:cursor-pointer 2xl:w-[22rem] 2xl:mx-10">
 								<ClothesCard
 									product={clothes}
+									key={clothes + index}
 								/>
-							</button>
 						);
 					})}
 			</section>
