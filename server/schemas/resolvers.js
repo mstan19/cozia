@@ -91,6 +91,9 @@ const resolvers = {
 		getOneProduct: async (parent, { _id }) => {
 			return await Product.findById(_id).populate("category");
 		},
+		getCategory: async (parent, { _id }, context) => {
+			return await Category.findById(_id);
+		},
 		getOneOrder: async (parent, { _id }, context) => {
 			return await Order.findById(_id).populate("products");
 		},

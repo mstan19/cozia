@@ -90,6 +90,17 @@ export const PRODUCTS_BY_CATEGORYID = gql`
 	}
 `;
 
+export const QUERY_ONE_CATEGORY = gql`
+query GetCategory($id: ID!) {
+	getCategory(_id: $id) {
+	  _id
+	  name
+	}
+  }
+
+  `;
+
+// gets all categories
 export const QUERY_CATEGORY = gql`
 	query Categories {
 		categories {
@@ -112,6 +123,9 @@ export const QUERY_MYPRODUCTS = gql`
 		price
 		size
 		_id
+		category {
+			_id
+		  }
 		}
 	}
 `;

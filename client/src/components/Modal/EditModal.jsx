@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { QUERY_ME } from "../../utils/queries";
+import { QUERY_ME, QUERY_CATEGORY  } from "../../utils/queries";
 import { LOGIN_USER } from "../../utils/mutations";
 import { useForm } from "react-hook-form";
+import { QUERY_ONE_CATEGORY } from "../../utils/queries";
 
 
 
@@ -10,17 +11,26 @@ import { useForm } from "react-hook-form";
 const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 	// const { data, loading } = useQuery(QUERY_ME);
 	console.log(onEditProduct)
+	const {
+		data: oneCategoryData,
+		loading: oneCategoryLoading,
+		error: oneCategoryError,
+	} = useQuery(QUERY_ONE_CATEGORY, {
+		variables: { id: onEditProduct.category._id },
+	});
+	console.log(oneCategoryData.getCategory.name)
+	
 	const [productData, setProductData] = useState({
 		productName: onEditProduct.productName,
 		description: onEditProduct.description,
 		image: onEditProduct.image,
 		price: onEditProduct.price,
-		gender: "",
+		gender: onEditProduct.gender,
 		discount: onEditProduct.discount,
-		size: "",
+		size: onEditProduct.size,
 		color: onEditProduct.color,
 		countInStock: onEditProduct.countInStock,
-		category: ""
+		category: oneCategoryData.getCategory.name
 	});
 
 	const preloadData = {
@@ -28,18 +38,33 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 		description: onEditProduct.description,
 		image: onEditProduct.image,
 		price: onEditProduct.price,
-		// gender: "",
+		gender: onEditProduct.gender,
 		discount: onEditProduct.discount,
-		// size: "",
+		size: onEditProduct.size,
 		color: onEditProduct.color,
 		countInStock: onEditProduct.countInStock,
-		// category: ""
+		category: oneCategoryData.getCategory.name
+		
 	};
 
 	const { register, setValue } = useForm({
 		defaultValues: preloadData
 	});
 	// const [login, { error, data:loginData }] = useMutation(LOGIN_USER);
+	const { data: categoryData, loading: loadingCategory, error: errorCategory } = useQuery(QUERY_CATEGORY);
+	const fixName = (inputField) => {
+		if (categoryData) {
+			for (let i = 0; i < categoryData.categories.length; i++) {
+				let upperCaseFirstLetter = inputField.charAt(0).toUpperCase() + inputField.slice(1);
+				let ArrayString = upperCaseFirstLetter.split(/(?=[A-Z])/);
+				if (ArrayString.length === 1) {
+					return upperCaseFirstLetter;
+				}
+				return ArrayString.join(' ');
+
+			}
+		}
+	}
 
 	let finalProductData = productData;
 	//  console.log(data)
@@ -137,11 +162,11 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 								<p className="text-red-700">*</p>
 							</label>
 							<div className="inline-block relative w-full">
-								<select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="category" onChange={handleInputChange}>
-									{/* <option defaultValue >Select Category</option>
+								<select {...register("category")} className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="category" onChange={handleInputChange}>
+									<option defaultValue >Select Category</option>
 									{categoryData && categoryData.categories.map((category) => {
 										return <option key={category.name} value={category.name} onClick={fixName}>{fixName(category.name)}</option>
-									})} */}
+									})}
 								</select>
 								<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
 									<svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -163,7 +188,7 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 									<p className="text-red-700">*</p>
 								</label>
 								<div className="inline-block relative w-full">
-									<select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="size" onChange={handleInputChange} >
+									<select {...register("size")} className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="size" onChange={handleInputChange} >
 										<option defaultValue>Select Size</option>
 										<option value="small">Small</option>
 										<option value="medium">Medium</option>
@@ -208,11 +233,11 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 							</label>
 							<div className="flex justify-evenly" onChange={handleInputChange}>
 								<div className="flex items-center w-3/4 pl-4 mr-2 border border-black rounded dark:border-black">
-									<input id="women" type="radio" value="women" name="gender" className="form-check-input w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+									<input {...register("gender")} id="women" type="radio" value="women" name="gender" className="form-check-input w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
 									<label htmlFor="women" className="w-full py-4 ml-6 text-sm font-medium text-gray-900 dark:text-gray-300">WOMEN</label>
 								</div>
 								<div className="flex items-center w-3/4 pl-4 ml-2 border border-black rounded dark:border-black">
-									<input id="men" type="radio" value="men" name="gender" className="form-check-input w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+									<input {...register("gender")} id="men" type="radio" value="men" name="gender" className="form-check-input w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
 									<label htmlFor="men" className="w-full py-4 ml-6 text-sm font-medium text-gray-900 dark:text-gray-300">MEN</label>
 								</div>
 							</div>
