@@ -130,9 +130,9 @@ Github Repository: [https://github.com/mstan19/cozia]
 ## Future Improvements
 
 -   Add a wishlist
+-   Add a Statics, where users can see how much revene they earned from their sales
 -   Build a contact page for technical support
 -   Make the search bar functional
--   Turn the app into a PWA
 
 ## Installation
 

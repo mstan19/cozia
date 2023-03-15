@@ -6,8 +6,9 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import DeleteModal from "../../components/Modal/DeleteModal";
 import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
-import { REMOVE_PRODUCT } from "../../utils/mutations";
+import { REMOVE_PRODUCT, UPDATE_PRODUCT } from "../../utils/mutations";
 import filterIcon from "../../assets/filter.png";
+import EditModal from "../../components/Modal/EditModal";
 import NeedLogin from "../../components/NeedLogin/NeedLogin";
 import {
 	calculateDiscountPrice,
@@ -27,8 +28,11 @@ const MyProduct = () => {
 		variables: { userId: data?.me?._id },
 	});
 	const [removeProduct] = useMutation(REMOVE_PRODUCT);
+	const [editProduct] = useMutation(UPDATE_PRODUCT);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [editModalOpen, setEditModalOpen] = useState(false);
 	const [selectedProductId, setSelectedProductId] = useState();
+	const [editSelectedProduct, setEditSelectedProduct] = useState();
 
 	useEffect(() => {
 		const getUserData = async () => {
@@ -48,6 +52,8 @@ const MyProduct = () => {
 
 		getUserData();
 	}, [data]);
+
+// console.log(myProductsData.getMyProducts)
 
 	function stockCheck(index) {
 		if (myProductsData?.getMyProducts[index].countInStock <= 3) {
@@ -96,13 +102,35 @@ const MyProduct = () => {
 		nav("/addproduct");
 	}
 
-	function handleEditProductBtn() {
+	const handleEditProductBtn = async (productId) => {
+		try {
+			// let x
+			// const updatedProducts = await editProduct({
+			// 	variables: { productId: productId, productData: x },
+			// });
+			if (!productId) {
+				throw new Error("there is no product with that id");
+			}
+
+			// setEditSelectedProduct(updatedProducts);
+			console.log("edit product");
+			// window.location.reload();
+		} catch (err) {
+			console.error(err);
+		}
 		console.log("edit product");
 	}
 
 	const openModal = (id) => {
 		setModalOpen(true);
 		setSelectedProductId(id);
+	};
+
+	const openEditModal = (productObject) => {
+		console.log(productObject);
+		// myProductsData.getMyProducts
+		setEditModalOpen(true);
+		setEditSelectedProduct(productObject);
 	};
 
 	const handleDeleteProductBtn = async (productId) => {
@@ -210,13 +238,33 @@ const MyProduct = () => {
 														<button
 															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 text-white py-2 px-5 focus:outline-none"
 															id="edit-product-btn"
-															onClick={() =>
-																handleEditProductBtn()
-															}
+															onClick={() => {
+																setEditModalOpen(
+																	true
+																);
+																openEditModal(
+																	product
+																);
+															}}
 															type="submit"
 														>
 															Edit
 														</button>
+														{editModalOpen && (
+															<EditModal
+																setEditOpenModal={
+																	setEditModalOpen
+																}
+																onEditFunction={() =>
+																	handleEditProductBtn(
+																		editSelectedProduct
+																	)
+																}
+																onEditProduct={
+																	editSelectedProduct
+																}
+															/>
+														)}
 														<button
 															className=" bg-red-600 rounded-lg my-0.5 hover:bg-red-600 text-white py-2 px-5 focus:outline-none"
 															id="delete-product-btn"

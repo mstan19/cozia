@@ -63,14 +63,6 @@ const Checkout = () => {
 		}
 	}, [orderListData]);
 
-	// useEffect(() => {
-	// 	if (stripeData) {
-	// 	  stripePromise.then((res) => {
-	// 		res.redirectToCheckout({ sessionId: stripeData.checkout.session });
-	// 	  });
-	// 	}
-	// }, [stripeData]);
-
 	useEffect(() => {
 		const tempsubtotal = cart
 			.reduce(

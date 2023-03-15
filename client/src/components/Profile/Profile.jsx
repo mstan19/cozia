@@ -16,12 +16,12 @@ const Profile = () => {
 	const [removeUser] = useMutation(REMOVE_USER);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [accountData, setAccountData] = useState({
-		firstName: "",
-		lastName: "",
-		username: "",
-		email: "",
+		firstName: data?.me?.firstName,
+		lastName: data?.me?.lastName,
+		username: data?.me?.username,
+		email: data?.me?.email,
 	});
-	
+
 	useEffect(() => {
 		const getUserData = async () => {
 			try {
@@ -30,7 +30,7 @@ const Profile = () => {
 				if (!token) {
 					return false;
 				}
-				console.log(userData)
+				// console.log(userData)
 				const user = await data?.me;
 				setUserData(user);
 			} catch (err) {
@@ -47,20 +47,12 @@ const Profile = () => {
 		username: data?.me?.username,
 		email: data?.me?.email,
 	};
+
 	const { register, setValue } = useForm({
 		defaultValues: preloadData
 	});
 
 	let userId = data?.me?._id
-
-	// useEffect(() => {
-	// 	setValue({
-	// 		firstName: data?.me?.firstName,
-	// 		lastName: data?.me?.lastName,
-	// 		username: data?.me?.username,
-	// 		email: data?.me?.email,
-	// 	});
-	// }, []);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -89,11 +81,13 @@ const Profile = () => {
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			console.log("update form")
+
+
 			const { profileData } = await updateUser({
 				variables: { accountData: accountData, userId: userId }
 			});
 			notify();
+			console.log("update form")
 			window.location.reload();
 		} catch (e) {
 			console.error(e);
@@ -102,25 +96,25 @@ const Profile = () => {
 
 	const notify = () => toast.success("Your Account as been updated.");
 
-	// const createMessage = (inputField) => {
-	// 	let msg =
-	// 		error.graphQLErrors[0].extensions.exception.errors[inputField]
-	// 			.message;
-	// 	let genericMsg = msg?.split("is")[1];
-	// 	let firstWord =
-	// 		inputField.charAt(0).toUpperCase() + inputField.slice(1);
-	// 	let strArray = firstWord.split(/(?=[A-Z])/);
+	const createMessage = (inputField) => {
+		let msg =
+			error.graphQLErrors[0].extensions.exception.errors[inputField]
+				.message;
+		let genericMsg = msg?.split("is")[1];
+		let firstWord =
+			inputField.charAt(0).toUpperCase() + inputField.slice(1);
+		let strArray = firstWord.split(/(?=[A-Z])/);
 
-	// 	if (strArray.length === 1) {
-	// 		return firstWord + " is " + genericMsg;
-	// 	}
+		if (strArray.length === 1) {
+			return firstWord + " is " + genericMsg;
+		}
 
-	// 	let lowerCaseWord = strArray[1].toLowerCase();
-	// 	let finalInput = strArray[0] + " " + lowerCaseWord;
-	// 	let finalMsg = finalInput + " is " + genericMsg;
+		let lowerCaseWord = strArray[1].toLowerCase();
+		let finalInput = strArray[0] + " " + lowerCaseWord;
+		let finalMsg = finalInput + " is " + genericMsg;
 
-	// 	return finalMsg;
-	// };
+		return finalMsg;
+	};
 	return (
 		<div className="">
 			<div>
@@ -232,41 +226,48 @@ const Profile = () => {
 					</div>
 					<div className="flex flex-col items-center justify-between">
 						<button
-							className="bg-green-600 w-1/2 shadow-lg hover:bg-green-500 text-white py-2 px-4 focus:outline-none focus:shadow-outline"
+							className="bg-green-600 w-1/3 shadow-lg hover:bg-green-500 text-white py-2 px-4 focus:outline-none focus:shadow-outline"
 							type="submit"
 						>
 							UPDATE
 						</button>
 					</div>
 				</form>
-				<button
-					className=" bg-red-600 rounded-lg my-0.5 hover:bg-red-600 text-white py-2 px-5 focus:outline-none"
-					id="delete-account-btn"
-					type="button"
-					onClick={() => {
-						setModalOpen(
-							true
-						);
-					}}
-				>
-					Delete
-				</button>
-				{modalOpen && (
-					<DeleteModal
-						setOpenModal={
-							setModalOpen
-						}
-						onDeleteFunction={() =>
-							handleDeleteAccountBtn(
-								userId
-							)
-						}
-						onDeleteUserID={
-							userId
-						}
-					/>
-				)}
-
+			</div>
+			<div className="container m-auto w-full py-8 md:w-[44rem]">
+				<div className="bg-white p-3 m-0">
+					<h1 className="text-2xl text-center">Delete Account</h1>
+					<p className="text-lg text-center m-2">Beware this action cannot be undone once you submit this request.</p>
+					<div className="flex flex-col items-center justify-between">
+						<button
+							className="bg-red-600 my-0.5 shadow hover:bg-red-400 text-white py-2 px-5 focus:outline-none"
+							id="delete-account-btn"
+							type="button"
+							onClick={() => {
+								setModalOpen(
+									true
+								);
+							}}
+						>
+							Delete Account
+						</button>
+						{modalOpen && (
+							<DeleteModal
+								setOpenModal={
+									setModalOpen
+								}
+								onDeleteFunction={() =>
+									handleDeleteAccountBtn(
+										userId
+									)
+								}
+								onDeleteUserID={
+									userId
+								}
+							/>
+						)}
+					</div>
+				</div>
 			</div>
 		</div>
 	);

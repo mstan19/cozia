@@ -100,16 +100,18 @@ export const QUERY_CATEGORY = gql`
 `;
 
 export const QUERY_MYPRODUCTS = gql`
-	query GetMyProducts($userId: ID!) {
+	query Query($userId: ID!) {
 		getMyProducts(userID: $userId) {
-			_id
-			price
-			productName
-			countInStock
-			color
-			image
-			size
-			discount
+		productName
+		description
+		color
+		countInStock
+		discount
+		gender
+		image
+		price
+		size
+		_id
 		}
 	}
 `;
