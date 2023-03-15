@@ -265,15 +265,14 @@ const resolvers = {
 
 			return updateOrder;
 		},
-		updateUser: async (parent, args, context) => {
-			if (context.user) {
-				// console.log( "##", args);
-				return await User.findByIdAndUpdate(context.user._id, args, {
-					new: true,
-				});
-			}
+		updateUser: async (parent, { userId, accountData }, context) => {
+			// console.log( "##", args);
+			const updateUser = User.findByIdAndUpdate({ _id: userId },
+				accountData,
+				{ new: true }
+			)
+			return updateUser;
 
-			throw new AuthenticationError("Not logged in");
 		},
 		removeUser: async (parent, { userId }, context) => {
 			const deleteUser = await User.findOneAndDelete({

@@ -69,13 +69,12 @@ mutation UpdateProduct($productsByCategory: ID!, $productId: ID!, $productData: 
 `;
 
 export const UPDATE_USER = gql`
-    mutation UpdateUser($userId: ID!, $firstName: String, $lastName: String, $email: String, $username: String) {
-        updateUser(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, username: $username) {
-        _id
+    mutation Mutation($userId: ID!, $accountData: userInput!) {
+        updateUser(userId: $userId, accountData: $accountData) {
+        email
         firstName
         lastName
         username
-        email
         }
     }
 `;

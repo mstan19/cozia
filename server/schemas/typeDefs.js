@@ -109,7 +109,10 @@ const typeDefs = gql`
         name: String
     }
     input userInput {
-        email: String
+        firstName: String!
+        lastName: String!
+        username: String!
+        email: String!
     }
 
     input productInput {
@@ -164,10 +167,7 @@ const typeDefs = gql`
         ): Auth
         updateUser(
             userId: ID!
-            firstName: String
-            lastName: String
-            email: String
-            username: String
+            accountData: userInput!
         ): User
         removeUser(userId: ID!): User
         addProduct(productsByCategory: ID!, productData: productInput!, userId: ID!): Product
