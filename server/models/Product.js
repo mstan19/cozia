@@ -59,6 +59,7 @@ const productSchema = new Schema({
 				ref: "User",
 				required: true,
 			},
+
 			rating: {
 				type: Number,
 				required: true,

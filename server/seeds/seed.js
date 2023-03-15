@@ -67,9 +67,9 @@ db.once("open", async () => {
 			for (let m = 0; m < 3; m++) {
 				let reviewSchema = {
 					user: userList[0]._id,
-					rating: 9.0,
+					rating: Math.random() * 5,
 					comment: "cool",
-					createdAt: "1/1",
+					createdAt: faker.date.past(),
 				};
 				let product = {
 					productName: faker.commerce.product(),

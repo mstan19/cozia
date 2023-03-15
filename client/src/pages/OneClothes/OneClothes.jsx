@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { QUERY_ME } from "../../utils/queries";
+import { QUERY_GET_USER, QUERY_ME } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
 import { CartState } from "../../context/CartContext";
 import toast, { Toaster } from "react-hot-toast";
@@ -17,13 +17,22 @@ import { IoIosContact } from "react-icons/io";
 
 const OneClothes = () => {
 	const { productId } = useParams();
+	const [userId, setUserId] = useState();
 	const { meData, meLoading } = useQuery(QUERY_ME);
-	const [userData, setUserData] = useState({});
 	const { loading, data, error } = useQuery(GET_ONE_PRODUCT, {
 		variables: { id: productId },
 	});
+
+	const {
+		loading: userLoading,
+		data: userData,
+		error: userError,
+	} = useQuery(QUERY_GET_USER, {
+		variables: { id: userId },
+	});
 	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
+	const [reviews, setReviews] = useState();
 	const [quantityInput, setQuantityInput] = useState(1);
 	const [date, setDate] = useState();
 	const navigate = useNavigate();
@@ -37,9 +46,7 @@ const OneClothes = () => {
 		setQuantityInput((prevCount) =>
 			quantityInput === clothes.countInStock ? prevCount : prevCount + 1
 		);
-	console.log(quantityInput);
 
-	// console.log(clothes.countInStock);
 	if (error) {
 		console.log(error);
 	}
@@ -47,12 +54,17 @@ const OneClothes = () => {
 	useEffect(() => {
 		const date = new Date();
 		setDate(date.getDate());
+
 		let product = data?.getOneProduct;
-		// console.log(product);
 		if (product && product.length !== 0) {
 			setClothes(product);
+			setReviews(product.reviews);
+			let userReview;
+			setUserId();
 		}
-	}, [data]);
+
+
+	}, [data, reviews, userData, userLoading]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -143,7 +155,6 @@ const OneClothes = () => {
 									-
 								</button>
 								<div>{quantityInput}</div>
-								{/* TODO: Fix quantity - cannot go over what they have */}
 								<button
 									className="bg-slate-500 py-3 px-4 text-white rounded-r-lg"
 									onClick={handleIncrement}
@@ -229,22 +240,41 @@ const OneClothes = () => {
 							)}
 							{/* TODO: Add review comments here */}
 							{/* If there is no reviews, say no reviews atm */}
-							<section className="bg-neutral-300 rounded-md p-3 flex-col">
-								<article className="flex justify-between pb-2">
-									<div className="flex">
-										<IoIosContact className="sidebar-icon" />
-										<h2 className="ml-2">meow123</h2>
-									</div>
-									<div className="flex">
-										{/* Make it show the individual review */}
-										{displayRatings(clothes.totalRating)}
-									</div>
-								</article>
-								<p className="pb-2">
-									Good sweater. Would it buy more when I can!
-								</p>
-								<p className="text-neutral-500">1/22/22</p>
-							</section>
+							{reviews ? (
+								reviews.map((review, idx) => {
+									console.log(review);
+									return (
+										<section
+											className="bg-neutral-300 rounded-md p-3 flex-col"
+											key={idx}
+										>
+											<article className="flex justify-between pb-2">
+												<div className="flex">
+													<IoIosContact className="sidebar-icon" />
+													<h2 className="ml-2">
+														meow123
+													</h2>
+												</div>
+												<div className="flex">
+													{/* Make it show the individual review */}
+													{displayRatings(
+														clothes.totalRating
+													)}
+												</div>
+											</article>
+											<p className="pb-2">
+												Good sweater. Would it buy more
+												when I can! {review.comment}
+											</p>
+											<p className="text-neutral-500">
+												{review.createdAt}
+											</p>
+										</section>
+									);
+								})
+							) : (
+								<p>No reviews currently</p>
+							)}
 						</article>
 					</section>
 				</div>
