@@ -84,7 +84,13 @@ const Profile = () => {
 
 
 			const { profileData } = await updateUser({
-				variables: { accountData: accountData, userId: userId }
+				variables: {
+					email: accountData.email,
+					firstName: accountData.firstName,
+					lastName: accountData.lastName,
+					username: accountData.username, 
+					userId: userId
+				}
 			});
 			notify();
 			console.log("update form")
@@ -94,7 +100,7 @@ const Profile = () => {
 		}
 	};
 
-	const notify = () => toast.success("Your Account as been updated.");
+	const notify = () => toast.success("Your Account has been updated.");
 
 	const createMessage = (inputField) => {
 		let msg =
@@ -140,14 +146,14 @@ const Profile = () => {
 							type="text"
 							onChange={handleInputChange}
 						/>
-						{/* {error &&
+						{error &&
 							error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
 								"firstName"
 							) ? (
 							<div className="text-red-500 text-base italic">
 								{createMessage("firstName")}
 							</div>
-						) : null} */}
+						) : null}
 					</div>
 					<div className="mb-4">
 						<label
@@ -165,14 +171,14 @@ const Profile = () => {
 							type="text"
 							onChange={handleInputChange}
 						/>
-						{/* {error &&
+						{error &&
 							error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
 								"lastName"
 							) ? (
 							<div className="text-red-500 text-base italic">
 								{createMessage("lastName")}
 							</div>
-						) : null} */}
+						) : null}
 					</div>
 					<div className="mb-4">
 						<label
@@ -190,14 +196,14 @@ const Profile = () => {
 							type="text"
 							onChange={handleInputChange}
 						/>
-						{/* {error &&
+						{error &&
 							error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
 								"email"
 							) ? (
 							<div className="text-red-500 text-base italic">
 								{createMessage("email")}
 							</div>
-						) : null} */}
+						) : null}
 					</div>
 					<div className="mb-4">
 						<label
@@ -215,14 +221,14 @@ const Profile = () => {
 							type="text"
 							onChange={handleInputChange}
 						/>
-						{/* {error &&
+						{error &&
 							error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
 								"username"
 							) ? (
 							<div className="text-red-500 text-base italic">
 								{createMessage("username")}
 							</div>
-						) : null} */}
+						) : null}
 					</div>
 					<div className="flex flex-col items-center justify-between">
 						<button

@@ -168,7 +168,10 @@ const typeDefs = gql`
         ): Auth
         updateUser(
             userId: ID!
-            accountData: userInput!
+            firstName: String!
+            lastName: String!
+            username: String!
+            email: String!
         ): User
         removeUser(userId: ID!): User
         addProduct(productsByCategory: ID!, productData: productInput!, userId: ID!): Product

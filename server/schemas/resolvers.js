@@ -254,7 +254,7 @@ const resolvers = {
 			const updateProduct = await Product.findOneAndUpdate(
 				{ _id: productId },
 				productData,
-				{ new: true }
+				{ new: true, runValidators: true }
 			);
 
 			return updateProduct;
@@ -268,11 +268,16 @@ const resolvers = {
 
 			return updateOrder;
 		},
-		updateUser: async (parent, { userId, accountData }, context) => {
+		updateUser: async (parent, { userId, firstName, lastName, email, username }, context) => {
 			// console.log( "##", args);
-			const updateUser = User.findByIdAndUpdate({ _id: userId },
-				accountData,
-				{ new: true }
+			const updateUser = User.findByIdAndUpdate(userId, {
+				firstName,
+				lastName,
+				email,
+				username
+			},
+
+				{ new: true, runValidators: true }
 			)
 			return updateUser;
 

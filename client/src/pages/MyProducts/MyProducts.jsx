@@ -6,10 +6,11 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import DeleteModal from "../../components/Modal/DeleteModal";
 import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
-import { REMOVE_PRODUCT, UPDATE_PRODUCT } from "../../utils/mutations";
+import { REMOVE_PRODUCT } from "../../utils/mutations";
 import filterIcon from "../../assets/filter.png";
 import EditModal from "../../components/Modal/EditModal";
 import NeedLogin from "../../components/NeedLogin/NeedLogin";
+import toast, { Toaster } from 'react-hot-toast';
 import {
 	calculateDiscountPrice,
 	displayRatings,
@@ -28,7 +29,6 @@ const MyProduct = () => {
 		variables: { userId: data?.me?._id },
 	});
 	const [removeProduct] = useMutation(REMOVE_PRODUCT);
-	const [editProduct] = useMutation(UPDATE_PRODUCT);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [editModalOpen, setEditModalOpen] = useState(false);
 	const [selectedProductId, setSelectedProductId] = useState();
@@ -54,7 +54,7 @@ const MyProduct = () => {
 	}, [data]);
 
 // console.log(myProductsData.getMyProducts)
-
+	const notify = () => toast.success("Your product has been updated.");
 	function stockCheck(index) {
 		if (myProductsData?.getMyProducts[index].countInStock <= 3) {
 			return (
@@ -102,23 +102,12 @@ const MyProduct = () => {
 		nav("/addproduct");
 	}
 
-	const handleEditProductBtn = async (productId) => {
+	const handleEditProductBtn = async (productObject) => {
 		try {
-			// let x
-			// const updatedProducts = await editProduct({
-			// 	variables: { productId: productId, productData: x },
-			// });
-			if (!productId) {
-				throw new Error("there is no product with that id");
-			}
-
-			// setEditSelectedProduct(updatedProducts);
-			console.log("edit product");
-			// window.location.reload();
+			notify();
 		} catch (err) {
 			console.error(err);
 		}
-		console.log("edit product");
 	}
 
 	const openModal = (id) => {
@@ -128,7 +117,6 @@ const MyProduct = () => {
 
 	const openEditModal = (productObject) => {
 		console.log(productObject);
-		// myProductsData.getMyProducts
 		setEditModalOpen(true);
 		setEditSelectedProduct(productObject);
 	};
@@ -158,6 +146,10 @@ const MyProduct = () => {
 		<div className="my-product-page">
 			{Auth.loggedIn() ? (
 				<div className="">
+					<div>
+				<Toaster position="top-center"
+					reverseOrder={false} />
+			</div>
 					<div
 						className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4"
 						id="my-product-header"
