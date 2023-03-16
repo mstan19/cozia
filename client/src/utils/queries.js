@@ -156,10 +156,22 @@ export const QUERY_CHECKOUT = gql`
 `;
 
 export const QUERY_GET_USER = gql`
-	query getUser($userId: ID!) {
-		user(userID: $userId) {
+	query GetUser($id: ID!) {
+		getUser(_id: $id) {
 			_id
 			username
 		}
 	}
-`
+`;
+
+export const QUERY_USERS = gql`
+	query GetAllUsers {
+		getAllUsers {
+			_id
+			email
+			firstName
+			lastName
+			username
+		}
+	}
+`;

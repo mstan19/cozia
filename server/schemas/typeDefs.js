@@ -90,6 +90,7 @@ const typeDefs = gql`
         getMyProducts(userID: ID!): [Product]
         categories: [Category]
         getUser(_id: ID!): User
+        getAllUsers: [User]
         products: [Product]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product

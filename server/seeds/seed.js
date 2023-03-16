@@ -40,6 +40,7 @@ db.once("open", async () => {
 				name: "shirts",
 			},
 		];
+		let commentsList = ["AWESOME! Would buy this again.", "Love the fabric.", "I don't think I would get this again...", "I wish this would go on sale already, so I can get more.", "At first I didn't like it, but then I like it now."]
 
 		const newCategory = await Category.create(clothesCategory);
 		// }
@@ -68,7 +69,7 @@ db.once("open", async () => {
 				let reviewSchema = {
 					user: userList[0]._id,
 					rating: Math.random() * 5,
-					comment: "cool",
+					comment: commentsList[Math.floor(Math.random() * commentsList.length)],
 					createdAt: faker.date.past(),
 				};
 				let product = {

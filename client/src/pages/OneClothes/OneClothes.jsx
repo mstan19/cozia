@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { QUERY_GET_USER, QUERY_ME } from "../../utils/queries";
+import { QUERY_GET_USER, QUERY_USERS } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
 import { CartState } from "../../context/CartContext";
 import toast, { Toaster } from "react-hot-toast";
@@ -18,18 +18,25 @@ import { IoIosContact } from "react-icons/io";
 const OneClothes = () => {
 	const { productId } = useParams();
 	const [userId, setUserId] = useState();
-	const { meData, meLoading } = useQuery(QUERY_ME);
+	const [username, setUsername] = useState("Anonymous");
 	const { loading, data, error } = useQuery(GET_ONE_PRODUCT, {
 		variables: { id: productId },
 	});
 
 	const {
-		loading: userLoading,
-		data: userData,
-		error: userError,
+		loading: oneUserLoading,
+		data: oneUserData,
+		error: oneUserError,
 	} = useQuery(QUERY_GET_USER, {
 		variables: { id: userId },
 	});
+
+	const {
+		loading: usersLoading,
+		data: usersData,
+		error: usersError,
+	} = useQuery(QUERY_USERS);
+
 	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
 	const [reviews, setReviews] = useState();
@@ -56,15 +63,22 @@ const OneClothes = () => {
 		setDate(date.getDate());
 
 		let product = data?.getOneProduct;
+		let users = usersData?.getAllUsers;
 		if (product && product.length !== 0) {
 			setClothes(product);
 			setReviews(product.reviews);
-			let userReview;
-			setUserId();
+			console.log(users);
+			if (reviews) {
+				reviews.forEach((review) => {
+					setUserId(review.user._id);
+					let selectedUser = users.filter(
+						(user) => user._id === userId
+					);
+					setUsername(selectedUser[0].username)
+				});
+			}
 		}
-
-
-	}, [data, reviews, userData, userLoading]);
+	}, [data, reviews, userId, usersData, usersLoading]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -252,7 +266,8 @@ const OneClothes = () => {
 												<div className="flex">
 													<IoIosContact className="sidebar-icon" />
 													<h2 className="ml-2">
-														meow123
+														{/* TODO: Get username to show instead */}
+														{username}
 													</h2>
 												</div>
 												<div className="flex">
@@ -263,10 +278,10 @@ const OneClothes = () => {
 												</div>
 											</article>
 											<p className="pb-2">
-												Good sweater. Would it buy more
-												when I can! {review.comment}
+												{review.comment}
 											</p>
 											<p className="text-neutral-500">
+												{/* TODO: Fix date to show properly */}
 												{review.createdAt}
 											</p>
 										</section>
