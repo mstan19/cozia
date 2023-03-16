@@ -4,7 +4,6 @@ const { signToken } = require("../utils/auth");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
-// const { faker } = require("@faker-js/faker");
 const mongoose = require("mongoose");
 
 const resolvers = {
@@ -37,21 +36,10 @@ const resolvers = {
 				products: { $in: myProductIds },
 			}).populate("products");
 
-			// console.log("=====ALL MY PRODUCTS======")
-			myProductsData.forEach((u) => {
-				// console.log(u._id)
-				// console.log(u.productName)
-			});
-			// console.log("==========================")
-
 			ordersWithMyProduct.forEach((order) => {
-				// console.log("ORDER CONTAINING MY PRODUCTS-----")
-				// console.log("ORDER_ID=" + order._id)
 				order.products.forEach((product) => {
 					myProductIds.forEach((myProductId) => {
 						if (product._id.equals(myProductId)) {
-							console.log("" + product.productName);
-
 							let getCity = order?.shippingAddress.city;
 							let getState = order?.shippingAddress.state;
 							let getStreet = order?.shippingAddress.street;
@@ -77,9 +65,7 @@ const resolvers = {
 						}
 					});
 				});
-				// console.log("---------------------------------")
 			});
-			// console.log(JSON.stringify(productDisplayData))
 			return JSON.stringify(productDisplayData);
 		},
 		categories: async () => {
@@ -113,13 +99,12 @@ const resolvers = {
 			return await Product.find();
 		},
 		checkout: async (parent, { orderID }, context) => {
-			// const url = new URL(context.headers.referer).origin;
 			const order = await Order.findById({ _id: orderID }).populate(
 				"products"
 			);
-			console.log("order with products", order.products);
+			// console.log("order with products", order.products);
 
-			console.log("order", order);
+			// console.log("order", order);
 			const line_items = order.products.map((product) => {
 				return {
 					price_data: {
@@ -144,8 +129,7 @@ const resolvers = {
 					quantity: 1,
 				};
 			});
-			// console.log("line_items", line_items)
-			// orderID = "640a1b9fe93c13d53c980416"
+
 			const session = await stripe.checkout.sessions.create({
 				payment_method_types: ["card"],
 				shipping_options: [
@@ -203,31 +187,24 @@ const resolvers = {
 				email,
 				password,
 			});
-			//   console.log("this is user", user)
 			const token = signToken(user);
 			if (!firstName) {
-				// console.log("firstName", firstName)
 				throw new AuthenticationError("Need firstName");
 			}
 			if (!lastName) {
-				// console.log("lastName", lastName)
 				throw new AuthenticationError("Need lastName");
 			}
 			if (!username) {
-				// console.log("username", username)
 				throw new AuthenticationError("Need username");
 			}
 
 			if (!email) {
-				// console.log("email", email)
 				throw new AuthenticationError("Need email");
 			}
 
 			if (!password) {
-				// console.log("password", password)
 				throw new AuthenticationError("Need password");
 			}
-			//   console.log("this is before the return")
 			return { token, user };
 		},
 		addProduct: async (
@@ -236,17 +213,13 @@ const resolvers = {
 			context
 		) => {
 			productData["category"] = productsByCategory;
-			// console.log(productData)
 			productData["user"] = userId;
 			const newProduct = await Product.create(productData);
 
 			return newProduct;
 		},
 		addOrder: async (parent, { orderData, userId }, context) => {
-			// orderInfoData["productOrderData"] = productOrderData;
-			// orderData["deliveryData"] = deliveryData;
 			orderData["user"] = userId;
-			// let orderData =
 			const newOrder = await Order.create(orderData);
 
 			return newOrder;
@@ -262,7 +235,6 @@ const resolvers = {
 			context
 		) => {
 			productData["category"] = productsByCategory;
-			// console.log("##", productData);
 			const updateProduct = await Product.findOneAndUpdate(
 				{ _id: productId },
 				productData,
@@ -282,7 +254,6 @@ const resolvers = {
 		},
 		updateUser: async (parent, args, context) => {
 			if (context.user) {
-				// console.log( "##", args);
 				return await User.findByIdAndUpdate(context.user._id, args, {
 					new: true,
 				});

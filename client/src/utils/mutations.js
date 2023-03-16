@@ -28,63 +28,6 @@ export const ADD_USER = gql`
 	}
 `;
 
-export const ADD_PRODUCT = gql`
-	mutation AddProduct(
-		$productsByCategory: ID!
-		$productData: productInput!
-		$userId: ID!
-	) {
-		addProduct(
-			productsByCategory: $productsByCategory
-			productData: $productData
-			userId: $userId
-		) {
-			_id
-			productName
-			description
-			image
-			price
-			discount
-			gender
-			size
-			color
-			countInStock
-		}
-	}
-`;
-
-export const REMOVE_PRODUCT = gql`
-	mutation RemoveProduct($productId: ID!) {
-		removeProduct(productId: $productId) {
-			_id
-		}
-	}
-`;
-// updates product only (not reviews)
-export const UPDATE_PRODUCT = gql`
-	mutation UpdateProduct(
-		$productsByCategory: ID!
-		$productId: ID!
-		$productData: productInput!
-	) {
-		updateProduct(
-			productsByCategory: $productsByCategory
-			productId: $productId
-			productData: $productData
-		) {
-			productName
-			description
-			image
-			price
-			discount
-			gender
-			size
-			color
-			countInStock
-		}
-	}
-`;
-
 export const UPDATE_USER = gql`
 	mutation UpdateUser(
 		$userId: ID!
@@ -117,12 +60,60 @@ export const REMOVE_USER = gql`
 	}
 `;
 
-export const EDIT_ORDER = gql`
-	mutation Mutation($orderId: ID!, $orderData: orderInput!) {
-		updateOrder(orderId: $orderId, orderData: $orderData) {
+export const ADD_PRODUCT = gql`
+	mutation AddProduct(
+		$productsByCategory: ID!
+		$productData: productInput!
+		$userId: ID!
+	) {
+		addProduct(
+			productsByCategory: $productsByCategory
+			productData: $productData
+			userId: $userId
+		) {
 			_id
-			deliveryDate
-			isDelivered
+			productName
+			description
+			image
+			price
+			discount
+			gender
+			size
+			color
+			countInStock
+		}
+	}
+`;
+
+// updates product only (not reviews)
+export const UPDATE_PRODUCT = gql`
+	mutation UpdateProduct(
+		$productsByCategory: ID!
+		$productId: ID!
+		$productData: productInput!
+	) {
+		updateProduct(
+			productsByCategory: $productsByCategory
+			productId: $productId
+			productData: $productData
+		) {
+			productName
+			description
+			image
+			price
+			discount
+			gender
+			size
+			color
+			countInStock
+		}
+	}
+`;
+
+export const REMOVE_PRODUCT = gql`
+	mutation RemoveProduct($productId: ID!) {
+		removeProduct(productId: $productId) {
+			_id
 		}
 	}
 `;
@@ -146,6 +137,16 @@ export const ADD_ORDER = gql`
 			tax
 			totalCost
 			purchaseDate
+			deliveryDate
+			isDelivered
+		}
+	}
+`;
+
+export const EDIT_ORDER = gql`
+	mutation Mutation($orderId: ID!, $orderData: orderInput!) {
+		updateOrder(orderId: $orderId, orderData: $orderData) {
+			_id
 			deliveryDate
 			isDelivered
 		}

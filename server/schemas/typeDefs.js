@@ -156,10 +156,7 @@ const typeDefs = gql`
         deliveryDate: String
     }
 
-
-
     #Mutation
-
     type Mutation {
         requirePassword( password: String!): Auth
         login(email: String!, password: String!): Auth

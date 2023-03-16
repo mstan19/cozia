@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { QUERY_GET_USER, QUERY_USERS } from "../../utils/queries";
+import { QUERY_GET_USER, QUERY_REVIEWS_BY_PRODUCT, QUERY_USERS } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
 import { CartState } from "../../context/CartContext";
 import toast, { Toaster } from "react-hot-toast";
@@ -37,9 +37,13 @@ const OneClothes = () => {
 		error: usersError,
 	} = useQuery(QUERY_USERS);
 
+	const { loading: reviewLoading, data: reviewData, error: reviewError } = useQuery(QUERY_REVIEWS_BY_PRODUCT, {
+		variables: { id: productId }
+	});
+
 	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
-	const [reviews, setReviews] = useState();
+	// const [reviews, setReviews] = useState();
 	const [quantityInput, setQuantityInput] = useState(1);
 	const [date, setDate] = useState();
 	const navigate = useNavigate();
@@ -58,27 +62,29 @@ const OneClothes = () => {
 		console.log(error);
 	}
 
+	// console.log(reviews);
 	useEffect(() => {
 		const date = new Date();
 		setDate(date.getDate());
 
 		let product = data?.getOneProduct;
 		let users = usersData?.getAllUsers;
+		// let reviews = reviewData?.getReviewsByProduct;
+		// console.log(reviews)
 		if (product && product.length !== 0) {
 			setClothes(product);
-			setReviews(product.reviews);
-			console.log(users);
-			if (reviews) {
-				reviews.forEach((review) => {
-					setUserId(review.user._id);
-					// let selectedUser = users.filter(
-					// 	(user) => user._id === userId
-					// );
-					// setUsername(selectedUser[0].username)
-				});
-			}
+			// console.log(users);
+			// if (reviews) {
+			// 	reviews.forEach((review) => {
+			// 		setUserId(review.user._id);
+			// 		// let selectedUser = users.filter(
+			// 		// 	(user) => user._id === userId
+			// 		// );
+			// 		// setUsername(selectedUser[0].username)
+			// 	});
+			// }
 		}
-	}, [data, reviews, userId, usersData, usersLoading]);
+	}, [data, userId, usersData, usersLoading]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -255,7 +261,7 @@ const OneClothes = () => {
 							)}
 							{/* TODO: Add review comments here */}
 							{/* If there is no reviews, say no reviews atm */}
-							{reviews ? (
+							{/* {reviews ? (
 								reviews.map((review, idx) => {
 									console.log(review);
 									return (
@@ -266,14 +272,14 @@ const OneClothes = () => {
 											<article className="flex justify-between pb-2">
 												<div className="flex">
 													<IoIosContact className="sidebar-icon" />
-													<h2 className="ml-2">
+													<h2 className="ml-2"> */}
 														{/* TODO: Get username to show instead */}
-														{username}
+														{/* {username}
 													</h2>
 												</div>
-												<div className="flex">
+												<div className="flex"> */}
 													{/* Make it show the individual review */}
-													{displayRatings(
+													{/* {displayRatings(
 														clothes.totalRating
 													)}
 												</div>
@@ -281,16 +287,16 @@ const OneClothes = () => {
 											<p className="pb-2">
 												{review.comment}
 											</p>
-											<p className="text-neutral-500">
+											<p className="text-neutral-500"> */}
 												{/* TODO: Fix date to show properly */}
-												{review.createdAt}
+												{/* {review.createdAt}
 											</p>
 										</section>
 									);
 								})
 							) : (
 								<p>No reviews currently</p>
-							)}
+							)} */}
 						</article>
 					</section>
 				</div>

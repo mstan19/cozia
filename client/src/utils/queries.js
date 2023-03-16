@@ -59,7 +59,12 @@ export const QUERY_PRODUCTS = gql`
 			price
 			discount
 			gender
-			review
+			category {
+				_id
+			}
+			review {
+				_id
+			}
 		}
 	}
 `;
@@ -120,6 +125,25 @@ export const QUERY_REVIEWS = gql`
 			numberReviews
 			rating
 			totalRating
+			product {
+				_id
+			}
+			user {
+				_id
+			}
+		}
+	}
+`;
+
+export const QUERY_REVIEWS_BY_PRODUCT = gql`
+	query Query($productId: ID) {
+		getReviewsByProduct(productID: $productId) {
+			_id
+			comment
+			rating
+			totalRating
+			numberReviews
+			createdAt
 			product {
 				_id
 			}
