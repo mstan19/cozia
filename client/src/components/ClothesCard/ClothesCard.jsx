@@ -48,7 +48,7 @@ const ClothesCard = ({ product }) => {
 					</p>
 				</div>
 				{/* TODO: See how to include decimals */}
-				<div className="reviews flex items-center">
+				{/* <div className="reviews flex items-center">
 					{numberReviews !== 0 ? (
 						<>
 							{displayRatings(totalRating)}
@@ -59,7 +59,7 @@ const ClothesCard = ({ product }) => {
 							<p className="text-neutral-400">No ratings yet</p>
 						</>
 					)}
-				</div>
+				</div> */}
 			</section>
 		</article>
 	);

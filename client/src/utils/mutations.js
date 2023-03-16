@@ -49,15 +49,6 @@ export const ADD_PRODUCT = gql`
 			size
 			color
 			countInStock
-			reviews {
-				user {
-					_id
-				}
-				rating
-				comment
-			}
-			totalRating
-			numberReviews
 		}
 	}
 `;
@@ -90,8 +81,6 @@ export const UPDATE_PRODUCT = gql`
 			size
 			color
 			countInStock
-			totalRating
-			numberReviews
 		}
 	}
 `;

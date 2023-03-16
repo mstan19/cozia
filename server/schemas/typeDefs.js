@@ -18,11 +18,15 @@ const typeDefs = gql`
         name: String!
     }
 
-    type Reviews {
+    type Review {
+        _id: ID!
         user: User!
         rating: Float!
         comment: String!
         createdAt: String
+        totalRating: Float!
+        numberReviews: Int
+        product: Product!
     }
 
     type Product {
@@ -37,9 +41,7 @@ const typeDefs = gql`
         color: String!
         countInStock: Int
         createdAt: DateTime
-        reviews: [Reviews]
-        totalRating: Float
-        numberReviews: Int
+        review: Review
         category: Category!
         user: User!
     }
@@ -94,6 +96,8 @@ const typeDefs = gql`
         products: [Product]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
+        reviews: [Review]
+        getReviewsByProduct(productID: ID): [Review]
         getOneOrder(_id: ID!): Order
         getAllOrders(userID: ID!): [Order]
         getSaleItems(userID: ID!): String
@@ -105,6 +109,8 @@ const typeDefs = gql`
         rating: Float!
         comment: String!
         createdAt: String
+        totalRating: Float!
+        numberReviews: Int
     }
 
     input CategoryInput {

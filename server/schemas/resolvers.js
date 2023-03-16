@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Product, Category, Order } = require("../models");
+const { User, Product, Category, Order, Review } = require("../models");
 const { signToken } = require("../utils/auth");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -97,6 +97,12 @@ const resolvers = {
 		getOneProduct: async (parent, { _id }) => {
 			return await Product.findById(_id).populate("category");
 		},
+		reviews: async () => {
+			return await Review.find();
+		},
+		getReviewsByProduct: async (parent, { productID }) => {
+			return await Review.find({ product: productID });
+		},
 		getOneOrder: async (parent, { _id }, context) => {
 			return await Order.findById(_id).populate("products");
 		},
@@ -108,28 +114,36 @@ const resolvers = {
 		},
 		checkout: async (parent, { orderID }, context) => {
 			// const url = new URL(context.headers.referer).origin;
-			const order = await Order.findById({ _id: orderID }).populate("products");
-			console.log("order with products", order.products)
+			const order = await Order.findById({ _id: orderID }).populate(
+				"products"
+			);
+			console.log("order with products", order.products);
 
-			console.log("order", order)
+			console.log("order", order);
 			const line_items = order.products.map((product) => {
 				return {
 					price_data: {
-						currency: 'usd',
+						currency: "usd",
 						product_data: {
 							name: product.productName,
 							images: [product.image],
 							description: product.description,
 							metadata: {
-								id: JSON.stringify(product._id)
-							}
+								id: JSON.stringify(product._id),
+							},
 						},
-						unit_amount: Math.floor((product.price + (product.price / 10)) - (product.price + (product.price / 10)) * (product.discount / 100)) * 100,
-						tax_behavior: 'exclusive',
+						unit_amount:
+							Math.floor(
+								product.price +
+									product.price / 10 -
+									(product.price + product.price / 10) *
+										(product.discount / 100)
+							) * 100,
+						tax_behavior: "exclusive",
 					},
 					quantity: 1,
-				}
-			})
+				};
+			});
 			// console.log("line_items", line_items)
 			// orderID = "640a1b9fe93c13d53c980416"
 			const session = await stripe.checkout.sessions.create({
@@ -137,14 +151,14 @@ const resolvers = {
 				shipping_options: [
 					{
 						shipping_rate_data: {
-							type: 'fixed_amount',
-							fixed_amount: { amount: (10 * 100), currency: 'usd' },
-							display_name: 'Shipping',
+							type: "fixed_amount",
+							fixed_amount: { amount: 10 * 100, currency: "usd" },
+							display_name: "Shipping",
 							// tax_behavior: 'exclusive',
 							// tax_code: 'txcd_92010001',
 							delivery_estimate: {
-								minimum: { unit: 'business_day', value: 5 },
-								maximum: { unit: 'business_day', value: 7 },
+								minimum: { unit: "business_day", value: 5 },
+								maximum: { unit: "business_day", value: 7 },
 							},
 						},
 					},
@@ -153,11 +167,10 @@ const resolvers = {
 				// automatic_tax: { enabled: true },
 				mode: "payment",
 				success_url: `${process.env.CLIENT_URL}/success/${orderID}`,
-				cancel_url: `${process.env.CLIENT_URL}/`
+				cancel_url: `${process.env.CLIENT_URL}/`,
 			});
 			return { session: session.id };
-
-		}
+		},
 	},
 	Mutation: {
 		login: async (parent, { email, password }) => {
@@ -229,15 +242,11 @@ const resolvers = {
 
 			return newProduct;
 		},
-		addOrder: async (
-			parent,
-			{ orderData, userId },
-			context
-		) => {
+		addOrder: async (parent, { orderData, userId }, context) => {
 			// orderInfoData["productOrderData"] = productOrderData;
 			// orderData["deliveryData"] = deliveryData;
 			orderData["user"] = userId;
-			// let orderData = 
+			// let orderData =
 			const newOrder = await Order.create(orderData);
 
 			return newOrder;

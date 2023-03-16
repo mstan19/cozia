@@ -1,5 +1,5 @@
 const db = require("../config/connection");
-const { User, Product, Category, Order } = require("../models");
+const { User, Product, Review, Category, Order } = require("../models");
 const { faker } = require("@faker-js/faker");
 
 db.once("open", async () => {
@@ -7,6 +7,7 @@ db.once("open", async () => {
 		// clean database
 		await User.deleteMany({});
 		await Product.deleteMany({});
+		await Review.deleteMany({});
 		await Category.deleteMany({});
 		await Order.deleteMany({});
 
@@ -61,17 +62,12 @@ db.once("open", async () => {
 			const newUser = await User.create(user);
 			userList.push(newUser);
 		}
-
+		
+		
 		let productsList = [];
 		//creating products
 		for (let l = 0; l < newCategory.length; l++) {
 			for (let m = 0; m < 3; m++) {
-				let reviewSchema = {
-					user: userList[0]._id,
-					rating: Math.random() * 5,
-					comment: commentsList[Math.floor(Math.random() * commentsList.length)],
-					createdAt: faker.date.past(),
-				};
 				let product = {
 					productName: faker.commerce.product(),
 					description: faker.commerce.productDescription(),
@@ -82,15 +78,25 @@ db.once("open", async () => {
 					discount: Math.floor(Math.random() * 100),
 					countInStock: 3,
 					createdAt: faker.date.past(),
-					reviews: [reviewSchema],
+					// reviews: [reviewSchema],
+					// review: reviewList[0]._id,
 					gender: genderCategory[Math.floor(Math.random() * 2)],
-					totalRating: (Math.random() * 5),
-					numberReviews: Math.floor(Math.random() * 100),
 					category: newCategory[l]._id,
 					user: userList[l]._id,
 				};
-				// console.log("$$", userList);
 				const newProduct = await Product.create(product);
+				let review = {
+					user: userList[0]._id,
+					rating: Math.random() * 5,
+					comment: commentsList[Math.floor(Math.random() * commentsList.length)],
+					createdAt: faker.date.past(),
+					numberReviews: Math.floor(Math.random() * 100),
+					totalRating: Math.floor(Math.random() * (5 - 1 + 1) + 1),
+					product: newProduct._id
+				};
+				const newReview = await Review.create(review);
+				// console.log("$$", userList);
+	
 				productsList.push(newProduct);
 			}
 		}

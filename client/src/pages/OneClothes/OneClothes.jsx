@@ -71,10 +71,10 @@ const OneClothes = () => {
 			if (reviews) {
 				reviews.forEach((review) => {
 					setUserId(review.user._id);
-					let selectedUser = users.filter(
-						(user) => user._id === userId
-					);
-					setUsername(selectedUser[0].username)
+					// let selectedUser = users.filter(
+					// 	(user) => user._id === userId
+					// );
+					// setUsername(selectedUser[0].username)
 				});
 			}
 		}
@@ -106,9 +106,9 @@ const OneClothes = () => {
 				<Toaster position="top-center" reverseOrder={false} />
 			</div>
 			{!loading && clothes && clothes.length !== 0 ? (
-				<div className="flex flex-col lg:flex-row min-w-2xl">
+				<div className="flex flex-col lg:flex-row min-w-2xl justify-between">
 					<img
-						className="w-full h-full"
+						className="w-full lg:w-1/2 h-full lg:h-1/2 object-cover"
 						src={clothes.image}
 						alt={clothes.productName}
 					/>
@@ -116,6 +116,7 @@ const OneClothes = () => {
 						<article className="flex justify-between">
 							<h1 className="text-2xl">{clothes.productName}</h1>
 							<div className="reviews flex items-center">
+								{/* TODO: Fix number of reviews */}
 								{clothes.numberReviews !== 0 ? (
 									<>
 										{displayRatings(clothes.totalRating)}
@@ -209,7 +210,7 @@ const OneClothes = () => {
 							<section className="flex justify-between">
 								<h3 className="text-2xl">Customer Reviews</h3>
 								<div className="reviews flex items-center">
-									{clothes.numberReviews !== 0 ? (
+									{/* {clothes.numberReviews !== 0 ? (
 										<>
 											{displayRatings(
 												clothes.totalRating
@@ -221,15 +222,15 @@ const OneClothes = () => {
 												No ratings yet
 											</p>
 										</>
-									)}
+									)} */}
 								</div>
 							</section>
 							<section className="flex justify-between">
 								<p className="text-neutral-500">
-									({clothes.numberReviews} reviews total)
+									{/* ({clothes.numberReviews} reviews total) */}
 								</p>
 								<p className="text-neutral-500">
-									{clothes.totalRating.toFixed(1)} out of 5
+									{/* {clothes.totalRating.toFixed(1)} out of 5 */}
 								</p>
 							</section>
 							{/* TODO: If condition for when user is logged in or not */}
