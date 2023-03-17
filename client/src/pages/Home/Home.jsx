@@ -80,7 +80,7 @@ const Home = () => {
 		<div>
 			<img className="relative object-cover bg-contain hero pb-5 w-full h-[44rem]" src={hero} alt="backgroundPic" />
 			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white opacity-60 focus:opacity-0 focus:ring-4 focus:outline-none dark:border-white dark:text-black dark:hover:text-white dark:hover:bg-white dark:focus:ring-white">
-				<SearchBar />
+				{/* <SearchBar /> */}
 			</div>
 
 			<main className="h-full">
