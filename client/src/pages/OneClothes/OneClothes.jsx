@@ -18,6 +18,7 @@ import Accordion from "../../components/Accordion/Accordion";
 import Collapsible from "../../components/Collapsible/Collapsible";
 import Auth from "../../utils/auth";
 import { IoIosContact } from "react-icons/io";
+import dateFormat from "../../utils/dateFormat";
 
 const OneClothes = () => {
 	const { productId } = useParams();
@@ -306,7 +307,7 @@ const OneClothes = () => {
 											</p>
 											<p className="text-neutral-500">
 												{/* TODO: Fix date to show properly */}
-												{review.createdAt}
+												{dateFormat(review.createdAt)}
 											</p>
 										</section>
 									);
