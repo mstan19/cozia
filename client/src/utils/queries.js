@@ -117,7 +117,7 @@ export const PRODUCTS_BY_CATEGORYID = gql`
 `;
 
 export const QUERY_REVIEWS = gql`
-	query Query {
+	query Reviews {
 		reviews {
 			_id
 			comment

@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { QUERY_GET_USER, QUERY_REVIEWS_BY_PRODUCT, QUERY_USERS } from "../../utils/queries";
-import { GET_ONE_PRODUCT } from "../../utils/queries";
+import {
+	QUERY_GET_USER,
+	GET_ONE_PRODUCT,
+	QUERY_REVIEWS_BY_PRODUCT,
+	QUERY_USERS,
+} from "../../utils/queries";
 import { CartState } from "../../context/CartContext";
 import toast, { Toaster } from "react-hot-toast";
 import {
@@ -37,9 +41,14 @@ const OneClothes = () => {
 		error: usersError,
 	} = useQuery(QUERY_USERS);
 
-	const { loading: reviewLoading, data: reviewData, error: reviewError } = useQuery(QUERY_REVIEWS_BY_PRODUCT, {
-		variables: { id: productId }
+	const {
+		loading: reviewLoading,
+		data: reviewData,
+		error: reviewError,
+	} = useQuery(QUERY_REVIEWS_BY_PRODUCT, {
+		variables: { productId: productId },
 	});
+	const [reviews, setReviews] = useState();
 
 	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
@@ -58,9 +67,9 @@ const OneClothes = () => {
 			quantityInput === clothes.countInStock ? prevCount : prevCount + 1
 		);
 
-	if (error) {
-		console.log(error);
-	}
+	// If error exists, print in console.
+	if (error) console.log(error);
+	if (reviewError) console.log(reviewError);
 
 	// console.log(reviews);
 	useEffect(() => {
@@ -68,9 +77,17 @@ const OneClothes = () => {
 		setDate(date.getDate());
 
 		let product = data?.getOneProduct;
-		let users = usersData?.getAllUsers;
-		// let reviews = reviewData?.getReviewsByProduct;
-		// console.log(reviews)
+		if (usersData) {
+			let users = usersData?.getAllUsers;
+			console.log(users);
+		}
+
+		if (!reviewLoading && reviewData) {
+			let productReview = reviewData?.getReviewsByProduct;
+			setReviews(productReview);
+			if (reviews) console.log(reviews);
+			// console.log(reviews.user)
+		}
 		if (product && product.length !== 0) {
 			setClothes(product);
 			// console.log(users);
@@ -84,7 +101,7 @@ const OneClothes = () => {
 			// 	});
 			// }
 		}
-	}, [data, userId, usersData, usersLoading]);
+	}, [data, reviewData, reviewLoading, userId, usersData, usersLoading]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -216,7 +233,7 @@ const OneClothes = () => {
 							<section className="flex justify-between">
 								<h3 className="text-2xl">Customer Reviews</h3>
 								<div className="reviews flex items-center">
-									{/* {clothes.numberReviews !== 0 ? (
+									{clothes.numberReviews !== 0 ? (
 										<>
 											{displayRatings(
 												clothes.totalRating
@@ -228,7 +245,7 @@ const OneClothes = () => {
 												No ratings yet
 											</p>
 										</>
-									)} */}
+									)}
 								</div>
 							</section>
 							<section className="flex justify-between">
@@ -261,7 +278,7 @@ const OneClothes = () => {
 							)}
 							{/* TODO: Add review comments here */}
 							{/* If there is no reviews, say no reviews atm */}
-							{/* {reviews ? (
+							{reviews ? (
 								reviews.map((review, idx) => {
 									console.log(review);
 									return (
@@ -272,31 +289,31 @@ const OneClothes = () => {
 											<article className="flex justify-between pb-2">
 												<div className="flex">
 													<IoIosContact className="sidebar-icon" />
-													<h2 className="ml-2"> */}
+													<h2 className="ml-2">
 														{/* TODO: Get username to show instead */}
-														{/* {username}
+														{username}
 													</h2>
 												</div>
-												<div className="flex"> */}
+												<div className="flex">
 													{/* Make it show the individual review */}
-													{/* {displayRatings(
-														clothes.totalRating
+													{displayRatings(
+														review.totalRating
 													)}
 												</div>
 											</article>
 											<p className="pb-2">
 												{review.comment}
 											</p>
-											<p className="text-neutral-500"> */}
+											<p className="text-neutral-500">
 												{/* TODO: Fix date to show properly */}
-												{/* {review.createdAt}
+												{review.createdAt}
 											</p>
 										</section>
 									);
 								})
 							) : (
 								<p>No reviews currently</p>
-							)} */}
+							)}
 						</article>
 					</section>
 				</div>

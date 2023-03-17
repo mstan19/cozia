@@ -23,7 +23,7 @@ const typeDefs = gql`
         user: User!
         rating: Float!
         comment: String!
-        createdAt: String
+        createdAt: DateTime
         totalRating: Float!
         numberReviews: Int
         product: Product!

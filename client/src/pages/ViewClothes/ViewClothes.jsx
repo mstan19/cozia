@@ -23,18 +23,22 @@ const ViewClothes = () => {
 	const [clothesDisplay, setClothesDisplay] = useState();
 	
 	// Query to grab existing categories
-	const { data: categoryData, loading: categoryLoad } =
+	const { data: categoryData, loading: categoryLoad, error: categoryError } =
 		useQuery(QUERY_CATEGORY);
 
 	// Query to grab products by category id
-	const { data, loading } = useQuery(PRODUCTS_BY_CATEGORYID, {
+	const { data, loading, error } = useQuery(PRODUCTS_BY_CATEGORYID, {
 		variables: { categoryId: categoryId },
 	});
 
+	if (error) console.log(error);
+	if (categoryError) console.log(error);
 
 	useEffect(() => {
 		// Grab data from QUERY_CATEGORY to find the selected category and store its values (name and _id)
 		let categories = categoryData?.categories;
+		// console.log(categories);
+		// console.log(categoryName);
 		if (categories && categories.length !== 0) {
 			let selectedCategory = categories.filter(
 				(category) => category.name === categoryName

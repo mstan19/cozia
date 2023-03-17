@@ -27,7 +27,6 @@ export function removeHyphensAndCapitalize(string) {
 }
 
 export function displayRatings(totalRating) {
-	// TODO: See how to include half stars, but mongoose doesn't accept decimals and clothes data won't load
 	switch (true) {
 		case totalRating === 0:
 			return (

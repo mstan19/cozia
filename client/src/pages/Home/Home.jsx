@@ -71,10 +71,7 @@ const Home = () => {
 				DEALS: getHighestDiscount(products),
 				TRENDING: getTrending(products),
 			};
-
 			setSectionCards(sCards);
-			console.log(sectionCards);
-			// console.log(sCards);
 		}
 	}, [data]);
 
