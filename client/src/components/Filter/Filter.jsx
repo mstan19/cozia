@@ -4,7 +4,7 @@ import {
 	sortByLowPrice,
 	sortDateDesc,
 } from "../../utils/helpers";
-import SearchBar from "../SearchBar/SearchBar";
+// import SearchBar from "../SearchBar/SearchBar";
 
 const Filter = (clothesDisplay) => {
 	const [filter, setFilter] = useState("");
@@ -16,7 +16,7 @@ const Filter = (clothesDisplay) => {
 
 	// function sortByHighPrice() {}
 
-	const filterList = ["Newest", "Low Price", "High Price"];
+	const filterList = ["Newest Arrival", "Low Price", "High Price"];
 
 	const clothes = useMemo(() => {
 		try {
@@ -50,7 +50,7 @@ const Filter = (clothesDisplay) => {
 		}
 
 		// Filter clothes based on the dropdown menu
-		// Newest, Low Price, High Price
+		// Newest, Highly reviewed, Low Price, High Price
 		// return clothesDisplay.filter((clothes) => {
 		// 	const selectedFilter =
 		// });
@@ -81,7 +81,7 @@ const Filter = (clothesDisplay) => {
 				{/* TODO: Include searchbar here??? (input) */}
 			</form>
 			{/* Filter icon */}
-			{/* <svg
+			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
 				viewBox="0 0 24 24"
@@ -94,7 +94,7 @@ const Filter = (clothesDisplay) => {
 					strokeLinejoin="round"
 					d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
 				/>
-			</svg> */}
+			</svg>
 		</button>
 	);
 };

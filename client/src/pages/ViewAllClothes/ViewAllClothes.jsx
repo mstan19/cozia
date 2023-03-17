@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { removeHyphensAndCapitalize } from "../../utils/helpers";
 import Filter from "../../components/Filter/Filter";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
-import SearchBar from "../../components/SearchBar/SearchBar";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import { QUERY_PRODUCTS } from "../../utils/queries";
 import { GET_ONE_PRODUCT } from "../../utils/queries";
 

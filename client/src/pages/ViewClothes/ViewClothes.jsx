@@ -5,7 +5,7 @@ import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY } from "../../utils/queries";
 import { removeHyphensAndCapitalize } from "../../utils/helpers";
 import Filter from "../../components/Filter/Filter";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
-import SearchBar from "../../components/SearchBar/SearchBar";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 
 const ViewClothes = () => {
 	// Grab gender and categoryName from url
@@ -21,7 +21,8 @@ const ViewClothes = () => {
 	const [clothesCategory, setClothesCategory] = useState();
 	const [categoryId, setCategoryId] = useState();
 	const [clothesDisplay, setClothesDisplay] = useState();
-	
+	const [clothesDisplayOriginal, setClothesDisplayOriginal] = useState();
+
 	// Query to grab existing categories
 	const { data: categoryData, loading: categoryLoad } =
 		useQuery(QUERY_CATEGORY);
@@ -39,6 +40,7 @@ const ViewClothes = () => {
 			let selectedCategory = categories.filter(
 				(category) => category.name === categoryName
 			);
+			console.log(selectedCategory)
 			setClothesCategory(selectedCategory);
 			setCategoryId(selectedCategory[0]._id);
 		}
@@ -46,12 +48,22 @@ const ViewClothes = () => {
 		// Grab data from the query, PRODUCTS_BY_CATEGORYID, to display the clothes from the selected category
 		let clothes = data?.productsByCategoryID;
 		setClothesDisplay(clothes);
+		setClothesDisplayOriginal(clothes);
 	}, [categoryData, categoryName, data?.productsByCategoryID]);
 
+	const filterResults = (filteredData) => {
+		console.log(filteredData)
+		setClothesDisplay(filteredData)
+	}
+
+
+	console.log(clothesDisplay)
 	return (
 		<main className="min-h-screen">
 			<div className="m-10">
-				<SearchBar />
+				{clothesDisplay ? <SearchBar filterResults={filterResults} clothesDisplay={clothesDisplayOriginal} placeholder={`Search for ${removeHyphensAndCapitalize(gender)}'s ${removeHyphensAndCapitalize(categoryName)}`} /> : null
+				}
+
 			</div>
 			<section className="flex justify-between justify-end items-center bg-white relative p-5">
 				{/* TODO: Insert categories */}
@@ -77,16 +89,18 @@ const ViewClothes = () => {
 						<></>
 					)}
 				</h3>
-				<Filter clothes={clothesDisplay}/>
+				{clothesDisplay ? <Filter clothes={clothesDisplay} /> : null
+				}
 			</section>
 			{/* ClothesCard Component */}
 			<section className="flex flex-wrap justify-center bg-white">
-			{/* <section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 justify-center bg-white pt-5 mb-5 mx-auto"> */}
+				{/* <section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 justify-center bg-white pt-5 mb-5 mx-auto"> */}
 				{!loading &&
 					clothesDisplay &&
 					clothesDisplay.length !== 0 &&
 					clothesDisplay
 						.filter((clothes) => clothes.gender === gender)
+						// .filter((clothes) => clothes.productName === "Pants")
 						.map((clothes, idx) => {
 							// TODO: If there are no results, say no results
 							return (
