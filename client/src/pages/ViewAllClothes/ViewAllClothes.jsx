@@ -26,7 +26,7 @@ const ViewAllClothes = () => {
 
 	return (
 		<main className="min-h-screen">
-			<div className="m-10">
+			<div className="m-8">
 				{data?.products ?
 					<SearchBar filterResults={filterResults} clothesDisplay={data?.products} placeholder={`Search for Clothes`} /> : null
 				}

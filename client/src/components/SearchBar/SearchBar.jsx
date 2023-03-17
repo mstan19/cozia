@@ -22,7 +22,7 @@ const SearchBar = ({ placeholder, clothesDisplay, filterResults }) => {
 	return (
 		<div className="search-bar-component flex justify-center">
 			<div className="flex items-center">
-				<div className="flex items-center relative h-7 w-[20rem] sm:w-[30rem]">
+				<div className="flex items-center mx-10 md:mx-0 relative w-[20rem] sm:w-[28rem]">
 					<div className="absolute">
 						<button className="">
 							<FontAwesomeIcon
@@ -35,7 +35,7 @@ const SearchBar = ({ placeholder, clothesDisplay, filterResults }) => {
 						value={query}
 						onChange={e => setQuery(e.target.value)}
 						type="text"
-						className="h-7 p-8 px-12 focus:shadow focus:outline-none w-full text-xl"
+						className="h-7 h-10 px-12 focus:shadow focus:outline-none w-full text-xl"
 						placeholder={placeholder}
 					></input>
 				</div>
