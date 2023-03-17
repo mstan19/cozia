@@ -128,7 +128,7 @@ export function displayRatings(totalRating) {
 					<ImStarHalf />
 				</>
 			);
-		case totalRating === 5:
+		case totalRating === 5 || totalRating === 5.0 || totalRating > 5:
 			return (
 				<>
 					<ImStarFull />

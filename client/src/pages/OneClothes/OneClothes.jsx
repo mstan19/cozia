@@ -14,7 +14,6 @@ import {
 	displayRatings,
 	removeHyphensAndCapitalize,
 } from "../../utils/helpers";
-import Accordion from "../../components/Accordion/Accordion";
 import Collapsible from "../../components/Collapsible/Collapsible";
 import Auth from "../../utils/auth";
 import { IoIosContact } from "react-icons/io";
@@ -102,7 +101,15 @@ const OneClothes = () => {
 			// 	});
 			// }
 		}
-	}, [data, reviewData, reviewLoading, userId, usersData, usersLoading]);
+	}, [
+		data,
+		reviewData,
+		reviewLoading,
+		reviews,
+		userId,
+		usersData,
+		usersLoading,
+	]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -141,11 +148,11 @@ const OneClothes = () => {
 							<h1 className="text-2xl">{clothes.productName}</h1>
 							<div className="reviews flex items-center">
 								{/* TODO: Fix number of reviews */}
-								{clothes.numberReviews !== 0 ? (
+								{clothes.numberReviews !== 0 && reviews ? (
 									<>
 										{displayRatings(clothes.totalRating)}
 										<p className="ml-2 text-neutral-500">
-											({clothes.numberReviews})
+											({reviews.length})
 										</p>
 									</>
 								) : (
@@ -232,10 +239,12 @@ const OneClothes = () => {
 						<hr className="bg-zinc-700 m-3" />
 						<article>
 							<section className="flex justify-between">
+								{/* REVIEWS */}
 								<h3 className="text-2xl">Customer Reviews</h3>
 								<div className="reviews flex items-center">
-									{clothes.numberReviews !== 0 ? (
+									{reviews && reviews.length !== 0 ? (
 										<>
+											{/* TODO: Add all reviews' rating and divide by review length */}
 											{displayRatings(
 												clothes.totalRating
 											)}
@@ -251,7 +260,9 @@ const OneClothes = () => {
 							</section>
 							<section className="flex justify-between">
 								<p className="text-neutral-500">
-									{/* ({clothes.numberReviews} reviews total) */}
+									{reviews
+										? `(${reviews.length} reviews total)`
+										: `No reviews`}
 								</p>
 								<p className="text-neutral-500">
 									{/* {clothes.totalRating.toFixed(1)} out of 5 */}
@@ -282,9 +293,10 @@ const OneClothes = () => {
 							{reviews ? (
 								reviews.map((review, idx) => {
 									console.log(review);
+									// console.log(review.user._id);
 									return (
 										<section
-											className="bg-neutral-300 rounded-md p-3 flex-col"
+											className="bg-neutral-300 rounded-md p-3 flex-col mb-3"
 											key={idx}
 										>
 											<article className="flex justify-between pb-2">
@@ -298,7 +310,7 @@ const OneClothes = () => {
 												<div className="flex">
 													{/* Make it show the individual review */}
 													{displayRatings(
-														review.totalRating
+														review.rating
 													)}
 												</div>
 											</article>
@@ -306,7 +318,6 @@ const OneClothes = () => {
 												{review.comment}
 											</p>
 											<p className="text-neutral-500">
-												{/* TODO: Fix date to show properly */}
 												{dateFormat(review.createdAt)}
 											</p>
 										</section>
