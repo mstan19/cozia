@@ -49,8 +49,8 @@ const OneClothes = () => {
 		variables: { productId: productId },
 	});
 	const [reviews, setReviews] = useState();
-	const [updatedReview, setUpdatedReview] = useState(reviews ? reviews : []);
 
+	const [totalRating, setTotalRating] = useState();
 
 	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
@@ -79,35 +79,53 @@ const OneClothes = () => {
 		let product = data?.getOneProduct;
 		if (!reviewLoading && reviewData) {
 			let productReview = reviewData?.getReviewsByProduct;
-
 			setReviews(productReview);
-			setUpdatedReview(reviews);
 		}
 
-		if (usersData && reviews) {
+		if (usersData && reviews && product) {
 			let users = usersData?.getAllUsers;
 
 			// Grab only the ids of the user from reviews
 			let rUsersList = [];
 			let rUsernamesList = [];
 			reviews.filter((review) => rUsersList.push(review.user._id));
-			console.log(rUsersList);
 
 			// Iterate through users list to find username
 			for (let i = 0; i < rUsersList.length; i++) {
-				rUsernamesList.push(users.filter((user) => user._id === rUsersList[i]));
+				rUsernamesList.push(
+					users.filter((user) => user._id === rUsersList[i])
+				);
 			}
 
 			let flatUsernames = rUsernamesList.flat();
-			let usernameTemp = flatUsernames.map((user) => {return user.username});
+			let usernameTemp = flatUsernames.map((user) => {
+				return user.username;
+			});
 			setUsername(usernameTemp);
 
+			// Initialize variables to store all the ratings and add them together
+			let ratingList = [];
+			let ratingTotal = 0;
+
+			reviews.filter((review) => ratingList.push(review.rating));
+			for (let i = 0; i < ratingList.length; i++) {
+				ratingTotal += ratingList[i];
+			}
+			setTotalRating(ratingTotal / ratingList.length);
 		}
 		if (product && product.length !== 0) {
 			setClothes(product);
-
 		}
-	}, [data, reviewData, reviewLoading, reviews, updatedReview, userId, usersData, usersLoading]);
+	}, [
+		data,
+		reviewData,
+		reviewLoading,
+		reviews,
+		totalRating,
+		userId,
+		usersData,
+		usersLoading,
+	]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -118,11 +136,8 @@ const OneClothes = () => {
 
 	const addToCart = async () => {
 		try {
-			// console.log(clothes)
 			let oneProduct = { ...clothes };
-			console.log(oneProduct);
 			oneProduct["quantity"] = quantityInput;
-			console.log(oneProduct["quantity"]);
 			setCart([...cart, oneProduct]);
 		} catch (e) {
 			console.error(e);
@@ -148,7 +163,7 @@ const OneClothes = () => {
 								{/* TODO: Fix number of reviews */}
 								{clothes.numberReviews !== 0 && reviews ? (
 									<>
-										{displayRatings(clothes.totalRating)}
+										{displayRatings(totalRating)}
 										<p className="ml-2 text-neutral-500">
 											({reviews.length})
 										</p>
@@ -243,9 +258,7 @@ const OneClothes = () => {
 									{reviews && reviews.length !== 0 ? (
 										<>
 											{/* TODO: Add all reviews' rating and divide by review length */}
-											{displayRatings(
-												clothes.totalRating
-											)}
+											{displayRatings(totalRating)}
 										</>
 									) : (
 										<>
@@ -281,18 +294,14 @@ const OneClothes = () => {
 									onClick={(e) => {
 										navigateToRegistration(e);
 									}}
-									className="rounded-lg p-3 my-3 bg-sky-600 text-white drop-shadow-xl text-lg w-full"
+									className="rounded-lg p-3 my-3 bg-neutral-400 text-white drop-shadow-xl text-lg w-full"
 								>
 									Login to write a review
 								</button>
 							)}
-							{/* TODO: Add review comments here */}
-							{/* If there is no reviews, say no reviews atm */}
+							{/* If there is no reviews, then display that there are no reviews; otherwise, display reviews */}
 							{reviews ? (
 								reviews.map((review, idx) => {
-									// console.log(review);
-									// console.log(review.user._id);
-									console.log(updatedReview)
 									return (
 										<section
 											className="bg-neutral-300 rounded-md p-3 flex-col mb-3"
@@ -302,7 +311,6 @@ const OneClothes = () => {
 												<div className="flex">
 													<IoIosContact className="sidebar-icon" />
 													<h2 className="ml-2">
-														{/* TODO: Get username to show instead */}
 														{username[idx]}
 													</h2>
 												</div>
@@ -336,5 +344,3 @@ const OneClothes = () => {
 };
 
 export default OneClothes;
-
-// TODO: Leave empty heart for wishlist later
