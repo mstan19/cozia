@@ -67,6 +67,7 @@ export const PRODUCTS_BY_CATEGORYID = gql`
 			productName
 			description
 			image
+			createdAt
 			price
 			discount
 			gender

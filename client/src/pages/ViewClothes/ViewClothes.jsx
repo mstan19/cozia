@@ -55,7 +55,11 @@ const ViewClothes = () => {
 		console.log(filteredData)
 		setClothesDisplay(filteredData)
 	}
-
+	
+	const filterIcon = (filteredData) => {
+		console.log(filteredData)
+		setClothesDisplay(filteredData)
+	}
 
 	console.log(clothesDisplay)
 	return (
@@ -89,7 +93,7 @@ const ViewClothes = () => {
 						<></>
 					)}
 				</h3>
-				{clothesDisplay ? <Filter clothes={clothesDisplay} /> : null
+				{clothesDisplay ? <Filter filterIcon={filterIcon} clothes={clothesDisplay} /> : null
 				}
 			</section>
 			{/* ClothesCard Component */}
