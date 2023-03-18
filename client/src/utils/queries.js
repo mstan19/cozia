@@ -124,7 +124,6 @@ export const QUERY_REVIEWS = gql`
 			createdAt
 			numberReviews
 			rating
-			totalRating
 			product {
 				_id
 			}
@@ -141,7 +140,6 @@ export const QUERY_REVIEWS_BY_PRODUCT = gql`
 			_id
 			comment
 			rating
-			totalRating
 			numberReviews
 			createdAt
 			product {

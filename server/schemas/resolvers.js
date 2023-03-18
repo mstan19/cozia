@@ -77,9 +77,6 @@ const resolvers = {
 		getUser: async (parent, { _id }, context) => {
 			return await User.findById(_id);
 		},
-		// getUserByReview: async (parent, {categoryID}) => {
-		// 	return await User.find({})
-		// },
 		getAllUsers: async () => {
 			return await User.find();
 		},

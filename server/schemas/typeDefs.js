@@ -24,7 +24,6 @@ const typeDefs = gql`
         rating: Float!
         comment: String!
         createdAt: DateTime
-        totalRating: Float!
         numberReviews: Int
         product: Product!
     }
@@ -40,6 +39,7 @@ const typeDefs = gql`
         size: String
         color: String!
         countInStock: Int
+        totalRating: Float
         createdAt: DateTime
         review: Review
         category: Category!

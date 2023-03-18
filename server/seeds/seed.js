@@ -101,7 +101,7 @@ db.once("open", async () => {
 
 				for (let i = 0; i < 3; i++) {
 					let review = {
-						user: userList[0]._id,
+						user: userList[i]._id,
 						rating: Math.random() * 5,
 						comment:
 							commentsList[
