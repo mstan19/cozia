@@ -87,6 +87,8 @@ db.once("open", async () => {
 					discount: Math.floor(Math.random() * 100),
 					countInStock: 3,
 					createdAt: faker.date.past(),
+					totalRating: Math.random() * 5,
+
 					// reviews: [],
 					// reviews: [reviewSchema],
 					// review: reviewList[0]._id,
@@ -107,7 +109,6 @@ db.once("open", async () => {
 							],
 						createdAt: faker.date.past(),
 						numberReviews: Math.floor(Math.random() * 100),
-						totalRating: Math.random() * 5,
 						product: newProduct._id,
 					};
 					newReview = await Review.create(review);

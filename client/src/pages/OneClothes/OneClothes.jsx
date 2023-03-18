@@ -49,6 +49,8 @@ const OneClothes = () => {
 		variables: { productId: productId },
 	});
 	const [reviews, setReviews] = useState();
+	const [updatedReview, setUpdatedReview] = useState(reviews ? reviews : []);
+
 
 	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
@@ -71,45 +73,41 @@ const OneClothes = () => {
 	if (error) console.log(error);
 	if (reviewError) console.log(reviewError);
 
-	// console.log(reviews);
 	useEffect(() => {
 		const date = new Date();
 		setDate(date.getDate());
-
 		let product = data?.getOneProduct;
-		if (usersData) {
-			let users = usersData?.getAllUsers;
-			console.log(users);
-		}
-
 		if (!reviewLoading && reviewData) {
 			let productReview = reviewData?.getReviewsByProduct;
+
 			setReviews(productReview);
-			if (reviews) console.log(reviews);
-			// console.log(reviews.user)
+			setUpdatedReview(reviews);
+		}
+
+		if (usersData && reviews) {
+			let users = usersData?.getAllUsers;
+
+			// Grab only the ids of the user from reviews
+			let rUsersList = [];
+			let rUsernamesList = [];
+			reviews.filter((review) => rUsersList.push(review.user._id));
+			console.log(rUsersList);
+
+			// Iterate through users list to find username
+			for (let i = 0; i < rUsersList.length; i++) {
+				rUsernamesList.push(users.filter((user) => user._id === rUsersList[i]));
+			}
+
+			let flatUsernames = rUsernamesList.flat();
+			let usernameTemp = flatUsernames.map((user) => {return user.username});
+			setUsername(usernameTemp);
+
 		}
 		if (product && product.length !== 0) {
 			setClothes(product);
-			// console.log(users);
-			// if (reviews) {
-			// 	reviews.forEach((review) => {
-			// 		setUserId(review.user._id);
-			// 		// let selectedUser = users.filter(
-			// 		// 	(user) => user._id === userId
-			// 		// );
-			// 		// setUsername(selectedUser[0].username)
-			// 	});
-			// }
+
 		}
-	}, [
-		data,
-		reviewData,
-		reviewLoading,
-		reviews,
-		userId,
-		usersData,
-		usersLoading,
-	]);
+	}, [data, reviewData, reviewLoading, reviews, updatedReview, userId, usersData, usersLoading]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -292,8 +290,9 @@ const OneClothes = () => {
 							{/* If there is no reviews, say no reviews atm */}
 							{reviews ? (
 								reviews.map((review, idx) => {
-									console.log(review);
+									// console.log(review);
 									// console.log(review.user._id);
+									console.log(updatedReview)
 									return (
 										<section
 											className="bg-neutral-300 rounded-md p-3 flex-col mb-3"
@@ -304,7 +303,7 @@ const OneClothes = () => {
 													<IoIosContact className="sidebar-icon" />
 													<h2 className="ml-2">
 														{/* TODO: Get username to show instead */}
-														{username}
+														{username[idx]}
 													</h2>
 												</div>
 												<div className="flex">

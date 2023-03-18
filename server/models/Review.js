@@ -22,10 +22,6 @@ const reviewSchema = new Schema({
 		default: Date.now,
 		// get: (timestamp) => dateFormat(timestamp)
 	},
-    totalRating: {
-		type: Number,
-		default: 0,
-	},
 	numberReviews: {
 		type: Number,
 		default: 0,
