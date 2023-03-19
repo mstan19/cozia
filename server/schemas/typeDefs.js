@@ -108,9 +108,6 @@ const typeDefs = gql`
     input reviewInput {
         rating: Float!
         comment: String!
-        createdAt: String
-        totalRating: Float!
-        numberReviews: Int
     }
 
     input CategoryInput {
@@ -190,6 +187,11 @@ const typeDefs = gql`
             userId: ID!
             orderData: orderInput!
         ): Order
+        addReview(
+            userId: ID!
+            productId: ID!
+            reviewData: reviewInput!
+        ): Review
     }
 `;
 

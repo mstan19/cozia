@@ -118,6 +118,32 @@ export const REMOVE_PRODUCT = gql`
 	}
 `;
 
+export const ADD_REVIEW = gql`
+	mutation AddReview(
+		$userId: ID!
+		$productId: ID!
+		$reviewData: reviewInput!
+	) {
+		addReview(
+			userId: $userId
+			productId: $productId
+			reviewData: $reviewData
+		) {
+			_id
+			comment
+			rating
+			createdAt
+			numberReviews
+			product {
+				_id
+			}
+			user {
+				_id
+			}
+		}
+	}
+`;
+
 export const ADD_ORDER = gql`
 	mutation AddOrder($userId: ID!, $orderData: orderInput!) {
 		addOrder(userId: $userId, orderData: $orderData) {

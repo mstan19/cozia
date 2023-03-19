@@ -218,6 +218,12 @@ const resolvers = {
 
 			return newProduct;
 		},
+		addReview: async (parent, {reviewData, productId, userId}, context) => {
+			console.log(context);
+			reviewData["product"] = productId;
+			reviewData["user"] = userId;
+			const newReview = await Review.create(reviewData);
+		},
 		addOrder: async (parent, { orderData, userId }, context) => {
 			orderData["user"] = userId;
 			const newOrder = await Order.create(orderData);
