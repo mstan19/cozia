@@ -5,82 +5,78 @@ import { QUERY_REVIEWS } from "../../utils/queries";
 import { FaStar } from "react-icons/fa";
 
 const ReviewForm = ({ productId, userId }) => {
-	// console.log(props);
-
-	const [comment, setComment] = useState("");
-
 	const [reviewFormState, setReviewFormState] = useState({
 		comment: "",
-		rating: 0,
+		rating: "",
 	});
 
 	// Star rating useStates
-	const [rating, setRating] = useState(0);
+	const [rating, setRating] = useState("");
 	const [hover, setHover] = useState(0);
-
 	const stars = Array(5).fill(0);
 
+    // On click, set star rating's value
+	const handleOnClick = (index) => {
+		let ratingInput = index + 1;
+		setRating(JSON.stringify(ratingInput));
+	};
 
-    const handleOnClick = (index) => {
-        setRating(index + 1);
-    }
-
-    const handleMouseOver = (index) => {
-        setHover(index + 1)
-    }
+    // On hover, display star rating
+	const handleMouseOver = (index) => {
+		setHover(index + 1);
+	};
+    
 	const handleMouseLeave = () => {
 		setHover(0);
 	};
 
-	// const [characterCount, setCharacterCount] = useState(0);
+	useEffect(() => {
+		reviewFormState["rating"] = parseFloat(rating);
+	}, [reviewFormState, rating]);
 
-	const [addReview, { error }] = useMutation(ADD_REVIEW);
-	// {
-	// update(cache, { data: { addReview } }) {
-	// 	try {
-	// 		const { reviews } = cache.readQuery({ query: QUERY_REVIEWS });
+	const [addReview, { error }] = useMutation(ADD_REVIEW, {
+		update(cache, { data: { addReview } }) {
+			try {
+				const { reviews } = cache.readQuery({ query: QUERY_REVIEWS });
 
-	// 		cache.writeQuery({
-	// 			query: QUERY_REVIEWS,
-	// 			data: { reviews: [addReview, ...reviews] },
-	// 		});
-	// 	} catch (e) {
-	// 		console.error(e);
-	// 	}
-	// },
-	// });
+				cache.writeQuery({
+					query: QUERY_REVIEWS,
+					data: { reviews: [addReview, ...reviews] },
+				});
+			} catch (e) {
+				console.error(e);
+			}
+		},
+	});
 
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
-
 		try {
+			reviewFormState["rating"] = parseFloat(reviewFormState.rating);
+
 			const { data } = await addReview({
-				variables: { productId, userId, comment, rating },
+				variables: {
+					reviewData: reviewFormState,
+					productId: productId,
+					userId: userId,
+				},
 			});
 
 			setReviewFormState({
 				comment: "",
 				rating: 0,
 			});
+
+			window.location.reload();
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 	};
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-
-		if (name === "comment" && value.length <= 280) {
-			setComment(value);
-			// setCharacterCount(value.length);
-			// 	reviewFormState({ ...reviewFormState, [name]: value });
-			// 	setCharacterCount(value.length);
-			// } else if (name !== "comment") {
-			// 	setReviewFormState({ ...reviewFormState, [name]: value });
-		}
+		setReviewFormState({ ...reviewFormState, [name]: value });
 	};
-
-	// const [review, {error, data}]
 
 	return (
 		<div>
@@ -92,7 +88,7 @@ const ReviewForm = ({ productId, userId }) => {
 					<textarea
 						name="comment"
 						placeholder="Add your review..."
-						value={comment}
+						value={reviewFormState.comment}
 						className="form-input w-full border-2 border-zinc-700 px-1"
 						style={{ lineHeight: "2.5" }}
 						onChange={handleChange}
@@ -105,15 +101,17 @@ const ReviewForm = ({ productId, userId }) => {
 									<FaStar
 										key={index}
 										style={{ cursor: "pointer", margin: 3 }}
-                                        color={
+										color={
 											(hover || rating) > index
 												? "#FFBA5A"
 												: "#a9a9a9"
 										}
 										onClick={() => handleOnClick(index)}
-                                        onMouseOver={() => handleMouseOver(index)}
-                                        onMouseLeave={() => handleMouseLeave}
-                                        value={rating}
+										onMouseOver={() =>
+											handleMouseOver(index)
+										}
+										onMouseLeave={() => handleMouseLeave}
+										value={rating}
 									/>
 								);
 							})}
@@ -122,10 +120,8 @@ const ReviewForm = ({ productId, userId }) => {
 				</div>
 
 				<button
-					// onClick={(e) => {
-					// 	e.preventDefault();
-					// }}
-					className="rounded-lg p-3 my-3 bg-sky-600 text-white drop-shadow-xl text-lg w-full" type="submit"
+					className="rounded-lg p-3 my-3 bg-sky-600 text-white drop-shadow-xl text-lg w-full"
+					type="submit"
 				>
 					Submit review
 				</button>
