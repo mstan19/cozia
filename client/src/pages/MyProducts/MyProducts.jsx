@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../utils/auth";
-import SearchBar from "../../components/SearchBar/SearchBar";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import DeleteModal from "../../components/Modal/DeleteModal";
 import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
 import { REMOVE_PRODUCT } from "../../utils/mutations";
 import filterIcon from "../../assets/filter.png";
+import EditModal from "../../components/Modal/EditModal";
 import NeedLogin from "../../components/NeedLogin/NeedLogin";
+import toast, { Toaster } from 'react-hot-toast';
 import {
 	calculateDiscountPrice,
 	displayRatings,
@@ -28,7 +30,9 @@ const MyProduct = () => {
 	});
 	const [removeProduct] = useMutation(REMOVE_PRODUCT);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [editModalOpen, setEditModalOpen] = useState(false);
 	const [selectedProductId, setSelectedProductId] = useState();
+	const [editSelectedProduct, setEditSelectedProduct] = useState();
 
 	useEffect(() => {
 		const getUserData = async () => {
@@ -49,6 +53,8 @@ const MyProduct = () => {
 		getUserData();
 	}, [data]);
 
+// console.log(myProductsData.getMyProducts)
+	const notify = () => toast.success("Your product has been updated.");
 	function stockCheck(index) {
 		if (myProductsData?.getMyProducts[index].countInStock <= 3) {
 			return (
@@ -96,13 +102,23 @@ const MyProduct = () => {
 		nav("/addproduct");
 	}
 
-	function handleEditProductBtn() {
-		console.log("edit product");
+	const handleEditProductBtn = async (productObject) => {
+		try {
+			notify();
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	const openModal = (id) => {
 		setModalOpen(true);
 		setSelectedProductId(id);
+	};
+
+	const openEditModal = (productObject) => {
+		console.log(productObject);
+		setEditModalOpen(true);
+		setEditSelectedProduct(productObject);
 	};
 
 	const handleDeleteProductBtn = async (productId) => {
@@ -130,32 +146,34 @@ const MyProduct = () => {
 		<div className="my-product-page">
 			{Auth.loggedIn() ? (
 				<div className="">
-					<SearchBar />
-
+					<div>
+				<Toaster position="top-center"
+					reverseOrder={false} />
+			</div>
 					<div
 						className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4"
 						id="my-product-header"
 					>
+						<div></div>
+						<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-block text-xl">
+							My Products
+						</div>
 						{/* Add product Card */}
 						<button
-							className="add-product row inline-block w-1/5 ml-6 mt-2 rounded-lg text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
-							id="add-product-btn"
+							className="row inline-block w-1/5 rounded-lg text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center ml-6 mt-2 mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-600"
 							onClick={handleAddProductBtn}
 							type="submit"
 						>
 							Add
 						</button>
-						{/* Filter */}
-						<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-block text-xl">
-							My Products
-						</div>
+						
 						
 					</div>
 
-					<div className="container mx-auto pt-2">
+					<div className="container pt-2 px-5">
 						{/* Gallery product Card */}
 						<div
-							className="my-product-cards flex flex-wrap w-full grid sm:grid-cols-3 gap-x-8 gap-y-4"
+							className="my-product-cards flex flex-wrap w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-4"
 							id="product-cards"
 						>
 							{myProductsData &&
@@ -171,7 +189,7 @@ const MyProduct = () => {
 														src={product.image}
 														alt="product-image"
 														id="product-image"
-														className="object-cover"
+														className="object-fit"
 													/>
 												</div>
 
@@ -212,13 +230,33 @@ const MyProduct = () => {
 														<button
 															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 text-white py-2 px-5 focus:outline-none"
 															id="edit-product-btn"
-															onClick={() =>
-																handleEditProductBtn()
-															}
+															onClick={() => {
+																setEditModalOpen(
+																	true
+																);
+																openEditModal(
+																	product
+																);
+															}}
 															type="submit"
 														>
 															Edit
 														</button>
+														{editModalOpen && (
+															<EditModal
+																setEditOpenModal={
+																	setEditModalOpen
+																}
+																onEditFunction={() =>
+																	handleEditProductBtn(
+																		editSelectedProduct
+																	)
+																}
+																onEditProduct={
+																	editSelectedProduct
+																}
+															/>
+														)}
 														<button
 															className=" bg-red-600 rounded-lg my-0.5 hover:bg-red-600 text-white py-2 px-5 focus:outline-none"
 															id="delete-product-btn"

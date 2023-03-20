@@ -91,6 +91,9 @@ const resolvers = {
 		getOneProduct: async (parent, { _id }) => {
 			return await Product.findById(_id).populate("category");
 		},
+		getCategory: async (parent, { _id }, context) => {
+			return await Category.findById(_id);
+		},
 		getOneOrder: async (parent, { _id }, context) => {
 			return await Order.findById(_id).populate("products");
 		},
@@ -251,7 +254,7 @@ const resolvers = {
 			const updateProduct = await Product.findOneAndUpdate(
 				{ _id: productId },
 				productData,
-				{ new: true }
+				{ new: true, runValidators: true }
 			);
 
 			return updateProduct;
@@ -265,15 +268,19 @@ const resolvers = {
 
 			return updateOrder;
 		},
-		updateUser: async (parent, args, context) => {
-			if (context.user) {
-				// console.log( "##", args);
-				return await User.findByIdAndUpdate(context.user._id, args, {
-					new: true,
-				});
-			}
+		updateUser: async (parent, { userId, firstName, lastName, email, username }, context) => {
+			// console.log( "##", args);
+			const updateUser = User.findByIdAndUpdate(userId, {
+				firstName,
+				lastName,
+				email,
+				username
+			},
 
-			throw new AuthenticationError("Not logged in");
+				{ new: true, runValidators: true }
+			)
+			return updateUser;
+
 		},
 		removeUser: async (parent, { userId }, context) => {
 			const deleteUser = await User.findOneAndDelete({

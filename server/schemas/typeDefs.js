@@ -89,6 +89,7 @@ const typeDefs = gql`
         me: User
         getMyProducts(userID: ID!): [Product]
         categories: [Category]
+        getCategory(_id: ID!): Category
         products: [Product]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
@@ -109,7 +110,10 @@ const typeDefs = gql`
         name: String
     }
     input userInput {
-        email: String
+        firstName: String!
+        lastName: String!
+        username: String!
+        email: String!
     }
 
     input productInput {
@@ -164,10 +168,10 @@ const typeDefs = gql`
         ): Auth
         updateUser(
             userId: ID!
-            firstName: String
-            lastName: String
-            email: String
-            username: String
+            firstName: String!
+            lastName: String!
+            username: String!
+            email: String!
         ): User
         removeUser(userId: ID!): User
         addProduct(productsByCategory: ID!, productData: productInput!, userId: ID!): Product

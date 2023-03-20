@@ -54,12 +54,12 @@ const Dashboard = () => {
 	};
 
 	const components = [
-		{
-			name: "mystats",
-			title: "Dashboard",
-			key: "dashboardkey",
-			icon: <IoStatsChartSharp className="sidebar-icon" />,
-		},
+		// {
+		// 	name: "mystats",
+		// 	title: "Dashboard",
+		// 	key: "dashboardkey",
+		// 	icon: <IoStatsChartSharp className="sidebar-icon" />,
+		// },
 		{
 			name: "orderlist",
 			title: "Order List",
@@ -72,52 +72,52 @@ const Dashboard = () => {
 			key: "myproductskey",
 			icon: <BsCardChecklist className="sidebar-icon" />,
 		},
-		{
-			name: "myreviews",
-			title: "My Reviews",
-			key: "myreviewskey",
-			icon: <AiOutlineStar className="sidebar-icon" />,
-		},
+		// {
+		// 	name: "myreviews",
+		// 	title: "My Reviews",
+		// 	key: "myreviewskey",
+		// 	icon: <AiOutlineStar className="sidebar-icon" />,
+		// },
 		{
 			name: "profile",
 			title: "Profile",
 			key: "profilekey",
 			icon: <IoIosContact className="sidebar-icon" />,
 		},
-		{
-			name: "wishlist",
-			title: "Wishlist",
-			key: "wishlistkey",
-			icon: <AiFillHeart className="sidebar-icon" />,
-		},
+		// {
+		// 	name: "wishlist",
+		// 	title: "Wishlist",
+		// 	key: "wishlistkey",
+		// 	icon: <AiFillHeart className="sidebar-icon" />,
+		// },
 	];
 
-	const [currentComponent, setCurrentComponent] = useState(<Stats />);
+	const [currentComponent, setCurrentComponent] = useState(<OrderList />);
 
 	const renderComponent = (selectedOption) => {
 		setTitle(selectedOption)
 
 		switch (selectedOption) {
-			case "mystats":
-				setCurrentComponent(<Stats />);
-				return;
+			// case "mystats":
+			// 	setCurrentComponent(<Stats />);
+			// 	return;
 			case "orderlist":
 				setCurrentComponent(<OrderList />);
 				return;
-			case 'myreviews':
-				setCurrentComponent(<Reviews />);
-				return;
-			case 'profile':
+			// case "myreviews":
+			// 	setCurrentComponent(<Reviews />);
+			// 	return;
+			case "profile":
 				setCurrentComponent(<Profile />);
 				return;
 			case "myproducts":
 				setCurrentComponent(<MyProduct />);
 				return;
-			case 'wishlist':
-				setCurrentComponent(<Wishlist />);
-				return;
+			// case "wishlist":
+			// 	setCurrentComponent(<Wishlist />);
+			// 	return;
 			default:
-				setCurrentComponent(<Stats />);
+				setCurrentComponent(<OrderList />);
 				return;
 		}
 	};
