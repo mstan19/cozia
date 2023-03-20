@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import {
+	QUERY_ME,
 	QUERY_GET_USER,
 	GET_ONE_PRODUCT,
 	QUERY_REVIEWS_BY_PRODUCT,
@@ -18,10 +19,12 @@ import Collapsible from "../../components/Collapsible/Collapsible";
 import Auth from "../../utils/auth";
 import { IoIosContact } from "react-icons/io";
 import dateFormat from "../../utils/dateFormat";
+import ReviewForm from "../../components/ReviewForm/ReviewForm";
 
 const OneClothes = () => {
 	const { productId } = useParams();
 	const [userId, setUserId] = useState();
+	const [userData, setUserData] = useState({});
 	const [username, setUsername] = useState("Anonymous");
 	const { loading, data, error } = useQuery(GET_ONE_PRODUCT, {
 		variables: { id: productId },
@@ -48,6 +51,8 @@ const OneClothes = () => {
 	} = useQuery(QUERY_REVIEWS_BY_PRODUCT, {
 		variables: { productId: productId },
 	});
+
+	const { data: meData, loading: meLoading } = useQuery(QUERY_ME);
 	const [reviews, setReviews] = useState();
 
 	const [totalRating, setTotalRating] = useState();
@@ -76,6 +81,24 @@ const OneClothes = () => {
 	useEffect(() => {
 		const date = new Date();
 		setDate(date.getDate());
+		const getUserData = async () => {
+			try {
+				const token = Auth.loggedIn() ? Auth.getToken() : null;
+				if (!token) {
+					return false;
+				}
+
+				const loggedUser = await meData?.me;
+				console.log(loggedUser);
+				console.log(loggedUser._id);
+
+				setUserData(loggedUser);
+			} catch (err) {
+				console.error(err);
+			}
+		};
+
+		getUserData();
 		let product = data?.getOneProduct;
 		if (!reviewLoading && reviewData) {
 			let productReview = reviewData?.getReviewsByProduct;
@@ -116,16 +139,7 @@ const OneClothes = () => {
 		if (product && product.length !== 0) {
 			setClothes(product);
 		}
-	}, [
-		data,
-		reviewData,
-		reviewLoading,
-		reviews,
-		totalRating,
-		userId,
-		usersData,
-		usersLoading,
-	]);
+	}, [data, meData, reviewData, reviewLoading, reviews, totalRating, userId, usersData, usersLoading]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -160,7 +174,6 @@ const OneClothes = () => {
 						<article className="flex justify-between">
 							<h1 className="text-2xl">{clothes.productName}</h1>
 							<div className="reviews flex items-center">
-								{/* TODO: Fix number of reviews */}
 								{clothes.numberReviews !== 0 && reviews ? (
 									<>
 										{displayRatings(totalRating)}
@@ -270,7 +283,7 @@ const OneClothes = () => {
 								</div>
 							</section>
 							<section className="flex justify-between">
-								<p className="text-neutral-500">
+								<p className="text-neutral-500 mb-3">
 									{reviews
 										? `(${reviews.length} reviews total)`
 										: `No reviews`}
@@ -281,14 +294,11 @@ const OneClothes = () => {
 							</section>
 							{/* TODO: If condition for when user is logged in or not */}
 							{Auth.loggedIn() ? (
-								<button
-									onClick={(e) => {
-										e.preventDefault();
-									}}
-									className="rounded-lg p-3 my-3 bg-sky-600 text-white drop-shadow-xl text-lg w-full"
-								>
-									Write a review
-								</button>
+								<div>
+									
+									{/* How to grab the userId of whose logged in */}
+									<ReviewForm userId={userId} productId={productId} />
+								</div>
 							) : (
 								<button
 									onClick={(e) => {
