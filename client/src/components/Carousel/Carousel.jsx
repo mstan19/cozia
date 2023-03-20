@@ -10,7 +10,7 @@ const Carousel = ({ section, products, index }) => {
 
 	if (products && Object.keys(products).length !== 0) {
 		return (
-			<section className="bg-white shadow overflow-hidden relative mb-5">
+			<section className="bg-white shadow overflow-hidden relative sm:w-4/5 w-full mx-auto mb-5">
 				<h2 className="flex justify-center text-xl m-3">{section}</h2>
 				<div className="transition-transform ease-out duration-500">
 					<CarouselItem

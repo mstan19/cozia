@@ -29,27 +29,16 @@ export const ADD_USER = gql`
 `;
 
 export const UPDATE_USER = gql`
-	mutation UpdateUser(
-		$userId: ID!
-		$firstName: String
-		$lastName: String
-		$email: String
-		$username: String
-	) {
-		updateUser(
-			userId: $userId
-			firstName: $firstName
-			lastName: $lastName
-			email: $email
-			username: $username
-		) {
-			_id
-			firstName
-			lastName
-			username
-			email
-		}
-	}
+    mutation Mutation($userId: ID!, $firstName: String!, $lastName: String!, $username: String!, $email: String!) {
+        updateUser(userId: $userId, firstName: $firstName, lastName: $lastName, username: $username, email: $email) {
+        _id
+        email
+        firstName
+        lastName
+        password
+        username
+        }
+    }
 `;
 
 export const REMOVE_USER = gql`

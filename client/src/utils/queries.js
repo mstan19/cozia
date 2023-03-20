@@ -13,16 +13,21 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_MYPRODUCTS = gql`
-	query GetMyProducts($userId: ID!) {
+	query Query($userId: ID!) {
 		getMyProducts(userID: $userId) {
-			_id
-			price
 			productName
-			countInStock
+			description
 			color
-			image
-			size
+			countInStock
 			discount
+			gender
+			image
+			price
+			size
+			_id
+			category {
+				_id
+			}
 		}
 	}
 `;
@@ -100,6 +105,7 @@ export const PRODUCTS_BY_CATEGORYID = gql`
 			productName
 			description
 			image
+			createdAt
 			price
 			discount
 			gender
@@ -152,6 +158,16 @@ export const QUERY_REVIEWS_BY_PRODUCT = gql`
 	}
 `;
 
+export const QUERY_ONE_CATEGORY = gql`
+	query GetCategory($id: ID!) {
+		getCategory(_id: $id) {
+			_id
+			name
+		}
+	}
+`;
+
+// gets all categories
 export const QUERY_CATEGORY = gql`
 	query Categories {
 		categories {
@@ -201,5 +217,3 @@ export const QUERY_CHECKOUT = gql`
 		}
 	}
 `;
-
-// export const QUERY_GET_ALL_REVIEWS = gql``;

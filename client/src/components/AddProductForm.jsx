@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { ADD_PRODUCT } from "../utils/mutations";
 import { QUERY_ME, QUERY_CATEGORY } from "../utils/queries";
 import Auth from "../utils/auth";
+import {
+	calculateDiscountPrice,
+	displayRatings,
+	removeHyphensAndCapitalize,
+} from "../utils/helpers";
 
 const AddProductForm = () => {
 	const [productFormData, setProductFormData] = useState({
@@ -59,18 +64,6 @@ const AddProductForm = () => {
 		getUserData();
 	}, [queryDataMe]);
 
-	const fixName = (inputField) => {
-		if (categoryData) {
-			for (let i = 0; i < categoryData.categories.length; i++) {
-				let upperCaseFirstLetter = inputField.charAt(0).toUpperCase() + inputField.slice(1);
-				let ArrayString = upperCaseFirstLetter.split(/(?=[A-Z])/);
-				if (ArrayString.length === 1) {
-					return upperCaseFirstLetter;
-				}
-				return ArrayString.join(' ');
-			}
-		}
-	}
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
@@ -170,7 +163,7 @@ const AddProductForm = () => {
 								<select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="category" onChange={handleInputChange}>
 									<option defaultValue >Select Category</option>
 									{categoryData && categoryData.categories.map((category) => {
-										return <option key={category.name} value={category.name} onClick={fixName}>{fixName(category.name)}</option>
+										return <option key={category.name} value={category.name} onClick={removeHyphensAndCapitalize}>{removeHyphensAndCapitalize(category.name)}</option>
 									})}
 								</select>
 								<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
