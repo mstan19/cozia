@@ -23,19 +23,11 @@ import ReviewForm from "../../components/ReviewForm/ReviewForm";
 
 const OneClothes = () => {
 	const { productId } = useParams();
-	const [userId, setUserId] = useState();
-	const [userData, setUserData] = useState({});
+	const [userId, setUserId] = useState({});
+	const [loggedUserId, setLoggedUserId] = useState({});
 	const [username, setUsername] = useState("Anonymous");
 	const { loading, data, error } = useQuery(GET_ONE_PRODUCT, {
 		variables: { id: productId },
-	});
-
-	const {
-		loading: oneUserLoading,
-		data: oneUserData,
-		error: oneUserError,
-	} = useQuery(QUERY_GET_USER, {
-		variables: { id: userId },
 	});
 
 	const {
@@ -90,9 +82,10 @@ const OneClothes = () => {
 
 				const loggedUser = await meData?.me;
 				console.log(loggedUser);
-				console.log(loggedUser._id);
+				if (loggedUser) {
+					setUserId(loggedUser._id);
+				}
 
-				setUserData(loggedUser);
 			} catch (err) {
 				console.error(err);
 			}
