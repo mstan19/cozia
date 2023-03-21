@@ -76,7 +76,7 @@ db.once("open", async () => {
 		//creating products
 		for (let n = 0; n < genderCategory.length - 1; n++) {
 			for (let l = 0; l < newCategory.length; l++) {
-				const unsplashResults = await axios.get(`https://api.unsplash.com/search/photos?query=${genderCategory[n]}&query=${newCategory[l].name}&client_id=${process.env.CLIENT_ID}`)
+				// const unsplashResults = await axios.get(`https://api.unsplash.com/search/photos?query=${genderCategory[n]}&query=${newCategory[l].name}&client_id=${process.env.CLIENT_ID}`)
 
 				// collections/curated/:id/photos
 				// const unsplashResults = await axios.get(`https://api.unsplash.com//collections/curated/${process.env.curated_id}/photos&client_id=${process.env.CLIENT_ID}`)
@@ -87,8 +87,8 @@ db.once("open", async () => {
 						productName: faker.commerce.product(),
 						description: faker.commerce.productDescription(),
 						// description: unsplashResults.data.results[m].description,
-						// image: faker.image.fashion(390, 390, true),
-						image: unsplashResults.data.results[l].urls.small,
+						image: faker.image.fashion(390, 390, true),
+						// image: unsplashResults.data.results[l].urls.small,
 						price: faker.commerce.price(),
 						size: "small",
 						// color: unsplashResults.data.results[m].urls.color,
@@ -98,31 +98,27 @@ db.once("open", async () => {
 						createdAt: faker.date.past(),
 						gender: genderCategory[n],
 						totalRating: (Math.random() * 5),
-//						numberReviews: Math.floor(Math.random() * 100),
+						numberReviews: Math.floor(Math.random() * 100),
 						category: newCategory[l]._id,
 						user: userList[l]._id,
 					};
-					// console.log("$$", userList);
 					const newProduct = await Product.create(product);
 
 					for (let i = 0; i < 3; i++) {
-                    					let review = {
-                    						user: userList[i]._id,
-                    						rating: Math.random() * 5,
-                    						comment:
-                    							commentsList[
-                    								Math.floor(Math.random() * commentsList.length)
-                    							],
-                    						createdAt: faker.date.past(),
-                    						numberReviews: Math.floor(Math.random() * 100),
-                    						product: newProduct._id,
-                    					};
-                    					newReview = await Review.create(review);
-                    					newProduct.reviews = newReview;
-                    					// console.log(newReview);
-                    				// console.log(newProduct.reviews);
-                    				// console.log(newProduct, "NewProduct after");
-                    				}
+						let review = {
+							user: userList[i]._id,
+							rating: Math.random() * 5,
+							comment:
+								commentsList[
+								Math.floor(Math.random() * commentsList.length)
+								],
+							createdAt: faker.date.past(),
+							numberReviews: Math.floor(Math.random() * 100),
+							product: newProduct._id,
+						};
+						newReview = await Review.create(review);
+						newProduct.reviews = newReview;
+					}
 
 					productsList.push(newProduct);
 

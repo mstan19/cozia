@@ -64,6 +64,8 @@ export const QUERY_PRODUCTS = gql`
 			price
 			discount
 			gender
+			numberReviews
+			totalRating
 			category {
 				_id
 			}
@@ -109,6 +111,8 @@ export const PRODUCTS_BY_CATEGORYID = gql`
 			price
 			discount
 			gender
+			numberReviews
+			totalRating
 			size
 			color
 			countInStock
