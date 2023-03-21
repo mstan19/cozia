@@ -1,6 +1,8 @@
 const db = require("../config/connection");
 const { User, Product, Category, Order } = require("../models");
 const { faker } = require("@faker-js/faker");
+const axios = require('axios');
+require("dotenv").config();
 
 db.once("open", async () => {
 	try {
@@ -42,7 +44,6 @@ db.once("open", async () => {
 		];
 
 		const newCategory = await Category.create(clothesCategory);
-		// }
 
 		//creating users. if consumer, then they will have an order
 		let userList = [];
@@ -56,41 +57,52 @@ db.once("open", async () => {
 				email: email,
 				password: email,
 			};
-			// console.log(user);
 			const newUser = await User.create(user);
 			userList.push(newUser);
 		}
 
 		let productsList = [];
 		//creating products
-		for (let l = 0; l < newCategory.length; l++) {
-			for (let m = 0; m < 3; m++) {
-				let reviewSchema = {
-					user: userList[0]._id,
-					rating: 9.0,
-					comment: "cool",
-					createdAt: "1/1",
-				};
-				let product = {
-					productName: faker.commerce.product(),
-					description: faker.commerce.productDescription(),
-					image: faker.image.fashion(390, 390, true),
-					price: faker.commerce.price(),
-					size: "small",
-					color: faker.color.rgb(),
-					discount: Math.floor(Math.random() * 100),
-					countInStock: 3,
-					createdAt: faker.date.past(),
-					reviews: [reviewSchema],
-					gender: genderCategory[Math.floor(Math.random() * 2)],
-					totalRating: (Math.random() * 5),
-					numberReviews: Math.floor(Math.random() * 100),
-					category: newCategory[l]._id,
-					user: userList[l]._id,
-				};
-				// console.log("$$", userList);
-				const newProduct = await Product.create(product);
-				productsList.push(newProduct);
+		for (let n = 0; n < genderCategory.length - 1; n++) {
+			for (let l = 0; l < newCategory.length; l++) {
+				const unsplashResults = await axios.get(`https://api.unsplash.com/search/photos?query=${genderCategory[n]}&query=${newCategory[l].name}&client_id=${process.env.CLIENT_ID}`)
+
+				// collections/curated/:id/photos
+				// const unsplashResults = await axios.get(`https://api.unsplash.com//collections/curated/${process.env.curated_id}/photos&client_id=${process.env.CLIENT_ID}`)
+
+				for (let m = 0; m < 3; m++) {
+					let reviewSchema = {
+						user: userList[0]._id,
+						rating: 9.0,
+						comment: "cool",
+						createdAt: "1/1",
+					};
+
+					let product = {
+						productName: faker.commerce.product(),
+						description: faker.commerce.product(),
+						// description: unsplashResults.data.results[m].description,
+						// image: faker.image.fashion(390, 390, true),
+						image: unsplashResults.data.results[l].urls.small,
+						price: faker.commerce.price(),
+						size: "small",
+						// color: unsplashResults.data.results[m].urls.color,
+						color: faker.color.rgb(),
+						discount: Math.floor(Math.random() * 100),
+						countInStock: 3,
+						createdAt: faker.date.past(),
+						reviews: [reviewSchema],
+						gender: genderCategory[n],
+						totalRating: (Math.random() * 5),
+						numberReviews: Math.floor(Math.random() * 100),
+						category: newCategory[l]._id,
+						user: userList[l]._id,
+					};
+					// console.log("$$", userList);
+					const newProduct = await Product.create(product);
+					productsList.push(newProduct);
+
+				}
 			}
 		}
 
