@@ -20,12 +20,6 @@ const Cart = () => {
 	const [total, setTotal] = useState();
 	const { cart, setCart } = CartState();
 
-	// const [quantity, setQuantity] = useState(1);
-
-	// const { subtotal, setSubtotal } = CartState();
-	// const { taxes, setTaxes } = CartState();
-	// const { total, setTotal } = CartState();
-	// console.log(cart)
 	const nav = useNavigate();
 
 	const increment = (index) => {
@@ -44,9 +38,6 @@ const Cart = () => {
 			setCart(newProducts);
 		}
 	};
-
-	// parse cart and pass in index
-	// 
 
 	const removeFromCart = (index) => {
 		let item = JSON.parse(localStorage.getItem("product"));
