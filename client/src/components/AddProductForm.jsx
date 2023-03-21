@@ -36,7 +36,6 @@ const AddProductForm = () => {
 	// update state based on form input changes
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
-
 		setProductFormData({ ...productFormData, [name]: value });
 	};
 

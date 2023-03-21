@@ -5,7 +5,6 @@ import {
 	MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 import { removeHyphensAndCapitalize } from "../../utils/helpers";
-import ViewClothes from "../../pages/ViewClothes/ViewClothes";
 
 const Accordion = ({ title, items, link }) => {
 	const [isActive, setIsActive] = useState(false);
@@ -36,7 +35,6 @@ const Accordion = ({ title, items, link }) => {
 				{isActive &&
 					items &&
 					items.map((item) => {
-						console.log(item);
 						return (
 							<Link
 								className="p-1"

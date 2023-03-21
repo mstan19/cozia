@@ -298,7 +298,7 @@ const MyProduct = () => {
 				</div>
 			) : (
 				<>
-					<NeedLogin />
+					{/* <NeedLogin /> */}
 				</>
 			)}
 		</div>

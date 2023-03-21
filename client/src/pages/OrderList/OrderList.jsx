@@ -10,7 +10,7 @@ import {
 	QUERY_SALEITEMS,
 } from "../../utils/queries";
 import Auth from "../../utils/auth";
-import NeedLogin from "../../components/NeedLogin/NeedLogin";
+// import NeedLogin from "../../components/NeedLogin/NeedLogin";
 
 
 const OrderList = () => {
@@ -174,7 +174,7 @@ const OrderList = () => {
 				</div>
 			) : (
 				<>
-					<NeedLogin />
+					{/* <NeedLogin /> */}
 				</>
 			)}
 		</div>

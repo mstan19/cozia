@@ -5,6 +5,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import { CartState } from "../../context/CartContext";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import shoppingBag from "../../assets/images/shoppingBag.jpg";
+// import { useDispatch } from 'react-redux';
 import {
 	calculateDiscountPrice,
 	displayRatings,
@@ -13,36 +14,40 @@ import {
 
 const Cart = () => {
 	const [showSidebar, setShowSidebar] = useState(false);
-	const [msg, setMsg] = useState(false)
+	const [msg, setMsg] = useState(false);
 	const [subtotal, setSubtotal] = useState();
 	const [taxes, setTaxes] = useState();
-	const [total, setTotal] = useState()
+	const [total, setTotal] = useState();
 	const { cart, setCart } = CartState();
-	// const { subtotal, setSubtotal } = CartState();
-	// const { taxes, setTaxes } = CartState();
-	// const { total, setTotal } = CartState();
-	// console.log(cart)
+
 	const nav = useNavigate();
 
 	const increment = (index) => {
 		let newProducts = [...cart];
-		newProducts[index].quantity++;
-		setCart(newProducts)
-
+		if (newProducts[index].quantity < newProducts[index].countInStock) {
+			newProducts[index].quantity++;
+			setCart(newProducts);
+		}
 	};
 
 	const decrement = (index) => {
 		let newProducts = [...cart];
 		if (newProducts[index].quantity <= 1) {
-
 		} else {
 			newProducts[index].quantity--;
 			setCart(newProducts);
 		}
 	};
 
+	const removeFromCart = (index) => {
+		let item = JSON.parse(localStorage.getItem("product"));
+		item.splice(index, 1);
+		localStorage.setItem("product", JSON.stringify(item));
+		setCart([...item]);
+	}
 
 	useEffect(() => {
+		// TODO: Add in quantity
 		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
 		
 		setSubtotal(tempsubtotal);
@@ -72,7 +77,6 @@ const Cart = () => {
 		} catch (e) {
 			console.error(e);
 		}
-
 	};
 
 	const LogIn = async (event) => {
@@ -83,7 +87,6 @@ const Cart = () => {
 		} catch (e) {
 			console.error(e);
 		}
-
 	};
 
 	return (
@@ -105,12 +108,15 @@ const Cart = () => {
 							onClick={() => setShowSidebar(!showSidebar)}
 							className="h-10 w-10 fixed z-30 flex items-center cursor-pointer right-6 top-6"
 							fill="#2563EB"
-						>
-
-						</svg>
+						></svg>
 					)}
 
-					<form onSubmit={onSubmit} className={`grid grid-cols-1 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "translate-x-full"}`}>
+					<form
+						onSubmit={onSubmit}
+						className={`grid grid-cols-1 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2  bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${
+							showSidebar ? "translate-x-0 " : "translate-x-full"
+						}`}
+					>
 						<h3 className="text-2xl text-center text-black py-8">
 							Shopping Cart
 						</h3>
@@ -124,7 +130,7 @@ const Cart = () => {
 										return (
 											<div key={index + "cartKey"} className="grid grid-cols-3 mt-6 px-10">
 												<div className="w-50 h-full mr-2">
-													<img src={product.image} alt="product-image-cart" id="product-image-cart" />
+													<img src={product.image} alt="product-cart" id="product-image-cart" />
 												</div>
 
 												<div className="">
@@ -151,7 +157,7 @@ const Cart = () => {
 														product.price,
 														product.discount
 													)}</div>
-													<button className="text-base text-red-500" onClick={(e) => { e.preventDefault(); }}> Remove</button>
+													<button className="text-base text-red-500" onClick={(e) => { e.preventDefault(); removeFromCart(index)}}>Remove</button>
 												</div>
 											</div>
 										)
@@ -172,9 +178,10 @@ const Cart = () => {
 								<div className="text-right pt-2 mb-2">
 									<div className="text-xl">${taxes}</div>
 									<div className="text-xl">${subtotal}</div>
-									<div className="text-2xl mt-8">${total}</div>
+									<div className="text-2xl mt-8">
+										${total}
+									</div>
 								</div>
-
 							</div>
 
 							<div className="w-full justify-center flex flex-col items-center">
@@ -185,7 +192,6 @@ const Cart = () => {
 								</button>
 							</div>
 						</div>
-
 					</form>
 				</>
 			) : (
@@ -204,27 +210,39 @@ const Cart = () => {
 							onClick={() => setMsg(!msg)}
 							className="fixed z-30 flex items-center cursor-pointer right-6 top-6"
 							fill="#2563EB"
-						>
-
-						</svg>
+						></svg>
 					)}
-					<div className={`grid grid-rows-2 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2 bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${msg ? "translate-x-0 " : "translate-x-full"}`}>
-						<button onClick={LogIn} className="grid place-items-center self-center justify-self-center">
+					<div
+						className={`grid grid-rows-2 shadow-xl top-0 right-0 w-full sm:w-4/6 lg:w-1/2 bg-white text-black fixed h-full z-40  ease-in-out duration-300 ${
+							msg ? "translate-x-0 " : "translate-x-full"
+						}`}
+					>
+						<button
+							onClick={LogIn}
+							className="grid place-items-center self-center justify-self-center"
+						>
 							<div className="w-14 h-14 bg-slate-800 text-slate-200 rounded-full flex justify-center text-center  mb-6">
-								<h2 className="text-2xl grid place-items-center"><HiOutlineShoppingBag /></h2>
+								<h2 className="text-2xl grid place-items-center">
+									<HiOutlineShoppingBag />
+								</h2>
 							</div>
 
 							<h1 className="text-2xl text-center self-center justify-self-center">
-								<div className="text-blue-600 underline underline-offset-1">Login</div> to continue shopping
+								<div className="text-blue-600 underline underline-offset-1">
+									Login
+								</div>{" "}
+								to continue shopping
 							</h1>
 						</button>
-						<img className="h-full w-full object-cover" src={shoppingBag} alt="shoppingBag" />
+						<img
+							className="h-full w-full object-cover"
+							src={shoppingBag}
+							alt="shoppingBag"
+						/>
 					</div>
-
 				</>
 			)}
 		</div>
-
-	)
-}
+	);
+};
 export default Cart;

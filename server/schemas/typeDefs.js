@@ -18,11 +18,14 @@ const typeDefs = gql`
         name: String!
     }
 
-    type Reviews {
+    type Review {
+        _id: ID!
         user: User!
         rating: Float!
         comment: String!
-        createdAt: String
+        createdAt: DateTime
+        numberReviews: Int
+        product: Product!
     }
 
     type Product {
@@ -36,10 +39,9 @@ const typeDefs = gql`
         size: String
         color: String!
         countInStock: Int
-        createdAt: DateTime
-        reviews: [Reviews]
         totalRating: Float
-        numberReviews: Int
+        createdAt: DateTime
+        review: Review
         category: Category!
         user: User!
     }
@@ -89,10 +91,14 @@ const typeDefs = gql`
         me: User
         getMyProducts(userID: ID!): [Product]
         categories: [Category]
+        getUser(_id: ID!): User
+        getAllUsers: [User]
         getCategory(_id: ID!): Category
         products: [Product]
         productsByCategoryID(categoryID: ID): [Product]
         getOneProduct(_id: ID!): Product
+        reviews: [Review]
+        getReviewsByProduct(productID: ID): [Review]
         getOneOrder(_id: ID!): Order
         getAllOrders(userID: ID!): [Order]
         getSaleItems(userID: ID!): String
@@ -103,7 +109,6 @@ const typeDefs = gql`
     input reviewInput {
         rating: Float!
         comment: String!
-        createdAt: String
     }
 
     input CategoryInput {
@@ -152,10 +157,7 @@ const typeDefs = gql`
         deliveryDate: String
     }
 
-
-
     #Mutation
-
     type Mutation {
         requirePassword( password: String!): Auth
         login(email: String!, password: String!): Auth
@@ -189,6 +191,11 @@ const typeDefs = gql`
             userId: ID!
             orderData: orderInput!
         ): Order
+        addReview(
+            userId: ID!
+            productId: ID!
+            reviewData: reviewInput!
+        ): Review
     }
 `;
 

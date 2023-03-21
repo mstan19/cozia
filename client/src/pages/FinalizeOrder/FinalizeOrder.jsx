@@ -117,9 +117,15 @@ const FinalizeOrder = () => {
 										<h3 className="text-lg pt-2 md:pl-2">{cartItem.productName}</h3>
 										<img className="h-40 w-36 py-2" src={cartItem.image} alt={cartItem.productName} />
 									</div>
-									<div className="pt-2">${cartItem.price}</div>
-									<div className="pt-2">2</div>
-									<div className="pt-2">${cartItem.price * 2}</div>
+									<div className="pt-2">${calculateDiscountPrice(
+									cartItem.price,
+									cartItem.discount
+								)}</div>
+									<div className="pt-2">{cartItem.quantity}</div>
+									<div className="pt-2">${calculateDiscountPrice(
+									cartItem.price,
+									cartItem.discount
+								) * cartItem.quantity}</div>
 								</div>
 							))}
 						<div className="text-black grid grid-cols-2 w-full px-10">

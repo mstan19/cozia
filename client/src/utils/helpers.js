@@ -21,13 +21,14 @@ export function sortDiscountDesc(array) {
 }
 
 export function removeHyphensAndCapitalize(string) {
-    return string.replace(/-/g, ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase())
+	return string
+		.replace(/-/g, " ")
+		.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
 }
 
 export function displayRatings(totalRating) {
-	// TODO: See how to include half stars, but mongoose doesn't accept decimals and clothes data won't load
 	switch (true) {
-		case (totalRating === 0):
+		case totalRating === 0:
 			return (
 				<>
 					<ImStarEmpty />
@@ -37,7 +38,7 @@ export function displayRatings(totalRating) {
 					<ImStarEmpty />
 				</>
 			);
-		case (0 < totalRating < 1):
+		case totalRating < 1:
 			return (
 				<>
 					<ImStarHalf />
@@ -47,7 +48,7 @@ export function displayRatings(totalRating) {
 					<ImStarEmpty />
 				</>
 			);
-		case (totalRating === 1):
+		case totalRating < 1.5:
 			return (
 				<>
 					<ImStarFull />
@@ -57,17 +58,17 @@ export function displayRatings(totalRating) {
 					<ImStarEmpty />
 				</>
 			);
-		case (1 < totalRating < 2):
+		case totalRating < 2:
 			return (
 				<>
 					<ImStarFull />
-					<ImStarEmpty />
+					<ImStarHalf />
 					<ImStarEmpty />
 					<ImStarEmpty />
 					<ImStarEmpty />
 				</>
 			);
-		case 2:
+		case totalRating < 2.5:
 			return (
 				<>
 					<ImStarFull />
@@ -77,7 +78,17 @@ export function displayRatings(totalRating) {
 					<ImStarEmpty />
 				</>
 			);
-		case 3:
+		case totalRating < 3:
+			return (
+				<>
+					<ImStarFull />
+					<ImStarFull />
+					<ImStarHalf />
+					<ImStarEmpty />
+					<ImStarEmpty />
+				</>
+			);
+		case totalRating < 3.5:
 			return (
 				<>
 					<ImStarFull />
@@ -87,7 +98,17 @@ export function displayRatings(totalRating) {
 					<ImStarEmpty />
 				</>
 			);
-		case 4:
+		case totalRating < 4:
+			return (
+				<>
+					<ImStarFull />
+					<ImStarFull />
+					<ImStarFull />
+					<ImStarHalf />
+					<ImStarEmpty />
+				</>
+			);
+		case totalRating < 4.5:
 			return (
 				<>
 					<ImStarFull />
@@ -97,7 +118,17 @@ export function displayRatings(totalRating) {
 					<ImStarEmpty />
 				</>
 			);
-		case 5:
+		case totalRating < 5:
+			return (
+				<>
+					<ImStarFull />
+					<ImStarFull />
+					<ImStarFull />
+					<ImStarFull />
+					<ImStarHalf />
+				</>
+			);
+		case totalRating === 5 || totalRating === 5.0 || totalRating > 5:
 			return (
 				<>
 					<ImStarFull />
