@@ -9,13 +9,15 @@ import hero from "../../assets/images/hero.jpg";
 
 const Home = () => {
 	// Create query to find all products
-	const { loading, data } = useQuery(QUERY_PRODUCTS);
+	const { loading, data, error } = useQuery(QUERY_PRODUCTS);
 	const [sectionCards, setSectionCards] = useState({
 		"NEWEST ARRIVALS": {},
 		FEATURED: {},
 		DEALS: {},
 		TRENDING: {},
 	});
+
+	if (error) console.log(error);
 
 	// Get newest arrival card
 	function getNewestArrival(products) {
@@ -72,7 +74,6 @@ const Home = () => {
 				TRENDING: getTrending(products),
 			};
 			setSectionCards(sCards);
-			// console.log(sCards);
 		}
 	}, [data]);
 

@@ -158,7 +158,7 @@ const Filter = ({ clothes, filterIcon }) => {
 	// 	}
 	// }, [searchTerm]);
 
-	console.log(filter)
+	// console.log(filter)
 	return (
 		<button className="filter">
 			<form>

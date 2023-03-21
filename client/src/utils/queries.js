@@ -12,6 +12,47 @@ export const QUERY_ME = gql`
 	}
 `;
 
+export const QUERY_MYPRODUCTS = gql`
+	query Query($userId: ID!) {
+		getMyProducts(userID: $userId) {
+			productName
+			description
+			color
+			countInStock
+			discount
+			gender
+			image
+			price
+			size
+			_id
+			category {
+				_id
+			}
+		}
+	}
+`;
+
+export const QUERY_GET_USER = gql`
+	query GetUser($id: ID!) {
+		getUser(_id: $id) {
+			_id
+			username
+		}
+	}
+`;
+
+export const QUERY_USERS = gql`
+	query GetAllUsers {
+		getAllUsers {
+			_id
+			email
+			firstName
+			lastName
+			username
+		}
+	}
+`;
+
 export const QUERY_PRODUCTS = gql`
 	query Products {
 		products {
@@ -22,9 +63,13 @@ export const QUERY_PRODUCTS = gql`
 			image
 			price
 			discount
-			totalRating
-			numberReviews
 			gender
+			category {
+				_id
+			}
+			review {
+				_id
+			}
 		}
 	}
 `;
@@ -42,19 +87,12 @@ export const GET_ONE_PRODUCT = gql`
 			size
 			color
 			countInStock
-			reviews {
-				user {
-					_id
-				}
-				rating
-				comment
-				createdAt
-			}
-			totalRating
-			numberReviews
 			category {
 				_id
 				name
+			}
+			review {
+				_id
 			}
 		}
 	}
@@ -74,16 +112,9 @@ export const PRODUCTS_BY_CATEGORYID = gql`
 			size
 			color
 			countInStock
-			reviews {
-				user {
-					_id
-				}
-				rating
-				comment
-				createdAt
+			review {
+				_id
 			}
-			totalRating
-			numberReviews
 			category {
 				_id
 			}
@@ -91,15 +122,50 @@ export const PRODUCTS_BY_CATEGORYID = gql`
 	}
 `;
 
-export const QUERY_ONE_CATEGORY = gql`
-query GetCategory($id: ID!) {
-	getCategory(_id: $id) {
-	  _id
-	  name
+export const QUERY_REVIEWS = gql`
+	query Reviews {
+		reviews {
+			_id
+			comment
+			createdAt
+			numberReviews
+			rating
+			product {
+				_id
+			}
+			user {
+				_id
+			}
+		}
 	}
-  }
+`;
 
-  `;
+export const QUERY_REVIEWS_BY_PRODUCT = gql`
+	query Query($productId: ID) {
+		getReviewsByProduct(productID: $productId) {
+			_id
+			comment
+			rating
+			numberReviews
+			createdAt
+			product {
+				_id
+			}
+			user {
+				_id
+			}
+		}
+	}
+`;
+
+export const QUERY_ONE_CATEGORY = gql`
+	query GetCategory($id: ID!) {
+		getCategory(_id: $id) {
+			_id
+			name
+		}
+	}
+`;
 
 // gets all categories
 export const QUERY_CATEGORY = gql`
@@ -107,26 +173,6 @@ export const QUERY_CATEGORY = gql`
 		categories {
 			_id
 			name
-		}
-	}
-`;
-
-export const QUERY_MYPRODUCTS = gql`
-	query Query($userId: ID!) {
-		getMyProducts(userID: $userId) {
-		productName
-		description
-		color
-		countInStock
-		discount
-		gender
-		image
-		price
-		size
-		_id
-		category {
-			_id
-		  }
 		}
 	}
 `;
@@ -165,9 +211,9 @@ export const QUERY_SALEITEMS = gql`
 `;
 
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($orderId: ID!) {
-    checkout(orderID: $orderId) {
-      session
-    }
-  }
+	query getCheckout($orderId: ID!) {
+		checkout(orderID: $orderId) {
+			session
+		}
+	}
 `;

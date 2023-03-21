@@ -7,7 +7,7 @@ import Stats from "../../components/Stats/Stats";
 import OrderList from "../OrderList/OrderList";
 import MyProduct from "../MyProducts/MyProducts";
 import Profile from "../../components/Profile/Profile";
-import Reviews from "../../components/Reviews/Reviews";
+import MyReviews from "../../components/MyReviews/MyReviews";
 import Wishlist from "../../components/Wishlist/Wishlist";
 import { BsCardChecklist } from "react-icons/bs";
 import { IoIosContact } from "react-icons/io";
