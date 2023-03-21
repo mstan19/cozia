@@ -107,6 +107,9 @@ export const REMOVE_PRODUCT = gql`
 	}
 `;
 
+// export const REMOVE_FROM_CART = gql`
+// `
+
 export const ADD_REVIEW = gql`
 	mutation AddReview(
 		$userId: ID!

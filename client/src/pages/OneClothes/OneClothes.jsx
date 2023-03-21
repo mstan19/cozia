@@ -81,7 +81,7 @@ const OneClothes = () => {
 				}
 
 				const loggedUser = await meData?.me;
-				console.log(loggedUser);
+				// console.log(loggedUser);
 				if (loggedUser) {
 					setUserId(loggedUser._id);
 				}

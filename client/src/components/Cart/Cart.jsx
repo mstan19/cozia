@@ -5,6 +5,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import { CartState } from "../../context/CartContext";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import shoppingBag from "../../assets/images/shoppingBag.jpg";
+// import { useDispatch } from 'react-redux';
 import {
 	calculateDiscountPrice,
 	displayRatings,
@@ -43,6 +44,16 @@ const Cart = () => {
 			setCart(newProducts);
 		}
 	};
+
+	// parse cart and pass in index
+	// 
+
+	const removeFromCart = (index) => {
+		let item = JSON.parse(localStorage.getItem("product"));
+		item.splice(index, 1);
+		localStorage.setItem("product", JSON.stringify(item));
+		setCart([...item]);
+	}
 
 	useEffect(() => {
 		// TODO: Add in quantity
@@ -155,7 +166,7 @@ const Cart = () => {
 														product.price,
 														product.discount
 													)}</div>
-													<button className="text-base text-red-500" onClick={(e) => { e.preventDefault(); }}> Remove</button>
+													<button className="text-base text-red-500" onClick={(e) => { e.preventDefault(); removeFromCart(index)}}>Remove</button>
 												</div>
 											</div>
 										)
