@@ -300,7 +300,7 @@ const AddProductForm = () => {
 							) : null}
 						</div>
 
-						<div>
+						{/* <div>
 							<label className="flex flex-row block text-sm font-medium text-gray-700">
 								IMAGE <p className="text-red-700">*</p>
 							</label>
@@ -333,10 +333,10 @@ const AddProductForm = () => {
 									<p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
 								</div>
 							</div>
-						</div>
+						</div> */}
 
 						<div className="flex flex-col items-center justify-between">
-							<button className="bg-green-600 w-1/2 rounded-full hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none " type="submit">
+							<button className="bg-green-600 w-1/2 rounded-lgS hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none " type="submit">
 								Add
 							</button>
 						</div>

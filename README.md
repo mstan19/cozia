@@ -30,7 +30,7 @@ This versatile application encourages entrepreneurship by allowing users to be b
 
 ### What makes your project stand out?
 
-There are a lot of cool features. One, this application is mobile responsive. Two, every form uses server-side verifications. Three, this application has a dynamic table where users can modify their order list. If users want to update their products, then a modal will pop up and have their previous data preloaded already. Four, if users want to delete a product or delete their account, then a modal will pop up and users have to input their username correctly. Finally, this app is deployed with popular services: Amazon Web Services (AWS) and Heroku.
+There are a lot of cool features. One, this application is mobile responsive. Two, every form uses server-side verifications. Three, this application has a dynamic table where users can modify their order list. If users want to update their products, then a modal will pop up and have their previous data preloaded already. Four, if users want to delete a product or delete their account, then a modal will pop up and users have to input their username correctly. Also, this app can take payments using Stripe. Finally, this app is deployed with popular services: Amazon Web Services (AWS) and Heroku.
 
 But don't take our word for it, checkout out our cool app!
 
@@ -183,6 +183,8 @@ Dashboard Edit Order Modal (Mobile View) ![Mobile Dashboard Edit Order Modal](./
 Dashboard Edit Order Modal (Desktop View) ![Desktop Dashboard Edit Order Modal](./client/src/assets/images/editOrderModalCozia.png)
 Dashboard My Products Page (Mobile View) ![Mobile Dashboard My Products Page](./client/src/assets/images/myproductsMobileCozia.png)
 Dashboard My Products Page (Desktop View) ![Desktop Dashboard My Products Page](./client/src/assets/images/myProductsCozia.png)
+Dashboard Add Product Form (Mobile View) ![Mobile Add Product Form](./client/src/assets/images/addformMobileCozia.png)
+Dashboard Add Product Form (Desktop View) ![Desktop Add Product Form](./client/src/assets/images/addformCozia.png)
 Dashboard Account Page (Mobile View) ![Mobile Dashboard Account Page](./client/src/assets/images/profileMobileCozia.png)
 Dashboard Account Page (Desktop View) ![Desktop Dashboard Account Page](./client/src/assets/images/profileCozia.png)
 View Clothes By Category (Mobile View) ![Mobile Clothes By Category](./client/src/assets/images/viewClothesMobileCozia.png)
