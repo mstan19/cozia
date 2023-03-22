@@ -13,7 +13,7 @@ db.once("open", async () => {
 		await Category.deleteMany({});
 		await Order.deleteMany({});
 
-		let genderCategory = ["women", "men", "women"];
+		let genderCategory = ["men", "women"];
 		let clothesCategory = [
 			{
 				name: "activewear",
@@ -43,6 +43,36 @@ db.once("open", async () => {
 				name: "shirts",
 			},
 		];
+		let clothesName = [
+			{
+				name: "Prada",
+			},
+			{
+				name: "Chanel",
+			},
+			{
+				name: "Lacoste",
+			},
+			{
+				name: "Michael Kors",
+			},
+			{
+				name: "Nordstrom",
+			},
+			{
+				name: "Primark",
+			},
+			{
+				name: "Nine West",
+			},
+			{
+				name: "Dior",
+			},
+			{
+				name: "Vera Wang",
+			},
+		];
+
 		let commentsList = [
 			"AWESOME! Would buy this again.",
 			"Love the fabric.",
@@ -52,6 +82,12 @@ db.once("open", async () => {
 		];
 
 		const newCategory = await Category.create(clothesCategory);
+
+		function removeHyphensAndCapitalize(string) {
+			return string
+				.replace(/-/g, " ")
+				.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
+		}
 
 		//creating users. if consumer, then they will have an order
 		let userList = [];
@@ -74,24 +110,26 @@ db.once("open", async () => {
 		let newReview;
 
 		//creating products
-		for (let n = 0; n < genderCategory.length - 1; n++) {
+		for (let n = 0; n < genderCategory.length; n++) {
+			let counter = 0;
+
 			for (let l = 0; l < newCategory.length; l++) {
-				// const unsplashResults = await axios.get(`https://api.unsplash.com/search/photos?query=${genderCategory[n]}&query=${newCategory[l].name}&client_id=${process.env.CLIENT_ID}`)
+				const unsplashResults = await axios.get(`https://api.unsplash.com//collections/${process.env.curated_id}/photos?client_id=${process.env.CLIENT_ID}&per_page=27&page=${n + 1}`)
 
-				// collections/curated/:id/photos
-				// const unsplashResults = await axios.get(`https://api.unsplash.com//collections/curated/${process.env.curated_id}/photos&client_id=${process.env.CLIENT_ID}`)
 
+
+				unsplashResults.data.reverse()
 				for (let m = 0; m < 3; m++) {
+					console.log(m + (counter * 3))
 
 					let product = {
-						productName: faker.commerce.product(),
+						productName: `${clothesName[m].name} ${removeHyphensAndCapitalize(newCategory[l].name)}`,
 						description: faker.commerce.productDescription(),
-						// description: unsplashResults.data.results[m].description,
-						image: faker.image.fashion(390, 390, true),
-						// image: unsplashResults.data.results[l].urls.small,
+						// image: faker.image.fashion(390, 390, true),
+						image: unsplashResults.data[m + (counter * 3)].urls.small,
 						price: faker.commerce.price(),
 						size: "small",
-						// color: unsplashResults.data.results[m].urls.color,
+						// color: unsplashResults.data[m + (counter * 3)].urls.color,
 						color: faker.color.rgb(),
 						discount: Math.floor(Math.random() * 100),
 						countInStock: 3,
@@ -123,6 +161,7 @@ db.once("open", async () => {
 					productsList.push(newProduct);
 
 				}
+				counter++
 			}
 		}
 
