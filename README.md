@@ -62,7 +62,7 @@ But don't take our word for it, checkout out our cool app!
 -   Concurrently
 -   Nodemon
 -   Faker.js
--   NEW SEED API \*
+-   Unsplash API
 
 ##### Repository and Deployment
 
@@ -132,7 +132,6 @@ Github Repository: [https://github.com/mstan19/cozia]
 -   Add a wishlist
 -   Add a Statics, where users can see how much revene they earned from their sales
 -   Build a contact page for technical support
--   Make the search bar functional
 
 ## Installation
 
@@ -146,7 +145,7 @@ Go to http://localhost:3000
 
 OR follow the above Heroku or AWS deployed application link.
 
-Also, create an .env in the server folder. This file will contain the JWS secret (AKA JWT_SECRET), stripe secret key (AKA STRIPE_SECRET_KEY), and client url (AKA CLIENT_URL). You will need to create stripe secrete key and jws secret.
+Also, create an .env in the server folder. This file will contain the JWS secret (AKA JWT_SECRET), stripe secret key (AKA STRIPE_SECRET_KEY), client url (AKA CLIENT_URL), and collection id (AKA curated_id). You will need to create stripe secrete key, jws secret, and collection id from unsplash.
 
 To run it on localhost, run the seeds and run the app commands in the root
 directory `npm run seed && npm run develop`.
@@ -169,14 +168,37 @@ the localhost:3000.
 
 ### Screenshots
 
-\*
-Homepage ![Cozia Homepage](./client/src/assets/)
-User can login or signup
-![Cozia Login](./client/src/assets/images/loginCozia.png)
-![Cozia Signup](./client/src/assets/images/)
-Dashboard ![Cozia Dashboard](./client/src/assets/images/)
+Homepage (Mobile View) ![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia1.png)
+Homepage (Mobile View) ![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia2.png)
+Homepage (Desktop View) ![Desktop Homepage](./client/src/assets/images/homepageCozia1.png)
+Homepage (Desktop View) ![Desktop Homepage](./client/src/assets/images/homepageCozia2.png)
+View All Clothes (Mobile View) ![Mobile View All Clothes](./client/src/assets/images/galleryMobileCozia.png)
+Login (Mobile View) ![Mobile Login](./client/src/assets/images/loginMobileCozia.png)
+Login (Desktop View) ![Desktop Login](./client/src/assets/images/loginCozia.png)
+Signup (Mobile View) ![Mobile Signup](./client/src/assets/images/signupMobileCozia.png)
+Signup (Desktop View) ![Desktop Signup](./client/src/assets/images/signupCozia.png)
+Dashboard (Mobile View) ![Mobile Dashboard](./client/src/assets/images/dashboardMobilCozia.png)
+Dashboard (Desktop View) ![Desktop Dashboard](./client/src/assets/images/OrderlistCozia.png)
+Dashboard Edit Order Modal (Mobile View) ![Mobile Dashboard Edit Order Modal](./client/src/assets/images/dashboardMobilCozia.png)
+Dashboard Edit Order Modal (Desktop View) ![Desktop Dashboard Edit Order Modal](./client/src/assets/images/editOrderModalCozia.png)
+Dashboard My Products Page (Mobile View) ![Mobile Dashboard My Products Page](./client/src/assets/images/myproductsMobileCozia.png)
+Dashboard My Products Page (Desktop View) ![Desktop Dashboard My Products Page](./client/src/assets/images/myProductsCozia.png)
+Dashboard Account Page (Mobile View) ![Mobile Dashboard Account Page](./client/src/assets/images/profileMobileCozia.png)
+Dashboard Account Page (Desktop View) ![Desktop Dashboard Account Page](./client/src/assets/images/profileCozia.png)
+View Clothes By Category (Mobile View) ![Mobile Clothes By Category](./client/src/assets/images/viewClothesMobileCozia.png)
+View Clothes By Category (Desktop View) ![Desktop View Clothes By Category](./client/src/assets/images/viewclothesCozia.png)
+View Item (Mobile View) ![Mobile Item](./client/src/assets/images/itemMobileCozia.png)
+View Item (Desktop View) ![Desktop Item](./client/src/assets/images/itemCozia.png)
+Cart (Mobile View) ![Mobile Cart](./client/src/assets/images/cartMobileCozia.png)
+Cart (Desktop View) ![Desktop Cart](./client/src/assets/images/cartCozia.png)
+Checkout (Mobile View) ![Mobile Checkout](./client/src/assets/images/checkoutMobileCozia.png)
+Checkout (Desktop View) ![Desktop Checkout](./client/src/assets/images/checkoutPageCozia.png)
+Confirmation page (Mobile View) ![Mobile Confirmation](./client/src/assets/images/confirmMobileCozia.png)
+Confirmation page (Desktop View) ![Desktop Confirmation](./client/src/assets/images/confirmCozia.png)
 Stripe Payment
-![Cozia Stripe Payment Platform]()
+![Cozia Stripe Payment Platform](./client/src/assets/images/stripeCozia.png)
+Success page (Mobile View) ![Mobile Success](./client/src/assets/images/successMobileCozia.png)
+Success page (Desktop View) ![Desktop Success](./client/src/assets/images/successCozia.png)
 
 ## Contributing
 
