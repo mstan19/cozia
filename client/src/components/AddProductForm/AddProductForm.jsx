@@ -70,7 +70,7 @@ const AddProductForm = () => {
 		};
 
 		getUserData();
-	}, [queryDataMe]);
+	}, [queryDataMe, color]);
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
