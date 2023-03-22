@@ -41,6 +41,10 @@ const AddProductForm = () => {
 	// update state based on form input changes
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
+		if (name === "color") {
+			setColor(value);
+		} 
+		console.log(name, value);
 		setProductFormData({ ...productFormData, [name]: value });
 	};
 
@@ -247,6 +251,47 @@ const AddProductForm = () => {
 							) : null}
 						</div>
 						<div className="grid grid-cols-3 gap-4 mb-4">
+							
+							<div className="col-span-2">
+								
+								{/* <div
+									className="value"
+									style={{ borderLeftColor: color }}
+								>
+									Current color is {color}
+								</div> */}
+								<label
+									className="flex flex-row block text-black-700 text-sm mb-2"
+									htmlFor="color"
+								>
+									COLOR
+									<p className="text-red-700">*</p>
+								</label>
+								<HexColorPicker
+									color={color}
+									onChange={setColor}
+								/>
+								<div className="inline-block relative w-full mt-3">
+									<input
+										className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none"
+										name="color"
+										// value={color}
+										maxLength={7}
+										id="color"
+										type="text"
+										value={color}
+										onChange={handleInputChange}
+									></input>
+								</div>
+								{error &&
+								error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
+									"color"
+								) ? (
+									<div className="text-red-500 text-base italic">
+										{createErrorMessage("color")}
+									</div>
+								) : null}
+							</div>
 							<div className="col-span-1">
 								<label
 									className="flex flex-row block text-black-700 text-sm mb-2"
@@ -284,43 +329,6 @@ const AddProductForm = () => {
 								) ? (
 									<div className="text-red-500 text-base italic">
 										{createErrorMessage("size")}
-									</div>
-								) : null}
-							</div>
-							<div className="col-span-2">
-								<HexColorPicker
-									color={color}
-									onChange={setColor}
-								/>
-								{/* <div
-									className="value"
-									style={{ borderLeftColor: color }}
-								>
-									Current color is {color}
-								</div> */}
-								<label
-									className="flex flex-row block text-black-700 text-sm mb-2"
-									htmlFor="color"
-								>
-									COLOR
-									<p className="text-red-700">*</p>
-								</label>
-								<div className="inline-block relative w-full">
-									<input
-										className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none"
-										name="color"
-										value={color}
-										id="color"
-										type="text"
-										onChange={handleInputChange}
-									></input>
-								</div>
-								{error &&
-								error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
-									"color"
-								) ? (
-									<div className="text-red-500 text-base italic">
-										{createErrorMessage("color")}
 									</div>
 								) : null}
 							</div>
