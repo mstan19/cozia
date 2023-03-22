@@ -206,7 +206,7 @@ const AddProductForm = () => {
 									onChange={handleInputChange}
 								>
 									<option defaultValue>
-										Select
+										Select Category
 									</option>
 									{categoryData &&
 										categoryData.categories.map(
@@ -302,13 +302,14 @@ const AddProductForm = () => {
 									className="flex flex-row block text-black-700 text-sm mb-2"
 									htmlFor="color"
 								>
-									{color}
+									COLOR
 									<p className="text-red-700">*</p>
 								</label>
 								<div className="inline-block relative w-full">
 									<input
 										className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none"
 										name="color"
+										value={color}
 										id="color"
 										type="text"
 										onChange={handleInputChange}
