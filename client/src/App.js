@@ -14,7 +14,7 @@ import Footer from "./components/Footer/Footer";
 import Register from "../src/pages/Register/Register";
 import MyProduct from "./pages/MyProducts/MyProducts";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import AddProductForm from "./components/AddProductForm";
+import AddProductForm from "./components/AddProductForm/AddProductForm";
 import OrderList from "./pages/OrderList/OrderList";
 import Checkout from "./pages/Checkout/Checkout";
 import Cart from "./components/Cart/Cart";
