@@ -16,7 +16,7 @@ const ClothesCard = ({ product }) => {
 	} = product;
 
 	return (
-		<article className="relative flex flex-col flex-wrap w-5/12 w-auto m-auto hover:cursor-pointer">
+		<article className="relative flex flex-col flex-wrap w-5/12 w-auto hover:cursor-pointer">
 			<Link to={`${product._id}`} prop={product}
 			>
 				<img src={image} alt={productName} className="h-64 w-64 object-cover"/>
