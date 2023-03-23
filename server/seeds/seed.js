@@ -1,6 +1,8 @@
 const db = require("../config/connection");
 const { User, Product, Review, Category, Order } = require("../models");
 const { faker } = require("@faker-js/faker");
+const axios = require('axios');
+require("dotenv").config();
 
 db.once("open", async () => {
 	try {
@@ -11,7 +13,7 @@ db.once("open", async () => {
 		await Category.deleteMany({});
 		await Order.deleteMany({});
 
-		let genderCategory = ["women", "men", "women"];
+		let genderCategory = ["men", "women"];
 		let clothesCategory = [
 			{
 				name: "activewear",
@@ -41,6 +43,36 @@ db.once("open", async () => {
 				name: "shirts",
 			},
 		];
+		let clothesName = [
+			{
+				name: "Prada",
+			},
+			{
+				name: "Chanel",
+			},
+			{
+				name: "Lacoste",
+			},
+			{
+				name: "Michael Kors",
+			},
+			{
+				name: "Nordstrom",
+			},
+			{
+				name: "Primark",
+			},
+			{
+				name: "Nine West",
+			},
+			{
+				name: "Dior",
+			},
+			{
+				name: "Vera Wang",
+			},
+		];
+
 		let commentsList = [
 			"AWESOME! Would buy this again.",
 			"Love the fabric.",
@@ -50,7 +82,12 @@ db.once("open", async () => {
 		];
 
 		const newCategory = await Category.create(clothesCategory);
-		// }
+
+		function removeHyphensAndCapitalize(string) {
+			return string
+				.replace(/-/g, " ")
+				.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
+		}
 
 		//creating users. if consumer, then they will have an order
 		let userList = [];
@@ -64,7 +101,6 @@ db.once("open", async () => {
 				email: email,
 				password: email,
 			};
-			// console.log(user);
 			const newUser = await User.create(user);
 			userList.push(newUser);
 		}
@@ -74,59 +110,55 @@ db.once("open", async () => {
 		let newReview;
 
 		//creating products
-		for (let l = 0; l < newCategory.length; l++) {
-			for (let m = 0; m < 3; m++) {
-				console.log(`==============================================`);
-				let product = {
-					productName: faker.commerce.product(),
-					description: faker.commerce.productDescription(),
-					image: faker.image.fashion(390, 390, true),
-					price: faker.commerce.price(),
-					size: "small",
-					color: faker.color.rgb(),
-					discount: Math.floor(Math.random() * 100),
-					countInStock: 3,
-					createdAt: faker.date.past(),
-					totalRating: Math.random() * 5,
+		for (let n = 0; n < genderCategory.length; n++) {
+			let counter = 0;
 
-					// reviews: [],
-					// reviews: [reviewSchema],
-					// review: reviewList[0]._id,
-					gender: genderCategory[Math.floor(Math.random() * 2)],
-					category: newCategory[l]._id,
-					user: userList[l]._id,
-				};
-				const newProduct = await Product.create(product);
-				console.log(newProduct);
+			for (let l = 0; l < newCategory.length; l++) {
+				const unsplashResults = await axios.get(`https://api.unsplash.com//collections/${process.env.curated_id}/photos?client_id=${process.env.CLIENT_ID}&per_page=27&page=${n + 1}`)
 
-				for (let i = 0; i < 3; i++) {
-					let review = {
-						user: userList[i]._id,
-						rating: Math.random() * 5,
-						comment:
-							commentsList[
-								Math.floor(Math.random() * commentsList.length)
-							],
+
+
+				unsplashResults.data.reverse()
+				for (let m = 0; m < 3; m++) {
+
+					let product = {
+						productName: `${clothesName[m].name} ${removeHyphensAndCapitalize(newCategory[l].name)}`,
+						description: faker.commerce.productDescription(),
+						image: unsplashResults.data[m + (counter * 3)].urls.small,
+						price: faker.commerce.price(),
+						size: "small",
+						color: faker.color.rgb(),
+						discount: Math.floor(Math.random() * 100),
+						countInStock: 3,
 						createdAt: faker.date.past(),
+						gender: genderCategory[n],
+						totalRating: (Math.random() * 5),
 						numberReviews: Math.floor(Math.random() * 100),
-						product: newProduct._id,
+						category: newCategory[l]._id,
+						user: userList[l]._id,
 					};
-					newReview = await Review.create(review);
-					newProduct.reviews = newReview;
-					// console.log(newReview);
-				// console.log(newProduct.reviews);
-				// console.log(newProduct, "NewProduct after");
+					const newProduct = await Product.create(product);
+
+					for (let i = 0; i < 3; i++) {
+						let review = {
+							user: userList[i]._id,
+							rating: Math.random() * 5,
+							comment:
+								commentsList[
+								Math.floor(Math.random() * commentsList.length)
+								],
+							createdAt: faker.date.past(),
+							numberReviews: Math.floor(Math.random() * 100),
+							product: newProduct._id,
+						};
+						newReview = await Review.create(review);
+						newProduct.reviews = newReview;
+					}
+
+					productsList.push(newProduct);
+
 				}
-
-				
-				// console.log("$$", userList);
-
-				// TODO: Add reviews
-				// Generate random amount of reviews to that product from 0 to 3.
-				// Make random values for review
-				// Add reviews into that product
-
-				productsList.push(newProduct);
+				counter++
 			}
 		}
 

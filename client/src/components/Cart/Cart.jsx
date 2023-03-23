@@ -106,7 +106,7 @@ const Cart = () => {
 
 						<svg
 							onClick={() => setShowSidebar(!showSidebar)}
-							className="h-10 w-10 fixed z-30 flex items-center cursor-pointer right-6 top-6"
+							className="h-5 w-5 fixed z-30 flex items-center cursor-pointer right-6 top-6"
 							fill="#2563EB"
 						></svg>
 					)}
@@ -208,7 +208,7 @@ const Cart = () => {
 
 						<svg
 							onClick={() => setMsg(!msg)}
-							className="fixed z-30 flex items-center cursor-pointer right-6 top-6"
+							className="h-10 w-10 fixed z-30 flex items-center cursor-pointer right-6 top-6"
 							fill="#2563EB"
 						></svg>
 					)}

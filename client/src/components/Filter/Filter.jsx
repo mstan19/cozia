@@ -47,6 +47,7 @@ const Filter = ({ clothes, filterIcon }) => {
 		let sortedClothes =[...clothes].sort( (a,b) => {
 			let aClothes = a.totalRating
 			let bClothes = b.totalRating
+			console.log(aClothes - bClothes)
 			return aClothes - bClothes
 		})
 		filterIcon(sortedClothes)
@@ -57,6 +58,8 @@ const Filter = ({ clothes, filterIcon }) => {
 		let sortedClothes =[...clothes].sort( (a,b) => {
 			let aClothes = a.totalRating
 			let bClothes = b.totalRating
+			console.log(typeof bClothes)
+			console.log(bClothes - aClothes)
 			return bClothes - aClothes
 		})
 		filterIcon(sortedClothes)

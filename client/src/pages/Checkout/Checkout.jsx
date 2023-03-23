@@ -157,7 +157,7 @@ const Checkout = () => {
 
 	return (
 		<div className="h-full w-full">
-			<div className="container m-auto w-full py-8 md:w-[44rem]">
+			<div className="container p-2 sm:m-auto w-full py-8 md:w-[44rem]">
 				<form
 					onSubmit={handleSubmit(onSubmit)}
 					// ref={form}

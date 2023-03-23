@@ -251,15 +251,7 @@ const AddProductForm = () => {
 							) : null}
 						</div>
 						<div className="grid grid-cols-3 gap-4 mb-4">
-							
 							<div className="col-span-2">
-								
-								{/* <div
-									className="value"
-									style={{ borderLeftColor: color }}
-								>
-									Current color is {color}
-								</div> */}
 								<label
 									className="flex flex-row block text-black-700 text-sm mb-2"
 									htmlFor="color"
@@ -478,7 +470,7 @@ const AddProductForm = () => {
 							) : null}
 						</div>
 
-						<div>
+						{/* <div>
 							<label className="flex flex-row block text-sm font-medium text-gray-700">
 								IMAGE <p className="text-red-700">*</p>
 							</label>
@@ -518,13 +510,10 @@ const AddProductForm = () => {
 									</p>
 								</div>
 							</div>
-						</div>
+						</div> */}
 
 						<div className="flex flex-col items-center justify-between">
-							<button
-								className="bg-green-600 w-1/2 rounded-full hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none "
-								type="submit"
-							>
+						<button className="bg-green-600 w-1/2 rounded-lgS hover:bg-green-600 text-white mt-4 py-2 px-4 focus:outline-none " type="submit">
 								Add
 							</button>
 						</div>
