@@ -16,10 +16,10 @@ const ClothesCard = ({ product }) => {
 	} = product;
 
 	return (
-		<article className="relative flex flex-col flex-wrap w-5/12 w-auto m-auto mb-5 hover:cursor-pointer">
+		<article className="relative flex flex-col flex-wrap w-5/12 w-auto m-auto hover:cursor-pointer">
 			<Link to={`${product._id}`} prop={product}
 			>
-				<img src={image} alt={productName} className="h-72 w-64 object-cover"/>
+				<img src={image} alt={productName} className="h-64 w-64 object-cover"/>
 			{discount !== 0 ? (
 				<div className="discount-label top-0 left-0 absolute bg-red-500 text-white py-1 px-1 text-md">
 					<p>-{discount}%</p>

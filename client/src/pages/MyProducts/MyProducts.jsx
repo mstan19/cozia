@@ -170,10 +170,10 @@ const MyProduct = () => {
 						
 					</div>
 
-					<div className="container pt-2 px-5">
+					<div className="container px-7 sm:px-0 mx-auto">
 						{/* Gallery product Card */}
 						<div
-							className="my-product-cards flex flex-wrap w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-4"
+							className="my-product-cards flex flex-wrap w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-4 px-3"
 							id="product-cards"
 						>
 							{myProductsData &&
@@ -193,14 +193,15 @@ const MyProduct = () => {
 													/>
 												</div>
 
-												<div className="content p-5 columns-2">
-													<div className="">
-														<h3 className="text-lg">
-															{product.productName}
-														</h3>
+												<div className="p-3">
+													<h3 className="grid grid-rows-1 text-center text-lg">
+														{product.productName}
+													</h3>
+													<div className="grid grid-cols-2">
+													<div>
 														<p className="flex">
 															Price:
-															<div className=" discount-price text-red-600 pr-3">
+															<div className="discount-price text-red-600 pr-3">
 																${calculateDiscountPrice(product.price, product.discount)}
 															</div>
 															<div className=" original-price text-neutral-400 line-through">
@@ -226,9 +227,9 @@ const MyProduct = () => {
 															)}
 														</p>
 													</div>
-													<div className="grid grid-rows-1 flex-nowrap justify-end py-3">
+													<div className="grid grid-rows-2 justify-end">
 														<button
-															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 text-white py-2 px-5 focus:outline-none"
+															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 text-white px-5 focus:outline-none"
 															id="edit-product-btn"
 															onClick={() => {
 																setEditModalOpen(
@@ -258,7 +259,7 @@ const MyProduct = () => {
 															/>
 														)}
 														<button
-															className=" bg-red-600 rounded-lg my-0.5 hover:bg-red-600 text-white py-2 px-5 focus:outline-none"
+															className="bg-red-600 rounded-lg my-0.5 hover:bg-red-600 text-white px-5 focus:outline-none"
 															id="delete-product-btn"
 															type="button"
 															onClick={() => {
@@ -288,6 +289,8 @@ const MyProduct = () => {
 															/>
 														)}
 													</div>
+													</div>
+													
 												</div>
 											</div>
 										);
