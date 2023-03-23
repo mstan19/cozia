@@ -109,6 +109,8 @@ const resolvers = {
 
 			// console.log("order", order);
 			const line_items = order.products.map((product) => {
+				console.log(order)
+
 				return {
 					price_data: {
 						currency: "usd",
@@ -123,13 +125,14 @@ const resolvers = {
 						unit_amount:
 							Math.floor(
 								product.price +
-									product.price / 10 -
-									(product.price + product.price / 10) *
-										(product.discount / 100)
+								product.price / 10 -
+								(product.price + product.price / 10) *
+								(product.discount / 100)
 							) * 100,
 						tax_behavior: "exclusive",
 					},
-					quantity: 1,
+					// quantity: product.quantity,
+					quantity: 1
 				};
 			});
 
@@ -234,7 +237,7 @@ const resolvers = {
 			const newReview = await Review.create(reviewData);
 
 			return newReview;
-			
+
 		},
 		addOrder: async (parent, { orderData, userId }, context) => {
 			orderData["user"] = userId;

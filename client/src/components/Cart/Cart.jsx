@@ -5,7 +5,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import { CartState } from "../../context/CartContext";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import shoppingBag from "../../assets/images/shoppingBag.jpg";
-// import { useDispatch } from 'react-redux';
 import {
 	calculateDiscountPrice,
 	displayRatings,
@@ -24,6 +23,7 @@ const Cart = () => {
 
 	const increment = (index) => {
 		let newProducts = [...cart];
+		console.log(newProducts)
 		if (newProducts[index].quantity < newProducts[index].countInStock) {
 			newProducts[index].quantity++;
 			console.log(newProducts)
@@ -105,7 +105,7 @@ const Cart = () => {
 
 						<svg
 							onClick={() => setShowSidebar(!showSidebar)}
-							className="h-5 w-5 fixed z-30 flex items-center cursor-pointer right-6 top-6"
+							className="h-8 w-8 fixed z-30 flex items-center cursor-pointer right-6 top-6"
 							fill="#2563EB"
 						></svg>
 					)}

@@ -55,15 +55,6 @@ const typeDefs = gql`
         phoneNumber: String!
     }
 
-    type productOrder {
-        productName: String!
-        image: String!
-        quantity: String!
-        price: Float!
-        discount: Float!
-        product: [Product]
-    }
-
     type Order {
         _id: ID
         user: User!
