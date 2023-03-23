@@ -267,7 +267,6 @@ const AddProductForm = () => {
 									<input
 										className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none"
 										name="color"
-										// value={color}
 										maxLength={7}
 										id="color"
 										type="text"
