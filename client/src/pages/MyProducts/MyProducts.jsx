@@ -189,15 +189,15 @@ const MyProduct = () => {
 														src={product.image}
 														alt="product-image"
 														id="product-image"
-														className="object-fit"
+														className="h-72 w-64 object-cover"
 													/>
 												</div>
 
 												<div className="content p-5 columns-2">
-													<h3 className="text-lg">
-														{product.productName}
-													</h3>
-													<div>
+													<div className="">
+														<h3 className="text-lg">
+															{product.productName}
+														</h3>
 														<p className="flex">
 															Price:
 															<div className=" discount-price text-red-600 pr-3">

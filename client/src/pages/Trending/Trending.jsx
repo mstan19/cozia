@@ -46,7 +46,7 @@ const Trending = () => {
 		<div className="min-h-screen">
 			
 			<h1 className="text-center my-6 text-3xl underline underline-offset-8">Trending</h1>
-			<section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 justify-center bg-white pt-5 mb-5 mx-auto">
+			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4  justify-center bg-white pt-5 mb-5 mx-auto">
 				{!loading && sectionCards.TRENDING
 					.map((clothes, index) => {
 						return (

@@ -35,7 +35,6 @@ const ViewAllClothes = () => {
 			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-center bg-white pt-5 mb-5 mx-auto">
 				{!loading && 
 				clothesDisplay
-				// data?.products
 					.map((clothes, index) => {
 						return (
 							<ClothesCard
