@@ -10,13 +10,12 @@ import { REMOVE_PRODUCT } from "../../utils/mutations";
 import filterIcon from "../../assets/filter.png";
 import EditModal from "../../components/Modal/EditModal";
 import NeedLogin from "../../components/NeedLogin/NeedLogin";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import {
 	calculateDiscountPrice,
 	displayRatings,
 	removeHyphensAndCapitalize,
 } from "../../utils/helpers";
-// import { LOGIN_USER } from "../../utils/mutations";
 
 const MyProduct = () => {
 	const [userData, setUserData] = useState({});
@@ -53,7 +52,6 @@ const MyProduct = () => {
 		getUserData();
 	}, [data]);
 
-// console.log(myProductsData.getMyProducts)
 	const notify = () => toast.success("Your product has been updated.");
 	function stockCheck(index) {
 		if (myProductsData?.getMyProducts[index].countInStock <= 3) {
@@ -94,9 +92,6 @@ const MyProduct = () => {
 	}
 
 	const nav = useNavigate();
-	function handleInputChange() {
-		console.log("change input");
-	}
 
 	function handleAddProductBtn() {
 		nav("/addproduct");
@@ -108,7 +103,7 @@ const MyProduct = () => {
 		} catch (err) {
 			console.error(err);
 		}
-	}
+	};
 
 	const openModal = (id) => {
 		setModalOpen(true);
@@ -116,7 +111,6 @@ const MyProduct = () => {
 	};
 
 	const openEditModal = (productObject) => {
-		console.log(productObject);
 		setEditModalOpen(true);
 		setEditSelectedProduct(productObject);
 	};
@@ -144,66 +138,71 @@ const MyProduct = () => {
 
 	return (
 		<div className="my-product-page">
-			{Auth.loggedIn() ? (
-				<div className="">
-					<div>
-				<Toaster position="top-center"
-					reverseOrder={false} />
-			</div>
-					<div
-						className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4"
-						id="my-product-header"
-					>
-						<div></div>
-						<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-block text-xl">
-							My Products
-						</div>
-						{/* Add product Card */}
-						<button
-							className="row inline-block w-1/5 rounded-lg text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center ml-6 mt-2 mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-600"
-							onClick={handleAddProductBtn}
-							type="submit"
-						>
-							Add
-						</button>
+			<div className="">
+				<div>
+					<Toaster position="top-center" reverseOrder={false} />
+				</div>
+				<div
+					className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4"
+					id="my-product-header"
+				>
+					<div></div>
+					<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-block text-xl">
+						My Products
 					</div>
+					{/* Add product Card */}
+					<button
+						className="row inline-block w-1/5 rounded-lg text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center ml-6 mt-2 mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-600"
+						onClick={handleAddProductBtn}
+						type="submit"
+					>
+						Add
+					</button>
+				</div>
 
-					<div className="container px-7 sm:px-0 mx-auto">
-						{/* Gallery product Card */}
-						<div
-							className="my-product-cards flex flex-wrap w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-4 px-3"
-							id="product-cards"
-						>
-							{myProductsData &&
-								myProductsData.getMyProducts.map(
-									(product, index) => {
-										return (
-											<div
-												className="my-product-card bg-white px-2 pt-3"
-												key={product._id}
-											>
-												<div className="flex justify-center">
-													<img
-														src={product.image}
-														alt="product-image"
-														id="product-image"
-														className="h-72 w-64 object-cover"
-													/>
-												</div>
+				<div className="container px-7 sm:px-0 mx-auto">
+					{/* Gallery product Card */}
+					<div
+						className="my-product-cards flex flex-wrap w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-4 px-3"
+						id="product-cards"
+					>
+						{myProductsData &&
+							myProductsData.getMyProducts.map(
+								(product, index) => {
+									return (
+										<div
+											className="my-product-card bg-white px-2 pt-3"
+											key={product._id}
+										>
+											<div className="flex justify-center">
+												<img
+													src={product.image}
+													alt="product"
+													id="product-image"
+													className="h-72 w-64 object-cover"
+												/>
+											</div>
 
-												<div className="p-3">
-													<h3 className="grid grid-rows-1 text-center text-lg">
-														{product.productName}
-													</h3>
-													<div className="grid grid-cols-2">
+											<div className="p-3">
+												<h3 className="grid grid-rows-1 text-center text-lg">
+													{product.productName}
+												</h3>
+												<div className="grid grid-cols-2">
 													<div>
 														<div className="flex">
 															Price:
 															<p className="discount-price text-red-600 pr-3">
-																${calculateDiscountPrice(product.price, product.discount)}
+																$
+																{calculateDiscountPrice(
+																	product.price,
+																	product.discount
+																)}
 															</p>
 															<p className=" original-price text-neutral-400 line-through">
-																${parseInt(product.price).toFixed(2)}
+																$
+																{parseInt(
+																	product.price
+																).toFixed(2)}
 															</p>
 														</div>
 														<p>
@@ -212,11 +211,19 @@ const MyProduct = () => {
 														</p>
 														<p>
 															Color:{" "}
-															{wordAppearance(
-																"color",
-																index
-															)}
 														</p>
+														<div
+															className="color flex drop-shadow mb-1"
+															style={{
+																backgroundColor: wordAppearance(
+																	"color",
+																	index
+																),
+																height: 30,
+																width: 30,
+																borderRadius: 50,
+															}}
+														></div>
 														<p>
 															Size:{" "}
 															{wordAppearance(
@@ -287,21 +294,15 @@ const MyProduct = () => {
 															/>
 														)}
 													</div>
-													</div>
-													
 												</div>
 											</div>
-										);
-									}
-								)}
-						</div>
+										</div>
+									);
+								}
+							)}
 					</div>
 				</div>
-			) : (
-				<>
-					{/* <NeedLogin /> */}
-				</>
-			)}
+			</div>
 		</div>
 	);
 };
