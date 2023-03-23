@@ -135,7 +135,15 @@ const Cart = () => {
 
 												<div className="">
 													<div className="text-lg">{product.productName}</div>
-													<div className="text-base text-neutral-500">{product.color}</div>
+													<div
+															className="color flex drop-shadow my-1"
+															style={{
+																backgroundColor: product.color,
+																height: 20,
+																width: 20,
+																borderRadius: 50,
+															}}
+														></div>
 													<div className="text-base text-neutral-500 flex inline">
 														<div className="grid grid-cols-2">Qty</div>
 														<div className="grid grid-cols-3">

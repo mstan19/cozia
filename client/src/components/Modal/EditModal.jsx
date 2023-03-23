@@ -8,7 +8,11 @@ import { QUERY_ONE_CATEGORY } from "../../utils/queries";
 import { HexColorPicker } from "react-colorful";
 
 const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
+
+	// Use mutation to update product
 	const [editProduct, { error, data }] = useMutation(UPDATE_PRODUCT);
+
+	// Query to get one category by id
 	const {
 		data: oneCategoryData,
 		loading: oneCategoryLoading,
@@ -17,6 +21,7 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 		variables: { id: onEditProduct.category._id },
 	});
 
+	// useState to get and to set productData 
 	const [productData, setProductData] = useState({
 		productName: onEditProduct.productName,
 		description: onEditProduct.description,
@@ -29,6 +34,7 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 		countInStock: onEditProduct.countInStock,
 		category: oneCategoryData?.getCategory.name,
 	});
+
 
 	const preloadData = {
 		productName: onEditProduct.productName,
@@ -48,7 +54,7 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 	const { register, setValue } = useForm({
 		defaultValues: preloadData,
 	});
-	// const [login, { error, data:loginData }] = useMutation(LOGIN_USER);
+
 	const {
 		data: categoryData,
 		loading: loadingCategory,
