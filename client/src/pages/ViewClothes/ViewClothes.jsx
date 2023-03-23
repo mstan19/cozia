@@ -1,78 +1,124 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
+import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY } from "../../utils/queries";
+import { removeHyphensAndCapitalize } from "../../utils/helpers";
+import Filter from "../../components/Filter/Filter";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import { QUERY_PRODUCTS } from "../../utils/queries";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 
 const ViewClothes = () => {
-	// Appears as some link based on category
+	// Grab gender and categoryName from url
+	const { gender } = useParams();
+	const { categoryName } = useParams();
 
-	const { loading, data } = useQuery(QUERY_PRODUCTS);
-	const [products, setProducts] = useState();
-	const [filter, setFilter] = useState();
+	// TODO: Allow clicking on gender will only show clothes related to gender
+	const navigate = useNavigate();
+	const goToGenderPage = (event) => {
+		navigate(`${gender}`);
+	};
 
-	// function filterItems(value, products) {
-	// 	switch (value) {
-	// 		case ""
-	// 	}
-	// }
+	const [clothesCategory, setClothesCategory] = useState();
+	const [categoryId, setCategoryId] = useState();
+	const [clothesDisplay, setClothesDisplay] = useState();
+	const [clothesDisplayOriginal, setClothesDisplayOriginal] = useState();
+
+	// Query to grab existing categories
+	const { data: categoryData, loading: categoryLoad, error: categoryError } =
+		useQuery(QUERY_CATEGORY);
+
+	// Query to grab products by category id
+	const { data, loading, error } = useQuery(PRODUCTS_BY_CATEGORYID, {
+		variables: { categoryId: categoryId },
+	});
+
+	if (error) console.log(error);
+	if (categoryError) console.log(error);
 
 	useEffect(() => {
-		let products = data?.products;
-		if (products && products.length !== 0) {
-			console.log(products);
-
-			setProducts(products);
+		// Grab data from QUERY_CATEGORY to find the selected category and store its values (name and _id)
+		let categories = categoryData?.categories;
+		// console.log(categories);
+		// console.log(categoryName);
+		if (categories && categories.length !== 0) {
+			let selectedCategory = categories.filter(
+				(category) => category.name === categoryName
+			);
+			console.log(selectedCategory)
+			setClothesCategory(selectedCategory);
+			setCategoryId(selectedCategory[0]._id);
 		}
-	}, [data]);
 
-	const [genderCategory, setGenderCategory] = useState("Women");
-	const [clothesCategory, setClothesCategory] = useState("");
+		// Grab data from the query, PRODUCTS_BY_CATEGORYID, to display the clothes from the selected category
+		let clothes = data?.productsByCategoryID;
+		setClothesDisplay(clothes);
+		setClothesDisplayOriginal(clothes);
+	}, [categoryData, categoryName, data?.productsByCategoryID]);
 
+	const filterResults = (filteredData) => {
+		console.log(filteredData)
+		setClothesDisplay(filteredData)
+	}
+	
+	const filterIcon = (filteredData) => {
+		console.log(filteredData)
+		setClothesDisplay(filteredData)
+	}
+
+	console.log(clothesDisplay)
 	return (
 		<main className="min-h-screen">
-			<SearchBar />
-			<section className="flex justify-end bg-white relative p-5">
+			<div className="m-5">
+				{clothesDisplay ? <SearchBar filterResults={filterResults} clothesDisplay={clothesDisplayOriginal} placeholder={`Search for ${removeHyphensAndCapitalize(gender)}'s ${removeHyphensAndCapitalize(categoryName)}`} /> : null
+				}
+
+			</div>
+			<section className="flex justify-between justify-end items-center bg-white relative p-5">
 				{/* TODO: Insert categories */}
-				<h3 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+				<h3>
 					{/* TODO: Set filter to go back to women if gender category is clicked on */}
-					<Link className="text-blue-800 underline" to="#">
-						{genderCategory}
+					<Link
+						className="text-blue-800 underline"
+						to={goToGenderPage}
+					>
+						{removeHyphensAndCapitalize(gender)}
 					</Link>{" "}
 					{/* If clothes category exists, show extension; else, do not show */}
-					{clothesCategory !== "" ? `/ ${clothesCategory}` : <></>}
+					{clothesCategory ? (
+						<>
+							{"/ "}
+							<Link className="text-blue-800 underline">
+								{removeHyphensAndCapitalize(
+									clothesCategory[0].name
+								)}
+							</Link>
+						</>
+					) : (
+						<></>
+					)}
 				</h3>
-				{/* Filter button */}
-				<button className="filter">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-						className="w-6 h-6"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
-						/>
-					</svg>
-				</button>
+				{clothesDisplay ? <Filter filterIcon={filterIcon} clothes={clothesDisplay} /> : null
+				}
 			</section>
 			{/* ClothesCard Component */}
 			<section className="flex flex-wrap justify-center bg-white">
-			{!loading &&
-				products &&
-				products.length !== 0 &&
-				products.map((product, idx) => {
-					console.log(product);
-					return (
-						<ClothesCard key={product + idx} product={product} />
-					);
-				})}
-				</section>
+				{/* <section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 justify-center bg-white pt-5 mb-5 mx-auto"> */}
+				{!loading &&
+					clothesDisplay &&
+					clothesDisplay.length !== 0 &&
+					clothesDisplay
+						.filter((clothes) => clothes.gender === gender)
+						// .filter((clothes) => clothes.productName === "Pants")
+						.map((clothes, idx) => {
+							// TODO: If there are no results, say no results
+							return (
+								<ClothesCard
+									key={clothes + idx}
+									product={clothes}
+								/>
+							);
+						})}
+			</section>
 		</main>
 	);
 };

@@ -1,27 +1,42 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const SearchBar = () => {
+const SearchBar = ({ placeholder, clothesDisplay, filterResults }) => {
+	const [query, setQuery] = useState("");
+	
+	let filterClothes = []
+	useEffect(() => {
+
+		if (query === "") {
+			filterClothes = clothesDisplay
+		} else {
+			filterClothes = clothesDisplay.filter((item) => {
+				return item.productName.toLowerCase().includes(query.toLowerCase())
+			})
+			
+		}
+			filterResults(filterClothes)
+	}, [query])
+
 	return (
-		<div
-			className="search-bar-component flex justify-center"
-			id="search-bar"
-		>
-			<div className="flex items-center py-3">
-				<div className="flex items-center relative px-6">
+		<div className="search-bar-component flex justify-center">
+			<div className="flex items-center">
+				<div className="flex items-center mx-10 md:mx-0 relative w-[20rem] sm:w-[28rem]">
 					<div className="absolute">
-						<button>
+						<button className="">
 							<FontAwesomeIcon
 								icon={faMagnifyingGlass}
-								className="search-icons px-2"
+								className="search-icons pl-6"
 							/>
 						</button>
 					</div>
 					<input
+						value={query}
+						onChange={e => setQuery(e.target.value)}
 						type="text"
-						className="h-7 rounded-full px-8 py-5 focus:shadow focus:outline-none w-full text-lg"
-						placeholder="Search"
+						className="h-7 h-10 px-12 focus:shadow focus:outline-none w-full text-xl"
+						placeholder={placeholder}
 					></input>
 				</div>
 			</div>

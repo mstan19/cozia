@@ -52,28 +52,6 @@ const productSchema = new Schema({
 		default: Date.now,
 		// get: (timestamp) => dateFormat(timestamp)
 	},
-	reviews: [
-		{
-			user: {
-				type: Schema.Types.ObjectId,
-				ref: "User",
-				required: true,
-			},
-			rating: {
-				type: Number,
-				required: true,
-			},
-			comment: {
-				type: String,
-				required: true,
-			},
-			createdAt: {
-				type: Date,
-				default: Date.now,
-				// get: (timestamp) => dateFormat(timestamp)
-			},
-		},
-	],
 	totalRating: {
 		type: Number,
 		default: 0,
@@ -81,6 +59,10 @@ const productSchema = new Schema({
 	numberReviews: {
 		type: Number,
 		default: 0,
+	},
+	review: {
+		type: Schema.Types.ObjectId,
+		ref: "Review",
 	},
 	category: {
 		type: Schema.Types.ObjectId,
