@@ -120,16 +120,13 @@ db.once("open", async () => {
 
 				unsplashResults.data.reverse()
 				for (let m = 0; m < 3; m++) {
-					console.log(m + (counter * 3))
 
 					let product = {
 						productName: `${clothesName[m].name} ${removeHyphensAndCapitalize(newCategory[l].name)}`,
 						description: faker.commerce.productDescription(),
-						// image: faker.image.fashion(390, 390, true),
 						image: unsplashResults.data[m + (counter * 3)].urls.small,
 						price: faker.commerce.price(),
 						size: "small",
-						// color: unsplashResults.data[m + (counter * 3)].urls.color,
 						color: faker.color.rgb(),
 						discount: Math.floor(Math.random() * 100),
 						countInStock: 3,
