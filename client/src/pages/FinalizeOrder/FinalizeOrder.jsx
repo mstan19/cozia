@@ -53,7 +53,7 @@ const FinalizeOrder = () => {
 	}, [meData]);
 
 	useEffect(() => {
-		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
+		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice((currentValue.price*currentValue.quantity), currentValue.discount)), 0).toFixed(2)
 
 		setSubtotal(tempsubtotal);
 
@@ -122,10 +122,10 @@ const FinalizeOrder = () => {
 									cartItem.discount
 								)}</div>
 									<div className="pt-2">{cartItem.quantity}</div>
-									<div className="pt-2">${calculateDiscountPrice(
+									<div className="pt-2">${(calculateDiscountPrice(
 									cartItem.price,
 									cartItem.discount
-								) * cartItem.quantity}</div>
+								)) * cartItem.quantity}</div>
 								</div>
 							))}
 						<div className="text-black grid grid-cols-2 w-full px-10">

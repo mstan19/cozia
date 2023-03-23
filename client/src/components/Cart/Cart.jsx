@@ -49,7 +49,6 @@ const Cart = () => {
 
 	useEffect(() => {
 		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice((currentValue.price*currentValue.quantity), currentValue.discount)), 0).toFixed(2)
-		console.log(tempsubtotal)
 		setSubtotal(tempsubtotal);
 
 		let calTax = parseInt(tempsubtotal * (.10))
