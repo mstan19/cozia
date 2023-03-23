@@ -166,8 +166,6 @@ const MyProduct = () => {
 						>
 							Add
 						</button>
-						
-						
 					</div>
 
 					<div className="container px-7 sm:px-0 mx-auto">
@@ -199,15 +197,15 @@ const MyProduct = () => {
 													</h3>
 													<div className="grid grid-cols-2">
 													<div>
-														<p className="flex">
+														<div className="flex">
 															Price:
-															<div className="discount-price text-red-600 pr-3">
+															<p className="discount-price text-red-600 pr-3">
 																${calculateDiscountPrice(product.price, product.discount)}
-															</div>
-															<div className=" original-price text-neutral-400 line-through">
+															</p>
+															<p className=" original-price text-neutral-400 line-through">
 																${parseInt(product.price).toFixed(2)}
-															</div>
-														</p>
+															</p>
+														</div>
 														<p>
 															Stock:{" "}
 															{stockCheck(index)}
