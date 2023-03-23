@@ -26,6 +26,7 @@ const Cart = () => {
 		let newProducts = [...cart];
 		if (newProducts[index].quantity < newProducts[index].countInStock) {
 			newProducts[index].quantity++;
+			console.log(newProducts)
 			setCart(newProducts);
 		}
 	};
@@ -47,9 +48,8 @@ const Cart = () => {
 	}
 
 	useEffect(() => {
-		// TODO: Add in quantity
-		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
-		
+		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice((currentValue.price*currentValue.quantity), currentValue.discount)), 0).toFixed(2)
+		console.log(tempsubtotal)
 		setSubtotal(tempsubtotal);
 
 		let calTax = parseInt(tempsubtotal * (.10))
@@ -153,10 +153,10 @@ const Cart = () => {
 												</div>
 
 												<div className="text-right">
-													<div className="text-xl">${calculateDiscountPrice(
+													<div className="text-xl">${(calculateDiscountPrice(
 														product.price,
 														product.discount
-													)}</div>
+													))*product.quantity}</div>
 													<button className="text-base text-red-500" onClick={(e) => { e.preventDefault(); removeFromCart(index)}}>Remove</button>
 												</div>
 											</div>
