@@ -80,9 +80,9 @@ const Home = () => {
 	return (
 		<div>
 			<img className="relative object-cover bg-contain hero pb-5 w-full h-[44rem]" src={hero} alt="backgroundPic" />
-			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/3 bg-white opacity-60 focus:opacity-0 focus:ring-4 focus:outline-none dark:border-white dark:text-black dark:hover:text-white dark:hover:bg-white dark:focus:ring-white">
-			<div className="text-center text-xl underline underline-offset-8 mb-7">
-					<Link to="/all">Checkout All of the Clothes</Link>
+			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/3 coal hover:bg-white opacity-80 rounded-full">
+			<div className="text-center hover:text-black text-white text-xl m-3">
+					<Link to="/all">Shop Now</Link>
 				</div>
 			</div>
 

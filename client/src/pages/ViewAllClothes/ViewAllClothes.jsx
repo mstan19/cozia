@@ -32,10 +32,9 @@ const ViewAllClothes = () => {
 				}
 			</div>
 			<h1 className="text-center my-6 text-3xl underline underline-offset-8">All of the Latest Fashion!</h1>
-			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-center bg-white pt-5 mb-5 mx-auto">
+			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-center bg-white pt-5 px-3 mb-5 mx-auto gap-x-4 gap-y-4">
 				{!loading && 
 				clothesDisplay
-				// data?.products
 					.map((clothes, index) => {
 						return (
 							<ClothesCard

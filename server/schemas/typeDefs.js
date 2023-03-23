@@ -36,6 +36,7 @@ const typeDefs = gql`
         price: Float!
         discount: Float!
         gender: String!
+        numberReviews: Int
         size: String
         color: String!
         countInStock: Int

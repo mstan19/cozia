@@ -68,7 +68,7 @@ const ViewClothes = () => {
 	console.log(clothesDisplay)
 	return (
 		<main className="min-h-screen">
-			<div className="m-10">
+			<div className="m-5">
 				{clothesDisplay ? <SearchBar filterResults={filterResults} clothesDisplay={clothesDisplayOriginal} placeholder={`Search for ${removeHyphensAndCapitalize(gender)}'s ${removeHyphensAndCapitalize(categoryName)}`} /> : null
 				}
 
@@ -112,12 +112,10 @@ const ViewClothes = () => {
 						.map((clothes, idx) => {
 							// TODO: If there are no results, say no results
 							return (
-								// <button onClick={(e) => { e.preventDefault(); productPage(index) }} key={`${clothes + index}+OnSales`} className="bg-white w-full hover:cursor-pointer 2xl:w-[22rem] 2xl:mx-10">
 								<ClothesCard
 									key={clothes + idx}
 									product={clothes}
 								/>
-								// </button> 
 							);
 						})}
 			</section>
