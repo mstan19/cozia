@@ -85,7 +85,6 @@ const OneClothes = () => {
 				if (loggedUser) {
 					setUserId(loggedUser._id);
 				}
-
 			} catch (err) {
 				console.error(err);
 			}
@@ -132,7 +131,17 @@ const OneClothes = () => {
 		if (product && product.length !== 0) {
 			setClothes(product);
 		}
-	}, [data, meData, reviewData, reviewLoading, reviews, totalRating, userId, usersData, usersLoading]);
+	}, [
+		data,
+		meData,
+		reviewData,
+		reviewLoading,
+		reviews,
+		totalRating,
+		userId,
+		usersData,
+		usersLoading,
+	]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -152,24 +161,32 @@ const OneClothes = () => {
 	};
 
 	return (
-		<main className="flex justify-center bg-white">
+		<main className="flex flex-col md:flex-row justify-center bg-slate">
 			<div>
 				<Toaster position="top-center" reverseOrder={false} />
 			</div>
 			{!loading && clothes && clothes.length !== 0 ? (
-				<div className="flex flex-col lg:flex-row min-w-2xl justify-between">
+				<div className="flex flex-col lg:flex-row">
 					<img
-						className="w-full lg:w-1/2 h-full lg:h-1/2 object-cover"
+						className="w-full lg:w-1/2 h-full lg:h-1/2 object-cover drop-shadow"
 						src={clothes.image}
 						alt={clothes.productName}
 					/>
-					<section className="mx-5 my-3">
-						<article className="flex justify-between">
-							<h1 className="text-2xl">{clothes.productName}</h1>
+					<section className="px-8 py-3 lg:mx-3 bg-white">
+						<p className="text-neutral-400 text-lg lg:my-3">
+							{clothes.gender.toUpperCase()} /{" "}
+							{clothes.category.name.toUpperCase()}
+						</p>
+						<article className="flex flex-col">
+							<h1 className="text-2xl lg:text-4xl lg:mb-3">
+								{clothes.productName}
+							</h1>
 							<div className="reviews flex items-center">
 								{clothes.numberReviews !== 0 && reviews ? (
 									<>
-										{displayRatings(totalRating)}
+										<div className="flex text-xl">
+											{displayRatings(totalRating)}
+										</div>
 										<p className="ml-2 text-neutral-500">
 											({reviews.length})
 										</p>
@@ -184,29 +201,31 @@ const OneClothes = () => {
 							</div>
 						</article>
 						<div className="flex mb-2 text-lg">
-							<p className="discount-price text-red-600 pr-3">
+							<p className="discount-price text-red-600 pr-3 lg:text-2xl lg:my-5">
 								$
 								{calculateDiscountPrice(
 									clothes.price,
 									clothes.discount
 								)}
 							</p>
-							<p className="original-price text-neutral-400 line-through">
+							<p className="original-price text-neutral-400 line-through lg:text-2xl lg:my-5">
 								${clothes.price.toFixed(2)}
 							</p>
 						</div>
 						<hr className="bg-zinc-700 m-3" />
-						{/* TODO: Allow color to be selected - show some highlights */}
-						<h2 className="pb-1 text-lg">COLOR:</h2>
-						<div
-							className="color drop-shadow mb-1"
-							style={{
-								backgroundColor: clothes.color,
-								height: 30,
-								width: 30,
-								borderRadius: 50,
-							}}
-						></div>
+						<div>
+							<h2 className="pb-1 text-lg">COLOR:</h2>
+							<div
+								className="color drop-shadow mb-1"
+								style={{
+									backgroundColor: clothes.color,
+									height: 30,
+									width: 30,
+									borderRadius: 50,
+								}}
+							></div>
+						</div>
+
 						<hr className="bg-zinc-700 m-3" />
 						<h2 className="pb-3 text-lg">
 							SIZE: {removeHyphensAndCapitalize(clothes.size)}
@@ -239,6 +258,7 @@ const OneClothes = () => {
 								Add to Cart
 							</button>
 						</article>
+
 						<hr className="bg-zinc-700 m-3" />
 						<article>
 							<Collapsible
@@ -288,9 +308,11 @@ const OneClothes = () => {
 							{/* TODO: If condition for when user is logged in or not */}
 							{Auth.loggedIn() ? (
 								<div>
-									
 									{/* How to grab the userId of whose logged in */}
-									<ReviewForm userId={userId} productId={productId} />
+									<ReviewForm
+										userId={userId}
+										productId={productId}
+									/>
 								</div>
 							) : (
 								<button
