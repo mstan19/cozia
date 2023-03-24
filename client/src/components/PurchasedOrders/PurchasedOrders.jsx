@@ -41,8 +41,8 @@ const ItemTableRow = ({ selected, item, index }) => (
 			</tr>
 		</thead>
 		<tbody>
-			{item && item?.products.map((product) =>
-				<tr key={"1" + item._id + "|" + product.productName}>
+			{item && item?.products.map((product, index) =>
+				<tr key={"purchadesOrderKey" + item._id + "|" + index}>
 					<td>{product.productName}</td>
 					<td>${product.price}</td>
 				</tr>
