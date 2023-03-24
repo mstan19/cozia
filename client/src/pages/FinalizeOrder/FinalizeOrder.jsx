@@ -37,7 +37,6 @@ const FinalizeOrder = () => {
 	}
 	const newOrderId =
 		orderListData?.getAllOrders.slice(-1).pop()._id;
-	console.log(newOrderId)
 
 	useEffect(() => {
 		const getUserData = async () => {
@@ -48,7 +47,6 @@ const FinalizeOrder = () => {
 				console.error(err);
 			}
 		};
-		console.log(newOrderId)
 		getUserData();
 	}, [meData]);
 
@@ -69,7 +67,6 @@ const FinalizeOrder = () => {
 
 	}, [cart])
 
-	console.log(cart)
 	useEffect(() => {
 		if (data) {
 			stripePromise.then((res) => {

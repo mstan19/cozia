@@ -105,11 +105,15 @@ const resolvers = {
 			const order = await Order.findById({ _id: orderID }).populate(
 				"products"
 			);
-			// console.log("order with products", order.products);
+			const quantity = order.products.reduce(function (obj, v) {
+				obj[v._id] = (obj[v._id] || 0) + 1;
+				return obj;
+			}, {})
 
-			// console.log("order", order);
-			const line_items = order.products.map((product) => {
-				console.log(order)
+			let key = "_id"
+			const uniqueProductIds = [...new Map(order.products.map(product =>
+				[product[key], product])).values()];
+			const line_items = uniqueProductIds.map((product) => {
 
 				return {
 					price_data: {
@@ -117,7 +121,7 @@ const resolvers = {
 						product_data: {
 							name: product.productName,
 							images: [product.image],
-							description: product.description,
+							description: product.color,
 							metadata: {
 								id: JSON.stringify(product._id),
 							},
@@ -131,8 +135,7 @@ const resolvers = {
 							) * 100,
 						tax_behavior: "exclusive",
 					},
-					// quantity: product.quantity,
-					quantity: 1
+					quantity: quantity[product._id]
 				};
 			});
 

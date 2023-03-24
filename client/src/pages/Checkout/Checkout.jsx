@@ -103,30 +103,30 @@ const Checkout = () => {
 
 		setCheckoutData({ ...CheckoutData, [name]: value });
 	};
+	// function repeat(item,times){
+	// 	return new Array(times).fill(item);
+	// }
 
 	function getProductId() {
-		const copyCart = [];
+		let copyCart;
+		let arrayProductIds = [];
 		cart.forEach(function (product) {
-			if (typeof product._id === "string") {
-				copyCart.push(product._id);
-			}
+				copyCart = new Array(product.quantity).fill(product._id)
+				arrayProductIds.push(copyCart);
+		
 		})
-		return copyCart;
+		return arrayProductIds.flat();
 	}
 
 	const onSubmit = async () => {
-		// event.preventDefault();
 		try {
-			// if (errors) {
-			// 	throw new Error('Fields requirements are not met.')
-			// } else {
 			let nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-
+			
 			let orderData = {
 				products: getProductId(),
 				tax: parseInt(taxes),
 				shippingPrice: 10,
-				totalCost: parseInt(total),
+				totalCost: parseInt(total) + 10.00,
 				shippingAddress: {
 					street: CheckoutData?.streetShipping,
 					city: CheckoutData?.cityShipping,
@@ -137,6 +137,7 @@ const Checkout = () => {
 				purchaseDate: dayjs(today).format("ddd MMM DD YYYY"),
 				deliveryDate: dayjs(nextWeek).format("ddd MMM DD YYYY"),
 			};
+			console.log(orderData)
 			await addOrder({
 				variables: { orderData: orderData, userId: data?.me?._id },
 			});
