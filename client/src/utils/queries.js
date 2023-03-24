@@ -187,6 +187,7 @@ export const QUERY_ALLORDERS = gql`
 			_id
 			deliveryDate
 			isDelivered
+			isPaid
 			purchaseDate
 			totalCost
 			shippingAddress {
