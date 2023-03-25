@@ -5,6 +5,8 @@ const CarouselItem = ({ product }) => {
 
 	const { productName, image, price, discount, color } = product;
 
+	console.log(product);
+
 	return (
 		<article className="flex flex-col w-full relative">
 			<img

@@ -166,21 +166,22 @@ const OneClothes = () => {
 				<Toaster position="top-center" reverseOrder={false} />
 			</div>
 			{!loading && clothes && clothes.length !== 0 ? (
-				<div className="flex flex-col lg:flex-row">
+				<div className="flex flex-col md:flex-row">
 					<img
-						className="w-full lg:w-1/2 h-full lg:h-1/2 object-cover drop-shadow"
+						className="w-full h-full md:w-1/2 md:h-fit object-cover drop-shadow"
 						src={clothes.image}
 						alt={clothes.productName}
 					/>
-					<section className="px-8 py-3 lg:mx-3 bg-white">
-						<p className="text-neutral-400 text-lg lg:my-3">
+					<section className="px-8 py-3 md:mx-3 bg-white">
+						<p className="text-neutral-400 text-lg md:my-3">
 							{clothes.gender.toUpperCase()} /{" "}
 							{clothes.category.name.toUpperCase()}
 						</p>
 						<article className="flex flex-col">
-							<h1 className="text-2xl lg:text-4xl lg:mb-3">
+							<h1 className="text-2xl md:text-4xl md:mb-3">
 								{clothes.productName}
 							</h1>
+							<p className="hidden md:block text-lg mb-3">{clothes.description}</p>
 							<div className="reviews flex items-center">
 								{clothes.numberReviews !== 0 && reviews ? (
 									<>
@@ -200,21 +201,21 @@ const OneClothes = () => {
 								)}
 							</div>
 						</article>
-						<div className="flex mb-2 text-lg">
-							<p className="discount-price text-red-600 pr-3 lg:text-2xl lg:my-5">
+						<div className="flex text-lg">
+							<p className="discount-price text-red-600 pr-3 md:text-2xl md:my-3">
 								$
 								{calculateDiscountPrice(
 									clothes.price,
 									clothes.discount
 								)}
 							</p>
-							<p className="original-price text-neutral-400 line-through lg:text-2xl lg:my-5">
+							<p className="original-price text-neutral-400 line-through md:text-2xl md:my-3">
 								${clothes.price.toFixed(2)}
 							</p>
 						</div>
 						<hr className="bg-zinc-700 m-3" />
-						<div>
-							<h2 className="pb-1 text-lg">COLOR:</h2>
+						<div className="flex">
+							<h2 className="pb-1 text-lg mr-3">COLOR:</h2>
 							<div
 								className="color drop-shadow mb-1"
 								style={{
@@ -260,7 +261,7 @@ const OneClothes = () => {
 						</article>
 
 						<hr className="bg-zinc-700 m-3" />
-						<article>
+						<article className="md:hidden">
 							<Collapsible
 								title="About Product"
 								body={clothes.description}
