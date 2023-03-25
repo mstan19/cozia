@@ -166,13 +166,13 @@ const OneClothes = () => {
 				<Toaster position="top-center" reverseOrder={false} />
 			</div>
 			{!loading && clothes && clothes.length !== 0 ? (
-				<div className="flex flex-col md:flex-row">
+				<div className="flex flex-col lg:flex-row">
 					<img
-						className="w-full h-full md:w-1/2 md:h-fit object-cover drop-shadow"
+						className="w-full h-full lg:w-1/2 md:h-fit object-cover drop-shadow"
 						src={clothes.image}
 						alt={clothes.productName}
 					/>
-					<section className="px-8 py-3 md:mx-3 bg-white">
+					<section className="px-8 py-3 md:mx-3 lg:w-1/2 bg-white">
 						<p className="text-neutral-400 text-lg md:my-3">
 							{clothes.gender.toUpperCase()} /{" "}
 							{clothes.category.name.toUpperCase()}
@@ -260,7 +260,7 @@ const OneClothes = () => {
 							</button>
 						</article>
 
-						<hr className="bg-zinc-700 m-3" />
+						<hr className="bg-zinc-700 m-3 md:hidden" />
 						<article className="md:hidden">
 							<Collapsible
 								title="About Product"
