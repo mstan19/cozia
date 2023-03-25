@@ -15,9 +15,7 @@ const Filter = ({ clothes, filterIcon }) => {
 			sortByLowPrice(clothes)
 		} else if (filter === "High Price") {
 			sortByHighPrice(clothes)
-		} else if (filter === "Newest Arrival") {
-			sortByNewest(clothes)
-		} else if (filter === "Highly Rated") {
+		}  else if (filter === "Highly Rated") {
 			sortHighlyRated(clothes)
 		} else if (filter === "Lowly Rated") {
 			sortLowlyRated(clothes)
@@ -26,15 +24,6 @@ const Filter = ({ clothes, filterIcon }) => {
 		}
 	}, [filter])
 	
-	function sortByNewest(clothes) {
-		console.log(clothes)
-		let sortedClothes =[...clothes].sort( (a,b) => {
-			let aClothes = a.createdAt
-			let bClothes = b.createdAt
-			return aClothes - bClothes
-		})
-		filterIcon(sortedClothes)
-	}
 
 	function sortLowlyRated (clothes) {
 		let sortedClothes =[...clothes].sort( (a,b) => {
@@ -82,11 +71,6 @@ const Filter = ({ clothes, filterIcon }) => {
 	}
 
 	const filterList = [
-		{
-			name: "Newest Arrival",
-			key: "filter1"
-
-		},
 		{
 			name: "Low Price",
 			key: "filter2"

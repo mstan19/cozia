@@ -133,31 +133,10 @@ const MyProduct = () => {
 
 	return (
 		<div className="my-product-page">
-				<div className="">
-					<div>
-				<Toaster position="top-center"
-					reverseOrder={false} />
-			</div>
-					<div
-						className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4"
-						id="my-product-header"
-					>
-						<div></div>
-						<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-block text-xl">
-							My Products
-						</div>
-						{/* Add product Card */}
-						<button
-							className="row inline-block w-1/5 rounded-lg text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center ml-6 mt-2 mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-600"
-							onClick={handleAddProductBtn}
-							type="submit"
-						>
-							Add
-						</button>
-					</div>
 			<div className="">
 				<div>
-					<Toaster position="top-center" reverseOrder={false} />
+					<Toaster position="top-center"
+						reverseOrder={false} />
 				</div>
 				<div
 					className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4"
@@ -176,152 +155,146 @@ const MyProduct = () => {
 						Add
 					</button>
 				</div>
+				<div className="">
+					<div>
+						<Toaster position="top-center" reverseOrder={false} />
+					</div>
 
-				<div className="container px-7 sm:px-0 mx-auto">
-					{/* Gallery product Card */}
-					<div
-						className="my-product-cards flex flex-wrap w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-4 px-3"
-						id="product-cards"
-					>
-						{myProductsData &&
-							myProductsData.getMyProducts.map(
-								(product, index) => {
-									return (
-										<div
-											className="my-product-card bg-white px-2 pt-3"
-											key={product._id}
-										>
-											<div className="flex justify-center">
-												<img
-													src={product.image}
-													alt="product"
-													id="product-image"
-													className="h-72 w-64 object-cover"
-												/>
-											</div>
+					<div className="container px-7 sm:px-0 mx-auto">
+						{/* Gallery product Card */}
+						<div
+							className="my-product-cards flex flex-wrap w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-4 px-3"
+							id="product-cards"
+						>
+							{myProductsData &&
+								myProductsData.getMyProducts.map(
+									(product, index) => {
+										return (
+											<div
+												className="my-product-card bg-white px-2 pt-3"
+												key={product._id}
+											>
+												<div className="flex justify-center">
+													<img
+														src={product.image}
+														alt="product"
+														id="product-image"
+														className="h-72 w-64 object-cover"
+													/>
+												</div>
 
-											<div className="p-3">
-												<h3 className="grid grid-rows-1 text-center text-lg">
-													{product.productName}
-												</h3>
-												<div className="grid grid-cols-2">
-													<div>
-														<div className="flex">
-															Price:
-															<p className="discount-price text-red-600 pr-3">
-																$
-																{calculateDiscountPrice(
-																	product.price,
-																	product.discount
+												<div className="p-3">
+													<h3 className="grid grid-rows-1 text-center text-lg">
+														{product.productName}
+													</h3>
+													<div className="grid grid-cols-2">
+														<div>
+															<div className="flex">
+																Price:
+																<p className="discount-price text-red-600 pr-3">
+																	$
+																	{calculateDiscountPrice(
+																		product.price,
+																		product.discount
+																	)}
+																</p>
+																<p className=" original-price text-neutral-400 line-through">
+																	$
+																	{parseInt(
+																		product.price
+																	).toFixed(2)}
+																</p>
+															</div>
+															<p>
+																Stock:{" "}
+																{stockCheck(index)}
+															</p>
+															<p>
+																Color:{" "}
+															</p>
+															<div
+																className="color flex drop-shadow mb-1"
+																style={{
+																	backgroundColor: wordAppearance(
+																		"color",
+																		index
+																	),
+																	height: 30,
+																	width: 30,
+																	borderRadius: 50,
+																}}
+															></div>
+															<p>
+																Size:{" "}
+																{wordAppearance(
+																	"size",
+																	index
 																)}
 															</p>
-															<p className=" original-price text-neutral-400 line-through">
-																$
-																{parseInt(
-																	product.price
-																).toFixed(2)}
-															</p>
 														</div>
-														<p>
-															Stock:{" "}
-															{stockCheck(index)}
-														</p>
-														<p>
-															Color:{" "}
-														</p>
-														<div
-															className="color flex drop-shadow mb-1"
-															style={{
-																backgroundColor: wordAppearance(
-																	"color",
-																	index
-																),
-																height: 30,
-																width: 30,
-																borderRadius: 50,
-															}}
-														></div>
-														<p>
-															Size:{" "}
-															{wordAppearance(
-																"size",
-																index
-															)}
-														</p>
-													</div>
-													<div className="grid grid-rows-2 justify-end">
-														<button
-															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 text-white px-5 focus:outline-none"
-															id="edit-product-btn"
-															onClick={() => {
-																setEditModalOpen(
-																	true
-																);
-																openEditModal(
-																	product
-																);
-															}}
-															type="submit"
-														>
-															Edit
-														</button>
-														{editModalOpen && (
-															<EditModal
-																setEditOpenModal={
-																	setEditModalOpen
-																}
-																onEditFunction={() =>
-																	handleEditProductBtn(
+														<div className="grid grid-rows-2 justify-end">
+															<button
+																className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 h-10 text-white px-5 focus:outline-none"
+																id="edit-product-btn"
+																onClick={() => {
+																	setEditModalOpen(
+																		true
+																	);
+																	openEditModal(
+																		product
+																	);
+																}}
+																type="submit"
+															>
+																Edit
+															</button>
+															{editModalOpen && (
+																<EditModal
+																	setEditOpenModal={
+																		setEditModalOpen
+																	}
+																	onEditFunction={() =>
+																		handleEditProductBtn(
+																			editSelectedProduct
+																		)
+																	}
+																	onEditProduct={
 																		editSelectedProduct
-																	)
-																}
-																onEditProduct={
-																	editSelectedProduct
-																}
-															/>
-														)}
-														<button
-															className="bg-red-600 rounded-lg my-0.5 hover:bg-red-600 text-white px-5 focus:outline-none"
-															id="delete-product-btn"
-															type="button"
-															onClick={() => {
-																setModalOpen(
-																	true
-																);
-																openModal(
-																	product._id
-																);
-															}}
-														>
-															Delete
-														</button>
-														{modalOpen && (
-															<DeleteModal
-																setOpenModal={
-																	setModalOpen
-																}
-																onDeleteFunction={() =>
-																	handleDeleteProductBtn(
+																	}
+																/>
+															)}
+															<button
+																className="bg-red-600 rounded-lg my-0.5 hover:bg-red-600 h-10 text-white px-5 focus:outline-none"
+																id="delete-product-btn"
+																type="button"
+																onClick={() => {
+																	setModalOpen(
+																		true
+																	);
+																	openModal(
+																		product._id
+																	);
+																}}
+															>
+																Delete
+															</button>
+															{modalOpen && (
+																<DeleteModal
+																	setOpenModal={
+																		setModalOpen
+																	}
+																	onDeleteFunction={() =>
+																		handleDeleteProductBtn(
+																			selectedProductId
+																		)
+																	}
+																	onDeleteProductID={
 																		selectedProductId
-																	)
-																}
-																onDeleteProductID={
-																	selectedProductId
-																}
-															/>
-														)}
+																	}
+																/>
+															)}
+														</div>
 													</div>
-												</div>
-											</div>
-										</div>
-									);
-								}
-							)}
-					</div>
-				</div>
-			</div>
-													</div>
-
 												</div>
 											</div>
 										);
@@ -330,8 +303,10 @@ const MyProduct = () => {
 						</div>
 					</div>
 				</div>
+			</div>
 
 		</div>
+
 	);
 };
 export default MyProduct;

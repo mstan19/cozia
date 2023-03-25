@@ -51,7 +51,6 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 	const { register, setValue } = useForm({
 		defaultValues: preloadData,
 	});
-	const { data: categoryData, loading: loadingCategory, error: errorCategory } = useQuery(QUERY_CATEGORY);
 
 	const {
 		data: categoryData,
