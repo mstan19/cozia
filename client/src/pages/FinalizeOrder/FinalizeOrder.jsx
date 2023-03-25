@@ -96,7 +96,7 @@ const FinalizeOrder = () => {
 	};
 
 	return (
-		<div className="h-full w-full">
+		<div className="min-h-screen w-full">
 			<div className="container m-auto md:w-[60rem]">
 				<h1 className="text-center text-2xl my-4">Order</h1>
 				<div className="p-0 my-3 bg-white divide-y">
@@ -110,9 +110,9 @@ const FinalizeOrder = () => {
 						{cart &&
 							cart.map((cartItem, index) => (
 								<div className="grid grid-cols-4 mx-4 text-center" key={index + "finalizeOrderkey"}>
-									<div className="grid grid-cols-1 md:grid-cols-2 md:flex md:inline md:flex-row-reverse">
+									<div className="grid grid-cols-1 md:grid-cols-2 md:flex md:inline md:flex-row-reverse md:w-52 ">
 										<h3 className="text-lg pt-2 md:pl-2">{cartItem.productName}</h3>
-										<img className="h-40 w-36 py-2" src={cartItem.image} alt={cartItem.productName} />
+										<img className="h-36 w-36 object-cover p-2" src={cartItem.image} alt={cartItem.productName} />
 									</div>
 									<div className="pt-2">${calculateDiscountPrice(
 									cartItem.price,
