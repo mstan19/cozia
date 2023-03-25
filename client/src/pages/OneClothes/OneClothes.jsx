@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import {
 	QUERY_ME,
-	QUERY_GET_USER,
 	GET_ONE_PRODUCT,
 	QUERY_REVIEWS_BY_PRODUCT,
 	QUERY_USERS,
@@ -51,7 +50,6 @@ const OneClothes = () => {
 
 	const { cart, setCart } = CartState();
 	const [clothes, setClothes] = useState();
-	// const [reviews, setReviews] = useState();
 	const [quantityInput, setQuantityInput] = useState(1);
 	const [date, setDate] = useState();
 	const navigate = useNavigate();
@@ -81,7 +79,6 @@ const OneClothes = () => {
 				}
 
 				const loggedUser = await meData?.me;
-				// console.log(loggedUser);
 				if (loggedUser) {
 					setUserId(loggedUser._id);
 				}
@@ -282,7 +279,6 @@ const OneClothes = () => {
 										: `No reviews`}
 								</p>
 								<p className="text-neutral-500">
-									{/* {clothes.totalRating.toFixed(1)} out of 5 */}
 								</p>
 							</section>
 							{/* TODO: If condition for when user is logged in or not */}

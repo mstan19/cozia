@@ -2,21 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../utils/auth";
-import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import DeleteModal from "../../components/Modal/DeleteModal";
-import samplePic from "../../assets/sample-image-ecommerce.jpg";
 import { QUERY_ME, QUERY_MYPRODUCTS } from "../../utils/queries";
 import { REMOVE_PRODUCT } from "../../utils/mutations";
-import filterIcon from "../../assets/filter.png";
 import EditModal from "../../components/Modal/EditModal";
-import NeedLogin from "../../components/NeedLogin/NeedLogin";
 import toast, { Toaster } from 'react-hot-toast';
 import {
 	calculateDiscountPrice,
-	displayRatings,
-	removeHyphensAndCapitalize,
 } from "../../utils/helpers";
-// import { LOGIN_USER } from "../../utils/mutations";
 
 const MyProduct = () => {
 	const [userData, setUserData] = useState({});
@@ -53,7 +46,6 @@ const MyProduct = () => {
 		getUserData();
 	}, [data]);
 
-// console.log(myProductsData.getMyProducts)
 	const notify = () => toast.success("Your product has been updated.");
 	function stockCheck(index) {
 		if (myProductsData?.getMyProducts[index].countInStock <= 3) {
@@ -94,9 +86,6 @@ const MyProduct = () => {
 	}
 
 	const nav = useNavigate();
-	function handleInputChange() {
-		console.log("change input");
-	}
 
 	function handleAddProductBtn() {
 		nav("/addproduct");
@@ -116,7 +105,6 @@ const MyProduct = () => {
 	};
 
 	const openEditModal = (productObject) => {
-		console.log(productObject);
 		setEditModalOpen(true);
 		setEditSelectedProduct(productObject);
 	};
@@ -144,7 +132,6 @@ const MyProduct = () => {
 
 	return (
 		<div className="my-product-page">
-			{Auth.loggedIn() ? (
 				<div className="">
 					<div>
 				<Toaster position="top-center"
@@ -297,11 +284,7 @@ const MyProduct = () => {
 						</div>
 					</div>
 				</div>
-			) : (
-				<>
-					{/* <NeedLogin /> */}
-				</>
-			)}
+			
 		</div>
 	);
 };

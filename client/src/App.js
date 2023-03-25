@@ -12,12 +12,10 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Register from "../src/pages/Register/Register";
-import MyProduct from "./pages/MyProducts/MyProducts";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AddProductForm from "./components/AddProductForm";
 import OrderList from "./pages/OrderList/OrderList";
 import Checkout from "./pages/Checkout/Checkout";
-import Cart from "./components/Cart/Cart";
 import ViewAllClothes from "./pages/ViewAllClothes/ViewAllClothes";
 import ViewClothes from "./pages/ViewClothes/ViewClothes";
 import OneClothes from "./pages/OneClothes/OneClothes";
@@ -66,7 +64,6 @@ function App() {
                         <Route path="/:gender/:categoryName" element={<ViewClothes />} />
                         <Route path="/orderlist" element={<OrderList />} />
                         <Route path="/addproduct" element={<AddProductForm />} />
-                        {/* <Route path="/success" element={<Success />} /> */}
                         <Route path="/success/:orderID" element={<Success />} />
 
                         <Route path="/confirmation" element={<FinalizeOrder />} />
@@ -88,7 +85,6 @@ function App() {
                         />
                         <Route path="/checkout" element={<Checkout />} />
 
-                        {/* <Route path="/myproducts" element={<MyProduct />} /> */}
                     </Routes>
                     <Footer />
                 </div>

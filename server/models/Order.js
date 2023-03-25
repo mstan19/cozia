@@ -14,10 +14,6 @@ const orderSchema = new Schema({
 			ref: "Product",
 			required: true,
 		},
-		// quantity: {
-		// 	type: Number,
-		// 	default: 0,
-		// },
 	],
 	shippingAddress: {
 		street: { type: String, required: true },

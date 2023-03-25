@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { QUERY_ME, QUERY_CATEGORY  } from "../../utils/queries";
+import { QUERY_CATEGORY  } from "../../utils/queries";
 import { UPDATE_PRODUCT } from "../../utils/mutations";
-import { LOGIN_USER } from "../../utils/mutations";
 import { useForm } from "react-hook-form";
 import { QUERY_ONE_CATEGORY } from "../../utils/queries";
 
 const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
-	// const { data, loading } = useQuery(QUERY_ME);
-	console.log(onEditProduct)
 	const [editProduct, { error, data }] = useMutation(UPDATE_PRODUCT);
 	const {
 		data: oneCategoryData,
@@ -17,7 +14,6 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 	} = useQuery(QUERY_ONE_CATEGORY, {
 		variables: { id: onEditProduct.category._id },
 	});
-	console.log(oneCategoryData?.getCategory?.name)
 	
 	const [productData, setProductData] = useState({
 		productName: onEditProduct.productName,
@@ -42,14 +38,12 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 		size: onEditProduct.size,
 		color: onEditProduct.color,
 		countInStock: onEditProduct.countInStock,
-		// category: oneCategoryData?.getCategory?.name
 		
 	};
 
 	const { register, setValue } = useForm({
 		defaultValues: preloadData
 	});
-	// const [login, { error, data:loginData }] = useMutation(LOGIN_USER);
 	const { data: categoryData, loading: loadingCategory, error: errorCategory } = useQuery(QUERY_CATEGORY);
 	const fixName = (inputField) => {
 		if (categoryData) {
@@ -66,12 +60,9 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 	}
 
 	let finalProductData = productData;
-	//  console.log(data)
-	// console.log(loginData)
 	const handleInputChange = async (event) => {
 		const { name, value } = event.target;
 		setProductData({ ...productData, [name]: value });
-		console.log(value)
 
 	}
 	useEffect(() => {
@@ -135,7 +126,6 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 			size: onEditProduct.size,
 			color: onEditProduct.color,
 			countInStock: onEditProduct.countInStock,
-			// category: oneCategoryData.getCategory.name
 		});
 	};
 

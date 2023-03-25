@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-// const dateFormat = require("../utils/dateFormat");
 
 const productSchema = new Schema({
 	productName: {
@@ -50,7 +49,6 @@ const productSchema = new Schema({
 	createdAt: {
 		type: Date,
 		default: Date.now,
-		// get: (timestamp) => dateFormat(timestamp)
 	},
 	totalRating: {
 		type: Number,

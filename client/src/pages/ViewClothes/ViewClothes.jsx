@@ -38,13 +38,11 @@ const ViewClothes = () => {
 	useEffect(() => {
 		// Grab data from QUERY_CATEGORY to find the selected category and store its values (name and _id)
 		let categories = categoryData?.categories;
-		// console.log(categories);
-		// console.log(categoryName);
+		
 		if (categories && categories.length !== 0) {
 			let selectedCategory = categories.filter(
 				(category) => category.name === categoryName
 			);
-			console.log(selectedCategory)
 			setClothesCategory(selectedCategory);
 			setCategoryId(selectedCategory[0]._id);
 		}
@@ -56,16 +54,13 @@ const ViewClothes = () => {
 	}, [categoryData, categoryName, data?.productsByCategoryID]);
 
 	const filterResults = (filteredData) => {
-		console.log(filteredData)
 		setClothesDisplay(filteredData)
 	}
 	
 	const filterIcon = (filteredData) => {
-		console.log(filteredData)
 		setClothesDisplay(filteredData)
 	}
 
-	console.log(clothesDisplay)
 	return (
 		<main className="min-h-screen">
 			<div className="m-5">
@@ -124,35 +119,3 @@ const ViewClothes = () => {
 };
 
 export default ViewClothes;
-
-// const clothes = useMemo(() => {
-// 	if (gender === "") {
-// 		if (searchTerm === "") {
-// 			return products;
-// 		} else {
-// 			return products.filter((product) => {
-// 				console.log(product)
-// 				const searchFields =
-// 				`${product.productName}`;
-// 				return searchFields.includes(searchTerm.toLowerCase());
-// 			});
-// 		}
-// 	}
-// }, [gender, searchTerm]);
-
-// In navbar, click on navbar will print out the categoryId - useState to store categoryId and pass that state into ViewClothes (useRef stores things w/o reloading)
-// Or can store in the localStorage
-
-// ViewClothes - grab the cateogryId and use it in the query
-
-// const [filter, setFilter] = useState();
-
-// function filterItems(value, products) {
-// 	switch (value) {
-// 		case "":
-// 			return;
-
-// 		default:
-// 			return;
-// 	}
-// }

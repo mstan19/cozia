@@ -3,7 +3,6 @@ const { User, Product, Category, Order, Review } = require("../models");
 const { signToken } = require("../utils/auth");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-// const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const mongoose = require("mongoose");
 
 const resolvers = {
@@ -147,8 +146,6 @@ const resolvers = {
 							type: "fixed_amount",
 							fixed_amount: { amount: 10 * 100, currency: "usd" },
 							display_name: "Shipping",
-							// tax_behavior: 'exclusive',
-							// tax_code: 'txcd_92010001',
 							delivery_estimate: {
 								minimum: { unit: "business_day", value: 5 },
 								maximum: { unit: "business_day", value: 7 },
@@ -157,7 +154,6 @@ const resolvers = {
 					},
 				],
 				line_items,
-				// automatic_tax: { enabled: true },
 				mode: "payment",
 				success_url: `${process.env.CLIENT_URL}/success/${orderID}`,
 				cancel_url: `${process.env.CLIENT_URL}/`,
@@ -232,11 +228,9 @@ const resolvers = {
 			{ reviewData, productId, userId },
 			context
 		) => {
-			console.log(context);
 			reviewData["product"] = productId;
 			reviewData["user"] = userId;
 
-			console.log(reviewData);
 			const newReview = await Review.create(reviewData);
 
 			return newReview;

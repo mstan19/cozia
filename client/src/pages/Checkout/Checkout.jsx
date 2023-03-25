@@ -22,9 +22,7 @@ const stripePromise = loadStripe(
 const Checkout = () => {
 	const [CheckoutData, setCheckoutData] = useState();
 	const { register, formState: { errors }, handleSubmit } = useForm();
-	// const [orderData, setOrderData] = useState();
 	const { data, loading: meLoading } = useQuery(QUERY_ME);
-	const [orderId, setOrderId] = useState();
 	const [userData, setUserData] = useState({});
 	const [subtotal, setSubtotal] = useState();
 	const [taxes, setTaxes] = useState();
@@ -43,7 +41,6 @@ const Checkout = () => {
 	const today = new Date();
 	const nav = useNavigate();
 
-	// console.log("data", data)
 	useEffect(() => {
 		const getUserData = async () => {
 			try {
@@ -103,9 +100,6 @@ const Checkout = () => {
 
 		setCheckoutData({ ...CheckoutData, [name]: value });
 	};
-	// function repeat(item,times){
-	// 	return new Array(times).fill(item);
-	// }
 
 	function getProductId() {
 		let copyCart;
@@ -121,7 +115,6 @@ const Checkout = () => {
 	const onSubmit = async () => {
 		try {
 			let nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-			console.log(total)
 			let orderData = {
 				products: getProductId(),
 				tax: parseInt(taxes),
@@ -137,7 +130,6 @@ const Checkout = () => {
 				purchaseDate: dayjs(today).format("ddd MMM DD YYYY"),
 				deliveryDate: dayjs(nextWeek).format("ddd MMM DD YYYY"),
 			};
-			console.log(orderData)
 			await addOrder({
 				variables: { orderData: orderData, userId: data?.me?._id },
 			});
@@ -148,8 +140,6 @@ const Checkout = () => {
 
 
 			nav("/confirmation");
-			// }
-			// window.location.reload();
 
 		} catch (e) {
 			console.error(e);
@@ -161,7 +151,6 @@ const Checkout = () => {
 			<div className="container p-2 sm:m-auto w-full py-8 md:w-[44rem]">
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					// ref={form}
 					className="p-0 m-0"
 				>
 					{/* Personal Info */}

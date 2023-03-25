@@ -84,7 +84,6 @@ const FinalizeOrder = () => {
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			// window.location.reload();
 			getCheckout({
 				variables: { orderId: newOrderId },
 			});

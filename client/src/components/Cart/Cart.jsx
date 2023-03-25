@@ -23,10 +23,8 @@ const Cart = () => {
 
 	const increment = (index) => {
 		let newProducts = [...cart];
-		console.log(newProducts)
 		if (newProducts[index].quantity < newProducts[index].countInStock) {
 			newProducts[index].quantity++;
-			console.log(newProducts)
 			setCart(newProducts);
 		}
 	};

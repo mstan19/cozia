@@ -23,8 +23,6 @@ const SignUpForm = (props) => {
 	};
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
-		// console.log("formData", event.target);
-		console.log("userData", signupFormData);
 		const { data } = await signup({
 			variables: signupFormData
 		});

@@ -21,7 +21,6 @@ const Success = () => {
 			orderData: updatepayment,
 		},
 	});
-	console.log(orderID)
 
 	let keysToRemove = ["orderData", "product"];
 

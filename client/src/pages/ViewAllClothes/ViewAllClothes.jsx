@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { removeHyphensAndCapitalize } from "../../utils/helpers";
-import Filter from "../../components/Filter/Filter";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import { QUERY_PRODUCTS } from "../../utils/queries";
@@ -11,16 +8,13 @@ const ViewAllClothes = () => {
 	const { data, loading } = useQuery(QUERY_PRODUCTS);
 	const [clothesDisplay, setClothesDisplay] = useState(data ? data.products : []);
 
-	console.log(clothesDisplay)
 	useEffect(() => {
 		if(data?.products) {
-			console.log(clothesDisplay)
 			setClothesDisplay(data?.products);
 		}
 	}, [data]);
 
 	const filterResults = (filteredData) => {
-		// console.log(filteredData)
 		setClothesDisplay(filteredData)
 	}
 

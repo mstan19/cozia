@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
-import { LOGIN_USER } from "../../utils/mutations";
-
-
 
 const DeleteModal = ({ setOpenModal, onDeleteProductID, onDeleteFunction }) => {
 	const [productData, setProductData] = useState({
 		username: ""
 	});
 	const { data, loading } = useQuery(QUERY_ME);
-	// const [login, { error, data:loginData }] = useMutation(LOGIN_USER);
 
 	let finalProductData = productData;
-	//  console.log(data)
-	// console.log(loginData)
+	
 	const handleInputChange = async (event) => {
 		const { name, value } = event.target;
 		setProductData({ ...productData, [name]: value });
-		console.log(value)
 
 	}
 	useEffect(() => {
@@ -28,16 +22,8 @@ const DeleteModal = ({ setOpenModal, onDeleteProductID, onDeleteFunction }) => {
 	const submitHandler = async (event) => {
 		event.preventDefault();
 		try {
-
 			const username = await data?.me.username;
-
-			// console.log(typeof productData);
-			console.log(finalProductData)
-			console.log(finalProductData["username"])
-			console.log(username)
-
 			if (finalProductData["username"] === username) {
-				console.log(onDeleteProductID)
 				await onDeleteFunction(onDeleteProductID);
 				setOpenModal(false);
 			}
