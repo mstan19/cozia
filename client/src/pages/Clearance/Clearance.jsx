@@ -40,7 +40,7 @@ const Clearance = () => {
 	return (
 		<div className="min-h-screen">
 			<h1 className="text-center my-6 text-3xl underline underline-offset-8">All Sales Are Final</h1>
-			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4  justify-center bg-white pt-5 mb-5 mx-auto gap-x-4 gap-y-4 px-3">
+			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 flex place-items-start bg-white pt-5 mb-5 gap-x-4 gap-y-4 px-3">
 				{!loading && sectionCards.DEALS
 					.map((clothes, index) => {
 						return (
