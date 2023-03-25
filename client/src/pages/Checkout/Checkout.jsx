@@ -61,19 +61,7 @@ const Checkout = () => {
 	}, [orderListData]);
 
 	useEffect(() => {
-		const tempsubtotal = cart
-			.reduce(
-				(accumulator, currentValue) =>
-					accumulator +
-					parseInt(
-						calculateDiscountPrice(
-							currentValue.price,
-							currentValue.discount
-						)
-					),
-				0
-			)
-			.toFixed(2);
+		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice((currentValue.price*currentValue.quantity), currentValue.discount)), 0).toFixed(2)
 		setSubtotal(tempsubtotal);
 
 		let calTax = parseInt(tempsubtotal * 0.1);
@@ -133,6 +121,7 @@ const Checkout = () => {
 			await addOrder({
 				variables: { orderData: orderData, userId: data?.me?._id },
 			});
+			console.log(orderData)
 			localStorage.setItem("orderData", JSON.stringify(orderData));
 			getCheckout({
 				variables: { products: getProductId() },

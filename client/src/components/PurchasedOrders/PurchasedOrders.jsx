@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import {
 	calculateDiscountPrice,
-	displayRatings,
-	removeHyphensAndCapitalize,
 } from "../../utils/helpers";
 
 const PurchasedOrders = ({ data, column }) => {
