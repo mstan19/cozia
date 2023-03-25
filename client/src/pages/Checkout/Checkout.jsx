@@ -121,12 +121,12 @@ const Checkout = () => {
 	const onSubmit = async () => {
 		try {
 			let nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-			
+			console.log(total)
 			let orderData = {
 				products: getProductId(),
 				tax: parseInt(taxes),
 				shippingPrice: 10,
-				totalCost: parseInt(total) + 10.00,
+				totalCost: parseInt(total),
 				shippingAddress: {
 					street: CheckoutData?.streetShipping,
 					city: CheckoutData?.cityShipping,

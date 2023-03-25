@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BsPlusLg } from "react-icons/bs";
+import {
+	calculateDiscountPrice,
+	displayRatings,
+	removeHyphensAndCapitalize,
+} from "../../utils/helpers";
 
 const PurchasedOrders = ({ data, column }) => {
 	const [selected, setSelected] = useState({})
-
-
-	// function mapOrders(orders) {
-	//     let selectedOrders = {}
-	//     if (orders) {
-	//         for (let i = 0; i < orders.length; i++) {
-	//             selectedOrders[orders[i]._id] = false
-	//         }
-	//     }
-	//     return selectedOrders
-	// }
 
 	return (
 		<table className="bg-white">
@@ -24,7 +18,7 @@ const PurchasedOrders = ({ data, column }) => {
 				</tr>
 			</thead>
 			<tbody>
-				{data && data?.getAllOrders.map((item, index) => {if (item.isPaid === true) return( <TableRow selected={selected} setSelected={setSelected} item={item} key={item._id} column={column} data={data} index={index} BsPlusLg={BsPlusLg} />)})}
+				{data && data?.getAllOrders.map((item, index) => { if (item.isPaid === true) return (<TableRow selected={selected} setSelected={setSelected} item={item} key={item._id} column={column} data={data} index={index} BsPlusLg={BsPlusLg} />) })}
 			</tbody>
 		</table>
 	);
@@ -44,7 +38,7 @@ const ItemTableRow = ({ selected, item, index }) => (
 			{item && item?.products.map((product, index) =>
 				<tr key={"purchadesOrderKey" + item._id + "|" + index}>
 					<td>{product.productName}</td>
-					<td>${product.price}</td>
+					<td>${calculateDiscountPrice(product.price, product.discount)}</td>
 				</tr>
 			)}
 		</tbody>
