@@ -161,23 +161,23 @@ const OneClothes = () => {
 	};
 
 	return (
-		<main className="flex flex-col md:flex-row justify-center bg-slate">
+		<main className="flex flex-col md:flex-row justify-center bg-white">
 			<div>
 				<Toaster position="top-center" reverseOrder={false} />
 			</div>
 			{!loading && clothes && clothes.length !== 0 ? (
 				<div className="flex flex-col lg:flex-row">
 					<img
-						className="w-full h-full lg:w-1/2 md:h-fit object-cover drop-shadow"
+						className="w-full h-full lg:w-1/2 md:h-fit object-cover drop-shadow lg:m-8"
 						src={clothes.image}
 						alt={clothes.productName}
 					/>
 					<section className="px-8 py-3 md:mx-3 lg:w-1/2 bg-white">
-						<p className="text-neutral-400 text-lg md:my-3">
+						<p className="text-neutral-400 text-sm md:text-lg my-2 md:my-3">
 							{clothes.gender.toUpperCase()} /{" "}
 							{clothes.category.name.toUpperCase()}
 						</p>
-						<article className="flex flex-col">
+						<article className="flex justify-between md:flex-col">
 							<h1 className="text-2xl md:text-4xl md:mb-3">
 								{clothes.productName}
 							</h1>
@@ -185,7 +185,7 @@ const OneClothes = () => {
 							<div className="reviews flex items-center">
 								{clothes.numberReviews !== 0 && reviews ? (
 									<>
-										<div className="flex text-xl">
+										<div className="flex text-md md:text-xl">
 											{displayRatings(totalRating)}
 										</div>
 										<p className="ml-2 text-neutral-500">
@@ -201,7 +201,7 @@ const OneClothes = () => {
 								)}
 							</div>
 						</article>
-						<div className="flex text-lg">
+						<div className="flex text-xl my-1">
 							<p className="discount-price text-red-600 pr-3 md:text-2xl md:my-3">
 								$
 								{calculateDiscountPrice(
@@ -247,14 +247,13 @@ const OneClothes = () => {
 									+
 								</button>
 							</section>
-
 							<button
 								onClick={(e) => {
 									e.preventDefault();
 									notify();
 									addToCart();
 								}}
-								className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40"
+								className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-1/2 lg:w-3/5"
 							>
 								Add to Cart
 							</button>
@@ -268,7 +267,7 @@ const OneClothes = () => {
 							/>
 						</article>
 						<hr className="bg-zinc-700 m-3" />
-						<article>
+						<article className="cursor-pointer">
 							<Collapsible
 								title="Shipping Details"
 								body={`Order now to get the delivery on ${new Date(
@@ -280,7 +279,7 @@ const OneClothes = () => {
 						<article>
 							<section className="flex justify-between">
 								{/* REVIEWS */}
-								<h3 className="text-2xl">Customer Reviews</h3>
+								<h3 className="text-xl md:text-2xl">Customer Reviews</h3>
 								<div className="reviews flex items-center">
 									{reviews && reviews.length !== 0 ? (
 										<>
@@ -303,7 +302,7 @@ const OneClothes = () => {
 										: `No reviews`}
 								</p>
 								<p className="text-neutral-500">
-									{/* {clothes.totalRating.toFixed(1)} out of 5 */}
+									{totalRating ? totalRating.toFixed(1) + ` out of 5` : <></>} 
 								</p>
 							</section>
 							{/* TODO: If condition for when user is logged in or not */}

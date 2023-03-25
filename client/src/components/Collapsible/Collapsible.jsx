@@ -16,7 +16,7 @@ const Collapsible = ({ title, body }) => {
 				className="accordion flex items-center justify-between relative"
 				onClick={() => setIsActive(!isActive)}
 			>
-				<p className="text-2xl flex">{title}</p>
+				<p className="text-xl flex">{title}</p>
 				<div className="flex justify-items-end text-2xl">
 					{isActive ? (
 						<MdOutlineKeyboardArrowUp className="text-black" />
