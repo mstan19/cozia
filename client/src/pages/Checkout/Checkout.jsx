@@ -22,9 +22,7 @@ const stripePromise = loadStripe(
 const Checkout = () => {
 	const [CheckoutData, setCheckoutData] = useState();
 	const { register, formState: { errors }, handleSubmit } = useForm();
-	// const [orderData, setOrderData] = useState();
 	const { data, loading: meLoading } = useQuery(QUERY_ME);
-	const [orderId, setOrderId] = useState();
 	const [userData, setUserData] = useState({});
 	const [subtotal, setSubtotal] = useState();
 	const [taxes, setTaxes] = useState();
@@ -43,7 +41,6 @@ const Checkout = () => {
 	const today = new Date();
 	const nav = useNavigate();
 
-	// console.log("data", data)
 	useEffect(() => {
 		const getUserData = async () => {
 			try {
@@ -64,19 +61,7 @@ const Checkout = () => {
 	}, [orderListData]);
 
 	useEffect(() => {
-		const tempsubtotal = cart
-			.reduce(
-				(accumulator, currentValue) =>
-					accumulator +
-					parseInt(
-						calculateDiscountPrice(
-							currentValue.price,
-							currentValue.discount
-						)
-					),
-				0
-			)
-			.toFixed(2);
+		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice((currentValue.price*currentValue.quantity), currentValue.discount)), 0).toFixed(2)
 		setSubtotal(tempsubtotal);
 
 		let calTax = parseInt(tempsubtotal * 0.1);
@@ -105,23 +90,19 @@ const Checkout = () => {
 	};
 
 	function getProductId() {
-		const copyCart = [];
+		let copyCart;
+		let arrayProductIds = [];
 		cart.forEach(function (product) {
-			if (typeof product._id === "string") {
-				copyCart.push(product._id);
-			}
+				copyCart = new Array(product.quantity).fill(product._id)
+				arrayProductIds.push(copyCart);
+		
 		})
-		return copyCart;
+		return arrayProductIds.flat();
 	}
 
 	const onSubmit = async () => {
-		// event.preventDefault();
 		try {
-			// if (errors) {
-			// 	throw new Error('Fields requirements are not met.')
-			// } else {
 			let nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-
 			let orderData = {
 				products: getProductId(),
 				tax: parseInt(taxes),
@@ -140,6 +121,7 @@ const Checkout = () => {
 			await addOrder({
 				variables: { orderData: orderData, userId: data?.me?._id },
 			});
+			console.log(orderData)
 			localStorage.setItem("orderData", JSON.stringify(orderData));
 			getCheckout({
 				variables: { products: getProductId() },
@@ -147,8 +129,6 @@ const Checkout = () => {
 
 
 			nav("/confirmation");
-			// }
-			// window.location.reload();
 
 		} catch (e) {
 			console.error(e);
@@ -160,7 +140,6 @@ const Checkout = () => {
 			<div className="container p-2 sm:m-auto w-full py-8 md:w-[44rem]">
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					// ref={form}
 					className="p-0 m-0"
 				>
 					{/* Personal Info */}

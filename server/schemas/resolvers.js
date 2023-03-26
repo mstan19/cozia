@@ -3,7 +3,6 @@ const { User, Product, Category, Order, Review } = require("../models");
 const { signToken } = require("../utils/auth");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-// const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const mongoose = require("mongoose");
 
 const resolvers = {
@@ -105,17 +104,23 @@ const resolvers = {
 			const order = await Order.findById({ _id: orderID }).populate(
 				"products"
 			);
-			// console.log("order with products", order.products);
+			const quantity = order.products.reduce(function (obj, v) {
+				obj[v._id] = (obj[v._id] || 0) + 1;
+				return obj;
+			}, {})
 
-			// console.log("order", order);
-			const line_items = order.products.map((product) => {
+			let key = "_id"
+			const uniqueProductIds = [...new Map(order.products.map(product =>
+				[product[key], product])).values()];
+			const line_items = uniqueProductIds.map((product) => {
+
 				return {
 					price_data: {
 						currency: "usd",
 						product_data: {
 							name: product.productName,
 							images: [product.image],
-							description: product.description,
+							description: product.color,
 							metadata: {
 								id: JSON.stringify(product._id),
 							},
@@ -123,13 +128,13 @@ const resolvers = {
 						unit_amount:
 							Math.floor(
 								product.price +
-									product.price / 10 -
-									(product.price + product.price / 10) *
-										(product.discount / 100)
+								product.price / 10 -
+								(product.price + product.price / 10) *
+								(product.discount / 100)
 							) * 100,
 						tax_behavior: "exclusive",
 					},
-					quantity: 1,
+					quantity: quantity[product._id]
 				};
 			});
 
@@ -141,8 +146,6 @@ const resolvers = {
 							type: "fixed_amount",
 							fixed_amount: { amount: 10 * 100, currency: "usd" },
 							display_name: "Shipping",
-							// tax_behavior: 'exclusive',
-							// tax_code: 'txcd_92010001',
 							delivery_estimate: {
 								minimum: { unit: "business_day", value: 5 },
 								maximum: { unit: "business_day", value: 7 },
@@ -151,7 +154,6 @@ const resolvers = {
 					},
 				],
 				line_items,
-				// automatic_tax: { enabled: true },
 				mode: "payment",
 				success_url: `${process.env.CLIENT_URL}/success/${orderID}`,
 				cancel_url: `${process.env.CLIENT_URL}/`,
@@ -226,15 +228,13 @@ const resolvers = {
 			{ reviewData, productId, userId },
 			context
 		) => {
-			console.log(context);
 			reviewData["product"] = productId;
 			reviewData["user"] = userId;
 
-			console.log(reviewData);
 			const newReview = await Review.create(reviewData);
 
 			return newReview;
-			
+
 		},
 		addOrder: async (parent, { orderData, userId }, context) => {
 			orderData["user"] = userId;

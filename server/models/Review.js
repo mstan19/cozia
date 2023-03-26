@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-// const dateFormat = require("../utils/dateFormat");
 
 const reviewSchema = new Schema({
 	user: {
@@ -20,13 +19,12 @@ const reviewSchema = new Schema({
 	createdAt: {
 		type: Date,
 		default: Date.now,
-		// get: (timestamp) => dateFormat(timestamp)
 	},
 	numberReviews: {
 		type: Number,
 		default: 0,
 	},
-    product: {
+	product: {
 		type: Schema.Types.ObjectId,
 		ref: "Product",
 		required: true,

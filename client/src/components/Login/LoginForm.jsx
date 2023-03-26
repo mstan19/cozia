@@ -25,7 +25,6 @@ const LoginForm = (props) => {
 			});
 			Auth.login(data.login.token);
 
-			console.log("userData", data);
 		} catch (e) {
 			console.error(e);
 		}
@@ -80,7 +79,6 @@ const LoginForm = (props) => {
 					>
 						Forgot Password?
 					</a>
-					{/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
 				</div>
 				<div className="flex flex-col items-center justify-between">
 					<button

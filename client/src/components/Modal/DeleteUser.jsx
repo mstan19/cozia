@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import {  useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 
 
@@ -8,15 +8,11 @@ const DeleteModal = ({ setOpenModal, onDeleteUserID, onDeleteFunction }) => {
 		username: ""
 	});
 	const { data, loading } = useQuery(QUERY_ME);
-	// const [login, { error, data:loginData }] = useMutation(LOGIN_USER);
 
 	let finalAccountData = accountData;
-	//  console.log(data)
-	// console.log(loginData)
 	const handleInputChange = async (event) => {
 		const { name, value } = event.target;
 		setAccountData({ ...accountData, [name]: value });
-		console.log(value)
 
 	}
 	useEffect(() => {
@@ -26,17 +22,9 @@ const DeleteModal = ({ setOpenModal, onDeleteUserID, onDeleteFunction }) => {
 	const submitHandler = async (event) => {
 		event.preventDefault();
 		try {
-
 			const username = await data?.me.username;
 
-			// console.log(typeof productData);
-			console.log(finalAccountData)
-			console.log(finalAccountData["username"])
-			console.log(username)
-			console.log(finalAccountData)
-
 			if (accountData["username"] === username) {
-				console.log(onDeleteUserID)
 				await onDeleteFunction(onDeleteUserID);
 				setOpenModal(false);
 			}
@@ -54,7 +42,7 @@ const DeleteModal = ({ setOpenModal, onDeleteUserID, onDeleteFunction }) => {
 	return (
 		<>
 			<div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-				<div className="relative w-auto my-6 ml-72 max-w-2xl">
+				<div className="relative w-auto my-6 lg:ml-72 max-w-2xl">
 					<div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 						<div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
 							<h3 className="text-3xl font=semibold">Delete Account</h3>

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
 import Carousel from "../../components/Carousel/Carousel";
-import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import hero from "../../assets/images/hero.jpg";
 
 const Home = () => {
@@ -27,7 +26,6 @@ const Home = () => {
 			for (let i = 0; i < 3; i++) {
 				newestArray.push(sortedProducts[i]);
 			}
-			// console.log("newestArray", newestArray);
 			return newestArray;
 		}
 	}
@@ -40,10 +38,8 @@ const Home = () => {
 				let randomNum = Math.floor(Math.random() * products.length);
 				featureArray.push(products[randomNum]);
 			}
-			// console.log("featureArray", featureArray);
 			return featureArray;
 		}
-		// TODO: add to stay for a week
 	}
 
 	// Gets highest sale card

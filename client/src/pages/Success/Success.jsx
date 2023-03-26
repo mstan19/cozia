@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import React from "react";
 import { useMutation } from "@apollo/client";
 import { EDIT_ORDER } from "../../utils/mutations";
 import { useParams } from "react-router-dom";
@@ -21,7 +20,6 @@ const Success = () => {
 			orderData: updatepayment,
 		},
 	});
-	console.log(orderID)
 
 	let keysToRemove = ["orderData", "product"];
 
