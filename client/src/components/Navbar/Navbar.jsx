@@ -4,7 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { AiFillHeart, AiFillShopping } from "react-icons/ai";
 import Accordion from "../Accordion/Accordion";
 import { useQuery } from "@apollo/client";
-import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY, QUERY_ME } from "../../utils/queries";
+import { QUERY_CATEGORY, QUERY_ME } from "../../utils/queries";
 import Auth from "../../utils/auth";
 import Cart from "../Cart/Cart.jsx";
 import { CartState } from "../../context/CartContext";

@@ -41,13 +41,11 @@ const ViewClothes = () => {
 	useEffect(() => {
 		// Grab data from QUERY_CATEGORY to find the selected category and store its values (name and _id)
 		let categories = categoryData?.categories;
-		// console.log(categories);
-		// console.log(categoryName);
+		
 		if (categories && categories.length !== 0) {
 			let selectedCategory = categories.filter(
 				(category) => category.name === categoryName
 			);
-			console.log(selectedCategory);
 			setClothesCategory(selectedCategory);
 			setCategoryId(selectedCategory[0]._id);
 		}
@@ -59,16 +57,13 @@ const ViewClothes = () => {
 	}, [categoryData, categoryName, data?.productsByCategoryID]);
 
 	const filterResults = (filteredData) => {
-		console.log(filteredData);
 		setClothesDisplay(filteredData);
 	};
 
 	const filterIcon = (filteredData) => {
-		console.log(filteredData);
 		setClothesDisplay(filteredData);
 	};
 
-	console.log(clothesDisplay);
 	return (
 		<main className="min-h-screen">
 			<div className="m-5">

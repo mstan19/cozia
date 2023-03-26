@@ -23,7 +23,6 @@ client/build
 npm-debug.log*
 .env
 server/node_modules
-test
 .idea
 
 

@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { sortDateDesc, sortDiscountDesc } from "../../utils/helpers";
-import { Link } from "react-router-dom";
+import { sortDateDesc } from "../../utils/helpers";
 import { useQuery } from "@apollo/client";
 import { QUERY_PRODUCTS } from "../../utils/queries";
-import Carousel from "../../components/Carousel/Carousel";
-import SearchBar from "../../components/SearchBar/SearchBar.jsx";
-import hero from "../../assets/images/hero.jpg";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
 
 const Trending = () => {

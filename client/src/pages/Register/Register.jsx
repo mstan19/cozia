@@ -2,7 +2,7 @@ import React from "react";
 import SignUpForm from "../../components/SignUp/SignUpForm";
 import LoginForm from "../../components/Login/LoginForm";
 
-const Register = ({ color }) => {
+const Register = () => {
     const [openTab, setOpenTab] = React.useState(1);
     return (
         <div className="h-screen w-full">

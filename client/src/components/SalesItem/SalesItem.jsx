@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { EDIT_ORDER } from "../../utils/mutations";
-import { Link } from "react-router-dom";
-import Auth from "../../utils/auth";
 import SalesItemModal from "../Modal/SaleItemsModal";
 import { BsPencilSquare } from "react-icons/bs";
 const dayjs = require("dayjs");
 
 const SalesItem = ({ data, column }) => {
-	// console.log("saleItemsInfo", data)
-	// console.log(column)
 	const [selected, setSelected] = useState({});
 	const [editOrder] = useMutation(EDIT_ORDER);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [selectedOrderId, setSelectedOrderId] = useState();
 	const openModal = (id) => {
 		setModalOpen(true);
-		// console.log(id)
 		setSelectedOrderId(id);
 	};
 	const [orderId, setOrderId] = useState();
@@ -92,7 +87,6 @@ const TableRow = ({
 	<tr>
 		{item &&
 			column.map((columnItem) => {
-				//  console.log(item)
 				if (item.purchaseDate && columnItem.value === "purchaseDate") {
 					return (
 						<td
@@ -121,7 +115,6 @@ const TableRow = ({
 				}
 
 				if (columnItem.value === "_id") {
-					// console.log(item.productId)
 					return (
 						<td
 							className={
@@ -179,36 +172,29 @@ const TableRow = ({
 
 				const handleEditOrderBtn = async (orderData) => {
 					try {
-						// console.log("orderData", orderData.isDelivered)
 						let orderStatus;
 						if (orderData.isDelivered === "true") {
 							orderStatus = orderData.isDelivered = true;
 						} else {
 							orderStatus = orderData.isDelivered = false;
 						}
-						// let orderStatus = (orderData.isDelivered === "true" || orderData.isDelivered === "false")
-						// console.log(orderStatus)
 						orderData.isDelivered = orderStatus;
 						let formatDate = dayjs(orderData.deliveryDate).format(
 							"ddd MMM DD YYYY"
 						);
-						// console.log(formatDate)
 						orderData.deliveryDate = formatDate;
-						// console.log(orderData)
 						const updatedOrder = await editOrder({
 							variables: {
 								orderId: selected.orderId,
 								orderData: orderData,
 							},
 						});
-						// console.log(updatedOrder)
 
 						setSelectedOrderId(updatedOrder);
 						window.location.reload();
 					} catch (err) {
 						console.error(err);
 					}
-					// console.log("edit order");
 				};
 
 				if (columnItem.heading === "Edit Order") {

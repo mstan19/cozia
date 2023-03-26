@@ -37,7 +37,6 @@ const FinalizeOrder = () => {
 	}
 	const newOrderId =
 		orderListData?.getAllOrders.slice(-1).pop()._id;
-	console.log(newOrderId)
 
 	useEffect(() => {
 		const getUserData = async () => {
@@ -48,12 +47,11 @@ const FinalizeOrder = () => {
 				console.error(err);
 			}
 		};
-		console.log(newOrderId)
 		getUserData();
 	}, [meData]);
 
 	useEffect(() => {
-		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice(currentValue.price, currentValue.discount)), 0).toFixed(2)
+		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice((currentValue.price*currentValue.quantity), currentValue.discount)), 0).toFixed(2)
 
 		setSubtotal(tempsubtotal);
 
@@ -69,7 +67,6 @@ const FinalizeOrder = () => {
 
 	}, [cart])
 
-	console.log(cart)
 	useEffect(() => {
 		if (data) {
 			stripePromise.then((res) => {
@@ -87,7 +84,6 @@ const FinalizeOrder = () => {
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			// window.location.reload();
 			getCheckout({
 				variables: { orderId: newOrderId },
 			});
@@ -99,7 +95,7 @@ const FinalizeOrder = () => {
 	};
 
 	return (
-		<div className="h-full w-full">
+		<div className="min-h-screen w-full">
 			<div className="container m-auto md:w-[60rem]">
 				<h1 className="text-center text-2xl my-4">Order</h1>
 				<div className="p-0 my-3 bg-white divide-y">
@@ -113,19 +109,19 @@ const FinalizeOrder = () => {
 						{cart &&
 							cart.map((cartItem, index) => (
 								<div className="grid grid-cols-4 mx-4 text-center" key={index + "finalizeOrderkey"}>
-									<div className="grid grid-cols-1 md:grid-cols-2 md:flex md:inline md:flex-row-reverse">
+									<div className="grid grid-cols-1 md:grid-cols-2 md:flex md:inline md:flex-row-reverse md:w-52 ">
 										<h3 className="text-lg pt-2 md:pl-2">{cartItem.productName}</h3>
-										<img className="h-40 w-36 py-2" src={cartItem.image} alt={cartItem.productName} />
+										<img className="h-36 w-36 object-cover p-2" src={cartItem.image} alt={cartItem.productName} />
 									</div>
 									<div className="pt-2">${calculateDiscountPrice(
 									cartItem.price,
 									cartItem.discount
 								)}</div>
 									<div className="pt-2">{cartItem.quantity}</div>
-									<div className="pt-2">${calculateDiscountPrice(
+									<div className="pt-2">${(calculateDiscountPrice(
 									cartItem.price,
 									cartItem.discount
-								) * cartItem.quantity}</div>
+								)) * cartItem.quantity}</div>
 								</div>
 							))}
 						<div className="text-black grid grid-cols-2 w-full px-10">

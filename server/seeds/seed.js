@@ -173,7 +173,6 @@ db.once("open", async () => {
 						zip: faker.address.zipCode(),
 						phoneNumber: faker.phone.number(),
 					},
-					// products: [productsList[0]._id, productsList[1]._id, productsList[2]._id,],
 					products: [
 						productsList[
 							Math.floor(Math.random() * productsList.length)

@@ -30,7 +30,6 @@ const Profile = () => {
 				if (!token) {
 					return false;
 				}
-				// console.log(userData)
 				const user = await data?.me;
 				setUserData(user);
 			} catch (err) {
@@ -56,9 +55,7 @@ const Profile = () => {
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
-		console.log(value)
 		setAccountData({ ...accountData, [name]: value });
-		console.log(accountData)
 	};
 
 	const handleDeleteAccountBtn = async (userId) => {
@@ -71,7 +68,6 @@ const Profile = () => {
 			if (!userId) {
 				throw new Error("there is no account with that id");
 			}
-			console.log("deleting account")
 
 		} catch (err) {
 			console.error(err);
@@ -93,7 +89,6 @@ const Profile = () => {
 				}
 			});
 			notify();
-			console.log("update form")
 			window.location.reload();
 		} catch (e) {
 			console.error(e);

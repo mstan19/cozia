@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import PurchasedOrders from "../../components/PurchasedOrders/PurchasedOrders";
 import SalesItem from "../../components/SalesItem/SalesItem";
-import { useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import {
 	QUERY_ME,
@@ -10,8 +8,6 @@ import {
 	QUERY_SALEITEMS,
 } from "../../utils/queries";
 import Auth from "../../utils/auth";
-// import NeedLogin from "../../components/NeedLogin/NeedLogin";
-
 
 const OrderList = () => {
 	const [userData, setUserData] = useState({});
@@ -35,20 +31,16 @@ const OrderList = () => {
 	if (saleItemsdata) {
 		saleItemsInfo = JSON.parse(saleItemsdata?.getSaleItems);
 	}
-	// let saleItemsInfo = JSON.parse(saleItemsdata?.getSaleItems);
-	// console.log("saleItemsInfo", saleItemsInfo)
+	
 
 	useEffect(() => {
 		const getUserData = async () => {
 			try {
 				const token = Auth.loggedIn() ? Auth.getToken() : null;
-				// console.log("token", token)
 				if (!token) {
 					return false;
 				}
 				const user = await data?.me;
-				// console.log("user", user);
-				// console.log("data", data);
 				setUserData(user);
 			} catch (err) {
 				console.error(err);

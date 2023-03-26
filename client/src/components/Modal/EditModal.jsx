@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { QUERY_ME, QUERY_CATEGORY } from "../../utils/queries";
+import { QUERY_CATEGORY  } from "../../utils/queries";
 import { UPDATE_PRODUCT } from "../../utils/mutations";
-import { LOGIN_USER } from "../../utils/mutations";
 import { useForm } from "react-hook-form";
 import { QUERY_ONE_CATEGORY } from "../../utils/queries";
 import { HexColorPicker } from "react-colorful";
 
 const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
-
-	// Use mutation to update product
 	const [editProduct, { error, data }] = useMutation(UPDATE_PRODUCT);
-
-	// Query to get one category by id
 	const {
 		data: oneCategoryData,
 		loading: oneCategoryLoading,
@@ -21,7 +16,8 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 		variables: { id: onEditProduct.category._id },
 	});
 
-	// useState to get and to set productData 
+
+	// useState to get and to set productData
 	const [productData, setProductData] = useState({
 		productName: onEditProduct.productName,
 		description: onEditProduct.description,
@@ -32,7 +28,7 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 		size: onEditProduct.size,
 		color: onEditProduct.color,
 		countInStock: onEditProduct.countInStock,
-		category: oneCategoryData?.getCategory.name,
+		category: oneCategoryData?.getCategory.name
 	});
 
 
@@ -46,6 +42,7 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 		size: onEditProduct.size,
 		color: onEditProduct.color,
 		countInStock: onEditProduct.countInStock,
+
 		// category: oneCategoryData?.getCategory?.name
 	};
 
@@ -149,7 +146,6 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 			size: onEditProduct.size,
 			color: onEditProduct.color,
 			countInStock: onEditProduct.countInStock,
-			// category: oneCategoryData.getCategory.name
 		});
 	};
 
