@@ -8,7 +8,6 @@ import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import hero from "../../assets/images/hero.jpg";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
 
-
 const Trending = () => {
 	// Create query to find all products
 	const { loading, data } = useQuery(QUERY_PRODUCTS);
@@ -24,11 +23,9 @@ const Trending = () => {
 			for (let i = 0; i < 10; i++) {
 				newestArray.push(sortedProducts[i]);
 			}
-			// console.log("newestArray", newestArray);
 			return newestArray;
 		}
 	}
-
 
 	// Fetches data and grabs appropriate product for each section card
 	useEffect(() => {
@@ -38,17 +35,17 @@ const Trending = () => {
 				TRENDING: getNewestArrival(products),
 			};
 			setSectionCards(sCards);
-			// console.log(sCards);
 		}
 	}, [data]);
 
 	return (
 		<div className="min-h-screen">
-			
-			<h1 className="text-center my-6 text-3xl underline underline-offset-8">Trending</h1>
-			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4  justify-center bg-white pt-5 mb-5 mx-auto gap-x-4 gap-y-4 px-3">
-				{!loading && sectionCards.TRENDING
-					.map((clothes, index) => {
+			<h1 className="text-center my-6 text-3xl underline underline-offset-8">
+				Trending
+			</h1>
+			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-items-center bg-white pt-5 mb-5 mx-auto gap-x-4 gap-y-4 px-3 ">
+				{!loading &&
+					sectionCards.TRENDING.map((clothes, index) => {
 						return (
 							<ClothesCard
 								product={clothes}
@@ -58,7 +55,6 @@ const Trending = () => {
 					})}
 			</section>
 		</div>
-
 	);
 };
 

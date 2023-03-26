@@ -9,33 +9,39 @@ import { QUERY_PRODUCTS } from "../../utils/queries";
 
 const ViewAllClothes = () => {
 	const { data, loading } = useQuery(QUERY_PRODUCTS);
-	const [clothesDisplay, setClothesDisplay] = useState(data ? data.products : []);
+	const [clothesDisplay, setClothesDisplay] = useState(
+		data ? data.products : []
+	);
 
-	console.log(clothesDisplay)
+	console.log(clothesDisplay);
 	useEffect(() => {
-		if(data?.products) {
-			console.log(clothesDisplay)
+		if (data?.products) {
+			console.log(clothesDisplay);
 			setClothesDisplay(data?.products);
 		}
 	}, [data]);
 
 	const filterResults = (filteredData) => {
-		// console.log(filteredData)
-		setClothesDisplay(filteredData)
-	}
+		setClothesDisplay(filteredData);
+	};
 
 	return (
 		<main className="min-h-screen">
 			<div className="m-8">
-				{data?.products ?
-					<SearchBar filterResults={filterResults} clothesDisplay={data?.products} placeholder={`Search for Clothes`} /> : null
-				}
+				{data?.products ? (
+					<SearchBar
+						filterResults={filterResults}
+						clothesDisplay={data?.products}
+						placeholder={`Search for Clothes`}
+					/>
+				) : null}
 			</div>
-			<h1 className="text-center my-6 text-3xl underline underline-offset-8">All of the Latest Fashion!</h1>
-			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-center bg-white pt-5 px-3 mb-5 mx-auto gap-x-4 gap-y-4">
-				{!loading && 
-				clothesDisplay
-					.map((clothes, index) => {
+			<h1 className="text-center my-6 text-3xl underline underline-offset-8">
+				All of the Latest Fashion!
+			</h1>
+			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-items-center bg-white pt-5 px-3 mb-5 mx-auto gap-x-4 gap-y-4">
+				{!loading &&
+					clothesDisplay.map((clothes, index) => {
 						return (
 							<ClothesCard
 								product={clothes}

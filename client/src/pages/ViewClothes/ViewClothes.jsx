@@ -111,7 +111,7 @@ const ViewClothes = () => {
 				) : null}
 			</section>
 			{/* ClothesCard Component */}
-			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-center bg-white pt-5 px-3 mb-5 mx-auto gap-x-4 gap-y-4">
+			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-center justify-items-center bg-white pt-5 px-3 mb-5 mx-auto gap-x-4 gap-y-4">
 				{!loading &&
 					clothesDisplay &&
 					clothesDisplay.length !== 0 &&
