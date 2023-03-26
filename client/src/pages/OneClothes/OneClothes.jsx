@@ -172,7 +172,7 @@ const OneClothes = () => {
 						src={clothes.image}
 						alt={clothes.productName}
 					/>
-					<section className="px-8 py-3 md:mx-3 lg:w-1/2 bg-white">
+					<section className="mx-8 my-3 lg:w-1/2 bg-white">
 						<p className="text-neutral-400 text-sm md:text-lg my-2 md:my-3">
 							{clothes.gender.toUpperCase()} /{" "}
 							{clothes.category.name.toUpperCase()}
