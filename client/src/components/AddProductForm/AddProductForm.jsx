@@ -40,11 +40,7 @@ const AddProductForm = () => {
 	const nav = useNavigate();
 
 	const handleColorPicker = (inputColor) => {
-		
-			console.log(inputColor);
 			setColor(inputColor);
-
-		console.log("hexcolo");
 		setProductFormData({ ...productFormData, "color": color });
 	};
 
@@ -52,18 +48,14 @@ const AddProductForm = () => {
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
 		if (name === "color") {
-			console.log("hi");
-			console.log(color);
 			setColor(value);
 		}
-		console.log(name, value);
 		setProductFormData({ ...productFormData, [name]: value });
 	};
 
 	useEffect(() => {
 		finalFormProductData = productFormData;
 		finalColor = color
-		console.log(color)
 	}, [productFormData, color]);
 
 	useEffect(() => {
@@ -105,8 +97,6 @@ const AddProductForm = () => {
 
 			finalFormProductData["color"] = finalColor;
 			delete finalFormProductData["category"];
-			console.log(finalFormProductData);
-
 
 			await addProduct({
 				variables: {

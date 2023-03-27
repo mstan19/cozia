@@ -218,6 +218,42 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 									></textarea>
 								</div>
 								<div className="grid grid-cols-3 gap-4 mb-4">
+									
+									<div className="col-span-2">
+										<label
+											className="flex flex-row block text-black-700 text-sm mb-2"
+											htmlFor="color"
+										>
+											COLOR
+											<p className="text-red-700">*</p>
+										</label>
+										<HexColorPicker
+											color={color}
+											onChange={setColor}
+										/>
+										<div className="inline-block relative w-full">
+											<div className="inline-block relative w-full mt-3">
+												<input
+													{...register("color")}
+													className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none"
+													name="color"
+													maxLength={7}
+													id="color"
+													type="text"
+													value={color}
+													onChange={handleInputChange}
+												></input>
+											</div>
+										</div>
+										{error &&
+										error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
+											"color"
+										) ? (
+											<div className="text-red-500 mb-3 text-base italic">
+												{createErrorMessage("color")}
+											</div>
+										) : null}
+									</div>
 									<div className="col-span-1">
 										<label
 											className="flex flex-row block text-black-700 text-sm mb-2"
@@ -262,41 +298,6 @@ const EditModal = ({ setEditOpenModal, onEditProduct, onEditFunction }) => {
 										) ? (
 											<div className="text-red-500 mb-3 text-base italic">
 												{createErrorMessage("size")}
-											</div>
-										) : null}
-									</div>
-									<div className="col-span-2">
-										<label
-											className="flex flex-row block text-black-700 text-sm mb-2"
-											htmlFor="color"
-										>
-											COLOR
-											<p className="text-red-700">*</p>
-										</label>
-										<HexColorPicker
-											color={color}
-											onChange={setColor}
-										/>
-										<div className="inline-block relative w-full">
-											<div className="inline-block relative w-full mt-3">
-												<input
-													{...register("color")}
-													className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none"
-													name="color"
-													maxLength={7}
-													id="color"
-													type="text"
-													value={color}
-													onChange={handleInputChange}
-												></input>
-											</div>
-										</div>
-										{error &&
-										error?.graphQLErrors[0]?.extensions?.exception?.errors?.hasOwnProperty(
-											"color"
-										) ? (
-											<div className="text-red-500 mb-3 text-base italic">
-												{createErrorMessage("color")}
 											</div>
 										) : null}
 									</div>

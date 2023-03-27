@@ -241,7 +241,7 @@ const MyProduct = () => {
 													</div>
 													<div className="flex justify-between">
 														<button
-															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 h-10 text-white px-5 focus:outline-none w-32"
+															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 h-10 text-white px-5 focus:outline-none w-32 lg:w-28"
 															id="edit-product-btn"
 															onClick={() => {
 																setEditModalOpen(
@@ -271,7 +271,7 @@ const MyProduct = () => {
 															/>
 														)}
 														<button
-															className="bg-red-600 rounded-lg my-0.5 hover:bg-red-600 h-10 text-white px-5 focus:outline-none w-32"
+															className="bg-red-600 rounded-lg my-0.5 hover:bg-red-600 h-10 text-white px-5 focus:outline-none w-32 lg:w-28"
 															id="delete-product-btn"
 															type="button"
 															onClick={() => {

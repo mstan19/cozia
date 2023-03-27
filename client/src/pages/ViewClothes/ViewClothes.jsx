@@ -12,7 +12,7 @@ const ViewClothes = () => {
 	const { gender } = useParams();
 	const { categoryName } = useParams();
 
-	// TODO: Allow clicking on gender will only show clothes related to gender
+	// Roadmap: Allow clicking on gender will only show clothes related to gender
 	const navigate = useNavigate();
 	const goToGenderPage = (event) => {
 		navigate(`${gender}`);
@@ -34,8 +34,6 @@ const ViewClothes = () => {
 	const { data, loading, error } = useQuery(PRODUCTS_BY_CATEGORYID, {
 		variables: { categoryId: categoryId },
 	});
-
-	// const { data, loading, error } = useQuery(QUERY_REVIEWS_BY_PRODUCT, { variables: { productId, productId} } );
 
 	if (error) console.log(error);
 	if (categoryError) console.log(error);
@@ -80,11 +78,8 @@ const ViewClothes = () => {
 				) : null}
 			</div>
 			<section className="flex justify-between justify-end items-center bg-white relative p-5">
-				{/* TODO: Insert categories */}
 				<h3>
-					{/* TODO: Set filter to go back to women if gender category is clicked on */}
 					<Link
-						className="text-blue-800 underline"
 						to={goToGenderPage}
 					>
 						{removeHyphensAndCapitalize(gender)}
@@ -93,7 +88,7 @@ const ViewClothes = () => {
 					{clothesCategory ? (
 						<>
 							{"/ "}
-							<Link className="text-blue-800 underline">
+							<Link>
 								{removeHyphensAndCapitalize(
 									clothesCategory[0].name
 								)}
