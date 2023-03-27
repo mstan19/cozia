@@ -18,106 +18,112 @@
 
 ## Description
 
-This versatile application encourages entrepreneurship by allowing users to be both sellers and consumers. If users wants to be a seller but also wants to purchase products, then with this applications, they can both. Users can keep track what orders they have, and they can modify their products, the order's deliver status and delivery date. Also, users can view what items they purchased. If users want to terminate their account, they can by entering their username and proceed to delete their account.
+Cozia is a versatile application that encourages entrepreneurship by allowing users to be both sellers and consumers. If users want to sell clothes but also wants to purchase clothes, they can do both through Cozia. Users can track what orders they have, and they can modify their products, the order's delivery status, and delivery date. Also, users can view what items they've purchased. If users want to terminate their account, they will be prompted to re-enter their username to delete their account.
 
 ### What did you learn?
 
--   Some npm packages and versions require a certain version in order to work
-    well with other npm
--   We expanded our coding skills by challenging ourselves with new challenges,
-    such as handling server-side validations and implementing new npm packages like stripe for payment.
+-   NPM packages and versions require certain versions in order to work well with other NPMs
+-   We expanded our coding skills by challenging ourselves with handling difficult real world application's features such as handling server-side validations and implementing new NPM packages like stripe for payment.
 -   We got more practice with debugging, especially with the AWS/Heroku deployment.
 
 ### What makes your project stand out?
 
-There are a lot of cool features. One, this application is mobile responsive. Two, every form uses server-side verifications. Three, this application has a dynamic table where users can modify their order list. If users want to update their products, then a modal will pop up and have their previous data preloaded already. Four, if users want to delete a product or delete their account, then a modal will pop up and users have to input their username correctly. Also, this app can take payments using Stripe. Finally, this app is deployed with popular services: Amazon Web Services (AWS) and Heroku.
+1. Follows **Mobile First Design**, so it's mobile responsive.
+2. Enables **server-side verification** for every form.
+3. Uses **dynamic tables** where users can smoothly modify their order list through a clean modal with **preloaded information**.
+4. Implements **security verification method** for deleting user's account.
+5. Incorporates **Stripe as a payment method** when purchasing clothes. (Don't worry, no real transaction is going through when you use a fake payment information provided for demonstration.)
+6. Deploys through popular services: **Heroku and Amazon Web Services (AWS)**.
 
-But don't take our word for it, checkout out our cool app!
+*But don't take our word for it, check out our cool Cozia!*
 
 ## Technologies
 
 ##### Client-Side Dependencies
 
--   Apollo Client
--   Tailwind
--   DAYJS
--   Toast
--   React
--   Stripe
+- Apollo Client
+- Tailwind
+- DAYJS
+- Toast
+- React
+- Stripe
+- React-colorful
 
 ##### Server-Side Dependencies
 
--   Apollo Server Express
--   bcrypt
--   dotenv
--   Express
--   GraphQL
--   jsonwebtoken
--   MongoDB & Mongoose
--   Node.js
--   Stripe
+- Apollo Server Express
+- bcrypt
+- dotenv
+- Express
+- GraphQL
+- jsonwebtoken
+- MongoDB & Mongoose
+- Node.js
+- Stripe
 
 ##### Dev Dependencies
 
--   Concurrently
--   Nodemon
--   Faker.js
--   Unsplash API
+- Concurrently
+- Nodemon
+- Faker.js
+- Unsplash API
 
 ##### Repository and Deployment
 
--   Github repository
--   AWS && Heroku deployment
+- GitHub repository
+- AWS && Heroku deployment
 
 (Reference 3 package.jsons to see a full list and versions)
 
 ## User Story
 
-AS A business owner and consumer, <br>
+AS A business owner and consumer,
 I WANT to be able to view and manage my sold products, but also buy products <br>
 SO THAT I can organize and plan my business while being a consumer.
 
 ## Acceptance Criteria
 
-GIVEN an e-commerce clothing apparel app <br>
-WHEN a user views the homepage, <br>
-THEN they can see the new arrival, featured clothes of the day, and the latest discounted clothes. <br>
-WHEN the user tries to go their account without loggin in first, <br>
-THEN the user will recieve a message to login first before viewing their dashboard. <br>
-WHEN a user is given the option to login or signup, <br>
-THEN the user can login or sign up, where they will be redirected to the dahsboard. <br>
-WHEN the user access their dashboard, <br>
-THEN they can view many tabs, such as My Products page, Order List page, and their profile page. <br>
-WHEN the user clicks on the "My Products" page, <br>
-THEN they can see all of their items that they are selling and edit/delete their products. <br>
-WHEN the user clicks on the Order List page, <br>
-THEN they can view two tables: Purchased Items and Sales Items. <br>
-WHEN the user expands the Purchased Items table, <br>
-THEN they can see what items they purchased. <br>
-WHEN the user sees the Sales Items table, <br>
-THEN the user can edit the delievery date and delievery status of the order. <br>
-WHEN the user clicks on their profile page <br>
-THEN the user has the option to delete their account. <br>
-WHEN the user clicks on any of the categories, <br>
-THEN a list of products from that category will render. <br>
-WHEN the user clicks on the individual product, <br>
-THEN the user will be taken to the item page and view the product's information. <br>
-WHEN the user clicks "Add to Cart", <br>
-THEN the user will get a notification that their item has been added to the cart and the cart will obtain that item. <br>
-WHEN the user clicks on "Delete" in the cart, <br>
-THEN that item is deleted. <br>
-WHEN the user clicks on "Checkout" in the cart, <br>
-THEN the user has to fill out shipping and billing information. <br>
-WHEN the user clicks on "Confirm Order", <br>
-THEN they can see all the items that they are purchasing. <br>
-WHEN the user clicks on "Make Payment" <br>
-THEN they are taken the Stripe to complete the payment process. <br>
-WHEN the user clicks on "Pay", <br>
-THEN the user will be redirect the success page then to their dashboard. <br>
-WHEN the user clicks on "Order List" in their dashboard, <br>
-THEN that order will render in their purchased items table. <br>
-WHEN the user logs out, <br>
+```
+GIVEN an e-commerce clothing apparel app
+WHEN a user views the home page,
+THEN they can see the new arrival, featured clothes of the day, and the latest discount clothes.
+WHEN the user tries to go their account without logging in first,
+THEN the user will receive a message to login first before viewing their dashboard.
+WHEN a user is given the option to login or sign up,
+THEN the user can login or sign up, where they will be redirected to the dashboard.
+WHEN the user accesses their dashboard,
+THEN they can view many tabs, such as My Products page, Order List page, and their Profile page.
+WHEN the user clicks on the "My Products" page,
+THEN they can see all of their items that they are selling and edit or delete their products.
+WHEN the user clicks on the Order List page,
+THEN they can view two tables: Purchased Items and Sales Items.
+WHEN the user expands the Purchased Items table,
+THEN they can see what items they purchased.
+WHEN the user sees the Sales Items table,
+THEN the user can edit the delivery date and delivery status of the order.
+WHEN the user clicks on their Profile page
+THEN the user has the option to delete their account with security verification.
+WHEN the user clicks on any of the categories,
+THEN a list of products from that category will render. 
+WHEN the user clicks on the individual product,
+THEN the user will be taken to the item page and view the product's information.
+WHEN the user clicks on the "Add to Cart" button,
+THEN the user will get a notification that their item has been added to the cart, and the cart will update with that item added to it. 
+WHEN the user clicks on the "Remove" button in the cart,
+THEN that item is removed from the cart.
+WHEN the user clicks on "Checkout" in the cart,
+THEN the user has to fill out shipping and billing information.
+WHEN the user clicks on "Confirm Order",
+THEN they can see all the items that they are purchasing.
+WHEN the user clicks on "Make Payment",
+THEN they are taken the Stripe to complete the payment process.
+WHEN the user clicks on "Pay",
+THEN the user will be redirected to the success page and then to their dashboard.
+WHEN the user clicks on "Order List" in their dashboard,
+THEN that order will render in their purchased items table.
+WHEN the user logs out,
 THEN their logout is successful and they are redirected to the homepage.
+```
 
 ## Deployed Application
 
@@ -125,36 +131,50 @@ AWS: []\*
 
 Heroku: []\*
 
-Github Repository: [https://github.com/mstan19/cozia]
+GitHub Repository: https://github.com/mstan19/cozia
 
-## Future Improvements
+## Roadmap
 
--   Add a wishlist
--   Add a Statics, where users can see how much revene they earned from their sales
--   Build a contact page for technical support
+- Include a wishlist feature where users can "love" clothes they want but cannot purchase just yet
+- Add a statistics where users can see how much revenue they earned from their sales
+- Build a contact page for technical support
 
 ## Installation
 
+1. `git clone` the repository and navigate to `cozia` folder.
+2. Run `npm i` in the terminal from the root.
+3. Next, run `npm run build` and `npm run seed`.
+4. Lastly, run `npm run develop` and your browser should open a new tab with http://localhost:3000.
+
+**OR** you can test our app by clicking on the Heroku or AWS deployed application link (from above at the Deployed Application section).
+
+> Note: Also, create an `.env` in the server folder and paste this in the file:
 ```
-clone github repo
-npm install
-npm run build
-npm run develop
-Go to http://localhost:3000
+JWT_SECRET=
+
+STRIPE_SECRET_KEY=""
+
+CLIENT_URL = http://localhost:3000
+
+CLIENT_ID = 
+
+curated_id = G1AwidaMrdQ
 ```
 
-OR follow the above Heroku or AWS deployed application link.
+### Instructions to set up .env file
+1. For `JWT_SECRET`, you can insert anything.
+2. For `CLIENT_ID`, go to [Unsplash](https://unsplash.com/join) and make an account if you haven't already, and navigate to the [Unsplash Developers](https://unsplash.com/developers).
+3. Click on `Your apps` > `New Application` > Agree to all guidelines of the API Use and Guidelines as well as their Terms of Services.
+4. Name the application, "Cozia" > put the description as "E-Commerce Apparel" > Create App.
+5. Scroll down where you can see the `Access Key`, copy it, and paste it at `CLIENT_ID`
 
-Also, create an .env in the server folder. This file will contain the JWS secret (AKA JWT_SECRET), stripe secret key (AKA STRIPE_SECRET_KEY), client url (AKA CLIENT_URL), and collection id (AKA curated_id). You will need to create stripe secrete key, jws secret, and collection id from unsplash.
 
 To run it on localhost, run the seeds and run the app commands in the root
 directory `npm run seed && npm run develop`.
 
 ### Seeds
 
-This application uses MongoDB and Mongoose (version 5.9.10). First run the seed
-file in server directory by running this command `npm run seed`; this loads the
-database. To see the database, download the MongoDB app and connect to seed
+This application uses MongoDB and Mongoose (version 5.9.10). To see the seeds, run `npm run seed` in the terminal; this loads the database. To see the database, download the MongoDB app and connect to seed
 database called "Cozia" by pressing "Save & Connect". Afterwards, click on
 "Cozia" database. You now have access to the database.
 
@@ -166,13 +186,18 @@ the localhost:3000.
 
 ## Usage
 
-### Screenshots
+## Screenshots
 
-Homepage (Mobile View) ![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia1.png)
-Homepage (Mobile View) ![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia2.png)
-Homepage (Desktop View) ![Desktop Homepage](./client/src/assets/images/homepageCozia1.png)
-Homepage (Desktop View) ![Desktop Homepage](./client/src/assets/images/homepageCozia2.png)
-View All Clothes (Mobile View) ![Mobile View All Clothes](./client/src/assets/images/galleryMobileCozia.png)
+Homepage (Mobile View) <br />
+![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia1.png)
+Homepage (Mobile View) <br />
+![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia2.png)
+Homepage (Desktop View) <br />
+![Desktop Homepage](./client/src/assets/images/homepageCozia1.png)
+Homepage (Desktop View) <br />
+![Desktop Homepage](./client/src/assets/images/homepageCozia2.png)
+View All Clothes (Mobile View) <br />
+![Mobile View All Clothes](./client/src/assets/images/galleryMobileCozia.png)
 Login (Mobile View) ![Mobile Login](./client/src/assets/images/loginMobileCozia.png)
 Login (Desktop View) ![Desktop Login](./client/src/assets/images/loginCozia.png)
 Signup (Mobile View) ![Mobile Signup](./client/src/assets/images/signupMobileCozia.png)

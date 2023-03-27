@@ -4,7 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { AiFillHeart, AiFillShopping } from "react-icons/ai";
 import Accordion from "../Accordion/Accordion";
 import { useQuery } from "@apollo/client";
-import { QUERY_CATEGORY } from "../../utils/queries";
+import { QUERY_CATEGORY, QUERY_ME } from "../../utils/queries";
 import Auth from "../../utils/auth";
 import Cart from "../Cart/Cart.jsx";
 import { CartState } from "../../context/CartContext";
@@ -13,13 +13,14 @@ export default function Navbar() {
 	const navRef = useRef();
 	const navigate = useNavigate();
 	const titleRef = useRef();
+	const { data: myData, loading: myLoading } = useQuery(QUERY_ME);
 	const {
 		data,
 		loading: categoryLoad,
 		error: categoryError,
 	} = useQuery(QUERY_CATEGORY);
-	const { cart, setCart } = CartState();
 
+	const { cart, setCart } = CartState();
 
 	const [categories, setCategories] = useState();
 
@@ -32,7 +33,6 @@ export default function Navbar() {
 
 	const showNavbar = () => {
 		navRef.current.classList.toggle("responsive_nav");
-		titleRef.current.classList.toggle("invisible");
 	};
 
 	const navList = [
@@ -82,14 +82,19 @@ export default function Navbar() {
 	return (
 		<header className="flex items-center justify-between">
 			<nav
-				className="flex flex-col w-full max-w-md min-h-screen z-50"
+				className="flex flex-col w-full max-w-md min-h-screen z-50 drop-shadow"
 				ref={navRef}
 			>
 				{/* Close icon */}
-				<button className="nav-btn nav-close-btn" onClick={showNavbar}>
+				<button className="nav-btn nav-close-btn flex" onClick={showNavbar}>
 					<FaTimes />
 				</button>
-				<h2 className="nav-header flex items-center">Menu</h2>
+				{Auth.loggedIn() ? (
+					<h2 className="nav-header flex items-center font-bold text-2xl">{`Welcome back, ${myData?.me?.username}`}</h2>
+				) : (
+					<h2 className="nav-header flex items-center font-bold text-2xl">Welcome, Guest!</h2>
+				)}
+				
 				{navList &&
 					navList.length !== 0 &&
 					navList.map((menu, idx) => {
@@ -105,7 +110,7 @@ export default function Navbar() {
 								) : (
 									<Link
 										key={menu.key + idx}
-										className="flex nav-category text-2xl p-6 category-border"
+										className="flex nav-category text-2xl p-6 category-border font-semibold"
 										to={menu.link}
 										onClick={showNavbar}
 									>
@@ -154,21 +159,20 @@ export default function Navbar() {
 				<Link className="wishlist" key="wishlist-page" to="/wishlist">
 					<AiFillHeart />
 				</Link>
-				<div className="cart pl-4" key="cart-page" >
-					{cart.length > 0 ? 
-					<div className="relative">
-					<div
-					  className="absolute top-0 right-0 z-10 translate-x-2/4 -translate-y-1/2 rounded-full bg-red-600 p-2.5"></div>
-						<AiFillShopping />
-						<Cart />
-				  </div>
-					: 
-					<div>
-						<AiFillShopping />
-						<Cart />
-					</div>
-					}
-                </div>
+				<div className="cart pl-4" key="cart-page">
+					{cart.length > 0 ? (
+						<div className="relative">
+							<div className="absolute top-0 right-0 z-10 translate-x-2/4 -translate-y-1/2 rounded-full bg-red-600 p-2.5"></div>
+							<AiFillShopping />
+							<Cart />
+						</div>
+					) : (
+						<div>
+							<AiFillShopping />
+							<Cart />
+						</div>
+					)}
+				</div>
 			</section>
 		</header>
 	);

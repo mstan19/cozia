@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import {
@@ -82,7 +82,6 @@ const OneClothes = () => {
 				if (loggedUser) {
 					setUserId(loggedUser._id);
 				}
-
 			} catch (err) {
 				console.error(err);
 			}
@@ -129,7 +128,17 @@ const OneClothes = () => {
 		if (product && product.length !== 0) {
 			setClothes(product);
 		}
-	}, [data, meData, reviewData, reviewLoading, reviews, totalRating, userId, usersData, usersLoading]);
+	}, [
+		data,
+		meData,
+		reviewData,
+		reviewLoading,
+		reviews,
+		totalRating,
+		userId,
+		usersData,
+		usersLoading,
+	]);
 
 	const navigateToRegistration = (event) => {
 		event.preventDefault();
@@ -149,24 +158,33 @@ const OneClothes = () => {
 	};
 
 	return (
-		<main className="flex justify-center bg-white">
+		<main className="flex flex-col md:flex-row justify-center bg-white">
 			<div>
 				<Toaster position="top-center" reverseOrder={false} />
 			</div>
 			{!loading && clothes && clothes.length !== 0 ? (
-				<div className="flex flex-col lg:flex-row min-w-2xl justify-between">
+				<div className="flex flex-col lg:flex-row">
 					<img
-						className="w-full lg:w-1/2 h-full lg:h-1/2 object-cover"
+						className="w-full h-full lg:w-1/2 md:h-fit object-cover drop-shadow lg:m-8"
 						src={clothes.image}
 						alt={clothes.productName}
 					/>
-					<section className="mx-5 my-3">
-						<article className="flex justify-between">
-							<h1 className="text-2xl">{clothes.productName}</h1>
+					<section className="mx-8 my-3 lg:w-1/2 bg-white">
+						<p className="text-neutral-400 text-sm md:text-lg my-2 md:my-3">
+							{clothes.gender.toUpperCase()} /{" "}
+							{clothes.category.name.toUpperCase()}
+						</p>
+						<article className="flex justify-between md:flex-col">
+							<h1 className="text-2xl md:text-4xl md:mb-3">
+								{clothes.productName}
+							</h1>
+							<p className="hidden md:block text-lg mb-3">{clothes.description}</p>
 							<div className="reviews flex items-center">
 								{clothes.numberReviews !== 0 && reviews ? (
 									<>
-										{displayRatings(totalRating)}
+										<div className="flex text-md md:text-xl">
+											{displayRatings(totalRating)}
+										</div>
 										<p className="ml-2 text-neutral-500">
 											({reviews.length})
 										</p>
@@ -180,30 +198,32 @@ const OneClothes = () => {
 								)}
 							</div>
 						</article>
-						<div className="flex mb-2 text-lg">
-							<p className="discount-price text-red-600 pr-3">
+						<div className="flex text-xl my-1">
+							<p className="discount-price text-red-600 pr-3 md:text-2xl md:my-3">
 								$
 								{calculateDiscountPrice(
 									clothes.price,
 									clothes.discount
 								)}
 							</p>
-							<p className="original-price text-neutral-400 line-through">
+							<p className="original-price text-neutral-400 line-through md:text-2xl md:my-3">
 								${clothes.price.toFixed(2)}
 							</p>
 						</div>
 						<hr className="bg-zinc-700 m-3" />
-						{/* TODO: Allow color to be selected - show some highlights */}
-						<h2 className="pb-1 text-lg">COLOR:</h2>
-						<div
-							className="color drop-shadow mb-1"
-							style={{
-								backgroundColor: clothes.color,
-								height: 30,
-								width: 30,
-								borderRadius: 50,
-							}}
-						></div>
+						<div className="flex">
+							<h2 className="pb-1 text-lg mr-3">COLOR:</h2>
+							<div
+								className="color drop-shadow mb-1"
+								style={{
+									backgroundColor: clothes.color,
+									height: 30,
+									width: 30,
+									borderRadius: 50,
+								}}
+							></div>
+						</div>
+
 						<hr className="bg-zinc-700 m-3" />
 						<h2 className="pb-3 text-lg">
 							SIZE: {removeHyphensAndCapitalize(clothes.size)}
@@ -224,27 +244,27 @@ const OneClothes = () => {
 									+
 								</button>
 							</section>
-
 							<button
 								onClick={(e) => {
 									e.preventDefault();
 									notify();
 									addToCart();
 								}}
-								className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-40"
+								className="add-cart-btn rounded-lg p-3 text-white drop-shadow-xl text-lg w-1/2 lg:w-3/5"
 							>
 								Add to Cart
 							</button>
 						</article>
-						<hr className="bg-zinc-700 m-3" />
-						<article>
+
+						<hr className="bg-zinc-700 m-3 md:hidden" />
+						<article className="md:hidden">
 							<Collapsible
 								title="About Product"
 								body={clothes.description}
 							/>
 						</article>
 						<hr className="bg-zinc-700 m-3" />
-						<article>
+						<article className="cursor-pointer">
 							<Collapsible
 								title="Shipping Details"
 								body={`Order now to get the delivery on ${new Date(
@@ -256,7 +276,7 @@ const OneClothes = () => {
 						<article>
 							<section className="flex justify-between">
 								{/* REVIEWS */}
-								<h3 className="text-2xl">Customer Reviews</h3>
+								<h3 className="text-xl md:text-2xl">Customer Reviews</h3>
 								<div className="reviews flex items-center">
 									{reviews && reviews.length !== 0 ? (
 										<>
@@ -279,14 +299,17 @@ const OneClothes = () => {
 										: `No reviews`}
 								</p>
 								<p className="text-neutral-500">
+									{totalRating ? totalRating.toFixed(1) + ` out of 5` : <></>} 
 								</p>
 							</section>
 							{/* TODO: If condition for when user is logged in or not */}
 							{Auth.loggedIn() ? (
 								<div>
-									
 									{/* How to grab the userId of whose logged in */}
-									<ReviewForm userId={userId} productId={productId} />
+									<ReviewForm
+										userId={userId}
+										productId={productId}
+									/>
 								</div>
 							) : (
 								<button

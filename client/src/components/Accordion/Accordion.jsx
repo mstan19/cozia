@@ -21,7 +21,7 @@ const Accordion = ({ title, items, link }) => {
 				className="accordion flex items-center"
 				onClick={() => setIsActive(!isActive)}
 			>
-				<p className="nav-category text-2xl flex p-6">{title}</p>
+				<p className="nav-category text-2xl flex p-6 font-semibold">{title}</p>
 				<div className="accordion-icon">
 					{isActive ? (
 						<MdOutlineKeyboardArrowUp />

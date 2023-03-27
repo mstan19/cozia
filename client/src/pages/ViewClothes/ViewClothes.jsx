@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY } from "../../utils/queries";
+import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY, QUERY_REVIEWS_BY_PRODUCT } from "../../utils/queries";
 import { removeHyphensAndCapitalize } from "../../utils/helpers";
 import Filter from "../../components/Filter/Filter";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
@@ -24,13 +24,18 @@ const ViewClothes = () => {
 	const [clothesDisplayOriginal, setClothesDisplayOriginal] = useState();
 
 	// Query to grab existing categories
-	const { data: categoryData, loading: categoryLoad, error: categoryError } =
-		useQuery(QUERY_CATEGORY);
+	const {
+		data: categoryData,
+		loading: categoryLoad,
+		error: categoryError,
+	} = useQuery(QUERY_CATEGORY);
 
 	// Query to grab products by category id
 	const { data, loading, error } = useQuery(PRODUCTS_BY_CATEGORYID, {
 		variables: { categoryId: categoryId },
 	});
+
+	// const { data, loading, error } = useQuery(QUERY_REVIEWS_BY_PRODUCT, { variables: { productId, productId} } );
 
 	if (error) console.log(error);
 	if (categoryError) console.log(error);
@@ -54,19 +59,25 @@ const ViewClothes = () => {
 	}, [categoryData, categoryName, data?.productsByCategoryID]);
 
 	const filterResults = (filteredData) => {
-		setClothesDisplay(filteredData)
-	}
-	
+		setClothesDisplay(filteredData);
+	};
+
 	const filterIcon = (filteredData) => {
-		setClothesDisplay(filteredData)
-	}
+		setClothesDisplay(filteredData);
+	};
 
 	return (
 		<main className="min-h-screen">
 			<div className="m-5">
-				{clothesDisplay ? <SearchBar filterResults={filterResults} clothesDisplay={clothesDisplayOriginal} placeholder={`Search for ${removeHyphensAndCapitalize(gender)}'s ${removeHyphensAndCapitalize(categoryName)}`} /> : null
-				}
-
+				{clothesDisplay ? (
+					<SearchBar
+						filterResults={filterResults}
+						clothesDisplay={clothesDisplayOriginal}
+						placeholder={`Search for ${removeHyphensAndCapitalize(
+							gender
+						)}'s ${removeHyphensAndCapitalize(categoryName)}`}
+					/>
+				) : null}
 			</div>
 			<section className="flex justify-between justify-end items-center bg-white relative p-5">
 				{/* TODO: Insert categories */}
@@ -92,20 +103,18 @@ const ViewClothes = () => {
 						<></>
 					)}
 				</h3>
-				{clothesDisplay ? <Filter filterIcon={filterIcon} clothes={clothesDisplay} /> : null
-				}
+				{clothesDisplay ? (
+					<Filter filterIcon={filterIcon} clothes={clothesDisplay} />
+				) : null}
 			</section>
 			{/* ClothesCard Component */}
-			<section className="flex flex-wrap justify-center bg-white">
-				{/* <section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 justify-center bg-white pt-5 mb-5 mx-auto"> */}
+			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-center justify-items-center bg-white pt-5 px-3 mb-5 mx-auto gap-x-4 gap-y-4">
 				{!loading &&
 					clothesDisplay &&
 					clothesDisplay.length !== 0 &&
 					clothesDisplay
 						.filter((clothes) => clothes.gender === gender)
-						// .filter((clothes) => clothes.productName === "Pants")
 						.map((clothes, idx) => {
-							// TODO: If there are no results, say no results
 							return (
 								<ClothesCard
 									key={clothes + idx}

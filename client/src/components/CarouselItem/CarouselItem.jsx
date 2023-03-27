@@ -1,12 +1,50 @@
-import React from "react";
-import { calculateDiscountPrice } from "../../utils/helpers";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { QUERY_REVIEWS_BY_PRODUCT } from "../../utils/queries";
+import { calculateDiscountPrice, displayRatings } from "../../utils/helpers";
 
 const CarouselItem = ({ product }) => {
+	console.log(product);
+	const { _id, productName, image, price, discount, color, gender } = product;
 
-	const { productName, image, price, discount, color } = product;
+	console.log(product);
+	console.log(_id);
+	const [reviews, setReviews] = useState();
+	const [totalRating, setTotalRating] = useState();
+
+	const {
+		loading: reviewLoading,
+		data: reviewData,
+		error: reviewError,
+	} = useQuery(QUERY_REVIEWS_BY_PRODUCT, {
+		variables: { productId: _id },
+	});
+
+	useEffect(() => {
+		if (!reviewLoading && reviewData) {
+			let productReview = reviewData?.getReviewsByProduct;
+			console.log(productReview);
+			setReviews(productReview);
+		}
+
+		if (reviews) {
+			// Initialize variables to store all the ratings and add them together
+			let ratingList = [];
+			let ratingTotal = 0;
+
+			reviews.filter((review) => ratingList.push(review.rating));
+			for (let i = 0; i < ratingList.length; i++) {
+				ratingTotal += ratingList[i];
+			}
+			setTotalRating(ratingTotal / ratingList.length);
+		}
+	}, [reviewData, reviewLoading, reviews]);
 
 	return (
-		<article className="flex flex-col w-full relative">
+		<article className="flex flex-col w-full relative cursor-pointer">
+			{/* onClick={()=> window.open(`${gender}/${_id}`)} */}
+			{/* <div className="flex flex-col w-full relative cursor-pointer" to={`${gender}/${_id}` }> */}
 			<img
 				src={image}
 				className="object-cover aspect-square flex justify-items-center"
@@ -19,6 +57,7 @@ const CarouselItem = ({ product }) => {
 			) : (
 				<> </>
 			)}
+			{/* <Link className="z-5 cursor-pointer" to={`${gender}/${_id}`}> */}
 			<section className="flex justify-between items-center px-5">
 				<div>
 					<h3 className="mt-2 text-lg">{productName}</h3>
@@ -32,7 +71,7 @@ const CarouselItem = ({ product }) => {
 					</div>
 				</div>
 				<div
-					className="color drop-shadow"
+					className="color flex flex-wrap drop-shadow"
 					style={{
 						backgroundColor: color,
 						height: 30,
@@ -41,6 +80,22 @@ const CarouselItem = ({ product }) => {
 					}}
 				></div>
 			</section>
+			<div className="reviews flex items-center px-5">
+				{reviews && reviews.length !== 0 ? (
+					<>
+						{displayRatings(totalRating)}
+						{reviews ? (
+							<p className="ml-2">({reviews.length})</p>
+						) : (
+							<></>
+						)}
+					</>
+				) : (
+					<>
+						<p className="text-neutral-400">No ratings yet</p>
+					</>
+				)}
+			</div>
 			<p className="view-more flex justify-end text-neutral-400 text-sm pt-1 pb-3 px-5">
 				View more
 			</p>

@@ -8,9 +8,7 @@ import { REMOVE_PRODUCT } from "../../utils/mutations";
 import EditModal from "../../components/Modal/EditModal";
 import NeedLogin from "../../components/NeedLogin/NeedLogin";
 import toast, { Toaster } from "react-hot-toast";
-import {
-	calculateDiscountPrice,
-} from "../../utils/helpers";
+import { calculateDiscountPrice } from "../../utils/helpers";
 
 const MyProduct = () => {
 	const [userData, setUserData] = useState({});
@@ -135,8 +133,7 @@ const MyProduct = () => {
 		<div className="my-product-page">
 			<div className="">
 				<div>
-					<Toaster position="top-center"
-						reverseOrder={false} />
+					<Toaster position="top-center" reverseOrder={false} />
 				</div>
 				<div
 					className="relative flex justify-between items-center sm:grid-cols-3 gap-x-8 gap-y-4"
@@ -182,15 +179,17 @@ const MyProduct = () => {
 														className="h-72 w-64 object-cover"
 													/>
 												</div>
-
 												<div className="p-3">
-													<h3 className="grid grid-rows-1 text-center text-lg">
+													<h3 className="grid grid-rows-1 px-2 pb-1 text-center text-lg">
 														{product.productName}
 													</h3>
 													<div className="grid grid-cols-2">
 														<div>
 															<div className="flex">
-																Price:
+																{" "}
+																<p className="px-2 mr-1">
+																	Price:
+																</p>
 																<p className="discount-price text-red-600 pr-3">
 																	$
 																	{calculateDiscountPrice(
@@ -202,29 +201,36 @@ const MyProduct = () => {
 																	$
 																	{parseInt(
 																		product.price
-																	).toFixed(2)}
+																	).toFixed(
+																		2
+																	)}
 																</p>
 															</div>
-															<p>
+															<p className="px-2">
 																Stock:{" "}
-																{stockCheck(index)}
+																{stockCheck(
+																	index
+																)}
 															</p>
-															<p>
-																Color:{" "}
-															</p>
-															<div
-																className="color flex drop-shadow mb-1"
-																style={{
-																	backgroundColor: wordAppearance(
-																		"color",
-																		index
-																	),
-																	height: 30,
-																	width: 30,
-																	borderRadius: 50,
-																}}
-															></div>
-															<p>
+															<div className="flex items-center px-2">
+																<p className="mr-3">
+																	Color:{" "}
+																</p>
+																<div
+																	className="color flex drop-shadow mb-1"
+																	style={{
+																		backgroundColor:
+																			wordAppearance(
+																				"color",
+																				index
+																			),
+																		height: 30,
+																		width: 30,
+																		borderRadius: 50,
+																	}}
+																></div>
+															</div>
+															<p className="px-2">
 																Size:{" "}
 																{wordAppearance(
 																	"size",
@@ -232,68 +238,68 @@ const MyProduct = () => {
 																)}
 															</p>
 														</div>
-														<div className="grid grid-rows-2 justify-end">
-															<button
-																className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 h-10 text-white px-5 focus:outline-none"
-																id="edit-product-btn"
-																onClick={() => {
-																	setEditModalOpen(
-																		true
-																	);
-																	openEditModal(
-																		product
-																	);
-																}}
-																type="submit"
-															>
-																Edit
-															</button>
-															{editModalOpen && (
-																<EditModal
-																	setEditOpenModal={
-																		setEditModalOpen
-																	}
-																	onEditFunction={() =>
-																		handleEditProductBtn(
-																			editSelectedProduct
-																		)
-																	}
-																	onEditProduct={
+													</div>
+													<div className="flex justify-between">
+														<button
+															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 h-10 text-white px-5 focus:outline-none w-32"
+															id="edit-product-btn"
+															onClick={() => {
+																setEditModalOpen(
+																	true
+																);
+																openEditModal(
+																	product
+																);
+															}}
+															type="submit"
+														>
+															Edit
+														</button>
+														{editModalOpen && (
+															<EditModal
+																setEditOpenModal={
+																	setEditModalOpen
+																}
+																onEditFunction={() =>
+																	handleEditProductBtn(
 																		editSelectedProduct
-																	}
-																/>
-															)}
-															<button
-																className="bg-red-600 rounded-lg my-0.5 hover:bg-red-600 h-10 text-white px-5 focus:outline-none"
-																id="delete-product-btn"
-																type="button"
-																onClick={() => {
-																	setModalOpen(
-																		true
-																	);
-																	openModal(
-																		product._id
-																	);
-																}}
-															>
-																Delete
-															</button>
-															{modalOpen && (
-																<DeleteModal
-																	setOpenModal={
-																		setModalOpen
-																	}
-																	onDeleteFunction={() =>
-																		handleDeleteProductBtn(
-																			selectedProductId
-																		)
-																	}
-																	onDeleteProductID={
+																	)
+																}
+																onEditProduct={
+																	editSelectedProduct
+																}
+															/>
+														)}
+														<button
+															className="bg-red-600 rounded-lg my-0.5 hover:bg-red-600 h-10 text-white px-5 focus:outline-none w-32"
+															id="delete-product-btn"
+															type="button"
+															onClick={() => {
+																setModalOpen(
+																	true
+																);
+																openModal(
+																	product._id
+																);
+															}}
+														>
+															Delete
+														</button>
+														{modalOpen && (
+															<DeleteModal
+																setOpenModal={
+																	setModalOpen
+																}
+																onDeleteFunction={() =>
+																	handleDeleteProductBtn(
 																		selectedProductId
-																	}
-																/>
-															)}
-														</div>
+																	)
+																}
+																onDeleteProductID={
+																	selectedProductId
+																}
+															/>
+														)}
 													</div>
 												</div>
 											</div>
@@ -304,9 +310,7 @@ const MyProduct = () => {
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 	);
 };
 export default MyProduct;
