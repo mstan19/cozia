@@ -114,7 +114,7 @@ db.once("open", async () => {
 			let counter = 0;
 
 			for (let l = 0; l < newCategory.length; l++) {
-				const unsplashResults = await axios.get(`https://api.unsplash.com//collections/${process.env.curated_id}/photos?client_id=${process.env.CLIENT_ID}&per_page=27&page=${n + 1}`)
+				const unsplashResults = await axios.get(`https://api.unsplash.com/collections/${process.env.curated_id}/photos?client_id=${process.env.CLIENT_ID}&per_page=27&page=${n + 1}`)
 
 
 
