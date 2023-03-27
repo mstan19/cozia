@@ -102,9 +102,8 @@ const SalesItemModal = ({ setOpenModal, preloadData, onEditOrderID, handleEditOr
 								</label>
 								<select className="w-full block appearance-none bg-white border border-black hover:border-black px-4 py-2 pr-8 rounded leading-tight focus:outline-none" name="isDelivered" onChange={handleInputChange}>
 									<option defaultValue >Select Delivery Status</option>
-									<option value="true">Out for Delivery</option>
-									<option value="false">Not process</option>
-
+									<option value="true">Shipping</option>
+									<option value="false">Not processed</option>
 								</select>
 							</form>
 						</div>

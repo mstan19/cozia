@@ -5,11 +5,8 @@ import { QUERY_REVIEWS_BY_PRODUCT } from "../../utils/queries";
 import { calculateDiscountPrice, displayRatings } from "../../utils/helpers";
 
 const CarouselItem = ({ product }) => {
-	console.log(product);
 	const { _id, productName, image, price, discount, color, gender } = product;
 
-	console.log(product);
-	console.log(_id);
 	const [reviews, setReviews] = useState();
 	const [totalRating, setTotalRating] = useState();
 
@@ -24,7 +21,6 @@ const CarouselItem = ({ product }) => {
 	useEffect(() => {
 		if (!reviewLoading && reviewData) {
 			let productReview = reviewData?.getReviewsByProduct;
-			console.log(productReview);
 			setReviews(productReview);
 		}
 

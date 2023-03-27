@@ -121,7 +121,6 @@ const Checkout = () => {
 			await addOrder({
 				variables: { orderData: orderData, userId: data?.me?._id },
 			});
-			console.log(orderData)
 			localStorage.setItem("orderData", JSON.stringify(orderData));
 			getCheckout({
 				variables: { products: getProductId() },
@@ -136,7 +135,7 @@ const Checkout = () => {
 	};
 
 	return (
-		<div className="h-full w-full">
+		<div className="h-full w-full min-h-screen">
 			<div className="container p-2 sm:m-auto w-full py-8 md:w-[44rem]">
 				<form
 					onSubmit={handleSubmit(onSubmit)}

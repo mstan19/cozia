@@ -30,7 +30,6 @@ const ClothesCard = ({ product }) => {
 	useEffect(() => {
 		if (!reviewLoading && reviewData) {
 			let productReview = reviewData?.getReviewsByProduct;
-			console.log(productReview);
 			setReviews(productReview);
 		}
 
