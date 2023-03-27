@@ -64,7 +64,6 @@ const AddProductForm = () => {
 		finalFormProductData = productFormData;
 		finalColor = color
 		console.log(color)
-		// console.log(finalFormProductData)
 	}, [productFormData, color]);
 
 	useEffect(() => {
@@ -117,6 +116,8 @@ const AddProductForm = () => {
 				},
 			});
 			nav("/dashboard");
+			window.location.reload();
+
 		} catch (e) {
 			console.error(e);
 		}
