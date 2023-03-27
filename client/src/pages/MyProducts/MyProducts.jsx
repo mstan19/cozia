@@ -180,7 +180,7 @@ const MyProduct = () => {
 													/>
 												</div>
 												<div className="p-3">
-													<h3 className="grid grid-rows-1 px-2 text-center text-lg">
+													<h3 className="grid grid-rows-1 px-2 pb-1 text-center text-lg">
 														{product.productName}
 													</h3>
 													<div className="grid grid-cols-2">
