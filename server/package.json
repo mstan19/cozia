@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "main": "server.js",
+    "engines": {
+        "node" : "16.18.1",
+        "npm": "8.19.2"
+    },
     "scripts": {
         "start": "node server.js",
         "seed": "node seeds/seed.js",
