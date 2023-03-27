@@ -33,7 +33,6 @@ export default function Navbar() {
 
 	const showNavbar = () => {
 		navRef.current.classList.toggle("responsive_nav");
-		// titleRef.current.classList.toggle("invisible");
 	};
 
 	const navList = [
@@ -91,9 +90,9 @@ export default function Navbar() {
 					<FaTimes />
 				</button>
 				{Auth.loggedIn() ? (
-					<h2 className="nav-header flex items-center font-bold text-2xl">{`Welcome back, ${myData?.me?.firstName}`}</h2>
+					<h2 className="nav-header flex items-center font-bold text-2xl">{`Welcome back, ${myData?.me?.username}`}</h2>
 				) : (
-					<h2 className="nav-header flex items-center font-bold text-2xl">Welcome, guest!</h2>
+					<h2 className="nav-header flex items-center font-bold text-2xl">Welcome, Guest!</h2>
 				)}
 				
 				{navList &&

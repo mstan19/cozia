@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY } from "../../utils/queries";
+import { PRODUCTS_BY_CATEGORYID, QUERY_CATEGORY, QUERY_REVIEWS_BY_PRODUCT } from "../../utils/queries";
 import { removeHyphensAndCapitalize } from "../../utils/helpers";
 import Filter from "../../components/Filter/Filter";
 import ClothesCard from "../../components/ClothesCard/ClothesCard";
@@ -34,6 +34,8 @@ const ViewClothes = () => {
 	const { data, loading, error } = useQuery(PRODUCTS_BY_CATEGORYID, {
 		variables: { categoryId: categoryId },
 	});
+
+	// const { data, loading, error } = useQuery(QUERY_REVIEWS_BY_PRODUCT, { variables: { productId, productId} } );
 
 	if (error) console.log(error);
 	if (categoryError) console.log(error);

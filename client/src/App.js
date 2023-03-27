@@ -65,7 +65,6 @@ function App() {
                         <Route path="/orderlist" element={<OrderList />} />
                         <Route path="/addproduct" element={<AddProductForm />} />
                         <Route path="/success/:orderID" element={<Success />} />
-
                         <Route path="/confirmation" element={<FinalizeOrder />} />
                         <Route
                             path="/:gender/:categoryName/:productId"
