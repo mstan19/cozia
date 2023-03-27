@@ -29,6 +29,7 @@ const AddProductForm = () => {
 	const [userData, setUserData] = useState({});
 	const { data: queryDataMe, loading } = useQuery(QUERY_ME);
 	const [color, setColor] = useState("#ffffff");
+	let finalColor = color;
 
 	const {
 		data: categoryData,
@@ -38,20 +39,33 @@ const AddProductForm = () => {
 
 	const nav = useNavigate();
 
+	const handleColorPicker = (inputColor) => {
+		
+			console.log(inputColor);
+			setColor(inputColor);
+
+		console.log("hexcolo");
+		setProductFormData({ ...productFormData, "color": color });
+	};
+
 	// update state based on form input changes
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
 		if (name === "color") {
+			console.log("hi");
+			console.log(color);
 			setColor(value);
-		} 
+		}
 		console.log(name, value);
 		setProductFormData({ ...productFormData, [name]: value });
 	};
 
 	useEffect(() => {
 		finalFormProductData = productFormData;
+		finalColor = color
+		console.log(color)
 		// console.log(finalFormProductData)
-	}, [productFormData]);
+	}, [productFormData, color]);
 
 	useEffect(() => {
 		const getUserData = async () => {
@@ -60,7 +74,6 @@ const AddProductForm = () => {
 				if (!token) {
 					return false;
 				}
-
 				const user = await queryDataMe?.me;
 
 				setUserData(user);
@@ -70,7 +83,7 @@ const AddProductForm = () => {
 		};
 
 		getUserData();
-	}, [queryDataMe, color]);
+	}, [queryDataMe]);
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
@@ -90,7 +103,11 @@ const AddProductForm = () => {
 			finalFormProductData["countInStock"] = parseFloat(
 				finalFormProductData.countInStock
 			);
+
+			finalFormProductData["color"] = finalColor;
 			delete finalFormProductData["category"];
+			console.log(finalFormProductData);
+
 
 			await addProduct({
 				variables: {
@@ -260,8 +277,9 @@ const AddProductForm = () => {
 									<p className="text-red-700">*</p>
 								</label>
 								<HexColorPicker
+									name="hex-color"
 									color={color}
-									onChange={setColor}
+									onChange={handleColorPicker}
 								/>
 								<div className="inline-block relative w-full mt-3">
 									<input
@@ -271,7 +289,7 @@ const AddProductForm = () => {
 										id="color"
 										type="text"
 										value={color}
-										onChange={handleInputChange}
+										onChange={e => setColor(e.target.value)}
 									></input>
 								</div>
 								{error &&
