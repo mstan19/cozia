@@ -168,7 +168,7 @@ const MyProduct = () => {
 									(product, index) => {
 										return (
 											<div
-												className="my-product-card bg-white px-2 pt-3"
+												className="my-product-card flex bg-white px-2 pt-3"
 												key={product._id}
 											>
 												<div className="flex justify-center">

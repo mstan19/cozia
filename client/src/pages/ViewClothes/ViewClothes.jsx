@@ -65,19 +65,18 @@ const ViewClothes = () => {
 	};
 
 	return (
-		<main className="min-h-screen">
+		<main className="min-h-screen flex flex-col">
 			<div className="m-5">
 				{clothesDisplay ? (
 					<SearchBar
 						filterResults={filterResults}
 						clothesDisplay={clothesDisplayOriginal}
-						placeholder={`Search for ${removeHyphensAndCapitalize(
-							gender
-						)}'s ${removeHyphensAndCapitalize(categoryName)}`}
+						placeholder={`Search`}
 					/>
 				) : null}
 			</div>
-			<section className="flex justify-between justify-end items-center bg-white relative p-5">
+			<div className="flex flex-col mx-auto bg-white">
+			<section className="flex justify-between items-center bg-white relative p-5 max-w-6xl">
 				<h3>
 					<Link
 						to={goToGenderPage}
@@ -103,7 +102,7 @@ const ViewClothes = () => {
 				) : null}
 			</section>
 			{/* ClothesCard Component */}
-			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-center justify-items-center bg-white pt-5 px-3 mb-5 mx-auto gap-x-4 gap-y-4">
+			<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 justify-center justify-items-center bg-white pt-5 px-3 mb-5 mx-auto gap-x-4 gap-y-4 max-w-6xl">
 				{!loading &&
 					clothesDisplay &&
 					clothesDisplay.length !== 0 &&
@@ -118,6 +117,7 @@ const ViewClothes = () => {
 							);
 						})}
 			</section>
+			</div>
 		</main>
 	);
 };

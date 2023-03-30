@@ -127,9 +127,9 @@ THEN their logout is successful and they are redirected to the homepage.
 
 ## Deployed Application
 
-AWS: []\*
+AWS: (In progress)
 
-Heroku: []\*
+Heroku: https://cozia.herokuapp.com/
 
 GitHub Repository: https://github.com/mstan19/cozia
 
