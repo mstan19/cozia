@@ -47,7 +47,7 @@ const OrderList = () => {
 			}
 		};
 		getUserData();
-	}, [data]);
+	}, [data, orderListData]);
 
 	const columnPO = [
 		{
@@ -137,7 +137,7 @@ const OrderList = () => {
 							</>
 						) : (
 							<>
-								<div>data loading...</div>
+								<div className="text-center">No purchased orders ...</div>
 							</>
 						)}
 						{!saleItemsLoading &&
@@ -159,7 +159,7 @@ const OrderList = () => {
 							</>
 						) : (
 							<>
-								<div>data loading...</div>
+								<div className="text-center">No sale items...</div>
 							</>
 						)}
 					</div>

@@ -135,8 +135,7 @@ const Dashboard = () => {
 	return (
 		<div>
 			{Auth.loggedIn() ? (
-				<div className="grid grid-cols-1  md:grid-cols-5">
-
+				<div className="grid grid-cols-1  xl:grid-cols-5">
 					{/* navbar for dashboard only */}
 					<div onClick={() => setOpen(!open)} name={open ? "close" : "menu"} className={` ease-in col-span-1 text-3xl cursor-pointer `}>
 						<div className={`md:hidden relative flex justify-start inline my-4 bg-white`}>
