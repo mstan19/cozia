@@ -21,7 +21,7 @@ const FinalizeOrder = () => {
 	const { cart, setCart } = CartState();
 	const [subtotal, setSubtotal] = useState();
 	const [taxes, setTaxes] = useState();
-	const [total, setTotal] = useState()
+	const [total, setTotal] = useState();
 	const {
 		data: orderListData,
 		loading: orderListLoading,
@@ -35,8 +35,6 @@ const FinalizeOrder = () => {
 	if (orderListData) {
 		refetch();
 	}
-	const newOrderId =
-		orderListData?.getAllOrders?.slice(-1).pop()._id;
 
 	useEffect(() => {
 		const getUserData = async () => {
@@ -51,21 +49,33 @@ const FinalizeOrder = () => {
 	}, [meData]);
 
 	useEffect(() => {
-		const tempsubtotal = cart.reduce((accumulator, currentValue) => accumulator + parseInt(calculateDiscountPrice((currentValue.price*currentValue.quantity), currentValue.discount)), 0).toFixed(2)
+		const tempsubtotal = cart
+			.reduce(
+				(accumulator, currentValue) =>
+					accumulator +
+					parseInt(
+						calculateDiscountPrice(
+							currentValue.price * currentValue.quantity,
+							currentValue.discount
+						)
+					),
+				0
+			)
+			.toFixed(2);
 
 		setSubtotal(tempsubtotal);
 
-		let calTax = parseInt(tempsubtotal * (.10))
-		setTaxes((calTax).toFixed(2));
+		let calTax = parseInt(tempsubtotal * 0.1);
+		setTaxes(calTax.toFixed(2));
 
 		if (cart.length === 0) {
-			setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2))
-
+			setTotal((parseInt(tempsubtotal) + parseInt(calTax)).toFixed(2));
 		} else {
-			setTotal((parseInt(tempsubtotal) + parseInt(calTax) + 10).toFixed(2))
+			setTotal(
+				(parseInt(tempsubtotal) + parseInt(calTax) + 10).toFixed(2)
+			);
 		}
-
-	}, [cart])
+	}, [cart]);
 
 	useEffect(() => {
 		if (data) {
@@ -75,20 +85,17 @@ const FinalizeOrder = () => {
 		}
 	}, [data]);
 
-
 	const handleRedirectDashboard = () => {
 		window.location.assign("/dashboard");
 	};
 
-
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
+			const newOrderId = orderListData?.getAllOrders?.slice(-1).pop()._id;
 			getCheckout({
 				variables: { orderId: newOrderId },
 			});
-
-
 		} catch (e) {
 			console.error(e);
 		}
@@ -108,20 +115,37 @@ const FinalizeOrder = () => {
 					<div className={`grid grid-rows-${cart.length} divide-y`}>
 						{cart &&
 							cart.map((cartItem, index) => (
-								<div className="grid grid-cols-4 mx-4 text-center" key={index + "finalizeOrderkey"}>
-									<div className="grid grid-cols-1 md:grid-cols-2 md:flex md:inline md:flex-row-reverse md:w-52 ">
-										<h3 className="text-lg pt-2 md:pl-2">{cartItem.productName}</h3>
-										<img className="h-36 w-36 object-cover p-2" src={cartItem.image} alt={cartItem.productName} />
+								<div
+									className="grid grid-cols-4 mx-4 text-center"
+									key={index + "finalizeOrderkey"}
+								>
+									<div className="grid grid-cols-1 md:grid-cols-2 md:flex md:inline md:w-52 ">
+										<h3 className="text-lg pt-2 md:pl-2">
+											{cartItem.productName}
+										</h3>
+										<img
+											className="h-36 w-36 object-cover p-2"
+											src={cartItem.image}
+											alt={cartItem.productName}
+										/>
 									</div>
-									<div className="pt-2">${calculateDiscountPrice(
-									cartItem.price,
-									cartItem.discount
-								)}</div>
-									<div className="pt-2">{cartItem.quantity}</div>
-									<div className="pt-2">${(calculateDiscountPrice(
-									cartItem.price,
-									cartItem.discount
-								)) * cartItem.quantity}</div>
+									<div className="pt-2">
+										$
+										{calculateDiscountPrice(
+											cartItem.price,
+											cartItem.discount
+										)}
+									</div>
+									<div className="pt-2">
+										{cartItem.quantity}
+									</div>
+									<div className="pt-2">
+										$
+										{calculateDiscountPrice(
+											cartItem.price,
+											cartItem.discount
+										) * cartItem.quantity}
+									</div>
 								</div>
 							))}
 						<div className="text-black grid grid-cols-2 w-full px-10">
@@ -153,7 +177,6 @@ const FinalizeOrder = () => {
 					>
 						MAKE PAYMENT
 					</button>
-
 				</div>
 			</div>
 		</div>

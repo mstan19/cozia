@@ -56,7 +56,7 @@ const Checkout = () => {
 
 	useEffect(() => {
 		if (orderListData) {
-			console.log(orderListData)
+			// console.log(orderListData)
 		}
 	}, [orderListData]);
 

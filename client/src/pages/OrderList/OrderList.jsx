@@ -140,7 +140,7 @@ const OrderList = () => {
 								<div className="text-center">No purchased orders ...</div>
 							</>
 						)}
-						{!saleItemsLoading &&
+						{!saleItemsLoading && saleItemsInfo &&
 						Object.keys(saleItemsInfo).length !== 0 &&
 						saleItemsInfo !== undefined ? (
 							<>
