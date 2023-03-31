@@ -90,7 +90,7 @@ export default function Navbar() {
 					<FaTimes />
 				</button>
 				{Auth.loggedIn() ? (
-					<h2 className="nav-header flex items-center font-bold text-2xl">{`Welcome back, ${myData?.me?.username}`}</h2>
+					<h2 className="nav-header flex items-center font-bold text-2xl mr-8">{`Welcome back, ${myData?.me?.username}`}</h2>
 				) : (
 					<h2 className="nav-header flex items-center font-bold text-2xl">Welcome, Guest!</h2>
 				)}

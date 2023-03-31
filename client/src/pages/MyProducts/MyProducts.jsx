@@ -43,7 +43,7 @@ const MyProduct = () => {
 		};
 
 		getUserData();
-	}, [data]);
+	}, [data, myProductsData]);
 
 	const notify = () => toast.success("Your product has been updated.");
 	function stockCheck(index) {
@@ -157,14 +157,16 @@ const MyProduct = () => {
 						<Toaster position="top-center" reverseOrder={false} />
 					</div>
 
-					<div className="container">
+					<div className="container mx-auto">
 						{/* Gallery product Card */}
-						<div
-							className="my-product-cards flex flex-wrap-reverse m-3 gap-3 max-w-5xl mx-auto"
-							id="product-cards"
-						>
-							{myProductsData &&
-								myProductsData.getMyProducts.map(
+						{myProductsData &&
+						myProductsData.getMyProducts.length !== 0 &&
+						!myProductLoading ? (
+							<div
+								className="my-product-cards flex flex-wrap-reverse m-3 gap-3 max-w-5xl mx-auto"
+								id="product-cards"
+							>
+								{myProductsData.getMyProducts.map(
 									(product, index) => {
 										return (
 											<div
@@ -306,7 +308,12 @@ const MyProduct = () => {
 										);
 									}
 								)}
-						</div>
+							</div>
+						) : (
+							<div className="text-center">
+								No products added.
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
