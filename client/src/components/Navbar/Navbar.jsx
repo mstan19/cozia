@@ -32,7 +32,7 @@ export default function Navbar() {
 	}, [data]);
 
 	const showNavbar = () => {
-		navRef.current.classList.toggle("responsive_nav");
+		navRef.current?.classList.toggle("responsive_nav");
 	};
 
 	const navList = [

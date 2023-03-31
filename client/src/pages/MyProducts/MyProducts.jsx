@@ -157,7 +157,7 @@ const MyProduct = () => {
 						<Toaster position="top-center" reverseOrder={false} />
 					</div>
 
-					<div className="container mx-auto">
+					<div className="container mx-auto min-h-screen">
 						{/* Gallery product Card */}
 						{myProductsData &&
 						myProductsData.getMyProducts.length !== 0 &&
