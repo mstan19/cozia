@@ -21,13 +21,13 @@
         "bcrypt": "^4.0.1",
         "dotenv": "^16.0.3",
         "express": "^4.17.1",
+        "@faker-js/faker": "^7.3.0",
         "graphql": "^15.4.0",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.9.10",
         "stripe": "^11.13.0"
     },
     "devDependencies": {
-        "@faker-js/faker": "^7.3.0",
         "nodemon": "^2.0.3"
     }
 }
