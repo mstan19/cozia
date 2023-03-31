@@ -36,7 +36,7 @@ const FinalizeOrder = () => {
 		refetch();
 	}
 	const newOrderId =
-		orderListData?.getAllOrders.slice(-1).pop()._id;
+		orderListData?.getAllOrders?.slice(-1).pop()._id;
 
 	useEffect(() => {
 		const getUserData = async () => {

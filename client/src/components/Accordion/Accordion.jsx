@@ -11,7 +11,7 @@ const Accordion = ({ title, items, link }) => {
 	const navRef = useRef();
 
 	const showNavbar = () => {
-		navRef.current.classList.toggle("responsive_nav");
+		navRef.current?.classList?.toggle("responsive_nav");
 	};
 
 	return (
