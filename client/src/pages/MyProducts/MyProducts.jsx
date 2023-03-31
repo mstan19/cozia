@@ -157,10 +157,10 @@ const MyProduct = () => {
 						<Toaster position="top-center" reverseOrder={false} />
 					</div>
 
-					<div className="container px-7 sm:px-0 mx-auto">
+					<div className="container">
 						{/* Gallery product Card */}
 						<div
-							className="my-product-cards flex flex-wrap w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-4 px-3"
+							className="my-product-cards flex flex-wrap-reverse m-3 gap-3 max-w-5xl mx-auto"
 							id="product-cards"
 						>
 							{myProductsData &&
@@ -168,7 +168,7 @@ const MyProduct = () => {
 									(product, index) => {
 										return (
 											<div
-												className="my-product-card flex bg-white px-2 pt-3"
+												className="my-product-card flex bg-white px-2 py-3 w-[500px] mx-auto"
 												key={product._id}
 											>
 												<div className="flex justify-center">
@@ -183,9 +183,9 @@ const MyProduct = () => {
 													<h3 className="grid grid-rows-1 px-2 pb-1 text-center text-lg">
 														{product.productName}
 													</h3>
-													<div className="grid grid-cols-2">
+													<div className="grid grid-cols-1">
 														<div>
-															<div className="flex">
+															<div className="flex flex-wrap">
 																{" "}
 																<p className="px-2 mr-1">
 																	Price:
@@ -239,9 +239,9 @@ const MyProduct = () => {
 															</p>
 														</div>
 													</div>
-													<div className="flex justify-between">
+													<div className="flex flex-col items-center mt-3">
 														<button
-															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 h-10 text-white px-5 focus:outline-none w-32 lg:w-28"
+															className="bg-blue-500 rounded-lg my-0.5 hover:bg-blue-500 h-10 text-white px-5 focus:outline-none w-3/4 md:w-1/2"
 															id="edit-product-btn"
 															onClick={() => {
 																setEditModalOpen(
@@ -271,7 +271,7 @@ const MyProduct = () => {
 															/>
 														)}
 														<button
-															className="bg-red-600 rounded-lg my-0.5 hover:bg-red-600 h-10 text-white px-5 focus:outline-none w-32 lg:w-28"
+															className="bg-red-600 rounded-lg my-0.5 hover:bg-red-600 h-10 text-white px-5 focus:outline-none w-3/4 md:w-1/2"
 															id="delete-product-btn"
 															type="button"
 															onClick={() => {

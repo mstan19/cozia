@@ -47,7 +47,7 @@ const OrderList = () => {
 			}
 		};
 		getUserData();
-	}, [data]);
+	}, [data, orderListData]);
 
 	const columnPO = [
 		{
