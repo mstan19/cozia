@@ -192,7 +192,6 @@ const Dashboard = () => {
 					{/* Dashboard's components */}
 					<section className="md:col-span-4 md:min-h-screen">
 						{currentComponent}
-
 					</section>
 				</div>
 			) : (

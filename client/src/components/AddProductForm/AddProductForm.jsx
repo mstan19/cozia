@@ -416,7 +416,7 @@ const AddProductForm = () => {
 									</span>
 								</div>
 								<input
-									className="appearance-none border border-black w-full py-2 px-11 text-black-700 leading-tight"
+									className="appearance-none border border-black w-full py-2 pl-10 lg:px-11 text-black-700 leading-tight"
 									name="price"
 									id="price"
 									type="number"
