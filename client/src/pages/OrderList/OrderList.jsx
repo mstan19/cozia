@@ -148,7 +148,7 @@ const OrderList = () => {
 									Sale Items
 								</h2>
 								<div
-									className="overflow-x-scroll md:overflow-x-hidden"
+									className="overflow-x-scroll lg:overflow-x-hidden"
 									id="sales-item-component"
 								>
 									<SalesItem
