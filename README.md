@@ -127,9 +127,14 @@ THEN their logout is successful and they are redirected to the homepage.
 
 ## Deployed Application
 
-AWS: (In progress)
+AWS: https://gocozia.com/
+- Demo Account: use Devon_Green@gmail.com for the email and password.
 
 Heroku: https://cozia.herokuapp.com/
+- Demo Account: use Brook20@hotmail.com for the email and password.
+
+
+> **Please use fake information when checking out Cozia.**
 
 GitHub Repository: https://github.com/mstan19/cozia
 
@@ -189,43 +194,68 @@ the localhost:3000.
 ## Screenshots
 
 Homepage (Mobile View) <br />
-![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia1.png)
+![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia1.png) <br />
 Homepage (Mobile View) <br />
-![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia2.png)
+![Mobile Homepage](./client/src/assets/images/mobileHomepageCozia2.png) <br />
 Homepage (Desktop View) <br />
-![Desktop Homepage](./client/src/assets/images/homepageCozia1.png)
+![Desktop Homepage](./client/src/assets/images/homepageCozia1.png) <br />
 Homepage (Desktop View) <br />
-![Desktop Homepage](./client/src/assets/images/homepageCozia2.png)
+![Desktop Homepage](./client/src/assets/images/homepageCozia2.png) <br />
 View All Clothes (Mobile View) <br />
-![Mobile View All Clothes](./client/src/assets/images/galleryMobileCozia.png)
-Login (Mobile View) ![Mobile Login](./client/src/assets/images/loginMobileCozia.png)
-Login (Desktop View) ![Desktop Login](./client/src/assets/images/loginCozia.png)
-Signup (Mobile View) ![Mobile Signup](./client/src/assets/images/signupMobileCozia.png)
-Signup (Desktop View) ![Desktop Signup](./client/src/assets/images/signupCozia.png)
-Dashboard (Mobile View) ![Mobile Dashboard](./client/src/assets/images/dashboardMobilCozia.png)
-Dashboard (Desktop View) ![Desktop Dashboard](./client/src/assets/images/OrderlistCozia.png)
-Dashboard Edit Order Modal (Mobile View) ![Mobile Dashboard Edit Order Modal](./client/src/assets/images/dashboardMobilCozia.png)
-Dashboard Edit Order Modal (Desktop View) ![Desktop Dashboard Edit Order Modal](./client/src/assets/images/editOrderModalCozia.png)
-Dashboard My Products Page (Mobile View) ![Mobile Dashboard My Products Page](./client/src/assets/images/myproductsMobileCozia.png)
-Dashboard My Products Page (Desktop View) ![Desktop Dashboard My Products Page](./client/src/assets/images/myProductsCozia.png)
-Dashboard Add Product Form (Mobile View) ![Mobile Add Product Form](./client/src/assets/images/addformMobileCozia.png)
-Dashboard Add Product Form (Desktop View) ![Desktop Add Product Form](./client/src/assets/images/addformCozia.png)
-Dashboard Account Page (Mobile View) ![Mobile Dashboard Account Page](./client/src/assets/images/profileMobileCozia.png)
-Dashboard Account Page (Desktop View) ![Desktop Dashboard Account Page](./client/src/assets/images/profileCozia.png)
-View Clothes By Category (Mobile View) ![Mobile Clothes By Category](./client/src/assets/images/viewClothesMobileCozia.png)
-View Clothes By Category (Desktop View) ![Desktop View Clothes By Category](./client/src/assets/images/viewclothesCozia.png)
-View Item (Mobile View) ![Mobile Item](./client/src/assets/images/itemMobileCozia.png)
-View Item (Desktop View) ![Desktop Item](./client/src/assets/images/itemCozia.png)
-Cart (Mobile View) ![Mobile Cart](./client/src/assets/images/cartMobileCozia.png)
-Cart (Desktop View) ![Desktop Cart](./client/src/assets/images/cartCozia.png)
-Checkout (Mobile View) ![Mobile Checkout](./client/src/assets/images/checkoutMobileCozia.png)
-Checkout (Desktop View) ![Desktop Checkout](./client/src/assets/images/checkoutPageCozia.png)
-Confirmation page (Mobile View) ![Mobile Confirmation](./client/src/assets/images/confirmMobileCozia.png)
-Confirmation page (Desktop View) ![Desktop Confirmation](./client/src/assets/images/confirmCozia.png)
+![Mobile View All Clothes](./client/src/assets/images/galleryMobileCozia.png) <br />
+Login (Mobile View) <br />
+![Mobile Login](./client/src/assets/images/loginMobileCozia.png) <br />
+Login (Desktop View) <br />
+![Desktop Login](./client/src/assets/images/loginCozia.png) <br />
+Signup (Mobile View) <br />
+![Mobile Signup](./client/src/assets/images/signupMobileCozia.png) <br />
+Signup (Desktop View) <br />
+![Desktop Signup](./client/src/assets/images/signupCozia.png) <br />
+Dashboard (Mobile View) <br />
+![Mobile Dashboard](./client/src/assets/images/dashboardMobilCozia.png) <br />
+Dashboard (Desktop View) <br />![Desktop Dashboard](./client/src/assets/images/OrderlistCozia.png) <br />
+Dashboard Edit Order Modal (Mobile View) <br />
+ ![Mobile Dashboard Edit Order Modal](./client/src/assets/images/dashboardMobilCozia.png) <br />
+Dashboard Edit Order Modal (Desktop View) <br />
+![Desktop Dashboard Edit Order Modal](./client/src/assets/images/editOrderModalCozia.png) <br />
+Dashboard My Products Page (Mobile View) <br />
+![Mobile Dashboard My Products Page](./client/src/assets/images/myproductsMobileCozia.png) <br />
+Dashboard My Products Page (Desktop View) <br />
+![Desktop Dashboard My Products Page](./client/src/assets/images/myProductsCozia.png) <br />
+Dashboard Add Product Form (Mobile View) <br />
+![Mobile Add Product Form](./client/src/assets/images/addformMobileCozia.png) <br />
+Dashboard Add Product Form (Desktop View) <br />
+![Desktop Add Product Form](./client/src/assets/images/addformCozia.png) <br />
+Dashboard Account Page (Mobile View) <br />
+![Mobile Dashboard Account Page](./client/src/assets/images/profileMobileCozia.png) <br />
+Dashboard Account Page (Desktop View) <br />
+![Desktop Dashboard Account Page](./client/src/assets/images/profileCozia.png) <br />
+View Clothes By Category (Mobile View) <br />
+![Mobile Clothes By Category](./client/src/assets/images/viewClothesMobileCozia.png) <br />
+View Clothes By Category (Desktop View) <br />
+![Desktop View Clothes By Category](./client/src/assets/images/viewclothesCozia.png) <br />
+View Item (Mobile View) <br />
+![Mobile Item](./client/src/assets/images/itemMobileCozia.png) <br />
+View Item (Desktop View) <br />
+![Desktop Item](./client/src/assets/images/itemCozia.png) <br />
+Cart (Mobile View) <br />
+![Mobile Cart](./client/src/assets/images/cartMobileCozia.png) <br />
+Cart (Desktop View) <br />
+![Desktop Cart](./client/src/assets/images/cartCozia.png) <br />
+Checkout (Mobile View) <br />
+![Mobile Checkout](./client/src/assets/images/checkoutMobileCozia.png) <br />
+Checkout (Desktop View) <br />
+![Desktop Checkout](./client/src/assets/images/checkoutPageCozia.png) <br />
+Confirmation page (Mobile View) <br />
+![Mobile Confirmation](./client/src/assets/images/confirmMobileCozia.png) <br />
+Confirmation page (Desktop View) <br />
+![Desktop Confirmation](./client/src/assets/images/confirmCozia.png) <br />
 Stripe Payment
 ![Cozia Stripe Payment Platform](./client/src/assets/images/stripeCozia.png)
-Success page (Mobile View) ![Mobile Success](./client/src/assets/images/successMobileCozia.png)
-Success page (Desktop View) ![Desktop Success](./client/src/assets/images/successCozia.png)
+Success page (Mobile View) <br />
+![Mobile Success](./client/src/assets/images/successMobileCozia.png) <br />
+Success page (Desktop View)
+![Desktop Success](./client/src/assets/images/successCozia.png)
 
 ## Contributing
 
