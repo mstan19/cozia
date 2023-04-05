@@ -17,11 +17,12 @@ import { BiPurchaseTag } from "react-icons/bi";
 import { AiFillHeart, AiOutlineStar } from "react-icons/ai";
 import { IoMdArrowBack } from "react-icons/io";
 import NeedLogin from "../../components/NeedLogin/NeedLogin";
+import { removeHyphensAndCapitalize } from "../../utils/helpers";
 
 const Dashboard = () => {
 	const { data, loading } = useQuery(QUERY_ME);
 	const [userData, setUserData] = useState({});
-	let [title, setTitle] = useState();
+	let [title, setTitle] = useState("ORDER LIST");
 	let [open, setOpen] = useState(false);
 
 	useEffect(() => {
@@ -33,7 +34,6 @@ const Dashboard = () => {
 				}
 
 				const user = await data?.me;
-
 
 				setUserData(user);
 			} catch (err) {
@@ -48,9 +48,8 @@ const Dashboard = () => {
 
 	const logoutBtn = (event) => {
 		event.preventDefault();
-		navigate("/")
+		navigate("/");
 		Auth.logout();
-
 	};
 
 	const components = [
@@ -61,13 +60,13 @@ const Dashboard = () => {
 		// 	icon: <IoStatsChartSharp className="sidebar-icon" />,
 		// },
 		{
-			name: "orderlist",
+			name: "order-list",
 			title: "Order List",
 			key: "orderlistkey",
 			icon: <BiPurchaseTag className="sidebar-icon" />,
 		},
 		{
-			name: "myproducts",
+			name: "my-products",
 			title: "My Products",
 			key: "myproductskey",
 			icon: <BsCardChecklist className="sidebar-icon" />,
@@ -95,60 +94,67 @@ const Dashboard = () => {
 	const [currentComponent, setCurrentComponent] = useState(<OrderList />);
 
 	const renderComponent = (selectedOption) => {
-		setTitle(selectedOption)
+		setTitle(selectedOption);
 
 		switch (selectedOption) {
 			// case "mystats":
 			// 	setCurrentComponent(<Stats />);
 			// 	return;
-			case "orderlist":
+			case "order-list":
 				setCurrentComponent(<OrderList />);
+				setTitle(removeHyphensAndCapitalize(selectedOption));
 				return;
 			// case "myreviews":
 			// 	setCurrentComponent(<Reviews />);
 			// 	return;
 			case "profile":
 				setCurrentComponent(<Profile />);
+				setTitle(removeHyphensAndCapitalize(selectedOption))
 				return;
-			case "myproducts":
+			case "my-products":
 				setCurrentComponent(<MyProduct />);
+				setTitle(removeHyphensAndCapitalize(selectedOption))
 				return;
 			// case "wishlist":
 			// 	setCurrentComponent(<Wishlist />);
 			// 	return;
 			default:
 				setCurrentComponent(<OrderList />);
+				setTitle("ORDER LIST")
 				return;
 		}
 	};
-
-	let impropertitle = currentComponent.type.name
-	function titlePage() {
-		let properTitle;
-		if (impropertitle === "Stats") {
-			return "Dashboard"
-		}
-		properTitle = impropertitle.replace(/([A-Z])/g, ' $1').trim()
-		return properTitle
-	}
 
 	return (
 		<div>
 			{Auth.loggedIn() ? (
 				<div className="grid grid-cols-1  xl:grid-cols-5">
 					{/* navbar for dashboard only */}
-					<div onClick={() => setOpen(!open)} name={open ? "close" : "menu"} className={` ease-in col-span-1 text-3xl cursor-pointer `}>
-						<div className={`md:hidden relative flex justify-start inline my-4 bg-white`}>
-							<div className="flex inline"><IoMdArrowBack /><MdPerson />
-								<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl flex uppercase">{titlePage()}</div>
+					<div
+						onClick={() => setOpen(!open)}
+						name={open ? "close" : "menu"}
+						className={` ease-in col-span-1 text-3xl cursor-pointer `}
+					>
+						<div
+							className={`md:hidden relative flex justify-start inline my-4 bg-white`}
+						>
+							<div className="flex inline">
+								<IoMdArrowBack />
+								<MdPerson />
+								<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl flex uppercase">
+									{title}
+								</div>
 							</div>
 						</div>
 
-						<div className={`md:block col-span-1 md:h-full dark-gray pb-4 ${open ? "hidden" : "block "}`}>
+						<div
+							className={`md:block col-span-1 md:h-full dark-gray pb-4 ${
+								open ? "hidden" : "block "
+							}`}
+						>
 							<div className="flex">
 								<div className="flex flex-col w-full">
 									<div className="space-y-3">
-
 										{/* Header */}
 										<div className="flex justify-center">
 											<div className="w-60 h-60 mt-4 coal rounded-full relative flex justify-center items-center text-center">
@@ -161,13 +167,23 @@ const Dashboard = () => {
 											<ul className="md:static pt-2 text-xl">
 												{components.map((component) => (
 													<li
-														className={`bg-white flex items-center p-5 space-x-3 ${component.name === "mystats" || component.name === "myreviews" ? "mb-5 " : "mb-1"
-															}`}
+														className={`bg-white flex items-center p-5 space-x-3 ${
+															component.name ===
+																"mystats" ||
+															component.name ===
+																"myreviews"
+																? "mb-5 "
+																: "mb-1"
+														}`}
 														key={component.key}
 													>
 														{component.icon}
 														<span
-															onClick={() => renderComponent(component.name)}
+															onClick={() =>
+																renderComponent(
+																	component.name
+																)
+															}
 														>
 															{component.title}
 														</span>
@@ -176,16 +192,18 @@ const Dashboard = () => {
 
 												<li className="bg-white mb-1 flex items-center p-5 space-x-3">
 													<MdLogout className="sidebar-icon" />
-													<button onClick={logoutBtn} className="">Logout</button>
+													<button
+														onClick={logoutBtn}
+														className=""
+													>
+														Logout
+													</button>
 												</li>
 											</ul>
-
 										</div>
 									</div>
 								</div>
-
 							</div>
-
 						</div>
 					</div>
 
@@ -201,6 +219,6 @@ const Dashboard = () => {
 			)}
 		</div>
 	);
-}
+};
 
 export default Dashboard;

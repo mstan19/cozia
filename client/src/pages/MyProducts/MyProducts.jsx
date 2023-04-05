@@ -187,19 +187,19 @@ const MyProduct = () => {
 													</h3>
 													<div className="grid grid-cols-1">
 														<div>
-															<div className="flex flex-wrap">
+															<div className="flex flex-wrap flex-col sm:flex-row">
 																{" "}
-																<p className="px-2 mr-1">
+																<p className="px-2">
 																	Price:
 																</p>
-																<p className="discount-price text-red-600 pr-3">
+																<p className="discount-price text-red-600 px-2 md:px-0 flex flex-row">
 																	$
 																	{calculateDiscountPrice(
 																		product.price,
 																		product.discount
 																	)}
 																</p>
-																<p className=" original-price text-neutral-400 line-through">
+																<p className="original-price text-neutral-400 px-2 line-through">
 																	$
 																	{parseInt(
 																		product.price
