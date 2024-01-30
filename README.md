@@ -128,7 +128,7 @@ THEN their logout is successful and they are redirected to the homepage.
 ## Deployed Application
 
 AWS: https://gocozia.com/
-- Demo Account: use Jakayla_Kulas@yahoo.com for the email and password.
+- Demo Account: use Jaylin_Hilpert@gmail.com for the email and password.
 
 Heroku: https://cozia.herokuapp.com/
 - Demo Account: use Luther27@gmail.com for the email and password.
